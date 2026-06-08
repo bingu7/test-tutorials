@@ -378,7 +378,7 @@ FROM users
 WHERE age >= 18
   AND status = 'ACTIVE'
 GROUP BY city
-HAVING user_count > 100
+HAVING COUNT(*) > 100
 ORDER BY user_count DESC
 LIMIT 10;
 ```

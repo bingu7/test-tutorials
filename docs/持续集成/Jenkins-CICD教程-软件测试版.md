@@ -1219,7 +1219,7 @@ tail -f /var/log/jenkins/jenkins.log
 ```
 
 常见原因：
-- JDK 版本不对（需要 11+）
+- JDK 版本不对（Jenkins LTS 2.426+ 需要 JDK 17 或 21）
 - 端口被占用
 - 内存不足
 

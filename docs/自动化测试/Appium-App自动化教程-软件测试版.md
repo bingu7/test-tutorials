@@ -745,17 +745,29 @@ with open("local_copy.txt", "wb") as f:
 ### 8.5 网络模拟
 
 ```python
-# Appium 2.x 推荐用 mobile: 命令或 set_connectivity
+# Appium 2.x 通过 mobile: 命令控制网络
 # 旧的 set_network_connection / network_connection 已废弃
 
-# 设置网络
-driver.set_connectivity(wifi=True, data=True, airplane_mode=False)
+# 开启 WiFi + 数据
+driver.execute_script("mobile: setConnectivity", {
+    "wifi": True,
+    "data": True,
+    "airplaneMode": False
+})
 
 # 断网（飞行模式）
-driver.set_connectivity(wifi=False, data=False, airplane_mode=True)
+driver.execute_script("mobile: setConnectivity", {
+    "wifi": False,
+    "data": False,
+    "airplaneMode": True
+})
 
 # 仅 WiFi
-driver.set_connectivity(wifi=True, data=False, airplane_mode=False)
+driver.execute_script("mobile: setConnectivity", {
+    "wifi": True,
+    "data": False,
+    "airplaneMode": False
+})
 ```
 
 ### 8.6 录屏

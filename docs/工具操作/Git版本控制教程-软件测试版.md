@@ -120,8 +120,9 @@ ssh-keygen -t ed25519 -C "zhangsan@company.com"
 # ssh-keygen -t rsa -b 4096 -C "zhangsan@company.com"
 
 # 2. 查看公钥
-cat ~/.ssh/id_rsa.pub
-# Windows Git Bash 路径：~/.ssh/id_rsa.pub
+cat ~/.ssh/id_ed25519.pub
+# Windows Git Bash 路径：~/.ssh/id_ed25519.pub
+# 如果用的是 rsa：cat ~/.ssh/id_rsa.pub
 
 # 3. 复制公钥内容
 

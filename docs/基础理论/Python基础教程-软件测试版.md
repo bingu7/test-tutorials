@@ -615,7 +615,8 @@ import json
 
 json.dumps({"a": 1}, ensure_ascii=False)   # dict → str
 json.loads('{"a": 1}')                      # str → dict
-json.load(open("data.json"))                # file → dict
+with open("data.json", encoding="utf-8") as f:
+    data = json.load(f)                     # file → dict
 ```
 
 ### 11.3 re（正则表达式）
