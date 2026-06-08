@@ -1,0 +1,3089 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="面向软件测试工程师的系统化学习教程">
+      
+      
+        <meta name="author" content="Test Team">
+      
+      
+        <link rel="canonical" href="https://bingu7.github.io/test-tutorials/%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/">
+      
+      
+        <link rel="prev" href="../Python%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/">
+      
+      
+        <link rel="next" href="../%E6%95%8F%E6%8D%B7%E6%B5%8B%E8%AF%95%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>前端基础 - 软件测试知识体系</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="软件测试知识体系" class="md-header__button md-logo" aria-label="软件测试知识体系" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            软件测试知识体系
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              前端基础
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换到暗色模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切换到暗色模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换到浅色模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换到浅色模式" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/bingu7/test-tutorials" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    test-tutorials
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  首页
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/" class="md-tabs__link">
+          
+  
+  
+  基础理论
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../%E5%B7%A5%E5%85%B7%E6%93%8D%E4%BD%9C/%E6%95%B0%E6%8D%AE%E5%BA%93SQL%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-tabs__link">
+          
+  
+  
+  工具操作
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../%E4%B8%93%E9%A1%B9%E6%B5%8B%E8%AF%95/%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95%E5%AE%8C%E6%95%B4%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-tabs__link">
+          
+  
+  
+  专项测试
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/Python%2BRequests%2BAllure%E6%8E%A5%E5%8F%A3%E8%87%AA%E5%8A%A8%E5%8C%96%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-tabs__link">
+          
+  
+  
+  自动化测试
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90/Jenkins-CICD%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-tabs__link">
+          
+  
+  
+  持续集成
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="软件测试知识体系" class="md-nav__button md-logo" aria-label="软件测试知识体系" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    软件测试知识体系
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/bingu7/test-tutorials" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    test-tutorials
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    基础理论
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    基础理论
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    软件测试理论
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Python%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python 基础
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    前端基础
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    前端基础
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        目录
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一、为什么要学前端基础
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#html" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        二、HTML 基础
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="二、HTML 基础">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-html" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 什么是 HTML
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 常用标签
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 元素属性
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4 表单元素
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25-iframe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5 iframe
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#26-shadow-dom" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6 Shadow DOM
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#css" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        三、CSS 选择器
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="三、CSS 选择器">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 基本选择器
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 属性选择器
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 关系选择器
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4 伪类选择器
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#35-css" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.5 测试常用 CSS 选择器
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#javascript" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        四、JavaScript 基础
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="四、JavaScript 基础">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-js" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 为什么要了解 JS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 基础语法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 函数
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-dom" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4 DOM 操作
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#45" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.5 浏览器存储
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#46" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.6 网络请求
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        五、浏览器开发者工具
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="五、浏览器开发者工具">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 打开方式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 核心面板
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3 测试常用操作
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        六、测试场景实战
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="六、测试场景实战">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 场景一：定位元素
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-bug" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 场景二：判断前端还是后端 Bug
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3 场景三：查看接口请求详情
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#64" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4 场景四：修改页面元素
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#65" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.5 场景五：抓取动态加载的数据
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        七、常见问题排查
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="七、常见问题排查">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1 元素找不到
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2 控制台报错
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.3 接口请求看不到
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#74" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.4 页面加载慢
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        附录：常用快捷键
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%95%8F%E6%8D%B7%E6%B5%8B%E8%AF%95%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    敏捷测试
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    工具操作
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    工具操作
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%B7%A5%E5%85%B7%E6%93%8D%E4%BD%9C/%E6%95%B0%E6%8D%AE%E5%BA%93SQL%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数据库 SQL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%B7%A5%E5%85%B7%E6%93%8D%E4%BD%9C/Redis%E4%B8%8EMongoDB%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Redis 与 MongoDB
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%B7%A5%E5%85%B7%E6%93%8D%E4%BD%9C/Linux%E5%AE%9E%E7%94%A8%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux 实用
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%B7%A5%E5%85%B7%E6%93%8D%E4%BD%9C/Git%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Git 版本控制
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%B7%A5%E5%85%B7%E6%93%8D%E4%BD%9C/Docker%E5%AE%B9%E5%99%A8%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docker 容器
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%B7%A5%E5%85%B7%E6%93%8D%E4%BD%9C/Fiddler%E6%8A%93%E5%8C%85%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fiddler 抓包
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%B7%A5%E5%85%B7%E6%93%8D%E4%BD%9C/Postman%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Postman 接口
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%B7%A5%E5%85%B7%E6%93%8D%E4%BD%9C/%E6%8E%A5%E5%8F%A3%E6%8A%93%E5%8C%85%E8%81%94%E8%B0%83%E5%AE%9E%E6%88%98%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    接口抓包联调实战
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%B7%A5%E5%85%B7%E6%93%8D%E4%BD%9C/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    正则表达式
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    专项测试
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    专项测试
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%B8%93%E9%A1%B9%E6%B5%8B%E8%AF%95/%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95%E5%AE%8C%E6%95%B4%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    接口测试方法论
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%B8%93%E9%A1%B9%E6%B5%8B%E8%AF%95/JMeter%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JMeter 性能测试
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%B8%93%E9%A1%B9%E6%B5%8B%E8%AF%95/Web%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%95%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web 安全测试
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    自动化测试
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    自动化测试
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/Python%2BRequests%2BAllure%E6%8E%A5%E5%8F%A3%E8%87%AA%E5%8A%A8%E5%8C%96%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python 接口自动化
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/Selenium-Web%E8%87%AA%E5%8A%A8%E5%8C%96%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Selenium Web 自动化
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/Playwright%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Playwright Web 自动化
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/Appium-App%E8%87%AA%E5%8A%A8%E5%8C%96%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Appium App 自动化
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    持续集成
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    持续集成
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90/Jenkins-CICD%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Jenkins CI/CD
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        目录
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一、为什么要学前端基础
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#html" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        二、HTML 基础
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="二、HTML 基础">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-html" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 什么是 HTML
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 常用标签
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 元素属性
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4 表单元素
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25-iframe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5 iframe
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#26-shadow-dom" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6 Shadow DOM
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#css" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        三、CSS 选择器
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="三、CSS 选择器">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 基本选择器
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 属性选择器
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 关系选择器
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4 伪类选择器
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#35-css" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.5 测试常用 CSS 选择器
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#javascript" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        四、JavaScript 基础
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="四、JavaScript 基础">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-js" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 为什么要了解 JS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 基础语法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 函数
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-dom" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4 DOM 操作
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#45" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.5 浏览器存储
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#46" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.6 网络请求
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        五、浏览器开发者工具
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="五、浏览器开发者工具">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 打开方式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 核心面板
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3 测试常用操作
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        六、测试场景实战
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="六、测试场景实战">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 场景一：定位元素
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-bug" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 场景二：判断前端还是后端 Bug
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3 场景三：查看接口请求详情
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#64" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4 场景四：修改页面元素
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#65" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.5 场景五：抓取动态加载的数据
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        七、常见问题排查
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="七、常见问题排查">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1 元素找不到
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2 控制台报错
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.3 接口请求看不到
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#74" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.4 页面加载慢
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        附录：常用快捷键
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="_1">前端基础教程（软件测试人员专用）<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p>本教程面向软件测试工程师，讲解测试工作中需要了解的前端基础知识：HTML 结构、CSS 选择器、JavaScript 语法、浏览器调试工具。</p>
+</blockquote>
+<hr />
+<h2 id="_2">目录<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="#一为什么要学前端基础">一、为什么要学前端基础</a></li>
+<li><a href="#二html-基础">二、HTML 基础</a></li>
+<li><a href="#三css-选择器">三、CSS 选择器</a></li>
+<li><a href="#四javascript-基础">四、JavaScript 基础</a></li>
+<li><a href="#五浏览器开发者工具">五、浏览器开发者工具</a></li>
+<li><a href="#六测试场景实战">六、测试场景实战</a></li>
+<li><a href="#七常见问题排查">七、常见问题排查</a></li>
+</ul>
+<hr />
+<h2 id="_3">一、为什么要学前端基础<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>元素定位</td>
+<td>Selenium/Playwright 定位元素需要理解 HTML 结构</td>
+</tr>
+<tr>
+<td>接口分析</td>
+<td>看懂前端请求/响应数据格式</td>
+</tr>
+<tr>
+<td>Bug 定位</td>
+<td>判断问题是前端还是后端</td>
+</tr>
+<tr>
+<td>抓包分析</td>
+<td>理解请求头、Cookie、存储</td>
+</tr>
+<tr>
+<td>自动化测试</td>
+<td>编写更稳定的定位表达式</td>
+</tr>
+<tr>
+<td>安全测试</td>
+<td>理解 XSS、CSRF 等漏洞原理</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="html">二、HTML 基础<a class="headerlink" href="#html" title="Permanent link">&para;</a></h2>
+<h3 id="21-html">2.1 什么是 HTML<a class="headerlink" href="#21-html" title="Permanent link">&para;</a></h3>
+<p>HTML（HyperText Markup Language）是网页的骨架，用标签描述页面结构。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>页面标题<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>一级标题<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>这是一个段落。<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://example.com&quot;</span><span class="p">&gt;</span>链接<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>    <span class="p">&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;photo.jpg&quot;</span> <span class="na">alt</span><span class="o">=</span><span class="s">&quot;图片描述&quot;</span><span class="p">&gt;</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</code></pre></div>
+<h3 id="22">2.2 常用标签<a class="headerlink" href="#22" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>标签</th>
+<th>用途</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;div&gt;</code></td>
+<td>块级容器</td>
+<td><code>&lt;div class="header"&gt;...&lt;/div&gt;</code></td>
+</tr>
+<tr>
+<td><code>&lt;span&gt;</code></td>
+<td>行内容器</td>
+<td><code>&lt;span class="error"&gt;错误信息&lt;/span&gt;</code></td>
+</tr>
+<tr>
+<td><code>&lt;a&gt;</code></td>
+<td>链接</td>
+<td><code>&lt;a href="/login"&gt;登录&lt;/a&gt;</code></td>
+</tr>
+<tr>
+<td><code>&lt;button&gt;</code></td>
+<td>按钮</td>
+<td><code>&lt;button id="submit"&gt;提交&lt;/button&gt;</code></td>
+</tr>
+<tr>
+<td><code>&lt;input&gt;</code></td>
+<td>输入框</td>
+<td><code>&lt;input type="text" name="username"&gt;</code></td>
+</tr>
+<tr>
+<td><code>&lt;select&gt;</code></td>
+<td>下拉框</td>
+<td><code>&lt;select name="city"&gt;...&lt;/select&gt;</code></td>
+</tr>
+<tr>
+<td><code>&lt;form&gt;</code></td>
+<td>表单</td>
+<td><code>&lt;form action="/api/login"&gt;...&lt;/form&gt;</code></td>
+</tr>
+<tr>
+<td><code>&lt;table&gt;</code></td>
+<td>表格</td>
+<td><code>&lt;table&gt;&lt;tr&gt;&lt;td&gt;单元格&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</code></td>
+</tr>
+<tr>
+<td><code>&lt;img&gt;</code></td>
+<td>图片</td>
+<td><code>&lt;img src="logo.png" alt="Logo"&gt;</code></td>
+</tr>
+<tr>
+<td><code>&lt;ul&gt;</code> / <code>&lt;ol&gt;</code></td>
+<td>列表</td>
+<td><code>&lt;ul&gt;&lt;li&gt;项目1&lt;/li&gt;&lt;/ul&gt;</code></td>
+</tr>
+<tr>
+<td><code>&lt;h1&gt;</code>-<code>&lt;h6&gt;</code></td>
+<td>标题</td>
+<td><code>&lt;h1&gt;一级标题&lt;/h1&gt;</code></td>
+</tr>
+<tr>
+<td><code>&lt;p&gt;</code></td>
+<td>段落</td>
+<td><code>&lt;p&gt;文本内容&lt;/p&gt;</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="23">2.3 元素属性<a class="headerlink" href="#23" title="Permanent link">&para;</a></h3>
+<p>属性是标签的附加信息，测试中最重要的是 <code>id</code>、<code>class</code>、<code>name</code>。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="p">&lt;</span><span class="nt">input</span> 
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    <span class="na">type</span><span class="o">=</span><span class="s">&quot;text&quot;</span>              <span class="err">&lt;!</span><span class="na">--</span> <span class="na">类型</span> <span class="na">--</span><span class="p">&gt;</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    id=&quot;username&quot;            <span class="cm">&lt;!-- 唯一标识（测试首选） --&gt;</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    class=&quot;form-control&quot;     <span class="cm">&lt;!-- 样式类名（可多个） --&gt;</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>    name=&quot;username&quot;          <span class="cm">&lt;!-- 表单字段名 --&gt;</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>    placeholder=&quot;请输入用户名&quot;  <span class="cm">&lt;!-- 占位符 --&gt;</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>    data-testid=&quot;login-input&quot; <span class="cm">&lt;!-- 测试专用属性（推荐） --&gt;</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>    value=&quot;testuser&quot;         <span class="cm">&lt;!-- 值 --&gt;</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>    disabled                 <span class="cm">&lt;!-- 禁用 --&gt;</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>&gt;
+</code></pre></div>
+<p><strong>测试定位优先级：</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>data-testid &gt; id &gt; name &gt; class &gt; 其他属性
+</code></pre></div>
+<h3 id="24">2.4 表单元素<a class="headerlink" href="#24" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="cm">&lt;!-- 文本输入 --&gt;</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;username&quot;</span><span class="p">&gt;</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;password&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;password&quot;</span><span class="p">&gt;</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;email&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;email&quot;</span><span class="p">&gt;</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;number&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;age&quot;</span><span class="p">&gt;</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;tel&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;phone&quot;</span><span class="p">&gt;</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="cm">&lt;!-- 多行文本 --&gt;</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="p">&lt;</span><span class="nt">textarea</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;comment&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">textarea</span><span class="p">&gt;</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="cm">&lt;!-- 复选框 --&gt;</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;checkbox&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;agree&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;yes&quot;</span><span class="p">&gt;</span>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="cm">&lt;!-- 单选框 --&gt;</span>
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;radio&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;gender&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;male&quot;</span><span class="p">&gt;</span> 男
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;radio&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;gender&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;female&quot;</span><span class="p">&gt;</span> 女
+<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>
+<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="cm">&lt;!-- 下拉框 --&gt;</span>
+<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="p">&lt;</span><span class="nt">select</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;city&quot;</span><span class="p">&gt;</span>
+<a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a>    <span class="p">&lt;</span><span class="nt">option</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;beijing&quot;</span><span class="p">&gt;</span>北京<span class="p">&lt;/</span><span class="nt">option</span><span class="p">&gt;</span>
+<a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a>    <span class="p">&lt;</span><span class="nt">option</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;shanghai&quot;</span><span class="p">&gt;</span>上海<span class="p">&lt;/</span><span class="nt">option</span><span class="p">&gt;</span>
+<a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a><span class="p">&lt;/</span><span class="nt">select</span><span class="p">&gt;</span>
+<a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a>
+<a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a><span class="cm">&lt;!-- 文件上传 --&gt;</span>
+<a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a><span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;file&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;avatar&quot;</span><span class="p">&gt;</span>
+<a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a>
+<a id="__codelineno-3-27" name="__codelineno-3-27" href="#__codelineno-3-27"></a><span class="cm">&lt;!-- 隐藏字段 --&gt;</span>
+<a id="__codelineno-3-28" name="__codelineno-3-28" href="#__codelineno-3-28"></a><span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;hidden&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;token&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;abc123&quot;</span><span class="p">&gt;</span>
+<a id="__codelineno-3-29" name="__codelineno-3-29" href="#__codelineno-3-29"></a>
+<a id="__codelineno-3-30" name="__codelineno-3-30" href="#__codelineno-3-30"></a><span class="cm">&lt;!-- 按钮 --&gt;</span>
+<a id="__codelineno-3-31" name="__codelineno-3-31" href="#__codelineno-3-31"></a><span class="p">&lt;</span><span class="nt">button</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;submit&quot;</span><span class="p">&gt;</span>提交<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+<a id="__codelineno-3-32" name="__codelineno-3-32" href="#__codelineno-3-32"></a><span class="p">&lt;</span><span class="nt">button</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;button&quot;</span><span class="p">&gt;</span>普通按钮<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+<a id="__codelineno-3-33" name="__codelineno-3-33" href="#__codelineno-3-33"></a><span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;submit&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;提交&quot;</span><span class="p">&gt;</span>
+</code></pre></div>
+<h3 id="25-iframe">2.5 iframe<a class="headerlink" href="#25-iframe" title="Permanent link">&para;</a></h3>
+<p>iframe 是页面中嵌套的另一个页面：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="p">&lt;</span><span class="nt">iframe</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;payment-frame&quot;</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://pay.example.com&quot;</span><span class="p">&gt;</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>    <span class="cm">&lt;!-- 内部内容 --&gt;</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="p">&lt;/</span><span class="nt">iframe</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>测试时需要切换到 iframe 内部才能操作元素。</p>
+<h3 id="26-shadow-dom">2.6 Shadow DOM<a class="headerlink" href="#26-shadow-dom" title="Permanent link">&para;</a></h3>
+<p>Web Components 使用 Shadow DOM 封装内部结构：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="p">&lt;</span><span class="nt">my-component</span><span class="p">&gt;</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>    #shadow-root
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>    <span class="p">&lt;</span><span class="nt">button</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;btn&quot;</span><span class="p">&gt;</span>Click me<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="p">&lt;/</span><span class="nt">my-component</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>Playwright 原生支持 Shadow DOM，Selenium 需要特殊处理。</p>
+<hr />
+<h2 id="css">三、CSS 选择器<a class="headerlink" href="#css" title="Permanent link">&para;</a></h2>
+<p>CSS 选择器是 Selenium/Playwright 定位元素的基础。</p>
+<h3 id="31">3.1 基本选择器<a class="headerlink" href="#31" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>选择器</th>
+<th>含义</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>#id</code></td>
+<td>按 ID</td>
+<td><code>#username</code></td>
+</tr>
+<tr>
+<td><code>.class</code></td>
+<td>按类名</td>
+<td><code>.form-control</code></td>
+</tr>
+<tr>
+<td><code>tag</code></td>
+<td>按标签</td>
+<td><code>button</code></td>
+</tr>
+<tr>
+<td><code>tag.class</code></td>
+<td>标签+类</td>
+<td><code>button.btn-primary</code></td>
+</tr>
+<tr>
+<td><code>tag#id</code></td>
+<td>标签+ID</td>
+<td><code>input#username</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="32">3.2 属性选择器<a class="headerlink" href="#32" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>选择器</th>
+<th>含义</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>[attr]</code></td>
+<td>有该属性</td>
+<td><code>[disabled]</code></td>
+</tr>
+<tr>
+<td><code>[attr="val"]</code></td>
+<td>属性等于</td>
+<td><code>[type="submit"]</code></td>
+</tr>
+<tr>
+<td><code>[attr~="val"]</code></td>
+<td>属性包含词</td>
+<td><code>[class~="active"]</code></td>
+</tr>
+<tr>
+<td><code>[attr^="val"]</code></td>
+<td>属性以...开头</td>
+<td><code>[href^="https"]</code></td>
+</tr>
+<tr>
+<td><code>[attr$="val"]</code></td>
+<td>属性以...结尾</td>
+<td><code>[href$=".pdf"]</code></td>
+</tr>
+<tr>
+<td><code>[attr*="val"]</code></td>
+<td>属性包含</td>
+<td><code>[href*="login"]</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="33">3.3 关系选择器<a class="headerlink" href="#33" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>选择器</th>
+<th>含义</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>A B</code></td>
+<td>A 的后代 B</td>
+<td><code>div p</code>（div 内所有 p）</td>
+</tr>
+<tr>
+<td><code>A &gt; B</code></td>
+<td>A 的直接子 B</td>
+<td><code>ul &gt; li</code></td>
+</tr>
+<tr>
+<td><code>A + B</code></td>
+<td>A 紧邻的兄弟 B</td>
+<td><code>h1 + p</code></td>
+</tr>
+<tr>
+<td><code>A ~ B</code></td>
+<td>A 后面的所有兄弟 B</td>
+<td><code>h1 ~ p</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="34">3.4 伪类选择器<a class="headerlink" href="#34" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>选择器</th>
+<th>含义</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>:first-child</code></td>
+<td>第一个子元素</td>
+<td><code>li:first-child</code></td>
+</tr>
+<tr>
+<td><code>:last-child</code></td>
+<td>最后一个子元素</td>
+<td><code>li:last-child</code></td>
+</tr>
+<tr>
+<td><code>:nth-child(n)</code></td>
+<td>第 n 个子元素</td>
+<td><code>tr:nth-child(2)</code></td>
+</tr>
+<tr>
+<td><code>:not(selector)</code></td>
+<td>排除</td>
+<td><code>input:not([disabled])</code></td>
+</tr>
+<tr>
+<td><code>:checked</code></td>
+<td>选中的复选框</td>
+<td><code>input:checked</code></td>
+</tr>
+<tr>
+<td><code>:enabled</code></td>
+<td>可用的</td>
+<td><code>button:enabled</code></td>
+</tr>
+<tr>
+<td><code>:focus</code></td>
+<td>获得焦点的</td>
+<td><code>input:focus</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="35-css">3.5 测试常用 CSS 选择器<a class="headerlink" href="#35-css" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c">/* 登录按钮 */</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="p">#</span><span class="nn">login-btn</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="nt">button</span><span class="o">[</span><span class="nt">type</span><span class="o">=</span><span class="s1">&#39;submit&#39;</span><span class="o">]</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="p">.</span><span class="nc">form-actions</span><span class="w"> </span><span class="nt">button</span><span class="p">.</span><span class="nc">btn-primary</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="c">/* 错误消息 */</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="p">.</span><span class="nc">error-message</span>
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="p">.</span><span class="nc">alert-danger</span>
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="nt">span</span><span class="p">.</span><span class="nc">error</span>
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="c">/* 表格第一行 */</span>
+<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="nt">table</span><span class="w"> </span><span class="nt">tbody</span><span class="w"> </span><span class="nt">tr</span><span class="p">:</span><span class="nd">first-child</span>
+<a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>
+<a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a><span class="c">/* 导航菜单项 */</span>
+<a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a><span class="nt">nav</span><span class="w"> </span><span class="nt">ul</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="nt">li</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="nt">a</span>
+<a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a>
+<a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a><span class="c">/* 输入框 */</span>
+<a id="__codelineno-6-18" name="__codelineno-6-18" href="#__codelineno-6-18"></a><span class="nt">input</span><span class="o">[</span><span class="nt">name</span><span class="o">=</span><span class="s1">&#39;username&#39;</span><span class="o">]</span>
+<a id="__codelineno-6-19" name="__codelineno-6-19" href="#__codelineno-6-19"></a><span class="nt">input</span><span class="p">.</span><span class="nc">form-control</span><span class="p">:</span><span class="nd">not</span><span class="o">([</span><span class="nt">disabled</span><span class="o">])</span>
+</code></pre></div>
+<hr />
+<h2 id="javascript">四、JavaScript 基础<a class="headerlink" href="#javascript" title="Permanent link">&para;</a></h2>
+<h3 id="41-js">4.1 为什么要了解 JS<a class="headerlink" href="#41-js" title="Permanent link">&para;</a></h3>
+<ul>
+<li>理解前端逻辑（页面交互、接口调用）</li>
+<li>在自动化中执行 JS（Playwright <code>page.evaluate()</code>）</li>
+<li>看懂控制台报错</li>
+<li>理解前端存储（Cookie、localStorage、sessionStorage）</li>
+</ul>
+<h3 id="42">4.2 基础语法<a class="headerlink" href="#42" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1">// 变量</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="kd">let</span><span class="w"> </span><span class="nx">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;张三&quot;</span><span class="p">;</span><span class="w">        </span><span class="c1">// 可变</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="kd">const</span><span class="w"> </span><span class="nx">age</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">25</span><span class="p">;</span><span class="w">           </span><span class="c1">// 不可变</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="kd">var</span><span class="w"> </span><span class="nx">old</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;旧语法&quot;</span><span class="p">;</span><span class="w">        </span><span class="c1">// 避免使用</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="c1">// 数据类型</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="kd">let</span><span class="w"> </span><span class="nx">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;hello&quot;</span><span class="p">;</span><span class="w">        </span><span class="c1">// 字符串</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="kd">let</span><span class="w"> </span><span class="nx">num</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">123</span><span class="p">;</span><span class="w">            </span><span class="c1">// 数字</span>
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="kd">let</span><span class="w"> </span><span class="nx">bool</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span><span class="w">          </span><span class="c1">// 布尔</span>
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="kd">let</span><span class="w"> </span><span class="nx">arr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="mf">1</span><span class="p">,</span><span class="w"> </span><span class="mf">2</span><span class="p">,</span><span class="w"> </span><span class="mf">3</span><span class="p">];</span><span class="w">      </span><span class="c1">// 数组</span>
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="kd">let</span><span class="w"> </span><span class="nx">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;张三&quot;</span><span class="p">};</span><span class="w">  </span><span class="c1">// 对象</span>
+<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a><span class="kd">let</span><span class="w"> </span><span class="nx">nullVal</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span><span class="w">       </span><span class="c1">// 空值</span>
+<a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a><span class="kd">let</span><span class="w"> </span><span class="nx">undef</span><span class="p">;</span><span class="w">                </span><span class="c1">// undefined</span>
+<a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a>
+<a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a><span class="c1">// 字符串</span>
+<a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a><span class="sb">`hello </span><span class="si">${</span><span class="nx">name</span><span class="si">}</span><span class="sb">`</span><span class="w">           </span><span class="c1">// 模板字符串</span>
+<a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a><span class="s2">&quot;hello&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">name</span><span class="w">            </span><span class="c1">// 拼接</span>
+<a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a><span class="nx">str</span><span class="p">.</span><span class="nx">length</span><span class="w">                </span><span class="c1">// 长度</span>
+<a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a><span class="nx">str</span><span class="p">.</span><span class="nx">includes</span><span class="p">(</span><span class="s2">&quot;ell&quot;</span><span class="p">)</span><span class="w">       </span><span class="c1">// 包含</span>
+<a id="__codelineno-7-20" name="__codelineno-7-20" href="#__codelineno-7-20"></a><span class="nx">str</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="s2">&quot;l&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;L&quot;</span><span class="p">)</span><span class="w">     </span><span class="c1">// 替换</span>
+<a id="__codelineno-7-21" name="__codelineno-7-21" href="#__codelineno-7-21"></a>
+<a id="__codelineno-7-22" name="__codelineno-7-22" href="#__codelineno-7-22"></a><span class="c1">// 数组</span>
+<a id="__codelineno-7-23" name="__codelineno-7-23" href="#__codelineno-7-23"></a><span class="nx">arr</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="mf">4</span><span class="p">);</span><span class="w">              </span><span class="c1">// 添加</span>
+<a id="__codelineno-7-24" name="__codelineno-7-24" href="#__codelineno-7-24"></a><span class="nx">arr</span><span class="p">.</span><span class="nx">pop</span><span class="p">();</span><span class="w">                </span><span class="c1">// 删除最后一个</span>
+<a id="__codelineno-7-25" name="__codelineno-7-25" href="#__codelineno-7-25"></a><span class="nx">arr</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span><span class="w">               </span><span class="c1">// 长度</span>
+<a id="__codelineno-7-26" name="__codelineno-7-26" href="#__codelineno-7-26"></a><span class="nx">arr</span><span class="p">.</span><span class="nx">includes</span><span class="p">(</span><span class="mf">2</span><span class="p">);</span><span class="w">          </span><span class="c1">// 包含</span>
+<a id="__codelineno-7-27" name="__codelineno-7-27" href="#__codelineno-7-27"></a><span class="nx">arr</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">x</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">2</span><span class="p">);</span><span class="w">     </span><span class="c1">// 映射</span>
+<a id="__codelineno-7-28" name="__codelineno-7-28" href="#__codelineno-7-28"></a><span class="nx">arr</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">x</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">x</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">1</span><span class="p">);</span><span class="w">  </span><span class="c1">// 过滤</span>
+<a id="__codelineno-7-29" name="__codelineno-7-29" href="#__codelineno-7-29"></a>
+<a id="__codelineno-7-30" name="__codelineno-7-30" href="#__codelineno-7-30"></a><span class="c1">// 对象</span>
+<a id="__codelineno-7-31" name="__codelineno-7-31" href="#__codelineno-7-31"></a><span class="nx">obj</span><span class="p">.</span><span class="nx">name</span><span class="w">                  </span><span class="c1">// 访问</span>
+<a id="__codelineno-7-32" name="__codelineno-7-32" href="#__codelineno-7-32"></a><span class="nx">obj</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span><span class="w">               </span><span class="c1">// 等价</span>
+<a id="__codelineno-7-33" name="__codelineno-7-33" href="#__codelineno-7-33"></a><span class="nx">obj</span><span class="p">.</span><span class="nx">age</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">30</span><span class="p">;</span><span class="w">             </span><span class="c1">// 修改/添加</span>
+</code></pre></div>
+<h3 id="43">4.3 函数<a class="headerlink" href="#43" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1">// 普通函数</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="kd">function</span><span class="w"> </span><span class="nx">greet</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="sb">`你好, </span><span class="si">${</span><span class="nx">name</span><span class="si">}</span><span class="sb">`</span><span class="p">;</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="p">}</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="c1">// 箭头函数</span>
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="kd">const</span><span class="w"> </span><span class="nx">greet</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">name</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="sb">`你好, </span><span class="si">${</span><span class="nx">name</span><span class="si">}</span><span class="sb">`</span><span class="p">;</span>
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="c1">// 异步函数</span>
+<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">getData</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">fetch</span><span class="p">(</span><span class="s2">&quot;/api/data&quot;</span><span class="p">);</span>
+<a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+<a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">data</span><span class="p">;</span>
+<a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a><span class="p">}</span>
+</code></pre></div>
+<h3 id="44-dom">4.4 DOM 操作<a class="headerlink" href="#44-dom" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1">// 获取元素</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;username&quot;</span><span class="p">)</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;.form-control&quot;</span><span class="p">)</span><span class="w">           </span><span class="c1">// 第一个匹配</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="nb">document</span><span class="p">.</span><span class="nx">querySelectorAll</span><span class="p">(</span><span class="s2">&quot;input[type=&#39;text&#39;]&quot;</span><span class="p">)</span><span class="w">   </span><span class="c1">// 所有匹配</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="c1">// 操作元素</span>
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="nx">el</span><span class="p">.</span><span class="nx">textContent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;新文本&quot;</span><span class="p">;</span>
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="nx">el</span><span class="p">.</span><span class="nx">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;新值&quot;</span><span class="p">;</span>
+<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="nx">el</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">display</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;none&quot;</span><span class="p">;</span><span class="w">        </span><span class="c1">// 隐藏</span>
+<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="nx">el</span><span class="p">.</span><span class="nx">classList</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="s2">&quot;active&quot;</span><span class="p">);</span><span class="w">       </span><span class="c1">// 添加类</span>
+<a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a><span class="nx">el</span><span class="p">.</span><span class="nx">classList</span><span class="p">.</span><span class="nx">remove</span><span class="p">(</span><span class="s2">&quot;active&quot;</span><span class="p">);</span><span class="w">    </span><span class="c1">// 删除类</span>
+<a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a><span class="nx">el</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;disabled&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">);</span><span class="w">  </span><span class="c1">// 设置属性</span>
+<a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a>
+<a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a><span class="c1">// 事件</span>
+<a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a><span class="nx">el</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;click&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-9-16" name="__codelineno-9-16" href="#__codelineno-9-16"></a><span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;被点击了&quot;</span><span class="p">);</span>
+<a id="__codelineno-9-17" name="__codelineno-9-17" href="#__codelineno-9-17"></a><span class="p">});</span>
+</code></pre></div>
+<h3 id="45">4.5 浏览器存储<a class="headerlink" href="#45" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1">// Cookie（每次请求自动携带）</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="nb">document</span><span class="p">.</span><span class="nx">cookie</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;sessionId=abc123; path=/&quot;</span><span class="p">;</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="nb">document</span><span class="p">.</span><span class="nx">cookie</span><span class="w">                     </span><span class="c1">// 读取所有</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="c1">// localStorage（永久存储，除非手动清除）</span>
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="nx">localStorage</span><span class="p">.</span><span class="nx">setItem</span><span class="p">(</span><span class="s2">&quot;token&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;eyJ...&quot;</span><span class="p">);</span>
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="nx">localStorage</span><span class="p">.</span><span class="nx">getItem</span><span class="p">(</span><span class="s2">&quot;token&quot;</span><span class="p">);</span>
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="nx">localStorage</span><span class="p">.</span><span class="nx">removeItem</span><span class="p">(</span><span class="s2">&quot;token&quot;</span><span class="p">);</span>
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="nx">localStorage</span><span class="p">.</span><span class="nx">clear</span><span class="p">();</span>
+<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>
+<a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a><span class="c1">// sessionStorage（会话存储，关闭标签页清除，同源新标签页不共享）</span>
+<a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a><span class="nx">sessionStorage</span><span class="p">.</span><span class="nx">setItem</span><span class="p">(</span><span class="s2">&quot;key&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;value&quot;</span><span class="p">);</span>
+<a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a><span class="nx">sessionStorage</span><span class="p">.</span><span class="nx">getItem</span><span class="p">(</span><span class="s2">&quot;key&quot;</span><span class="p">);</span>
+</code></pre></div>
+<h3 id="46">4.6 网络请求<a class="headerlink" href="#46" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1">// fetch API</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="nx">fetch</span><span class="p">(</span><span class="s2">&quot;/api/user&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">    </span><span class="nx">method</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;POST&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="w">    </span><span class="nx">headers</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="s2">&quot;Content-Type&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;application/json&quot;</span><span class="p">},</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="w">    </span><span class="nx">body</span><span class="o">:</span><span class="w"> </span><span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;张三&quot;</span><span class="p">})</span>
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="p">})</span>
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">response</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">())</span>
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">data</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">data</span><span class="p">));</span>
+<a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>
+<a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="c1">// 异步版本</span>
+<a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a><span class="kd">const</span><span class="w"> </span><span class="nx">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">fetch</span><span class="p">(</span><span class="s2">&quot;/api/user&quot;</span><span class="p">);</span>
+<a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a><span class="kd">const</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+</code></pre></div>
+<hr />
+<h2 id="_4">五、浏览器开发者工具<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<h3 id="51">5.1 打开方式<a class="headerlink" href="#51" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>F12</strong></li>
+<li><strong>Ctrl+Shift+I</strong>（Windows）</li>
+<li><strong>Cmd+Option+I</strong>（Mac）</li>
+<li>右键 → 检查</li>
+</ul>
+<h3 id="52">5.2 核心面板<a class="headerlink" href="#52" title="Permanent link">&para;</a></h3>
+<p><strong>Elements（元素）：</strong>
+- 查看/修改 HTML 结构
+- 查看/修改 CSS 样式
+- 右键元素 → Copy → Copy selector（获取 CSS 选择器）
+- 右键元素 → Copy → Copy XPath</p>
+<p><strong>Console（控制台）：</strong>
+- 执行 JavaScript
+- 查看错误信息
+- 测试选择器：<code>document.querySelector("#btn")</code></p>
+<p><strong>Network（网络）：</strong>
+- 查看所有 HTTP 请求
+- 查看请求/响应详情
+- 过滤：XHR（接口）、JS、CSS、Img
+- 查看请求头、响应体、Cookie</p>
+<p><strong>Application（应用）：</strong>
+- 查看 Cookie
+- 查看 localStorage / sessionStorage
+- 查看缓存</p>
+<h3 id="53">5.3 测试常用操作<a class="headerlink" href="#53" title="Permanent link">&para;</a></h3>
+<p><strong>获取元素选择器：</strong>
+1. Elements 面板选中元素
+2. 右键 → Copy → Copy selector
+3. 在 Selenium/Playwright 中使用</p>
+<p><strong>查看接口请求：</strong>
+1. Network 面板 → 筛选 XHR
+2. 点击请求 → Headers/Preview/Response
+3. 查看请求参数、响应数据</p>
+<p><strong>模拟网络条件：</strong>
+1. Network 面板 → Throttling
+2. 选择 Slow 3G / Fast 3G / Offline</p>
+<p><strong>清除缓存：</strong>
+1. Application 面板 → Storage → Clear site data</p>
+<hr />
+<h2 id="_5">六、测试场景实战<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<h3 id="61">6.1 场景一：定位元素<a class="headerlink" href="#61" title="Permanent link">&para;</a></h3>
+<p><strong>问题：</strong> Selenium 找不到元素。</p>
+<p><strong>排查：</strong>
+1. F12 → Elements 面板
+2. Ctrl+F 搜索选择器
+3. 检查元素是否在 iframe 中
+4. 检查元素是否被 Shadow DOM 封装
+5. 检查元素是否动态生成（需等待）</p>
+<h3 id="62-bug">6.2 场景二：判断前端还是后端 Bug<a class="headerlink" href="#62-bug" title="Permanent link">&para;</a></h3>
+<p><strong>前端 Bug 特征：</strong>
+- 页面显示异常但接口数据正确
+- 按钮点击无反应（JS 报错）
+- 样式错乱
+- 控制台有红色错误</p>
+<p><strong>后端 Bug 特征：</strong>
+- 接口返回错误状态码
+- 接口返回数据不正确
+- 页面显示的是接口返回的错误信息</p>
+<p><strong>排查步骤：</strong>
+1. F12 → Network 面板
+2. 找到对应接口请求
+3. 查看请求参数是否正确
+4. 查看响应数据是否正确
+5. 请求正确但显示异常 → 前端 Bug
+6. 请求本身就有问题 → 后端 Bug</p>
+<h3 id="63">6.3 场景三：查看接口请求详情<a class="headerlink" href="#63" title="Permanent link">&para;</a></h3>
+<ol>
+<li>F12 → Network → 筛选 XHR</li>
+<li>触发操作（如点击按钮）</li>
+<li>点击对应的请求</li>
+<li>查看：</li>
+<li><strong>Headers</strong>：请求方法、URL、请求头、Cookie</li>
+<li><strong>Payload</strong>：请求参数</li>
+<li><strong>Preview/Response</strong>：响应数据</li>
+<li><strong>Timing</strong>：耗时分析</li>
+</ol>
+<h3 id="64">6.4 场景四：修改页面元素<a class="headerlink" href="#64" title="Permanent link">&para;</a></h3>
+<p>临时修改页面用于测试：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="c1">// 在 Console 中执行</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="c1">// 修改文本</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;.price&quot;</span><span class="p">).</span><span class="nx">textContent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;¥0.01&quot;</span><span class="p">;</span>
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="c1">// 修改按钮状态</span>
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;#submit&quot;</span><span class="p">).</span><span class="nx">removeAttribute</span><span class="p">(</span><span class="s2">&quot;disabled&quot;</span><span class="p">);</span>
+<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>
+<a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a><span class="c1">// 修改隐藏元素为可见</span>
+<a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a><span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;.hidden-panel&quot;</span><span class="p">).</span><span class="nx">style</span><span class="p">.</span><span class="nx">display</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;block&quot;</span><span class="p">;</span>
+<a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a>
+<a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a><span class="c1">// 模拟登录态</span>
+<a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a><span class="nx">localStorage</span><span class="p">.</span><span class="nx">setItem</span><span class="p">(</span><span class="s2">&quot;token&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;test-token-123&quot;</span><span class="p">);</span>
+</code></pre></div>
+<h3 id="65">6.5 场景五：抓取动态加载的数据<a class="headerlink" href="#65" title="Permanent link">&para;</a></h3>
+<ol>
+<li>F12 → Network → 筛选 XHR</li>
+<li>刷新页面或触发操作</li>
+<li>找到数据接口</li>
+<li>查看请求参数和响应格式</li>
+<li>在 Postman 中重建该请求</li>
+</ol>
+<hr />
+<h2 id="_6">七、常见问题排查<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<h3 id="71">7.1 元素找不到<a class="headerlink" href="#71" title="Permanent link">&para;</a></h3>
+<ul>
+<li>检查是否在 iframe 中</li>
+<li>检查是否是动态生成的（需等待）</li>
+<li>检查是否有 Shadow DOM</li>
+<li>用 <code>document.querySelectorAll()</code> 在控制台验证选择器</li>
+</ul>
+<h3 id="72">7.2 控制台报错<a class="headerlink" href="#72" title="Permanent link">&para;</a></h3>
+<p>常见错误：</p>
+<table>
+<thead>
+<tr>
+<th>错误</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Uncaught TypeError</code></td>
+<td>类型错误（如调用 undefined 的方法）</td>
+</tr>
+<tr>
+<td><code>Uncaught ReferenceError</code></td>
+<td>变量未定义</td>
+</tr>
+<tr>
+<td><code>CORS error</code></td>
+<td>跨域请求被阻止</td>
+</tr>
+<tr>
+<td><code>404 Not Found</code></td>
+<td>资源不存在</td>
+</tr>
+<tr>
+<td><code>500 Internal Server Error</code></td>
+<td>服务器错误</td>
+</tr>
+</tbody>
+</table>
+<h3 id="73">7.3 接口请求看不到<a class="headerlink" href="#73" title="Permanent link">&para;</a></h3>
+<ul>
+<li>确认 Network 面板是否在录制（红色圆点）</li>
+<li>检查是否被筛选条件排除</li>
+<li>检查是否是 WebSocket 请求（WS 标签）</li>
+<li>检查是否在 Service Worker 中</li>
+</ul>
+<h3 id="74">7.4 页面加载慢<a class="headerlink" href="#74" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Network 面板查看瀑布图</li>
+<li>找到耗时最长的请求</li>
+<li>检查是否是大文件（图片、JS）</li>
+<li>检查是否是接口响应慢</li>
+<li>检查是否有阻塞渲染的资源</li>
+</ol>
+<hr />
+<h2 id="_7">附录：常用快捷键<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>快捷键</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>F12</td>
+<td>打开开发者工具</td>
+</tr>
+<tr>
+<td>Ctrl+Shift+I</td>
+<td>打开开发者工具</td>
+</tr>
+<tr>
+<td>Ctrl+Shift+C</td>
+<td>选择元素模式</td>
+</tr>
+<tr>
+<td>Ctrl+F</td>
+<td>在 Elements 中搜索</td>
+</tr>
+<tr>
+<td>Ctrl+L</td>
+<td>清空 Console</td>
+</tr>
+<tr>
+<td>Ctrl+R</td>
+<td>刷新页面</td>
+</tr>
+<tr>
+<td>Ctrl+Shift+R</td>
+<td>强制刷新（跳过缓存）</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<blockquote>
+<p><strong>学习建议：</strong> 不需要精通前端开发，但要能看懂 HTML 结构、理解 CSS 选择器、会用浏览器开发者工具。这些技能在元素定位、Bug 定位、接口分析中非常实用。</p>
+</blockquote>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/bingu7/test-tutorials" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "navigation.top", "navigation.instant", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
