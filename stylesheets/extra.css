@@ -1,0 +1,158 @@
+/* ==================== 路线图表格 ==================== */
+.roadmap-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0.4rem 0;
+    margin: 1.5rem 0;
+}
+.roadmap-table td {
+    vertical-align: top;
+    border: none;
+    padding: 0;
+}
+.roadmap-table .stage {
+    border-radius: 0.6rem;
+    padding: 1rem;
+    text-align: center;
+    min-width: 130px;
+}
+.roadmap-table .stage h3 {
+    font-size: 1rem;
+    margin: 0 0 0.3rem;
+}
+.roadmap-table .stage p {
+    font-size: 0.8rem;
+    margin: 0.2rem 0;
+    opacity: 0.85;
+}
+.roadmap-table .stage a {
+    display: inline-block;
+    font-size: 0.75rem;
+    padding: 0.15rem 0.5rem;
+    margin: 0.2rem 0.1rem;
+    border-radius: 0.3rem;
+    background: rgba(255,255,255,0.25);
+    color: inherit;
+    text-decoration: none;
+    border: 1px solid rgba(255,255,255,0.3);
+    transition: background 0.2s;
+}
+.roadmap-table .stage a:hover {
+    background: rgba(255,255,255,0.45);
+}
+.roadmap-table .arrow {
+    text-align: center;
+    vertical-align: middle;
+    font-size: 1.4rem;
+    width: 2rem;
+    min-width: 2rem;
+}
+/* 四个阶段配色 */
+.s1 { background: #e3f2fd; color: #1565c0; }
+.s2 { background: #e8f5e9; color: #2e7d32; }
+.s3 { background: #fff3e0; color: #e65100; }
+.s4 { background: #f3e5f5; color: #7b1fa2; }
+/* 暗色模式 */
+[data-md-color-scheme="slate"] .s1 { background: rgba(21,101,192,0.15); color: #90caf9; }
+[data-md-color-scheme="slate"] .s2 { background: rgba(46,125,50,0.15); color: #a5d6a7; }
+[data-md-color-scheme="slate"] .s3 { background: rgba(230,81,0,0.15); color: #ffcc80; }
+[data-md-color-scheme="slate"] .s4 { background: rgba(123,31,162,0.15); color: #ce93d8; }
+[data-md-color-scheme="slate"] .roadmap-table .stage a {
+    background: rgba(255,255,255,0.1);
+    border-color: rgba(255,255,255,0.15);
+}
+[data-md-color-scheme="slate"] .roadmap-table .stage a:hover {
+    background: rgba(255,255,255,0.2);
+}
+
+/* ==================== 标签卡片 ==================== */
+.tag-cards {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0.5rem;
+    margin: 1.5rem 0;
+}
+.tag-cards td {
+    vertical-align: top;
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    background: #fafafa;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+.tag-cards td:hover {
+    border-color: #3f51b5;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+.tag-cards h3 {
+    font-size: 1rem;
+    margin: 0 0 0.4rem;
+}
+.tag-cards p {
+    font-size: 0.82rem;
+    opacity: 0.7;
+    margin: 0 0 0.5rem;
+}
+.tag-cards ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.tag-cards ul li {
+    margin: 0.3rem 0;
+}
+.tag-cards ul li a {
+    font-size: 0.85rem;
+}
+/* 暗色模式 */
+[data-md-color-scheme="slate"] .tag-cards td {
+    background: rgba(255,255,255,0.04);
+    border-color: rgba(255,255,255,0.1);
+}
+[data-md-color-scheme="slate"] .tag-cards td:hover {
+    border-color: #536dfe;
+}
+
+/* ==================== 通用优化 ==================== */
+.md-typeset table:not([class]) th {
+    background-color: #3f51b5;
+    color: white;
+    font-weight: 600;
+}
+.md-typeset table:not([class]) {
+    font-size: 0.82rem;
+}
+.md-typeset .admonition.tip {
+    border-left-color: #00c853;
+}
+.md-typeset .admonition.warning {
+    border-left-color: #ff9100;
+}
+
+/* ==================== 响应式 ==================== */
+@media (max-width: 76.1875em) {
+    .roadmap-table {
+        display: block;
+    }
+    .roadmap-table tbody, .roadmap-table tr {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .roadmap-table .arrow {
+        transform: rotate(90deg);
+        width: auto;
+        min-width: auto;
+        padding: 0.3rem 0;
+    }
+    .tag-cards {
+        display: block;
+    }
+    .tag-cards tbody, .tag-cards tr {
+        display: flex;
+        flex-direction: column;
+    }
+    .tag-cards td {
+        margin-bottom: 0.5rem;
+    }
+}

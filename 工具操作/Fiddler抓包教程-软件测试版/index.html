@@ -1,0 +1,3163 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="面向软件测试工程师的系统化学习教程">
+      
+      
+        <meta name="author" content="Test Team">
+      
+      
+        <link rel="canonical" href="https://bingu7.github.io/test-tutorials/%E5%B7%A5%E5%85%B7%E6%93%8D%E4%BD%9C/Fiddler%E6%8A%93%E5%8C%85%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/">
+      
+      
+        <link rel="prev" href="../Docker%E5%AE%B9%E5%99%A8%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/">
+      
+      
+        <link rel="next" href="../Postman%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Fiddler 抓包 - 软件测试知识体系</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#fiddler" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="软件测试知识体系" class="md-header__button md-logo" aria-label="软件测试知识体系" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            软件测试知识体系
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Fiddler 抓包
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换到暗色模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切换到暗色模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换到浅色模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换到浅色模式" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/bingu7/test-tutorials" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    test-tutorials
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  首页
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/" class="md-tabs__link">
+          
+  
+  
+  基础理论
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../%E6%95%B0%E6%8D%AE%E5%BA%93SQL%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-tabs__link">
+          
+  
+  
+  工具操作
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../%E4%B8%93%E9%A1%B9%E6%B5%8B%E8%AF%95/%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95%E5%AE%8C%E6%95%B4%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-tabs__link">
+          
+  
+  
+  专项测试
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/Python%2BRequests%2BAllure%E6%8E%A5%E5%8F%A3%E8%87%AA%E5%8A%A8%E5%8C%96%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-tabs__link">
+          
+  
+  
+  自动化测试
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90/Jenkins-CICD%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-tabs__link">
+          
+  
+  
+  持续集成
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="软件测试知识体系" class="md-nav__button md-logo" aria-label="软件测试知识体系" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    软件测试知识体系
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/bingu7/test-tutorials" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    test-tutorials
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    基础理论
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    基础理论
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    软件测试理论
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    工具操作
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    工具操作
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%95%B0%E6%8D%AE%E5%BA%93SQL%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数据库 SQL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Linux%E5%AE%9E%E7%94%A8%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux 实用
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Git%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Git 版本控制
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Docker%E5%AE%B9%E5%99%A8%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docker 容器
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fiddler 抓包
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fiddler 抓包
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        目录
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fiddler_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一、Fiddler 简介
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="一、Fiddler 简介">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-fiddler" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 什么是 Fiddler
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 工作原理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-fiddler" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3 测试人员为什么要学 Fiddler
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        二、安装与基础配置
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="二、安装与基础配置">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 下载安装
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 首次启动配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        三、界面布局详解
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="三、界面布局详解">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 左侧会话列表字段说明
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 会话图标颜色含义
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 右侧核心功能区
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#https" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        四、HTTPS 抓包配置
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="四、HTTPS 抓包配置">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-https" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 启用 HTTPS 解密
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 验证证书安装
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-filters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 配置 Filters（可选）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        五、移动端抓包配置
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="五、移动端抓包配置">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 前置条件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-ip" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 查看电脑 IP
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-android" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3 Android 端配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54-ios" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.4 iOS 端配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#55" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.5 验证抓包
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        六、核心功能详解
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="六、核心功能详解">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-inspectors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 Inspectors（请求/响应查看器）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-autorespondermock" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 AutoResponder（Mock 数据神器）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-composer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3 Composer（请求构造器）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#64-filters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4 Filters（过滤器）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#65-breakpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.5 Breakpoints（断点）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#66-statistics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.6 Statistics（性能统计）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        七、测试场景实战
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="七、测试场景实战">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1 场景一：接口数据验证
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-mock" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2 场景二：Mock 异常响应
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.3 场景三：篡改请求参数
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#74" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.4 场景四：弱网模拟
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#75-cookietoken" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.5 场景五：Cookie/Token 测试
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#76" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.6 场景六：重放攻击测试
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        八、常用快捷键与命令
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="八、常用快捷键与命令">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.1 快捷键
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82-quickexec" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.2 QuickExec 命令行（底部黑色输入框）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        九、常见问题排查
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="九、常见问题排查">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91-fiddler" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.1 Fiddler 抓不到包
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#92-https-tunnel-to-xxx443" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.2 HTTPS 显示 Tunnel to xxx:443
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#93" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.3 手机配置代理后无法上网
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#94-app" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.4 抓不到某些 App 的请求
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#95" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.5 抓包时电脑卡顿
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#96-fiddler" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.6 Fiddler 关闭后浏览器无法上网
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        十、进阶建议
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        附录：参考资料
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Postman%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Postman 接口
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    专项测试
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    专项测试
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%B8%93%E9%A1%B9%E6%B5%8B%E8%AF%95/%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95%E5%AE%8C%E6%95%B4%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    接口测试方法论
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%B8%93%E9%A1%B9%E6%B5%8B%E8%AF%95/JMeter%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JMeter 性能测试
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    自动化测试
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    自动化测试
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/Python%2BRequests%2BAllure%E6%8E%A5%E5%8F%A3%E8%87%AA%E5%8A%A8%E5%8C%96%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python 接口自动化
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/Selenium-Web%E8%87%AA%E5%8A%A8%E5%8C%96%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Selenium Web 自动化
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/Appium-App%E8%87%AA%E5%8A%A8%E5%8C%96%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Appium App 自动化
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    持续集成
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    持续集成
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90/Jenkins-CICD%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Jenkins CI/CD
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        目录
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fiddler_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一、Fiddler 简介
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="一、Fiddler 简介">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-fiddler" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 什么是 Fiddler
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 工作原理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-fiddler" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3 测试人员为什么要学 Fiddler
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        二、安装与基础配置
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="二、安装与基础配置">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 下载安装
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 首次启动配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        三、界面布局详解
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="三、界面布局详解">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 左侧会话列表字段说明
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 会话图标颜色含义
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 右侧核心功能区
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#https" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        四、HTTPS 抓包配置
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="四、HTTPS 抓包配置">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-https" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 启用 HTTPS 解密
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 验证证书安装
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-filters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 配置 Filters（可选）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        五、移动端抓包配置
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="五、移动端抓包配置">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 前置条件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-ip" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 查看电脑 IP
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-android" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3 Android 端配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54-ios" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.4 iOS 端配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#55" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.5 验证抓包
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        六、核心功能详解
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="六、核心功能详解">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-inspectors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 Inspectors（请求/响应查看器）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-autorespondermock" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 AutoResponder（Mock 数据神器）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-composer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3 Composer（请求构造器）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#64-filters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4 Filters（过滤器）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#65-breakpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.5 Breakpoints（断点）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#66-statistics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.6 Statistics（性能统计）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        七、测试场景实战
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="七、测试场景实战">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1 场景一：接口数据验证
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-mock" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2 场景二：Mock 异常响应
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.3 场景三：篡改请求参数
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#74" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.4 场景四：弱网模拟
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#75-cookietoken" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.5 场景五：Cookie/Token 测试
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#76" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.6 场景六：重放攻击测试
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        八、常用快捷键与命令
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="八、常用快捷键与命令">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.1 快捷键
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82-quickexec" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.2 QuickExec 命令行（底部黑色输入框）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        九、常见问题排查
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="九、常见问题排查">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91-fiddler" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.1 Fiddler 抓不到包
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#92-https-tunnel-to-xxx443" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.2 HTTPS 显示 Tunnel to xxx:443
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#93" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.3 手机配置代理后无法上网
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#94-app" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.4 抓不到某些 App 的请求
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#95" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.5 抓包时电脑卡顿
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#96-fiddler" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.6 Fiddler 关闭后浏览器无法上网
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        十、进阶建议
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        附录：参考资料
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="fiddler">Fiddler 抓包教程（软件测试人员专用）<a class="headerlink" href="#fiddler" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p>本教程面向软件测试工程师，结合实际测试场景讲解 Fiddler 的使用方法，覆盖从入门安装到高级技巧的全部内容。</p>
+</blockquote>
+<hr />
+<h2 id="_1">目录<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="#一fiddler-简介">一、Fiddler 简介</a></li>
+<li><a href="#二安装与基础配置">二、安装与基础配置</a></li>
+<li><a href="#三界面布局详解">三、界面布局详解</a></li>
+<li><a href="#四https-抓包配置">四、HTTPS 抓包配置</a></li>
+<li><a href="#五移动端抓包配置">五、移动端抓包配置</a></li>
+<li><a href="#六核心功能详解">六、核心功能详解</a></li>
+<li><a href="#七测试场景实战">七、测试场景实战</a></li>
+<li><a href="#八常用快捷键与命令">八、常用快捷键与命令</a></li>
+<li><a href="#九常见问题排查">九、常见问题排查</a></li>
+</ul>
+<hr />
+<h2 id="fiddler_1">一、Fiddler 简介<a class="headerlink" href="#fiddler_1" title="Permanent link">&para;</a></h2>
+<h3 id="11-fiddler">1.1 什么是 Fiddler<a class="headerlink" href="#11-fiddler" title="Permanent link">&para;</a></h3>
+<p>Fiddler 是一款免费 Web 调试代理工具，由 Eric Lawrence 创作（2003 年），2012 年被 Telerik 收购（Telerik 后并入 Progress Software）。它工作在 <strong>HTTP/HTTPS 协议层</strong>，通过本地代理（默认端口 8888）拦截客户端与服务器之间的所有通信。</p>
+<blockquote>
+<p><strong>版本说明：</strong> 本文档介绍的是 Fiddler Classic（Windows 免费版，维护节奏放缓但仍有大量用户）。Telerik 同时提供 Fiddler Everywhere（跨平台付费版）和 FiddlerCap（抓包录制工具）。</p>
+</blockquote>
+<h3 id="12">1.2 工作原理<a class="headerlink" href="#12" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>正常请求：客户端 ──────────→ 服务器
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>使用 Fiddler：客户端 ──→ Fiddler(127.0.0.1:8888) ──→ 服务器
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>                          ↑
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>                       拦截、查看、修改
+</code></pre></div>
+<p>Fiddler 本质是一个 <strong>中间人代理（Man-in-the-Middle Proxy）</strong>，所有经过的 HTTP/HTTPS 请求都会被记录并可被修改。</p>
+<h3 id="13-fiddler">1.3 测试人员为什么要学 Fiddler<a class="headerlink" href="#13-fiddler" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>应用场景</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>接口测试</td>
+<td>查看接口请求/响应数据，验证字段是否符合预期</td>
+</tr>
+<tr>
+<td>Bug 定位</td>
+<td>判断问题是前端展示问题还是后端数据问题</td>
+</tr>
+<tr>
+<td>弱网测试</td>
+<td>模拟低带宽、延迟、丢包等网络环境</td>
+</tr>
+<tr>
+<td>Mock 数据</td>
+<td>在后端未就绪时构造响应数据进行前端测试</td>
+</tr>
+<tr>
+<td>异常测试</td>
+<td>篡改请求参数、响应状态码，测试容错能力</td>
+</tr>
+<tr>
+<td>性能分析</td>
+<td>查看请求耗时、资源大小</td>
+</tr>
+<tr>
+<td>安全测试</td>
+<td>检测敏感信息是否明文传输</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_2">二、安装与基础配置<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h3 id="21">2.1 下载安装<a class="headerlink" href="#21" title="Permanent link">&para;</a></h3>
+<ol>
+<li>访问官网：<code>https://www.telerik.com/fiddler/fiddler-classic</code></li>
+<li>选择 <strong>Fiddler Classic</strong>（经典版免费，推荐测试人员使用）</li>
+<li>填写表单（邮箱可以是真实邮箱）后下载安装包</li>
+<li>双击安装，全部默认配置即可</li>
+</ol>
+<blockquote>
+<p><strong>版本选择建议：</strong> Fiddler Classic 免费且功能完整，Fiddler Everywhere 是付费跨平台版本。普通测试工作 Classic 版完全够用。</p>
+</blockquote>
+<h3 id="22">2.2 首次启动配置<a class="headerlink" href="#22" title="Permanent link">&para;</a></h3>
+<p>打开 Fiddler 后，按以下步骤进行基础设置：</p>
+<p><strong>Step 1：开启抓包</strong></p>
+<p>主菜单 → <code>File</code> → 勾选 <code>Capture Traffic</code>（快捷键 F12）</p>
+<p>底部状态栏显示 <code>Capturing</code> 表示已开启抓包。</p>
+<p><strong>Step 2：基础参数配置</strong></p>
+<p><code>Tools</code> → <code>Options</code> → <code>General</code> 标签：</p>
+<ul>
+<li>勾选 <code>Show a message when HTTPS-protected traffic is...</code>（HTTPS 警告提示）</li>
+<li>勾选 <code>Check for updates on startup</code>（关闭可避免启动慢）</li>
+</ul>
+<p><strong>Step 3：连接配置</strong></p>
+<p><code>Tools</code> → <code>Options</code> → <code>Connections</code> 标签：</p>
+<ul>
+<li><code>Fiddler listens on port</code>: 8888（默认端口，可修改）</li>
+<li>勾选 <code>Allow remote computers to connect</code>（允许远程设备连接，移动端抓包必选）</li>
+<li>勾选 <code>Act as system proxy on startup</code>（启动时自动设为系统代理）</li>
+</ul>
+<p>修改后需 <strong>重启 Fiddler</strong> 生效。</p>
+<hr />
+<h2 id="_3">三、界面布局详解<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>┌──────────────────────────────────────────────────────────┐
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>│ 菜单栏 / 工具栏                                            │
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>├────────────────────────┬─────────────────────────────────┤
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>│                        │  右侧：请求/响应详情面板          │
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>│  左侧：会话列表         │  ┌────────────────────────────┐ │
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>│  （Session List）       │  │ Inspectors / AutoResponder │ │
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>│  显示所有抓到的请求      │  │ Composer / Statistics      │ │
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>│                        │  │ Filters / Timeline 等       │ │
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>│                        │  └────────────────────────────┘ │
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>│                        │                                 │
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>├────────────────────────┴─────────────────────────────────┤
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>│ 底部：QuickExec 命令行                                     │
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>└──────────────────────────────────────────────────────────┘
+</code></pre></div>
+<h3 id="31">3.1 左侧会话列表字段说明<a class="headerlink" href="#31" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>列名</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>#</code></td>
+<td>会话编号</td>
+</tr>
+<tr>
+<td><code>Result</code></td>
+<td>HTTP 响应状态码（200/302/404/500 等）</td>
+</tr>
+<tr>
+<td><code>Protocol</code></td>
+<td>协议（HTTP/HTTPS/FTP/Tunnel）</td>
+</tr>
+<tr>
+<td><code>Host</code></td>
+<td>目标主机地址</td>
+</tr>
+<tr>
+<td><code>URL</code></td>
+<td>请求路径</td>
+</tr>
+<tr>
+<td><code>Body</code></td>
+<td>响应内容大小（字节）</td>
+</tr>
+<tr>
+<td><code>Caching</code></td>
+<td>缓存策略</td>
+</tr>
+<tr>
+<td><code>Content-Type</code></td>
+<td>响应内容类型</td>
+</tr>
+<tr>
+<td><code>Process</code></td>
+<td>发起请求的进程名</td>
+</tr>
+<tr>
+<td><code>Comments</code></td>
+<td>自定义备注</td>
+</tr>
+</tbody>
+</table>
+<h3 id="32">3.2 会话图标颜色含义<a class="headerlink" href="#32" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>图标/颜色</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>蓝色实心</td>
+<td>HTML 文档响应</td>
+</tr>
+<tr>
+<td>绿色</td>
+<td>包含 JS 脚本的响应</td>
+</tr>
+<tr>
+<td>紫色</td>
+<td>CSS 样式响应</td>
+</tr>
+<tr>
+<td>红色</td>
+<td>错误请求（4xx/5xx）</td>
+</tr>
+<tr>
+<td>灰色</td>
+<td>重定向（3xx）或缓存（304）</td>
+</tr>
+<tr>
+<td>锁形图标</td>
+<td>HTTPS 请求</td>
+</tr>
+</tbody>
+</table>
+<h3 id="33">3.3 右侧核心功能区<a class="headerlink" href="#33" title="Permanent link">&para;</a></h3>
+<p>最常用的几个 Tab：</p>
+<ul>
+<li><strong>Inspectors</strong>：查看请求/响应详情（重点）</li>
+<li><strong>AutoResponder</strong>：自动响应器，用于 Mock 数据</li>
+<li><strong>Composer</strong>：手动构造请求（类似 Postman）</li>
+<li><strong>Filters</strong>：过滤会话</li>
+<li><strong>Statistics</strong>：性能统计</li>
+</ul>
+<hr />
+<h2 id="https">四、HTTPS 抓包配置<a class="headerlink" href="#https" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p><strong>重要：</strong> 默认情况下 Fiddler 只能抓 HTTP 请求，对 HTTPS 显示为 <code>Tunnel to xxx:443</code>，看不到具体内容。需要安装证书才能解密 HTTPS。</p>
+<p><strong>HTTP/3（QUIC）注意：</strong> Chrome 等浏览器默认启用 HTTP/3 over QUIC（基于 UDP），Fiddler Classic 作为 TCP 代理完全无法抓到这类请求。排查时需在浏览器中禁用 QUIC：
+- Chrome：访问 <code>chrome://flags/#enable-quic</code>，设为 <code>Disabled</code>
+- 或启动 Chrome 时加参数 <code>--disable-quic</code></p>
+</blockquote>
+<h3 id="41-https">4.1 启用 HTTPS 解密<a class="headerlink" href="#41-https" title="Permanent link">&para;</a></h3>
+<p><code>Tools</code> → <code>Options</code> → <code>HTTPS</code> 标签：</p>
+<ol>
+<li>勾选 <code>Capture HTTPS CONNECTs</code></li>
+<li>勾选 <code>Decrypt HTTPS traffic</code></li>
+<li>下拉框选择 <code>...from all processes</code>（抓取所有进程的 HTTPS）</li>
+<li>弹出证书安装提示，点击 <code>Yes</code> → <code>Yes</code> 安装根证书</li>
+<li>勾选 <code>Ignore server certificate errors (unsafe)</code>（忽略证书错误，方便测试自签名证书的环境）</li>
+</ol>
+<h3 id="42">4.2 验证证书安装<a class="headerlink" href="#42" title="Permanent link">&para;</a></h3>
+<p>Windows 系统下：
+- <code>Win + R</code> 输入 <code>certmgr.msc</code>
+- 进入 <code>受信任的根证书颁发机构</code> → <code>证书</code>
+- 查找名为 <code>DO_NOT_TRUST_FiddlerRoot</code> 的证书</p>
+<p>存在即表示安装成功。</p>
+<h3 id="43-filters">4.3 配置 Filters（可选）<a class="headerlink" href="#43-filters" title="Permanent link">&para;</a></h3>
+<p>抓包时往往只关心特定域名，可在 <code>Filters</code> Tab 配置：</p>
+<ol>
+<li>勾选 <code>Use Filters</code></li>
+<li><code>Hosts</code> 区域选择 <code>Show only the following Hosts</code></li>
+<li>输入要监控的域名，多个用分号分隔，例如：
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>*.test.example.com; api.example.com
+</code></pre></div></li>
+</ol>
+<hr />
+<h2 id="_4">五、移动端抓包配置<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<h3 id="51">5.1 前置条件<a class="headerlink" href="#51" title="Permanent link">&para;</a></h3>
+<ul>
+<li>手机和电脑必须在 <strong>同一个 Wi-Fi 网络</strong> 下</li>
+<li>Fiddler 已勾选 <code>Allow remote computers to connect</code></li>
+<li>Windows 防火墙允许 Fiddler 通过（首次配置时会弹窗）</li>
+</ul>
+<h3 id="52-ip">5.2 查看电脑 IP<a class="headerlink" href="#52-ip" title="Permanent link">&para;</a></h3>
+<p>打开 CMD 执行：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>ipconfig
+</code></pre></div>
+<p>记录 <code>IPv4 地址</code>，例如 <code>192.168.1.100</code>。</p>
+<p>或鼠标悬停在 Fiddler 右上角 <code>Online</code> 图标上查看 IP。</p>
+<h3 id="53-android">5.3 Android 端配置<a class="headerlink" href="#53-android" title="Permanent link">&para;</a></h3>
+<p><strong>Step 1：配置代理</strong></p>
+<p><code>设置</code> → <code>WLAN</code> → 长按当前 Wi-Fi → <code>修改网络</code> → 勾选 <code>显示高级选项</code>：</p>
+<ul>
+<li>代理：<code>手动</code></li>
+<li>服务器主机名：<code>192.168.1.100</code>（你的电脑 IP）</li>
+<li>服务器端口：<code>8888</code></li>
+</ul>
+<p><strong>Step 2：安装证书</strong></p>
+<ol>
+<li>手机浏览器访问：<code>http://192.168.1.100:8888</code></li>
+<li>点击页面右上角 <code>FiddlerRoot certificate</code> 下载证书</li>
+<li>进入 <code>设置</code> → <code>安全</code> → <code>从存储设备安装证书</code></li>
+<li>选中下载的证书文件，命名后安装</li>
+</ol>
+<blockquote>
+<p><strong>Android 7.0+ 注意：</strong> 系统默认不信任用户安装的 CA 证书。需要：
+- 应用配置 <code>network_security_config.xml</code> 信任用户证书（开发协助），或
+- 使用 root 设备将证书安装到系统目录，或
+- <strong>Magisk + MagiskTrustUserCerts 模块</strong>：免手动复制证书，自动信任用户证书（root 用户推荐），或
+- 使用 Android 6.0 以下设备/模拟器测试</p>
+</blockquote>
+<h3 id="54-ios">5.4 iOS 端配置<a class="headerlink" href="#54-ios" title="Permanent link">&para;</a></h3>
+<p><strong>Step 1：配置代理</strong></p>
+<p><code>设置</code> → <code>Wi-Fi</code> → 点击当前 Wi-Fi 右侧 <code>i</code> 图标 → 下滑找到 <code>配置代理</code>：</p>
+<ul>
+<li>选择 <code>手动</code></li>
+<li>服务器：<code>192.168.1.100</code></li>
+<li>端口：<code>8888</code></li>
+</ul>
+<p><strong>Step 2：安装证书</strong></p>
+<ol>
+<li>Safari 访问：<code>http://192.168.1.100:8888</code></li>
+<li>点击 <code>FiddlerRoot certificate</code> 下载描述文件</li>
+<li>进入 <code>设置</code> → <code>通用</code> → <code>VPN与设备管理</code> → 安装下载的描述文件</li>
+<li>进入 <code>设置</code> → <code>通用</code> → <code>关于本机</code> → <code>证书信任设置</code></li>
+<li>开启对 <code>DO_NOT_TRUST_FiddlerRoot</code> 的信任开关</li>
+</ol>
+<h3 id="55">5.5 验证抓包<a class="headerlink" href="#55" title="Permanent link">&para;</a></h3>
+<p>配置完成后，在手机上打开任意 App 或浏览器访问网页，Fiddler 会话列表应出现对应请求。</p>
+<blockquote>
+<p><strong>测试完成后记得关闭手机代理</strong>，否则手机断开 Fiddler 后将无法上网。</p>
+</blockquote>
+<hr />
+<h2 id="_5">六、核心功能详解<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<h3 id="61-inspectors">6.1 Inspectors（请求/响应查看器）<a class="headerlink" href="#61-inspectors" title="Permanent link">&para;</a></h3>
+<p>选中一个会话后，右侧 <code>Inspectors</code> 提供多种查看方式：</p>
+<p><strong>请求查看（上半部分）：</strong></p>
+<table>
+<thead>
+<tr>
+<th>Tab</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Headers</code></td>
+<td>查看请求头</td>
+</tr>
+<tr>
+<td><code>TextView</code></td>
+<td>文本形式查看请求体</td>
+</tr>
+<tr>
+<td><code>WebForms</code></td>
+<td>表单数据可视化</td>
+</tr>
+<tr>
+<td><code>JSON</code></td>
+<td>JSON 格式化查看</td>
+</tr>
+<tr>
+<td><code>Raw</code></td>
+<td>完整原始请求</td>
+</tr>
+</tbody>
+</table>
+<p><strong>响应查看（下半部分）：</strong></p>
+<table>
+<thead>
+<tr>
+<th>Tab</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Headers</code></td>
+<td>响应头</td>
+</tr>
+<tr>
+<td><code>JSON</code></td>
+<td>JSON 树形展示（最常用）</td>
+</tr>
+<tr>
+<td><code>ImageView</code></td>
+<td>图片响应预览</td>
+</tr>
+<tr>
+<td><code>WebView</code></td>
+<td>HTML 渲染预览</td>
+</tr>
+<tr>
+<td><code>Cookies</code></td>
+<td>Cookie 解析</td>
+</tr>
+<tr>
+<td><code>Raw</code></td>
+<td>完整原始响应</td>
+</tr>
+</tbody>
+</table>
+<h3 id="62-autorespondermock">6.2 AutoResponder（Mock 数据神器）<a class="headerlink" href="#62-autorespondermock" title="Permanent link">&para;</a></h3>
+<p><strong>测试场景：</strong> 后端接口未就绪 / 模拟异常响应 / 固定返回值测试</p>
+<p><strong>操作步骤：</strong></p>
+<ol>
+<li>切换到 <code>AutoResponder</code> Tab</li>
+<li>勾选 <code>Enable rules</code> 和 <code>Unmatched requests passthrough</code></li>
+<li>从左侧拖入要 Mock 的请求，或点击 <code>Add Rule</code></li>
+<li>在底部规则栏：</li>
+<li>匹配条件：<code>EXACT:https://api.example.com/user/info</code> 或 <code>regex:.*api\.example\.com/user.*</code></li>
+<li>响应内容：选择 <code>Find a file</code> 指定本地 JSON 文件，或选择内置响应（如 <code>404_Plain.dat</code>）</li>
+<li>点击 <code>Save</code></li>
+</ol>
+<p><strong>常用匹配语法：</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>EXACT:URL          完全匹配
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>NOT:URL            不匹配
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>regex:正则表达式    正则匹配
+</code></pre></div>
+<h3 id="63-composer">6.3 Composer（请求构造器）<a class="headerlink" href="#63-composer" title="Permanent link">&para;</a></h3>
+<p>类似 Postman 的接口调试工具，支持手动发起请求。</p>
+<p><strong>操作步骤：</strong></p>
+<ol>
+<li>切换到 <code>Composer</code> Tab</li>
+<li>选择请求方法（GET/POST/PUT/DELETE）</li>
+<li>填写 URL</li>
+<li>填写 Request Headers</li>
+<li>POST 请求填写 Request Body</li>
+<li>点击 <code>Execute</code> 发送</li>
+</ol>
+<p><strong>实用技巧：</strong> 在左侧会话列表中右键任意请求 → <code>Replay</code> → <code>Reissue Sequentially</code>，可重放该请求。或直接拖动会话到 Composer Tab，自动填充参数。</p>
+<h3 id="64-filters">6.4 Filters（过滤器）<a class="headerlink" href="#64-filters" title="Permanent link">&para;</a></h3>
+<p>抓包时干扰请求太多，可通过 Filters 精确筛选：</p>
+<table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Hosts</code> 区</td>
+<td>按域名过滤（最常用）</td>
+</tr>
+<tr>
+<td><code>Client Process</code></td>
+<td>按进程过滤（如只抓 Chrome）</td>
+</tr>
+<tr>
+<td><code>Request Headers</code></td>
+<td>按特定请求头过滤</td>
+</tr>
+<tr>
+<td><code>Response Status Code</code></td>
+<td>按响应状态码过滤（只看 404 / 500）</td>
+</tr>
+<tr>
+<td><code>Response Type and Size</code></td>
+<td>按响应类型/大小过滤</td>
+</tr>
+<tr>
+<td><code>Breakpoints</code></td>
+<td>自动断点设置</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>修改 Filters 后需点击右上角 <code>Actions</code> → <code>Run Filterset now</code> 立即生效。</p>
+</blockquote>
+<h3 id="65-breakpoints">6.5 Breakpoints（断点）<a class="headerlink" href="#65-breakpoints" title="Permanent link">&para;</a></h3>
+<p>断点用于在请求/响应到达目标前暂停，进行参数修改。</p>
+<p><strong>设置断点的两种方式：</strong></p>
+<p><strong>方式一：菜单设置（全局断点）</strong></p>
+<ul>
+<li><code>Rules</code> → <code>Automatic Breakpoints</code> → <code>Before Requests</code>（请求前断点）</li>
+<li><code>Rules</code> → <code>Automatic Breakpoints</code> → <code>After Responses</code>（响应后断点）</li>
+<li>取消：选择 <code>Disabled</code> 或按 F11 切换</li>
+</ul>
+<p><strong>方式二：命令行设置（针对特定 URL）</strong></p>
+<p>底部 QuickExec 命令行输入：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>bpu https://api.example.com/login    # 请求断点
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>bpafter https://api.example.com/list  # 响应断点
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>bpu                                   # 清除请求断点
+</code></pre></div>
+<p><strong>断点触发后操作：</strong></p>
+<ul>
+<li><code>Break on Response</code> 按钮：让请求继续走，但在响应回来时再次中断</li>
+<li><code>Run to Completion</code> 按钮：放行请求继续执行</li>
+<li>修改 Inspectors 中的内容后再点 <code>Run to Completion</code></li>
+</ul>
+<h3 id="66-statistics">6.6 Statistics（性能统计）<a class="headerlink" href="#66-statistics" title="Permanent link">&para;</a></h3>
+<p>选中单个或多个会话，切换到 <code>Statistics</code> Tab，可查看：</p>
+<ul>
+<li>DNS 查询耗时</li>
+<li>TCP 连接耗时</li>
+<li>HTTPS 握手耗时</li>
+<li>请求/响应传输耗时</li>
+<li>总耗时</li>
+</ul>
+<p>适用于 <strong>性能问题初步定位</strong>，判断慢在网络层还是服务器处理。</p>
+<hr />
+<h2 id="_6">七、测试场景实战<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<h3 id="71">7.1 场景一：接口数据验证<a class="headerlink" href="#71" title="Permanent link">&para;</a></h3>
+<p><strong>需求：</strong> 验证用户登录接口返回数据是否正确</p>
+<p><strong>步骤：</strong></p>
+<ol>
+<li>在被测应用执行登录操作</li>
+<li>在 Fiddler 中找到 <code>/api/login</code> 请求</li>
+<li><code>Inspectors</code> → 上方 <code>WebForms</code> 查看入参（账号密码是否正确传输）</li>
+<li><code>Inspectors</code> → 下方 <code>JSON</code> 查看返回结构</li>
+<li>核对字段名、字段类型、必填项、token 格式等是否符合接口文档</li>
+</ol>
+<h3 id="72-mock">7.2 场景二：Mock 异常响应<a class="headerlink" href="#72-mock" title="Permanent link">&para;</a></h3>
+<p><strong>需求：</strong> 测试当服务端返回 500 错误时，前端是否友好提示</p>
+<p><strong>步骤：</strong></p>
+<ol>
+<li>准备本地 JSON 文件 <code>error_500.json</code>：</li>
+</ol>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="p">{</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">  </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">500</span><span class="p">,</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">  </span><span class="nt">&quot;msg&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;服务器内部错误&quot;</span><span class="p">,</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">  </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="p">}</span>
+</code></pre></div>
+<ol>
+<li><code>AutoResponder</code> → <code>Add Rule</code></li>
+<li>匹配规则：<code>regex:.*api\.example\.com/user/info.*</code></li>
+<li>响应：选择 <code>Find a file...</code> 指向 <code>error_500.json</code></li>
+<li>修改返回的 HTTP 状态码：在规则上右键 → <code>Edit Response Headers</code> → 修改 <code>HTTP/1.1 500 Internal Server Error</code></li>
+<li>在应用中触发该接口，观察前端表现</li>
+</ol>
+<h3 id="73">7.3 场景三：篡改请求参数<a class="headerlink" href="#73" title="Permanent link">&para;</a></h3>
+<p><strong>需求：</strong> 测试金额参数被篡改后的服务端校验</p>
+<p><strong>步骤：</strong></p>
+<ol>
+<li><code>Rules</code> → <code>Automatic Breakpoints</code> → <code>Before Requests</code></li>
+<li>在被测应用发起支付请求</li>
+<li>Fiddler 拦截后，进入 <code>Inspectors</code> → <code>WebForms</code> 或 <code>TextView</code></li>
+<li>修改金额字段，如将 <code>amount=100</code> 改为 <code>amount=0.01</code></li>
+<li>点击 <code>Run to Completion</code> 放行</li>
+<li>观察服务端是否做了金额校验</li>
+</ol>
+<blockquote>
+<p><strong>安全测试要点：</strong> 重点验证服务端对客户端传参的二次校验，不能仅依赖前端校验。</p>
+</blockquote>
+<h3 id="74">7.4 场景四：弱网模拟<a class="headerlink" href="#74" title="Permanent link">&para;</a></h3>
+<p><strong>需求：</strong> 模拟 2G 网络环境下页面加载体验</p>
+<p><strong>步骤：</strong></p>
+<ol>
+<li><code>Rules</code> → <code>Performance</code> → 勾选 <code>Simulate Modem Speeds</code></li>
+<li>此时 Fiddler 会模拟约 56K 调制解调器的速度</li>
+<li>自定义弱网参数：<code>Rules</code> → <code>Customize Rules</code> 打开脚本编辑器</li>
+<li>找到 <code>m_SimulateModem</code> 块，修改延迟值：</li>
+</ol>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">m_SimulateModem</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">    </span><span class="c1">// 上行延迟（毫秒/字节，即每发送 1 字节等待该毫秒数）</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">    </span><span class="nx">oSession</span><span class="p">[</span><span class="s2">&quot;request-trickle-delay&quot;</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;300&quot;</span><span class="p">;</span><span class="w"> </span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">    </span><span class="c1">// 下行延迟（毫秒/字节，即每接收 1 字节等待该毫秒数）</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">    </span><span class="nx">oSession</span><span class="p">[</span><span class="s2">&quot;response-trickle-delay&quot;</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;150&quot;</span><span class="p">;</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="p">}</span>
+</code></pre></div>
+<blockquote>
+<p>Fiddler Classic 使用 <strong>JScript.NET</strong>（类 C# 语法，非 JavaScript），但代码结构相似，不影响理解。<code>request-trickle-delay</code> / <code>response-trickle-delay</code> 单位是<strong>毫秒/字节</strong>（每传输 1 字节延迟多少毫秒），不是毫秒/KB。</p>
+</blockquote>
+<ol>
+<li>保存文件，立即生效</li>
+</ol>
+<h3 id="75-cookietoken">7.5 场景五：Cookie/Token 测试<a class="headerlink" href="#75-cookietoken" title="Permanent link">&para;</a></h3>
+<p><strong>需求：</strong> 验证 Token 过期后的处理逻辑</p>
+<p><strong>步骤：</strong></p>
+<ol>
+<li>正常登录后抓取一个需要鉴权的接口</li>
+<li>在 <code>Composer</code> 中拖入该请求</li>
+<li>修改 Header 中的 <code>Authorization</code> 或 <code>Cookie</code> 字段</li>
+<li>测试 1：删除 Token → 应返回 401</li>
+<li>测试 2：Token 改为非法字符串 → 应返回 401</li>
+<li>测试 3：使用过期 Token → 应返回 401 或 403</li>
+<li>点击 <code>Execute</code> 发送，观察响应</li>
+</ol>
+<h3 id="76">7.6 场景六：重放攻击测试<a class="headerlink" href="#76" title="Permanent link">&para;</a></h3>
+<p><strong>需求：</strong> 验证幂等性接口是否做防重处理</p>
+<p><strong>步骤：</strong></p>
+<ol>
+<li>抓取一次"提交订单"请求</li>
+<li>右键 → <code>Replay</code> → <code>Reissue and Edit</code>（或 R 键快速重放）</li>
+<li>重复多次相同请求</li>
+<li>检查服务端是否：</li>
+<li>创建了多个订单（未防重，存在 Bug）</li>
+<li>仅创建一个订单，其余返回"重复请求"提示（正确）</li>
+</ol>
+<hr />
+<h2 id="_7">八、常用快捷键与命令<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<h3 id="81">8.1 快捷键<a class="headerlink" href="#81" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>快捷键</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>F12</code></td>
+<td>暂停/开始抓包</td>
+</tr>
+<tr>
+<td><code>F11</code></td>
+<td>切换请求断点</td>
+</tr>
+<tr>
+<td><code>Ctrl + X</code></td>
+<td>清空会话列表</td>
+</tr>
+<tr>
+<td><code>Ctrl + A</code></td>
+<td>全选会话</td>
+</tr>
+<tr>
+<td><code>Ctrl + I</code></td>
+<td>反选</td>
+</tr>
+<tr>
+<td><code>R</code></td>
+<td>重放选中请求</td>
+</tr>
+<tr>
+<td><code>Shift + R</code></td>
+<td>多次重放（弹窗输入次数）</td>
+</tr>
+<tr>
+<td><code>Delete</code></td>
+<td>删除选中会话</td>
+</tr>
+<tr>
+<td><code>Ctrl + Delete</code></td>
+<td>删除除选中外所有会话</td>
+</tr>
+</tbody>
+</table>
+<h3 id="82-quickexec">8.2 QuickExec 命令行（底部黑色输入框）<a class="headerlink" href="#82-quickexec" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>?text</code></td>
+<td>高亮 URL 包含 text 的会话</td>
+</tr>
+<tr>
+<td><code>&gt;500</code></td>
+<td>高亮响应体大于 500 字节的会话</td>
+</tr>
+<tr>
+<td><code>=200</code></td>
+<td>高亮状态码 200 的会话</td>
+</tr>
+<tr>
+<td><code>@host</code></td>
+<td>高亮指定 host 的会话</td>
+</tr>
+<tr>
+<td><code>select html</code></td>
+<td>选中所有 HTML 响应</td>
+</tr>
+<tr>
+<td><code>select json</code></td>
+<td>选中所有 JSON 响应</td>
+</tr>
+<tr>
+<td><code>cls</code></td>
+<td>清空会话列表</td>
+</tr>
+<tr>
+<td><code>bpu URL</code></td>
+<td>对该 URL 设请求断点</td>
+</tr>
+<tr>
+<td><code>bpafter URL</code></td>
+<td>对该 URL 设响应断点</td>
+</tr>
+<tr>
+<td><code>bpv</code> 或 <code>bpm POST</code></td>
+<td>对指定 HTTP 方法设断点</td>
+</tr>
+<tr>
+<td><code>g</code> 或 <code>go</code></td>
+<td>放行当前断点</td>
+</tr>
+<tr>
+<td><code>help</code></td>
+<td>查看所有命令</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_8">九、常见问题排查<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<h3 id="91-fiddler">9.1 Fiddler 抓不到包<a class="headerlink" href="#91-fiddler" title="Permanent link">&para;</a></h3>
+<p><strong>排查清单：</strong></p>
+<ol>
+<li>是否已勾选 <code>File</code> → <code>Capture Traffic</code></li>
+<li>浏览器是否使用了其他代理（如 SwitchyOmega）</li>
+<li>Chrome 是否启用了 QUIC（地址栏访问 <code>chrome://flags/</code> 搜索 <code>quic</code> 并禁用）</li>
+<li>应用是否走了 SPDY/HTTP2 但未配置抓取（<code>Tools</code> → <code>Options</code> → <code>HTTPS</code> 取消勾选 <code>Skip decryption for the following hosts</code>）</li>
+</ol>
+<h3 id="92-https-tunnel-to-xxx443">9.2 HTTPS 显示 Tunnel to xxx:443<a class="headerlink" href="#92-https-tunnel-to-xxx443" title="Permanent link">&para;</a></h3>
+<p><strong>原因：</strong> 未启用 HTTPS 解密或证书未正确安装</p>
+<p><strong>解决：</strong></p>
+<ol>
+<li><code>Tools</code> → <code>Options</code> → <code>HTTPS</code> → 勾选 <code>Decrypt HTTPS traffic</code></li>
+<li>重新生成证书：<code>Actions</code> → <code>Reset All Certificates</code></li>
+<li>重启 Fiddler</li>
+</ol>
+<h3 id="93">9.3 手机配置代理后无法上网<a class="headerlink" href="#93" title="Permanent link">&para;</a></h3>
+<p><strong>排查清单：</strong></p>
+<ol>
+<li>电脑和手机是否在同一 Wi-Fi</li>
+<li>Fiddler 是否勾选了 <code>Allow remote computers to connect</code></li>
+<li>电脑防火墙是否拦截了 8888 端口（临时关闭防火墙测试）</li>
+<li>IP 是否配错（重新执行 <code>ipconfig</code> 确认）</li>
+<li>公司网络是否有 AP 隔离（无线设备相互隔离）</li>
+</ol>
+<h3 id="94-app">9.4 抓不到某些 App 的请求<a class="headerlink" href="#94-app" title="Permanent link">&para;</a></h3>
+<p><strong>可能原因：</strong></p>
+<ul>
+<li>App 启用了 <strong>证书锁定（SSL Pinning）</strong>：客户端只信任内置证书，对中间人代理免疫</li>
+<li>解决方案：</li>
+<li>联系开发关闭测试包的 SSL Pinning</li>
+<li>使用 Frida + 反 Pinning 脚本（需要 root/越狱设备）</li>
+<li>使用专门的工具如 HttpCanary、Charles + SSL Kill Switch</li>
+</ul>
+<h3 id="95">9.5 抓包时电脑卡顿<a class="headerlink" href="#95" title="Permanent link">&para;</a></h3>
+<p><strong>优化建议：</strong></p>
+<ol>
+<li>定期 <code>Ctrl + X</code> 清空会话列表</li>
+<li>设置过滤器只抓关心的域名</li>
+<li><code>Tools</code> → <code>Options</code> → <code>General</code> 取消勾选 <code>Decode Compressed Content</code>（用时再手动解码）</li>
+<li>关闭不需要的进程，减少干扰会话</li>
+</ol>
+<h3 id="96-fiddler">9.6 Fiddler 关闭后浏览器无法上网<a class="headerlink" href="#96-fiddler" title="Permanent link">&para;</a></h3>
+<p><strong>原因：</strong> Fiddler 异常退出，系统代理未自动还原</p>
+<p><strong>解决：</strong></p>
+<ul>
+<li>Windows：<code>设置</code> → <code>网络和 Internet</code> → <code>代理</code> → 关闭 <code>使用代理服务器</code></li>
+<li>或重新打开 Fiddler 后正常退出（会自动还原）</li>
+</ul>
+<hr />
+<h2 id="_9">十、进阶建议<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
+<p>测试人员掌握 Fiddler 后，建议进一步学习：</p>
+<ul>
+<li><strong>Charles</strong>：Mac 平台的同类工具，界面更友好</li>
+<li><strong>Wireshark</strong>：工作在更底层（TCP/IP 层），适合协议层问题排查</li>
+<li><strong>mitmproxy</strong>：命令行工具，支持 Python 脚本扩展，适合自动化场景</li>
+<li><strong>Postman</strong>：专注于接口调试和接口自动化测试</li>
+<li><strong>JMeter</strong>：性能测试工具，可与 Fiddler 配合录制脚本</li>
+</ul>
+<hr />
+<h2 id="_10">附录：参考资料<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Fiddler 官方文档：<code>https://docs.telerik.com/fiddler/</code></li>
+<li>HTTP 状态码参考：MDN Web Docs</li>
+<li>FiddlerScript 自定义脚本开发指南（高级）</li>
+</ul>
+<hr />
+<blockquote>
+<p><strong>文档说明：</strong> 本教程基于 Fiddler Classic 5.x 版本编写，适用于 Windows 10/11 平台。如使用 Mac 系统，建议改用 Fiddler Everywhere 或 Charles。</p>
+<p><strong>测试纪律：</strong> 抓包测试涉及用户数据，请严格在测试环境进行，禁止抓取生产环境用户数据，禁止用于非授权的安全测试。</p>
+</blockquote>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/yourname/test-tutorials" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "navigation.top", "navigation.instant", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

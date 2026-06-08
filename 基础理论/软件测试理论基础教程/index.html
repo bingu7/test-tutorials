@@ -1,0 +1,4106 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="面向软件测试工程师的系统化学习教程">
+      
+      
+        <meta name="author" content="Test Team">
+      
+      
+        <link rel="canonical" href="https://bingu7.github.io/test-tutorials/%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/">
+      
+      
+        <link rel="prev" href="../..">
+      
+      
+        <link rel="next" href="../../%E5%B7%A5%E5%85%B7%E6%93%8D%E4%BD%9C/%E6%95%B0%E6%8D%AE%E5%BA%93SQL%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>软件测试理论 - 软件测试知识体系</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="软件测试知识体系" class="md-header__button md-logo" aria-label="软件测试知识体系" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            软件测试知识体系
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              软件测试理论
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换到暗色模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切换到暗色模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换到浅色模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换到浅色模式" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/bingu7/test-tutorials" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    test-tutorials
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  首页
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="./" class="md-tabs__link">
+          
+  
+  
+  基础理论
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../%E5%B7%A5%E5%85%B7%E6%93%8D%E4%BD%9C/%E6%95%B0%E6%8D%AE%E5%BA%93SQL%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-tabs__link">
+          
+  
+  
+  工具操作
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../%E4%B8%93%E9%A1%B9%E6%B5%8B%E8%AF%95/%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95%E5%AE%8C%E6%95%B4%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-tabs__link">
+          
+  
+  
+  专项测试
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/Python%2BRequests%2BAllure%E6%8E%A5%E5%8F%A3%E8%87%AA%E5%8A%A8%E5%8C%96%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-tabs__link">
+          
+  
+  
+  自动化测试
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90/Jenkins-CICD%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-tabs__link">
+          
+  
+  
+  持续集成
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="软件测试知识体系" class="md-nav__button md-logo" aria-label="软件测试知识体系" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    软件测试知识体系
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/bingu7/test-tutorials" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    test-tutorials
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    基础理论
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    基础理论
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    软件测试理论
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    软件测试理论
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        目录
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一、软件测试概述
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="一、软件测试概述">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 什么是软件测试
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 测试的目的
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3 测试的基本原则（七大原则）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14-bug" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4 软件缺陷（Bug）的来源
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15-iso-25010" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5 软件质量模型（ISO 25010）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        二、测试分类体系
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="二、测试分类体系">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 按测试阶段分类
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 按测试方法分类
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 按是否运行程序
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4 按测试目的
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5 按是否自动化
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#26" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6 按可见性
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        三、软件开发与测试模型
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="三、软件开发与测试模型">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-v" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 V 模型（经典瀑布）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-w" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 W 模型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 敏捷测试模型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4 测试金字塔
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        四、测试流程
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="四、测试流程">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 完整测试流程
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 各阶段产出物
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 需求分析阶段
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4 测试计划
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#45" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.5 用例评审
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#46" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.6 测试执行
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#47" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.7 准入准出标准
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        五、测试用例设计方法
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="五、测试用例设计方法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 等价类划分
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 边界值分析
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3 判定表（决策表）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.4 因果图
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#55" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.5 状态迁移图
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#56" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.6 场景法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#57" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.7 错误推测法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#58" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.8 正交实验法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#59" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.9 各方法对比与组合使用
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#510" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.10 用例编写模板
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        六、缺陷管理
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="六、缺陷管理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 缺陷生命周期
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 缺陷严重等级
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3 缺陷优先级
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#64" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4 缺陷报告模板
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#65" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.5 缺陷管理工具
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#66" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.6 缺陷描述要点
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        七、测试度量
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="七、测试度量">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1 常见度量指标
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2 缺陷分布分析
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.3 缺陷收敛趋势
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        八、测试团队与角色
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="八、测试团队与角色">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.1 团队角色
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.2 团队协作
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#83" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.3 敏捷团队中的测试
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        九、测试人员职业发展
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="九、测试人员职业发展">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.1 能力模型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#92" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.2 发展路径
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#93" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.3 能力提升建议
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#94" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.4 推荐学习资源
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        十、常见面试题与答案
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="十、常见面试题与答案">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#101" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.1 基础概念
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#102" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.2 流程相关
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#103" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.3 缺陷管理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#104" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.4 思考题
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#105" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.5 自动化相关
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        附录：测试人员成长清单
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    工具操作
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    工具操作
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%B7%A5%E5%85%B7%E6%93%8D%E4%BD%9C/%E6%95%B0%E6%8D%AE%E5%BA%93SQL%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数据库 SQL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%B7%A5%E5%85%B7%E6%93%8D%E4%BD%9C/Linux%E5%AE%9E%E7%94%A8%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux 实用
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%B7%A5%E5%85%B7%E6%93%8D%E4%BD%9C/Git%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Git 版本控制
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%B7%A5%E5%85%B7%E6%93%8D%E4%BD%9C/Docker%E5%AE%B9%E5%99%A8%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docker 容器
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%B7%A5%E5%85%B7%E6%93%8D%E4%BD%9C/Fiddler%E6%8A%93%E5%8C%85%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fiddler 抓包
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%B7%A5%E5%85%B7%E6%93%8D%E4%BD%9C/Postman%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Postman 接口
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    专项测试
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    专项测试
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%B8%93%E9%A1%B9%E6%B5%8B%E8%AF%95/%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95%E5%AE%8C%E6%95%B4%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    接口测试方法论
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%B8%93%E9%A1%B9%E6%B5%8B%E8%AF%95/JMeter%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JMeter 性能测试
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    自动化测试
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    自动化测试
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/Python%2BRequests%2BAllure%E6%8E%A5%E5%8F%A3%E8%87%AA%E5%8A%A8%E5%8C%96%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python 接口自动化
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/Selenium-Web%E8%87%AA%E5%8A%A8%E5%8C%96%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Selenium Web 自动化
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/Appium-App%E8%87%AA%E5%8A%A8%E5%8C%96%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Appium App 自动化
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    持续集成
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    持续集成
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90/Jenkins-CICD%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Jenkins CI/CD
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        目录
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一、软件测试概述
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="一、软件测试概述">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 什么是软件测试
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 测试的目的
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3 测试的基本原则（七大原则）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14-bug" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4 软件缺陷（Bug）的来源
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15-iso-25010" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5 软件质量模型（ISO 25010）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        二、测试分类体系
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="二、测试分类体系">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 按测试阶段分类
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 按测试方法分类
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 按是否运行程序
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4 按测试目的
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5 按是否自动化
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#26" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6 按可见性
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        三、软件开发与测试模型
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="三、软件开发与测试模型">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-v" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 V 模型（经典瀑布）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-w" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 W 模型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 敏捷测试模型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4 测试金字塔
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        四、测试流程
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="四、测试流程">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 完整测试流程
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 各阶段产出物
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 需求分析阶段
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4 测试计划
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#45" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.5 用例评审
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#46" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.6 测试执行
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#47" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.7 准入准出标准
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        五、测试用例设计方法
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="五、测试用例设计方法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 等价类划分
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 边界值分析
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3 判定表（决策表）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.4 因果图
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#55" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.5 状态迁移图
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#56" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.6 场景法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#57" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.7 错误推测法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#58" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.8 正交实验法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#59" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.9 各方法对比与组合使用
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#510" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.10 用例编写模板
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        六、缺陷管理
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="六、缺陷管理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 缺陷生命周期
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 缺陷严重等级
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3 缺陷优先级
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#64" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4 缺陷报告模板
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#65" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.5 缺陷管理工具
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#66" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.6 缺陷描述要点
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        七、测试度量
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="七、测试度量">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1 常见度量指标
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2 缺陷分布分析
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.3 缺陷收敛趋势
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        八、测试团队与角色
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="八、测试团队与角色">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.1 团队角色
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.2 团队协作
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#83" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.3 敏捷团队中的测试
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        九、测试人员职业发展
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="九、测试人员职业发展">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.1 能力模型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#92" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.2 发展路径
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#93" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.3 能力提升建议
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#94" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.4 推荐学习资源
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        十、常见面试题与答案
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="十、常见面试题与答案">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#101" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.1 基础概念
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#102" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.2 流程相关
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#103" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.3 缺陷管理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#104" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.4 思考题
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#105" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.5 自动化相关
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        附录：测试人员成长清单
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="_1">软件测试理论基础教程<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p>本教程系统讲解软件测试的理论体系、流程方法、用例设计技巧，适合测试新人入门或在职人员系统梳理知识体系。</p>
+</blockquote>
+<hr />
+<h2 id="_2">目录<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="#一软件测试概述">一、软件测试概述</a></li>
+<li><a href="#二测试分类体系">二、测试分类体系</a></li>
+<li><a href="#三软件开发与测试模型">三、软件开发与测试模型</a></li>
+<li><a href="#四测试流程">四、测试流程</a></li>
+<li><a href="#五测试用例设计方法">五、测试用例设计方法</a></li>
+<li><a href="#六缺陷管理">六、缺陷管理</a></li>
+<li><a href="#七测试度量">七、测试度量</a></li>
+<li><a href="#八测试团队与角色">八、测试团队与角色</a></li>
+<li><a href="#九测试人员职业发展">九、测试人员职业发展</a></li>
+<li><a href="#十常见面试题与答案">十、常见面试题与答案</a></li>
+</ul>
+<hr />
+<h2 id="_3">一、软件测试概述<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<h3 id="11">1.1 什么是软件测试<a class="headerlink" href="#11" title="Permanent link">&para;</a></h3>
+<p><strong>软件测试</strong> 是为了发现软件中的缺陷而执行程序的过程，目的是评估软件质量是否满足需求。</p>
+<p><strong>经典定义（IEEE）：</strong></p>
+<blockquote>
+<p>软件测试是使用人工或自动手段运行或测定某个系统的过程，目的是检验它是否满足规定的需求或弄清预期结果与实际结果之间的差别。</p>
+</blockquote>
+<h3 id="12">1.2 测试的目的<a class="headerlink" href="#12" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>目的</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>发现缺陷</td>
+<td>暴露软件中的问题</td>
+</tr>
+<tr>
+<td>验证需求</td>
+<td>确认软件做了该做的</td>
+</tr>
+<tr>
+<td>评估质量</td>
+<td>量化软件可发布程度</td>
+</tr>
+<tr>
+<td>预防缺陷</td>
+<td>早期介入，避免后期 Bug</td>
+</tr>
+<tr>
+<td>提供信息</td>
+<td>给决策者发布与否的依据</td>
+</tr>
+</tbody>
+</table>
+<h3 id="13">1.3 测试的基本原则（七大原则）<a class="headerlink" href="#13" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>测试显示存在缺陷，不能证明无缺陷</strong> —— 测不出 Bug 不代表没 Bug</li>
+<li><strong>穷尽测试不可能</strong> —— 输入组合无限多，需要选择性测试</li>
+<li><strong>测试尽早介入</strong> —— 越早发现 Bug 修复成本越低</li>
+<li><strong>缺陷集群性</strong> —— 80% 的缺陷集中在 20% 的模块（二八原则）</li>
+<li><strong>杀虫剂悖论</strong> —— 同样的用例反复跑，发现 Bug 的能力会下降</li>
+<li><strong>测试活动依赖上下文</strong> —— 不同行业（医疗 vs 游戏）测试侧重不同</li>
+<li><strong>无缺陷谬论</strong> —— 没有 Bug 不等于产品成功（可能用户根本不要）</li>
+</ol>
+<h3 id="14-bug">1.4 软件缺陷（Bug）的来源<a class="headerlink" href="#14-bug" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>需求阶段     设计阶段     编码阶段     部署阶段
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>  ↓           ↓           ↓           ↓
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>55%         25%         15%          5%   ← 缺陷引入比例
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>  ↓           ↓           ↓           ↓
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>$1         $10        $100       $1000  ← 修复成本（指数级增长）
+</code></pre></div>
+<blockquote>
+<p><strong>结论：</strong> 越早介入测试，性价比越高。</p>
+</blockquote>
+<h3 id="15-iso-25010">1.5 软件质量模型（ISO 25010）<a class="headerlink" href="#15-iso-25010" title="Permanent link">&para;</a></h3>
+<p>ISO 25010 定义了软件产品质量的 8 个维度（2011 版）。2023 年修订版新增了 <strong>Safety（安全性/人身安全）</strong> 维度，共 9 个：</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>子特性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>功能性</strong></td>
+<td>完备性、正确性、适合性</td>
+</tr>
+<tr>
+<td><strong>性能效率</strong></td>
+<td>时间特性、资源利用、容量</td>
+</tr>
+<tr>
+<td><strong>兼容性</strong></td>
+<td>共存性、互操作性</td>
+</tr>
+<tr>
+<td><strong>易用性</strong></td>
+<td>可识别性、可学习性、可操作性</td>
+</tr>
+<tr>
+<td><strong>可靠性</strong></td>
+<td>成熟性、可用性、容错性、可恢复性</td>
+</tr>
+<tr>
+<td><strong>安全性</strong></td>
+<td>保密性、完整性、不可抵赖、可核查</td>
+</tr>
+<tr>
+<td><strong>可维护性</strong></td>
+<td>模块化、可重用、可分析、可修改、可测试</td>
+</tr>
+<tr>
+<td><strong>可移植性</strong></td>
+<td>适应性、可安装、可替换</td>
+</tr>
+<tr>
+<td><strong>Safety（2023新增）</strong></td>
+<td>运行安全、故障安全、风险可控</td>
+</tr>
+</tbody>
+</table>
+<p>测试要覆盖以上所有维度（实际按业务侧重）。</p>
+<hr />
+<h2 id="_4">二、测试分类体系<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<h3 id="21">2.1 按测试阶段分类<a class="headerlink" href="#21" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>开发 → 单元测试 → 集成测试 → 系统测试 → 验收测试 → 发布
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>       ↓          ↓          ↓          ↓
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>       开发负责   开发+测试   测试主导    用户/产品
+</code></pre></div>
+<p><strong>单元测试（Unit Test）：</strong>
+- 对象：函数/方法/类
+- 执行者：开发
+- 工具：JUnit、PyTest、NUnit</p>
+<p><strong>集成测试（Integration Test）：</strong>
+- 对象：模块间接口
+- 执行者：开发 + 测试
+- 重点：接口数据流、调用链</p>
+<p><strong>系统测试（System Test）：</strong>
+- 对象：完整系统
+- 执行者：测试
+- 涵盖：功能、性能、安全、兼容等</p>
+<p><strong>验收测试（Acceptance Test）：</strong>
+- 对象：成品
+- 执行者：客户 / 产品
+- 类型：α 测试（公司内）、β 测试（外部用户）</p>
+<h3 id="22">2.2 按测试方法分类<a class="headerlink" href="#22" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>是否需要代码</th>
+<th>关注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>黑盒测试</strong></td>
+<td>否</td>
+<td>输入输出，业务功能</td>
+</tr>
+<tr>
+<td><strong>白盒测试</strong></td>
+<td>是</td>
+<td>代码内部逻辑</td>
+</tr>
+<tr>
+<td><strong>灰盒测试</strong></td>
+<td>部分</td>
+<td>接口 + 部分内部</td>
+</tr>
+</tbody>
+</table>
+<p><strong>黑盒（功能测试）：</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>输入 → [黑盒：不看内部] → 输出
+</code></pre></div>
+<ul>
+<li>不关心代码实现</li>
+<li>关注：功能、UI、业务</li>
+<li>用例设计：等价类、边界值、场景法</li>
+</ul>
+<p><strong>白盒（结构测试）：</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>输入 → [白盒：看清内部] → 输出
+</code></pre></div>
+<ul>
+<li>关注代码内部</li>
+<li>覆盖率：语句、分支、路径</li>
+<li>用例设计：基本路径法、条件覆盖</li>
+</ul>
+<p><strong>灰盒：</strong></p>
+<p>接口测试是典型灰盒：知道接口签名（输入输出），不深入代码实现。</p>
+<h3 id="23">2.3 按是否运行程序<a class="headerlink" href="#23" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>静态测试</strong></td>
+<td>不运行代码，看文档、Review 代码</td>
+</tr>
+<tr>
+<td><strong>动态测试</strong></td>
+<td>运行程序，输入数据观察输出</td>
+</tr>
+</tbody>
+</table>
+<h3 id="24">2.4 按测试目的<a class="headerlink" href="#24" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>目的</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>功能测试</strong></td>
+<td>验证业务功能正确</td>
+</tr>
+<tr>
+<td><strong>性能测试</strong></td>
+<td>验证响应时间、并发能力</td>
+</tr>
+<tr>
+<td><strong>安全测试</strong></td>
+<td>验证安全漏洞</td>
+</tr>
+<tr>
+<td><strong>兼容性测试</strong></td>
+<td>多浏览器/系统/设备</td>
+</tr>
+<tr>
+<td><strong>易用性测试</strong></td>
+<td>用户体验</td>
+</tr>
+<tr>
+<td><strong>本地化测试</strong></td>
+<td>多语言、多地区</td>
+</tr>
+<tr>
+<td><strong>回归测试</strong></td>
+<td>验证修改未引入新 Bug</td>
+</tr>
+<tr>
+<td><strong>冒烟测试</strong></td>
+<td>验证核心功能可用</td>
+</tr>
+<tr>
+<td><strong>可靠性测试</strong></td>
+<td>长时间运行无问题</td>
+</tr>
+<tr>
+<td><strong>A/B 测试</strong></td>
+<td>两个版本对比</td>
+</tr>
+<tr>
+<td><strong>探索性测试</strong></td>
+<td>边测边设计用例</td>
+</tr>
+</tbody>
+</table>
+<h3 id="25">2.5 按是否自动化<a class="headerlink" href="#25" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>适合场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>手工测试</strong></td>
+<td>探索性、UI、新功能</td>
+</tr>
+<tr>
+<td><strong>自动化测试</strong></td>
+<td>回归、性能、接口</td>
+</tr>
+</tbody>
+</table>
+<h3 id="26">2.6 按可见性<a class="headerlink" href="#26" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>冒烟测试</strong></td>
+<td>主流程能跑通（深度浅）</td>
+</tr>
+<tr>
+<td><strong>回归测试</strong></td>
+<td>验证改动不影响老功能</td>
+</tr>
+<tr>
+<td><strong>全量测试</strong></td>
+<td>所有用例都跑（深度全）</td>
+</tr>
+<tr>
+<td><strong>抽测</strong></td>
+<td>抽取部分代表性用例</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_5">三、软件开发与测试模型<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<h3 id="31-v">3.1 V 模型（经典瀑布）<a class="headerlink" href="#31-v" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>需求分析 ─────────────────── 验收测试
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>   ↓                            ↑
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>概要设计 ────────────── 系统测试
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>   ↓                       ↑
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>详细设计 ──────── 集成测试
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>   ↓                ↑
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>   编码 ──── 单元测试
+</code></pre></div>
+<p><strong>特点：</strong>
+- 测试与开发对应（左侧开发阶段对应右侧测试阶段）
+- 阶段清晰，便于管理</p>
+<blockquote>
+<p><strong>常见误解：</strong> V 模型并非"测试介入晚"——每个开发阶段（需求/设计/编码）都有对应的测试活动（验收测试设计/系统测试设计/单元测试设计），只是测试<strong>执行</strong>在编码完成后。真正的问题是测试<strong>执行</strong>晚，而非测试<strong>设计</strong>晚。W 模型在此基础上强调测试设计与开发同步执行。</p>
+</blockquote>
+<h3 id="32-w">3.2 W 模型<a class="headerlink" href="#32-w" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>需求分析   ←→  需求测试
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>  ↓              ↓
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>概要设计   ←→  设计测试
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>  ↓              ↓
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>详细设计   ←→  详细设计测试
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>  ↓              ↓
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>编码      ←→  单元测试
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>  ↓              ↓
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>集成      ←→  集成测试
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>  ↓              ↓
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>系统      ←→  系统测试
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>  ↓              ↓
+<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>验收      ←→  验收测试
+</code></pre></div>
+<p><strong>特点：</strong>
+- 测试与开发并行
+- 测试贯穿全生命周期
+- <strong>改进了 V 模型测试介入晚的问题</strong></p>
+<h3 id="33">3.3 敏捷测试模型<a class="headerlink" href="#33" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>Sprint 1   Sprint 2   Sprint 3   ...
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>[设计-开发-测试-上线]  [设计-开发-测试-上线]
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>2-4 周一个迭代
+</code></pre></div>
+<p><strong>敏捷下测试特点：</strong></p>
+<ul>
+<li>测试贯穿迭代全程</li>
+<li>自动化是关键</li>
+<li>持续集成、持续部署（CI/CD）</li>
+<li>测试人员与开发紧密协作</li>
+</ul>
+<p><strong>敏捷测试象限：</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>                     │  支持团队
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>                     │
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a> 自动化  Q1 单元/组件 │ Q2 功能测试  手工+自动
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>        ─────────────┼─────────────
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a> 自动化  Q4 性能/安全 │ Q3 探索/用户  手工
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>                     │
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>                     │  评价产品
+</code></pre></div>
+<h3 id="34">3.4 测试金字塔<a class="headerlink" href="#34" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>        ╱╲
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>       ╱UI╲          少量（约 5%）
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>      ╱────╲         端到端，慢、贵
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>     ╱  接口 ╲       中量（约 20-25%）
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>    ╱──────╲       稳定、性价比高
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>   ╱  单元   ╲     大量（约 70%+）
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>  ╱──────────╲    快、便宜
+</code></pre></div>
+<blockquote>
+<p>以上比例为 <strong>参考值</strong>，Mike Cohn 在《Succeeding with Agile》中提出金字塔概念但未规定固定比例。实际应根据项目特点调整，如前端重的项目 UI 占比可能更高。</p>
+</blockquote>
+<p><strong>反模式（雪糕筒）：</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>   ╱────────╲    UI 测试过多
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>  ╱──────╲
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a> ╱   接口  ╲
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>╱─单元─╲     ← 倒过来了
+</code></pre></div>
+<hr />
+<h2 id="_6">四、测试流程<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<h3 id="41">4.1 完整测试流程<a class="headerlink" href="#41" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>需求分析 → 测试计划 → 用例设计 → 用例评审
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>      → 测试环境准备 → 测试执行 → 缺陷管理
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>      → 回归测试 → 测试报告 → 测试总结
+</code></pre></div>
+<h3 id="42">4.2 各阶段产出物<a class="headerlink" href="#42" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>主要产出</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>需求分析</td>
+<td>需求理解文档、问题清单</td>
+</tr>
+<tr>
+<td>测试计划</td>
+<td>测试计划书</td>
+</tr>
+<tr>
+<td>用例设计</td>
+<td>测试用例文档</td>
+</tr>
+<tr>
+<td>用例评审</td>
+<td>评审记录、修订用例</td>
+</tr>
+<tr>
+<td>环境准备</td>
+<td>环境部署、数据准备</td>
+</tr>
+<tr>
+<td>测试执行</td>
+<td>执行记录、缺陷单</td>
+</tr>
+<tr>
+<td>缺陷管理</td>
+<td>缺陷跟踪、复测</td>
+</tr>
+<tr>
+<td>测试报告</td>
+<td>测试总结报告</td>
+</tr>
+</tbody>
+</table>
+<h3 id="43">4.3 需求分析阶段<a class="headerlink" href="#43" title="Permanent link">&para;</a></h3>
+<p><strong>测试人员要做：</strong></p>
+<ul>
+<li>评审需求文档（PRD）</li>
+<li>提出疑问与建议</li>
+<li>评估测试范围与难度</li>
+<li>识别风险</li>
+</ul>
+<p><strong>关键问题：</strong></p>
+<ul>
+<li>这个需求要解决什么用户问题？</li>
+<li>边界场景如何处理？</li>
+<li>异常情况如何处理？</li>
+<li>性能要求？</li>
+<li>安全要求？</li>
+<li>兼容性范围？</li>
+</ul>
+<h3 id="44">4.4 测试计划<a class="headerlink" href="#44" title="Permanent link">&para;</a></h3>
+<p><strong>测试计划包含：</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="gh"># XX 项目测试计划</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="gu">## 1. 项目背景</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="gu">## 2. 测试目标</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="gu">## 3. 测试范围（覆盖哪些功能、不覆盖哪些）</span>
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="gu">## 4. 测试策略（手工/自动化、测试类型）</span>
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="gu">## 5. 测试环境</span>
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="gu">## 6. 测试数据</span>
+<a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a><span class="gu">## 7. 进度安排（甘特图）</span>
+<a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="gu">## 8. 人员分工</span>
+<a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a><span class="gu">## 9. 风险评估</span>
+<a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a><span class="gu">## 10. 通过标准（达到什么程度可以发布）</span>
+<a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a><span class="gu">## 11. 交付物</span>
+</code></pre></div>
+<h3 id="45">4.5 用例评审<a class="headerlink" href="#45" title="Permanent link">&para;</a></h3>
+<p><strong>评审目的：</strong>
+- 用例完整性
+- 优先级合理性
+- 与需求一致性
+- 减少冗余</p>
+<p><strong>评审参与人：</strong>
+- 测试（主导）
+- 开发（确认实现细节）
+- 产品（确认需求理解）</p>
+<h3 id="46">4.6 测试执行<a class="headerlink" href="#46" title="Permanent link">&para;</a></h3>
+<p><strong>执行原则：</strong></p>
+<ol>
+<li><strong>按优先级</strong>：P0 → P1 → P2</li>
+<li><strong>先冒烟后细测</strong>：主流程通畅再测细节</li>
+<li><strong>及时记录</strong>：边测边写缺陷单</li>
+<li><strong>保留证据</strong>：截图、日志</li>
+<li><strong>沟通同步</strong>：阻塞性问题立即通知</li>
+</ol>
+<h3 id="47">4.7 准入准出标准<a class="headerlink" href="#47" title="Permanent link">&para;</a></h3>
+<p><strong>准入标准（开测条件）：</strong></p>
+<ul>
+<li>开发自测完成</li>
+<li>冒烟用例通过</li>
+<li>测试环境就绪</li>
+<li>测试数据准备完成</li>
+</ul>
+<p><strong>准出标准（停测条件）：</strong></p>
+<ul>
+<li>所有用例执行完</li>
+<li>P0/P1 缺陷全部修复</li>
+<li>回归测试通过</li>
+<li>性能/安全指标达标</li>
+<li>通过评审</li>
+</ul>
+<hr />
+<h2 id="_7">五、测试用例设计方法<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<h3 id="51">5.1 等价类划分<a class="headerlink" href="#51" title="Permanent link">&para;</a></h3>
+<p><strong>思想：</strong> 把无限输入划分为有限组，每组取代表测试。</p>
+<p><strong>有效等价类：</strong> 符合需求的合理输入<br />
+<strong>无效等价类：</strong> 不符合需求的输入</p>
+<p><strong>示例：年龄字段（18-65 整数）</strong></p>
+<table>
+<thead>
+<tr>
+<th>等价类</th>
+<th>类型</th>
+<th>测试值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>18-65 整数</td>
+<td>有效</td>
+<td>30</td>
+</tr>
+<tr>
+<td>&lt; 18</td>
+<td>无效</td>
+<td>10</td>
+</tr>
+<tr>
+<td>&gt; 65</td>
+<td>无效</td>
+<td>80</td>
+</tr>
+<tr>
+<td>小数</td>
+<td>无效</td>
+<td>25.5</td>
+</tr>
+<tr>
+<td>负数</td>
+<td>无效</td>
+<td>-5</td>
+</tr>
+<tr>
+<td>字符</td>
+<td>无效</td>
+<td>abc</td>
+</tr>
+<tr>
+<td>空</td>
+<td>无效</td>
+<td>""</td>
+</tr>
+</tbody>
+</table>
+<h3 id="52">5.2 边界值分析<a class="headerlink" href="#52" title="Permanent link">&para;</a></h3>
+<p><strong>思想：</strong> 边界处最易出错。</p>
+<p><strong>规则：</strong> 取边界值、边界值 ±1。</p>
+<p><strong>示例：年龄 18-65</strong></p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>测试值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>下边界</td>
+<td>18</td>
+</tr>
+<tr>
+<td>下边界 -1</td>
+<td>17</td>
+</tr>
+<tr>
+<td>下边界 +1</td>
+<td>19</td>
+</tr>
+<tr>
+<td>上边界</td>
+<td>65</td>
+</tr>
+<tr>
+<td>上边界 -1</td>
+<td>64</td>
+</tr>
+<tr>
+<td>上边界 +1</td>
+<td>66</td>
+</tr>
+</tbody>
+</table>
+<p><strong>常见边界：</strong></p>
+<ul>
+<li>数字：0、1、-1、最大值、最小值</li>
+<li>字符串：空、1 字符、最大长度、超长 1 字符</li>
+<li>数组：空、1 个、最大、超最大</li>
+<li>时间：今天、昨天、明天、闰年、月末</li>
+</ul>
+<h3 id="53">5.3 判定表（决策表）<a class="headerlink" href="#53" title="Permanent link">&para;</a></h3>
+<p><strong>适合：</strong> 多个条件组合产生不同结果的场景。</p>
+<p><strong>示例：会员折扣</strong></p>
+<table>
+<thead>
+<tr>
+<th>条件</th>
+<th>C1</th>
+<th>C2</th>
+<th>C3</th>
+<th>C4</th>
+<th>C5</th>
+<th>C6</th>
+<th>C7</th>
+<th>C8</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>是会员</td>
+<td>Y</td>
+<td>Y</td>
+<td>Y</td>
+<td>Y</td>
+<td>N</td>
+<td>N</td>
+<td>N</td>
+<td>N</td>
+</tr>
+<tr>
+<td>金额≥100</td>
+<td>Y</td>
+<td>Y</td>
+<td>N</td>
+<td>N</td>
+<td>Y</td>
+<td>Y</td>
+<td>N</td>
+<td>N</td>
+</tr>
+<tr>
+<td>首单</td>
+<td>Y</td>
+<td>N</td>
+<td>Y</td>
+<td>N</td>
+<td>Y</td>
+<td>N</td>
+<td>Y</td>
+<td>N</td>
+</tr>
+<tr>
+<td><strong>结果</strong></td>
+<td>7折</td>
+<td>8折</td>
+<td>9折</td>
+<td>1.0</td>
+<td>0.95</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>1.0</td>
+</tr>
+</tbody>
+</table>
+<p>每一列就是一个测试用例。</p>
+<h3 id="54">5.4 因果图<a class="headerlink" href="#54" title="Permanent link">&para;</a></h3>
+<p><strong>适合：</strong> 输入条件与输出有复杂的因果关系。</p>
+<p>通过画图分析条件组合，最终转化为判定表。</p>
+<h3 id="55">5.5 状态迁移图<a class="headerlink" href="#55" title="Permanent link">&para;</a></h3>
+<p><strong>适合：</strong> 有状态机的业务。</p>
+<p><strong>示例：订单状态</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>[创建] → [待支付] → [已支付] → [已发货] → [已完成]
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>            ↓           ↓
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>         [已取消]    [退款中] → [已退款]
+</code></pre></div>
+<p><strong>测试要覆盖：</strong>
+- 所有状态
+- 所有合法迁移
+- 非法迁移（如已完成 → 待支付，应拒绝）</p>
+<h3 id="56">5.6 场景法<a class="headerlink" href="#56" title="Permanent link">&para;</a></h3>
+<p><strong>适合：</strong> 业务流程测试。</p>
+<p><strong>基本流：</strong> 主流程<br />
+<strong>备选流：</strong> 异常分支</p>
+<p><strong>示例：用户登录</strong></p>
+<ul>
+<li>基本流：输入正确账密 → 登录成功</li>
+<li>备选流 1：密码错误 → 提示错误</li>
+<li>备选流 2：账号不存在 → 提示</li>
+<li>备选流 3：账号锁定 → 提示</li>
+<li>备选流 4：网络异常 → 重试</li>
+</ul>
+<h3 id="57">5.7 错误推测法<a class="headerlink" href="#57" title="Permanent link">&para;</a></h3>
+<p>凭经验设计可能出错的场景：</p>
+<ul>
+<li>空值、null、空格</li>
+<li>超长、超大数字</li>
+<li>特殊字符、SQL 注入、XSS</li>
+<li>时间边界（跨年、闰年、月末）</li>
+<li>并发场景</li>
+<li>网络异常、断电</li>
+<li>重复点击、快速操作</li>
+</ul>
+<h3 id="58">5.8 正交实验法<a class="headerlink" href="#58" title="Permanent link">&para;</a></h3>
+<p><strong>适合：</strong> 多因素多水平组合，要兼顾覆盖率和用例数。</p>
+<p><strong>原理：</strong> 用正交表（如 L9(3⁴)）减少组合数。</p>
+<p><strong>示例：测试浏览器兼容性</strong></p>
+<ul>
+<li>浏览器：Chrome、Firefox、Edge</li>
+<li>操作系统：Win10、Win11、Mac</li>
+<li>屏幕分辨率：1920、1366、2560</li>
+</ul>
+<p>全组合 = 3 × 3 × 3 = 27 个用例<br />
+正交表 L9 = 9 个用例（覆盖率高）</p>
+<h3 id="59">5.9 各方法对比与组合使用<a class="headerlink" href="#59" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>适合场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>等价类</td>
+<td>单字段输入</td>
+</tr>
+<tr>
+<td>边界值</td>
+<td>字段有范围</td>
+</tr>
+<tr>
+<td>判定表</td>
+<td>多条件组合</td>
+</tr>
+<tr>
+<td>因果图</td>
+<td>复杂因果关系</td>
+</tr>
+<tr>
+<td>状态迁移</td>
+<td>有状态机</td>
+</tr>
+<tr>
+<td>场景法</td>
+<td>业务流程</td>
+</tr>
+<tr>
+<td>错误推测</td>
+<td>异常场景</td>
+</tr>
+<tr>
+<td>正交法</td>
+<td>多因素组合</td>
+</tr>
+</tbody>
+</table>
+<p><strong>实际项目：组合使用</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>单字段：等价类 + 边界值 + 错误推测
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>多字段：判定表 / 因果图
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>流程：场景法 + 状态迁移
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>兼容性：正交法
+</code></pre></div>
+<h3 id="510">5.10 用例编写模板<a class="headerlink" href="#510" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>用例编号：TC_LOGIN_001
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>所属模块：用户登录
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>用例标题：使用正确账号密码登录成功
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>优先级：P0
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>前置条件：
+<a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>  1. 账号 testuser 已注册
+<a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>  2. 密码为 123456
+<a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a>  3. 账号状态正常
+<a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a>测试步骤：
+<a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a>  1. 打开登录页
+<a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a>  2. 输入账号：testuser
+<a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a>  3. 输入密码：123456
+<a id="__codelineno-14-13" name="__codelineno-14-13" href="#__codelineno-14-13"></a>  4. 点击登录按钮
+<a id="__codelineno-14-14" name="__codelineno-14-14" href="#__codelineno-14-14"></a>预期结果：
+<a id="__codelineno-14-15" name="__codelineno-14-15" href="#__codelineno-14-15"></a>  1. 跳转到首页
+<a id="__codelineno-14-16" name="__codelineno-14-16" href="#__codelineno-14-16"></a>  2. 顶部显示&quot;欢迎，testuser&quot;
+<a id="__codelineno-14-17" name="__codelineno-14-17" href="#__codelineno-14-17"></a>  3. 数据库 login_log 表新增登录记录
+<a id="__codelineno-14-18" name="__codelineno-14-18" href="#__codelineno-14-18"></a>实际结果：（执行后填）
+<a id="__codelineno-14-19" name="__codelineno-14-19" href="#__codelineno-14-19"></a>执行状态：（通过/失败/阻塞）
+<a id="__codelineno-14-20" name="__codelineno-14-20" href="#__codelineno-14-20"></a>缺陷链接：（如有）
+<a id="__codelineno-14-21" name="__codelineno-14-21" href="#__codelineno-14-21"></a>备注：
+</code></pre></div>
+<hr />
+<h2 id="_8">六、缺陷管理<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<h3 id="61">6.1 缺陷生命周期<a class="headerlink" href="#61" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>新建（New）
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>   ↓
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>打开（Open）  ←──┐
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>   ↓             │
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>分配（Assigned）  │
+<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>   ↓             │
+<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>处理中（In Progress）│
+<a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a>   ↓             │
+<a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a>已修复（Fixed）   │
+<a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a>   ↓             │
+<a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a>验证（Verify）   │
+<a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a>   ↓             │
+<a id="__codelineno-15-13" name="__codelineno-15-13" href="#__codelineno-15-13"></a>关闭（Closed） / 重新打开（Reopen）─┘
+</code></pre></div>
+<p><strong>其他状态：</strong>
+- 推迟（Deferred）：暂时不修
+- 拒绝（Rejected）：不是 Bug
+- 重复（Duplicate）：和已有 Bug 重复</p>
+<h3 id="62">6.2 缺陷严重等级<a class="headerlink" href="#62" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>等级</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Blocker（致命）</strong></td>
+<td>系统崩溃、数据丢失、阻塞主流程</td>
+</tr>
+<tr>
+<td><strong>Critical（严重）</strong></td>
+<td>主功能不可用</td>
+</tr>
+<tr>
+<td><strong>Major（一般）</strong></td>
+<td>次要功能问题、有变通方案</td>
+</tr>
+<tr>
+<td><strong>Minor（轻微）</strong></td>
+<td>UI 小问题、文案错误</td>
+</tr>
+<tr>
+<td><strong>Trivial（建议）</strong></td>
+<td>优化建议</td>
+</tr>
+</tbody>
+</table>
+<h3 id="63">6.3 缺陷优先级<a class="headerlink" href="#63" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>等级</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>P0</strong></td>
+<td>立即修，阻塞发布</td>
+</tr>
+<tr>
+<td><strong>P1</strong></td>
+<td>高优，本次必修</td>
+</tr>
+<tr>
+<td><strong>P2</strong></td>
+<td>中优，可选</td>
+</tr>
+<tr>
+<td><strong>P3</strong></td>
+<td>低优，下个版本</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>严重等级 vs 优先级：</strong> 一个文案错误（轻微）可能在首页（高优先级）；一个 OOM（致命）可能在低频功能（低优先级）。</p>
+</blockquote>
+<h3 id="64">6.4 缺陷报告模板<a class="headerlink" href="#64" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="gu">## 标题</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>[模块] 一句话描述
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="gu">## 环境</span>
+<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="k">-</span><span class="w"> </span>系统：iOS 17.2
+<a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a><span class="k">-</span><span class="w"> </span>App 版本：v1.2.3
+<a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a><span class="k">-</span><span class="w"> </span>网络：Wi-Fi
+<a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a><span class="k">-</span><span class="w"> </span>设备：iPhone 14
+<a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a>
+<a id="__codelineno-16-10" name="__codelineno-16-10" href="#__codelineno-16-10"></a><span class="gu">## 前置条件</span>
+<a id="__codelineno-16-11" name="__codelineno-16-11" href="#__codelineno-16-11"></a><span class="k">1.</span> 用户已登录
+<a id="__codelineno-16-12" name="__codelineno-16-12" href="#__codelineno-16-12"></a><span class="k">2.</span> 购物车有 1 件商品
+<a id="__codelineno-16-13" name="__codelineno-16-13" href="#__codelineno-16-13"></a>
+<a id="__codelineno-16-14" name="__codelineno-16-14" href="#__codelineno-16-14"></a><span class="gu">## 复现步骤</span>
+<a id="__codelineno-16-15" name="__codelineno-16-15" href="#__codelineno-16-15"></a><span class="k">1.</span> 打开 App
+<a id="__codelineno-16-16" name="__codelineno-16-16" href="#__codelineno-16-16"></a><span class="k">2.</span> 点击购物车
+<a id="__codelineno-16-17" name="__codelineno-16-17" href="#__codelineno-16-17"></a><span class="k">3.</span> 点击&quot;去结算&quot;
+<a id="__codelineno-16-18" name="__codelineno-16-18" href="#__codelineno-16-18"></a><span class="k">4.</span> 选择支付宝支付
+<a id="__codelineno-16-19" name="__codelineno-16-19" href="#__codelineno-16-19"></a>
+<a id="__codelineno-16-20" name="__codelineno-16-20" href="#__codelineno-16-20"></a><span class="gu">## 预期结果</span>
+<a id="__codelineno-16-21" name="__codelineno-16-21" href="#__codelineno-16-21"></a>跳转到支付宝支付页
+<a id="__codelineno-16-22" name="__codelineno-16-22" href="#__codelineno-16-22"></a>
+<a id="__codelineno-16-23" name="__codelineno-16-23" href="#__codelineno-16-23"></a><span class="gu">## 实际结果</span>
+<a id="__codelineno-16-24" name="__codelineno-16-24" href="#__codelineno-16-24"></a>App 闪退，无任何提示
+<a id="__codelineno-16-25" name="__codelineno-16-25" href="#__codelineno-16-25"></a>
+<a id="__codelineno-16-26" name="__codelineno-16-26" href="#__codelineno-16-26"></a><span class="gu">## 复现概率</span>
+<a id="__codelineno-16-27" name="__codelineno-16-27" href="#__codelineno-16-27"></a>3/3，100%
+<a id="__codelineno-16-28" name="__codelineno-16-28" href="#__codelineno-16-28"></a>
+<a id="__codelineno-16-29" name="__codelineno-16-29" href="#__codelineno-16-29"></a><span class="gu">## 附件</span>
+<a id="__codelineno-16-30" name="__codelineno-16-30" href="#__codelineno-16-30"></a><span class="k">-</span><span class="w"> </span>视频：xxx
+<a id="__codelineno-16-31" name="__codelineno-16-31" href="#__codelineno-16-31"></a><span class="k">-</span><span class="w"> </span>日志：xxx
+<a id="__codelineno-16-32" name="__codelineno-16-32" href="#__codelineno-16-32"></a><span class="k">-</span><span class="w"> </span>截图：xxx
+<a id="__codelineno-16-33" name="__codelineno-16-33" href="#__codelineno-16-33"></a>
+<a id="__codelineno-16-34" name="__codelineno-16-34" href="#__codelineno-16-34"></a><span class="gu">## 严重等级：Critical</span>
+<a id="__codelineno-16-35" name="__codelineno-16-35" href="#__codelineno-16-35"></a><span class="gu">## 优先级：P0</span>
+</code></pre></div>
+<h3 id="65">6.5 缺陷管理工具<a class="headerlink" href="#65" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>工具</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Jira</strong></td>
+<td>国际主流，功能强</td>
+</tr>
+<tr>
+<td><strong>TAPD</strong></td>
+<td>腾讯，国内常用</td>
+</tr>
+<tr>
+<td><strong>禅道</strong></td>
+<td>国产，开源版免费</td>
+</tr>
+<tr>
+<td><strong>GitHub Issues</strong></td>
+<td>与代码集成</td>
+</tr>
+<tr>
+<td><strong>Trello</strong></td>
+<td>看板风格</td>
+</tr>
+<tr>
+<td><strong>Worktile / 蓝湖</strong></td>
+<td>国内 SaaS</td>
+</tr>
+</tbody>
+</table>
+<h3 id="66">6.6 缺陷描述要点<a class="headerlink" href="#66" title="Permanent link">&para;</a></h3>
+<ul>
+<li>标题清晰：让人一眼知道问题</li>
+<li>步骤明确：能复现</li>
+<li>预期/实际清晰</li>
+<li>附证据：截图、视频、日志</li>
+<li>严重等级和优先级评估准确</li>
+</ul>
+<hr />
+<h2 id="_9">七、测试度量<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
+<h3 id="71">7.1 常见度量指标<a class="headerlink" href="#71" title="Permanent link">&para;</a></h3>
+<p><strong>质量指标：</strong></p>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th>计算</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>用例通过率</td>
+<td>通过用例 / 总用例</td>
+</tr>
+<tr>
+<td>缺陷密度</td>
+<td>缺陷数 / 千行代码（KLOC）</td>
+</tr>
+<tr>
+<td>缺陷遗漏率</td>
+<td>线上 Bug / 总 Bug</td>
+</tr>
+<tr>
+<td>缺陷修复率</td>
+<td>已修复 / 总缺陷</td>
+</tr>
+<tr>
+<td>一次通过率</td>
+<td>首轮通过用例 / 总用例</td>
+</tr>
+</tbody>
+</table>
+<p><strong>效率指标：</strong></p>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>用例编写效率</td>
+<td>用例数 / 工时</td>
+</tr>
+<tr>
+<td>用例执行效率</td>
+<td>执行数 / 工时</td>
+</tr>
+<tr>
+<td>自动化覆盖率</td>
+<td>自动化用例 / 总用例</td>
+</tr>
+<tr>
+<td>Bug 发现速度</td>
+<td>Bug 数 / 测试天数</td>
+</tr>
+</tbody>
+</table>
+<p><strong>过程指标：</strong></p>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>需求覆盖率</td>
+<td>已覆盖需求 / 总需求</td>
+</tr>
+<tr>
+<td>测试覆盖率</td>
+<td>已执行用例 / 计划用例</td>
+</tr>
+<tr>
+<td>进度偏差</td>
+<td>实际 vs 计划</td>
+</tr>
+</tbody>
+</table>
+<h3 id="72">7.2 缺陷分布分析<a class="headerlink" href="#72" title="Permanent link">&para;</a></h3>
+<p>按模块、按严重度、按发现阶段统计，找出高发区。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>模块缺陷分布：
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>登录模块  ████████   20
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>支付模块  ███████████████  35   ← 重点关注
+<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>订单模块  ██████   18
+</code></pre></div>
+<h3 id="73">7.3 缺陷收敛趋势<a class="headerlink" href="#73" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>缺陷数
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>  ↑
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>50│ ●
+<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>40│   ●
+<a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>30│     ●
+<a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a>20│       ●
+<a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a>10│         ●  ●  ●        ← 收敛
+<a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a>  └─────────────────────→ 时间
+<a id="__codelineno-18-9" name="__codelineno-18-9" href="#__codelineno-18-9"></a>   d1  d2  d3  d4 d5 d6 d7
+</code></pre></div>
+<p>收敛说明软件趋于稳定，可以发布。</p>
+<hr />
+<h2 id="_10">八、测试团队与角色<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
+<h3 id="81">8.1 团队角色<a class="headerlink" href="#81" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>角色</th>
+<th>职责</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>测试经理</strong></td>
+<td>团队管理、流程制定</td>
+</tr>
+<tr>
+<td><strong>测试架构师</strong></td>
+<td>测试架构设计、工具选型</td>
+</tr>
+<tr>
+<td><strong>功能测试</strong></td>
+<td>手工执行用例、Bug 管理</td>
+</tr>
+<tr>
+<td><strong>接口测试</strong></td>
+<td>接口测试、自动化</td>
+</tr>
+<tr>
+<td><strong>自动化测试</strong></td>
+<td>框架开发、维护脚本</td>
+</tr>
+<tr>
+<td><strong>性能测试</strong></td>
+<td>性能压测、瓶颈分析</td>
+</tr>
+<tr>
+<td><strong>安全测试</strong></td>
+<td>安全扫描、渗透测试</td>
+</tr>
+<tr>
+<td><strong>测试开发（SDET）</strong></td>
+<td>测试工具、平台开发</td>
+</tr>
+</tbody>
+</table>
+<h3 id="82">8.2 团队协作<a class="headerlink" href="#82" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>产品 ↔ 开发 ↔ 测试 ↔ 运维
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>              ↑
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>            质量看护
+</code></pre></div>
+<p><strong>测试与开发协作：</strong>
+- 早期参与设计评审
+- 一起做技术方案讨论
+- 缺陷沟通基于事实
+- 协作而非对抗</p>
+<p><strong>测试与产品协作：</strong>
+- 一起评审需求
+- 反馈用户体验
+- 探索性测试发现的问题及时反馈</p>
+<h3 id="83">8.3 敏捷团队中的测试<a class="headerlink" href="#83" title="Permanent link">&para;</a></h3>
+<ul>
+<li>全员对质量负责</li>
+<li>测试不再是把关者，是质量教练</li>
+<li>持续测试、持续反馈</li>
+<li>自动化是关键</li>
+</ul>
+<hr />
+<h2 id="_11">九、测试人员职业发展<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
+<h3 id="91">9.1 能力模型<a class="headerlink" href="#91" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>                    ┌─ 业务理解力
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>                    │
+<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>基础：执行能力  ─→  ├─ 工具使用
+<a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>                    │
+<a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a>                    └─ 用例设计
+<a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a>
+<a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a>                    ┌─ 自动化能力
+<a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a>                    │
+<a id="__codelineno-20-9" name="__codelineno-20-9" href="#__codelineno-20-9"></a>进阶：技术能力  ─→  ├─ 性能/安全
+<a id="__codelineno-20-10" name="__codelineno-20-10" href="#__codelineno-20-10"></a>                    │
+<a id="__codelineno-20-11" name="__codelineno-20-11" href="#__codelineno-20-11"></a>                    └─ 框架开发
+<a id="__codelineno-20-12" name="__codelineno-20-12" href="#__codelineno-20-12"></a>
+<a id="__codelineno-20-13" name="__codelineno-20-13" href="#__codelineno-20-13"></a>                    ┌─ 团队管理
+<a id="__codelineno-20-14" name="__codelineno-20-14" href="#__codelineno-20-14"></a>                    │
+<a id="__codelineno-20-15" name="__codelineno-20-15" href="#__codelineno-20-15"></a>高阶：综合能力  ─→  ├─ 测试架构
+<a id="__codelineno-20-16" name="__codelineno-20-16" href="#__codelineno-20-16"></a>                    │
+<a id="__codelineno-20-17" name="__codelineno-20-17" href="#__codelineno-20-17"></a>                    └─ 质量战略
+</code></pre></div>
+<h3 id="92">9.2 发展路径<a class="headerlink" href="#92" title="Permanent link">&para;</a></h3>
+<p><strong>路径 1：技术专家</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>初级测试 → 中级测试 → 高级测试 → 测试专家 → 测试架构师
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>（手工）   （自动化）  （性能）    （工具）   （体系）
+</code></pre></div>
+<p><strong>路径 2：管理路线</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>测试工程师 → 高级测试 → 测试组长 → 测试经理 → 测试总监
+</code></pre></div>
+<p><strong>路径 3：测试开发（SDET）</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>功能测试 → 自动化 → 平台开发 → 测试架构师
+</code></pre></div>
+<p><strong>路径 4：转型</strong></p>
+<ul>
+<li>转产品经理（业务好的测试）</li>
+<li>转开发（技术好的测试）</li>
+<li>转项目管理（流程好的测试）</li>
+</ul>
+<h3 id="93">9.3 能力提升建议<a class="headerlink" href="#93" title="Permanent link">&para;</a></h3>
+<p><strong>基础（0-2 年）：</strong>
+- 掌握测试理论
+- 熟练 Postman、Fiddler
+- 会用 Jira 等工具
+- 学会 SQL 和 Linux 基础</p>
+<p><strong>进阶（2-5 年）：</strong>
+- 学一门编程（Python/Java）
+- 接口/UI 自动化
+- 性能测试（JMeter）
+- 学会 CI/CD</p>
+<p><strong>高阶（5 年+）：</strong>
+- 测试平台/框架开发
+- 多领域专长（性能 + 安全 + 自动化）
+- 团队管理与培养
+- 测试体系建设</p>
+<h3 id="94">9.4 推荐学习资源<a class="headerlink" href="#94" title="Permanent link">&para;</a></h3>
+<p><strong>书籍：</strong>
+- 《软件测试的艺术》
+- 《Google 软件测试之道》
+- 《探索式软件测试》
+- 《软件测试基础教程（ISTQB）》</p>
+<p><strong>网站/社区：</strong>
+- TesterHome（国内最大测试社区）
+- 51Testing
+- ISTQB 官方</p>
+<p><strong>认证：</strong>
+- ISTQB（国际软件测试认证）
+- CSTQB（中国软件测试认证）</p>
+<hr />
+<h2 id="_12">十、常见面试题与答案<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h2>
+<h3 id="101">10.1 基础概念<a class="headerlink" href="#101" title="Permanent link">&para;</a></h3>
+<p><strong>Q：测试用例由哪几部分组成？</strong></p>
+<p>A：用例编号、标题、模块、优先级、前置条件、测试步骤、预期结果、实际结果、执行状态、备注。</p>
+<p><strong>Q：黑盒、白盒、灰盒区别？</strong></p>
+<p>A：
+- 黑盒：不看代码，关注输入输出
+- 白盒：看代码，关注内部逻辑
+- 灰盒：部分了解，如接口测试</p>
+<p><strong>Q：测试用例设计方法有哪些？</strong></p>
+<p>A：等价类、边界值、判定表、因果图、状态迁移、场景法、错误推测、正交法。</p>
+<h3 id="102">10.2 流程相关<a class="headerlink" href="#102" title="Permanent link">&para;</a></h3>
+<p><strong>Q：拿到需求后怎么做测试？</strong></p>
+<p>A：
+1. 需求评审，确认理解
+2. 制定测试计划
+3. 设计用例并评审
+4. 准备环境和数据
+5. 执行测试，记录 Bug
+6. 缺陷回归
+7. 输出测试报告</p>
+<p><strong>Q：什么时候停止测试？</strong></p>
+<p>A：达到准出标准：
+- 用例执行完毕
+- P0/P1 缺陷全修复
+- 通过率达标（如 95%）
+- 性能指标达标
+- 评审通过</p>
+<h3 id="103">10.3 缺陷管理<a class="headerlink" href="#103" title="Permanent link">&para;</a></h3>
+<p><strong>Q：开发说不是 Bug 怎么办？</strong></p>
+<p>A：
+1. 重新阅读需求，确认是否符合
+2. 找产品确认预期行为
+3. 提供详细复现步骤和证据
+4. 仍有分歧 → 三方会议讨论
+5. 不情绪化，基于事实沟通</p>
+<p><strong>Q：上线后发现 Bug 怎么办？</strong></p>
+<p>A：
+1. 评估影响范围和严重度
+2. 紧急修复 or 回滚
+3. 上线热修复
+4. 复盘：为何漏测？流程/用例/技术？
+5. 补充用例，避免再次发生</p>
+<h3 id="104">10.4 思考题<a class="headerlink" href="#104" title="Permanent link">&para;</a></h3>
+<p><strong>Q：如何测试一个电梯？</strong></p>
+<p>A：从多维度切入：</p>
+<ul>
+<li>功能：上下行、停止、开关门、楼层选择</li>
+<li>性能：载重、响应速度、运行速度</li>
+<li>安全：超载报警、停电应急、紧急按钮、防夹门</li>
+<li>用户体验：按钮反馈、显示屏、语音</li>
+<li>兼容性：不同身高、轮椅、行李</li>
+<li>异常：钢丝断裂、火灾、地震</li>
+<li>压力：高峰期持续运行</li>
+</ul>
+<p><strong>Q：如何测试一个 App 登录功能？</strong></p>
+<p>A：</p>
+<ul>
+<li>功能正常：账号密码正确登录成功</li>
+<li>异常：账号不存在、密码错、空字段</li>
+<li>边界：账号/密码长度上下限</li>
+<li>业务：连续错误锁定、验证码触发</li>
+<li>安全：SQL 注入、暴力破解、明文传输</li>
+<li>兼容性：不同机型、系统版本</li>
+<li>性能：登录响应时间、并发</li>
+<li>网络：弱网、断网、切换网络</li>
+<li>UI：按钮位置、错误提示</li>
+<li>多端：同一账号多端登录</li>
+</ul>
+<p><strong>Q：测试一个杯子？</strong></p>
+<p>类似电梯，从功能、性能、安全、易用、外观、特殊场景全方位考虑。</p>
+<h3 id="105">10.5 自动化相关<a class="headerlink" href="#105" title="Permanent link">&para;</a></h3>
+<p><strong>Q：什么样的用例适合自动化？</strong></p>
+<p>A：
+- 稳定、重复执行（回归）
+- 频繁执行
+- 手工成本高
+- 数据量大
+- 接口、性能场景</p>
+<p><strong>不适合：</strong>
+- UI 频繁变动
+- 一次性
+- 探索性
+- 复杂主观判断（如美观）</p>
+<hr />
+<h2 id="_13">附录：测试人员成长清单<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h2>
+<p><strong>入职第一年：</strong>
+- [ ] 熟悉公司业务和产品
+- [ ] 掌握测试基础理论
+- [ ] 熟练使用 Postman / Fiddler
+- [ ] 能独立设计和执行用例
+- [ ] 学会 SQL 基础
+- [ ] 学会 Linux 常用命令
+- [ ] 了解 Git 基础</p>
+<p><strong>入职 2-3 年：</strong>
+- [ ] 掌握一门编程语言
+- [ ] 能写接口自动化用例
+- [ ] 了解性能测试
+- [ ] 了解基础安全测试
+- [ ] 能独立带小项目</p>
+<p><strong>入职 3-5 年：</strong>
+- [ ] 搭建自动化框架
+- [ ] 主导性能测试
+- [ ] 培养新人
+- [ ] 推动流程改进
+- [ ] 跨团队协作</p>
+<hr />
+<blockquote>
+<p><strong>测试是一门兼具技术与思维的学科</strong>，理论是地基，实战是楼层。本教程提供地基，需要在工作中持续实战，才能成为优秀的测试工程师。</p>
+</blockquote>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/yourname/test-tutorials" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "navigation.top", "navigation.instant", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

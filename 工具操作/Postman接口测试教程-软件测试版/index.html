@@ -1,0 +1,4835 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="面向软件测试工程师的系统化学习教程">
+      
+      
+        <meta name="author" content="Test Team">
+      
+      
+        <link rel="canonical" href="https://bingu7.github.io/test-tutorials/%E5%B7%A5%E5%85%B7%E6%93%8D%E4%BD%9C/Postman%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/">
+      
+      
+        <link rel="prev" href="../Fiddler%E6%8A%93%E5%8C%85%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/">
+      
+      
+        <link rel="next" href="../../%E4%B8%93%E9%A1%B9%E6%B5%8B%E8%AF%95/%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95%E5%AE%8C%E6%95%B4%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Postman 接口 - 软件测试知识体系</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#postman" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="软件测试知识体系" class="md-header__button md-logo" aria-label="软件测试知识体系" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            软件测试知识体系
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Postman 接口
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换到暗色模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切换到暗色模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换到浅色模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换到浅色模式" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/bingu7/test-tutorials" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    test-tutorials
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  首页
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/" class="md-tabs__link">
+          
+  
+  
+  基础理论
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../%E6%95%B0%E6%8D%AE%E5%BA%93SQL%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-tabs__link">
+          
+  
+  
+  工具操作
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../%E4%B8%93%E9%A1%B9%E6%B5%8B%E8%AF%95/%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95%E5%AE%8C%E6%95%B4%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-tabs__link">
+          
+  
+  
+  专项测试
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/Python%2BRequests%2BAllure%E6%8E%A5%E5%8F%A3%E8%87%AA%E5%8A%A8%E5%8C%96%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-tabs__link">
+          
+  
+  
+  自动化测试
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90/Jenkins-CICD%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-tabs__link">
+          
+  
+  
+  持续集成
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="软件测试知识体系" class="md-nav__button md-logo" aria-label="软件测试知识体系" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    软件测试知识体系
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/bingu7/test-tutorials" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    test-tutorials
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    基础理论
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    基础理论
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    软件测试理论
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    工具操作
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    工具操作
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%95%B0%E6%8D%AE%E5%BA%93SQL%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数据库 SQL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Linux%E5%AE%9E%E7%94%A8%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux 实用
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Git%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Git 版本控制
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Docker%E5%AE%B9%E5%99%A8%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docker 容器
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Fiddler%E6%8A%93%E5%8C%85%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fiddler 抓包
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Postman 接口
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Postman 接口
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        目录
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#postman_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一、Postman 简介
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="一、Postman 简介">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-postman" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 什么是 Postman
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-postman" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 Postman 能做什么
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-postman-vs-fiddler" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3 Postman vs Fiddler
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        二、安装与账号配置
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="二、安装与账号配置">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 下载安装
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 注册登录
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 基础设置
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        三、界面布局详解
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="三、界面布局详解">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 左侧侧边栏
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 中间核心区
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 响应区关键信息
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        四、发送第一个请求
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="四、发送第一个请求">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 准备工作
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 操作步骤
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 查看响应
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4 保存请求
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        五、请求详解
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="五、请求详解">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-params" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 Params（查询参数）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-headers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 Headers（请求头）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-body" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3 Body（请求体）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.3 Body（请求体）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#531-none" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3.1 none
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#532-form-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3.2 form-data
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#533-x-www-form-urlencoded" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3.3 x-www-form-urlencoded
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#534-raw" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3.4 raw
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#535-binary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3.5 binary
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#536-graphql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3.6 GraphQL
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54-authorization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.4 Authorization（鉴权）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#55-cookies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.5 Cookies 管理
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        六、环境与变量管理
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="六、环境与变量管理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 为什么需要变量
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 变量作用域（由低到高）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3 创建环境变量
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#64" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4 全局变量
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#65" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.5 变量赋值的几种方式
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#collection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        七、Collection 集合管理
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="七、Collection 集合管理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-collection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1 Collection 是什么
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-collection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2 创建 Collection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.3 文件夹组织
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#74-collection-runner" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.4 Collection Runner（集合运行器）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#75" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.5 接口顺序与依赖
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        八、Tests 断言脚本
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="八、Tests 断言脚本">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.1 编写位置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.2 常用断言模板
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.2 常用断言模板">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#821" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.2.1 状态码断言
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#822" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.2.2 响应时间断言
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#823" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.2.3 响应体包含特定字符串
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#824-json" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.2.4 JSON 字段断言
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#825" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.2.5 响应头断言
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#826-json-schema" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.2.6 JSON Schema 校验
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#83" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.3 提取数据传递给下一个请求
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#84" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.4 控制流程
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#85" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.5 输出调试信息
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pre-request-scripts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        九、Pre-request Scripts 前置脚本
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="九、Pre-request Scripts 前置脚本">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.1 执行时机
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#92" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.2 常用示例
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9.2 常用示例">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#921" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.2.1 生成时间戳
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#922-uuid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.2.2 生成 UUID
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#923-md5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.2.3 计算 MD5 签名
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#924-token" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.2.4 调用其他接口获取 Token
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        十、数据驱动测试
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="十、数据驱动测试">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#101" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.1 应用场景
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#102" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.2 准备数据文件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#103" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.3 在请求中引用
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#104" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.4 执行数据驱动测试
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mock-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        十一、Mock Server 模拟服务
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="十一、Mock Server 模拟服务">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#111" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.1 应用场景
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#112-mock-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.2 创建 Mock Server
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#113" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.3 智能匹配
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#newman" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        十二、Newman 命令行执行
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="十二、Newman 命令行执行">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#121-newman" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.1 Newman 是什么
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#122-newman" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.2 安装 Newman
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#123-collection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.3 导出 Collection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#124" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.4 执行命令
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#125-cicd-github-actions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.5 CI/CD 集成示例（GitHub Actions）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        十三、接口测试实战案例
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="十三、接口测试实战案例">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#131-token" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13.1 案例一：登录 → 提取 Token → 查询用户信息
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#132" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13.2 案例二：参数化登录测试（数据驱动）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#133" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13.3 案例三：完整下单流程
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#134" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13.4 案例四：异常场景测试
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        十四、团队协作
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="十四、团队协作">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#141-workspace" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14.1 Workspace 工作空间
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#142" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14.2 同步与分享
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#143" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14.3 版本控制
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#144" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14.4 导出与备份
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        十五、常见问题排查
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="十五、常见问题排查">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#151-401-403" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15.1 接口返回 401 / 403
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#152-404" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15.2 接口返回 404
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#153" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15.3 变量没有生效
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#154-ssl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15.4 SSL 证书错误
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#155" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15.5 文件上传失败
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#156-collection-runner" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15.6 Collection Runner 卡住不动
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#157" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15.7 中文乱码
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#158-postman" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15.8 Postman 不能访问内网接口
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        十六、进阶建议
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="十六、进阶建议">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#161" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16.1 学习路径
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#162" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16.2 配套工具推荐
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#163" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16.3 最佳实践
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        附录：参考资料
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    专项测试
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    专项测试
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%B8%93%E9%A1%B9%E6%B5%8B%E8%AF%95/%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95%E5%AE%8C%E6%95%B4%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    接口测试方法论
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%B8%93%E9%A1%B9%E6%B5%8B%E8%AF%95/JMeter%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JMeter 性能测试
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    自动化测试
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    自动化测试
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/Python%2BRequests%2BAllure%E6%8E%A5%E5%8F%A3%E8%87%AA%E5%8A%A8%E5%8C%96%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python 接口自动化
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/Selenium-Web%E8%87%AA%E5%8A%A8%E5%8C%96%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Selenium Web 自动化
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/Appium-App%E8%87%AA%E5%8A%A8%E5%8C%96%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Appium App 自动化
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    持续集成
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    持续集成
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90/Jenkins-CICD%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Jenkins CI/CD
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        目录
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#postman_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一、Postman 简介
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="一、Postman 简介">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-postman" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 什么是 Postman
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-postman" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 Postman 能做什么
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-postman-vs-fiddler" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3 Postman vs Fiddler
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        二、安装与账号配置
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="二、安装与账号配置">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 下载安装
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 注册登录
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 基础设置
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        三、界面布局详解
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="三、界面布局详解">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 左侧侧边栏
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 中间核心区
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 响应区关键信息
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        四、发送第一个请求
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="四、发送第一个请求">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 准备工作
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 操作步骤
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 查看响应
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4 保存请求
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        五、请求详解
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="五、请求详解">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-params" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 Params（查询参数）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-headers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 Headers（请求头）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-body" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3 Body（请求体）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.3 Body（请求体）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#531-none" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3.1 none
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#532-form-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3.2 form-data
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#533-x-www-form-urlencoded" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3.3 x-www-form-urlencoded
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#534-raw" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3.4 raw
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#535-binary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3.5 binary
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#536-graphql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3.6 GraphQL
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54-authorization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.4 Authorization（鉴权）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#55-cookies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.5 Cookies 管理
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        六、环境与变量管理
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="六、环境与变量管理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 为什么需要变量
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 变量作用域（由低到高）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3 创建环境变量
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#64" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4 全局变量
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#65" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.5 变量赋值的几种方式
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#collection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        七、Collection 集合管理
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="七、Collection 集合管理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-collection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1 Collection 是什么
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-collection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2 创建 Collection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.3 文件夹组织
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#74-collection-runner" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.4 Collection Runner（集合运行器）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#75" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.5 接口顺序与依赖
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        八、Tests 断言脚本
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="八、Tests 断言脚本">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.1 编写位置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.2 常用断言模板
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.2 常用断言模板">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#821" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.2.1 状态码断言
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#822" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.2.2 响应时间断言
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#823" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.2.3 响应体包含特定字符串
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#824-json" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.2.4 JSON 字段断言
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#825" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.2.5 响应头断言
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#826-json-schema" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.2.6 JSON Schema 校验
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#83" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.3 提取数据传递给下一个请求
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#84" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.4 控制流程
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#85" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.5 输出调试信息
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pre-request-scripts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        九、Pre-request Scripts 前置脚本
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="九、Pre-request Scripts 前置脚本">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.1 执行时机
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#92" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.2 常用示例
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9.2 常用示例">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#921" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.2.1 生成时间戳
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#922-uuid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.2.2 生成 UUID
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#923-md5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.2.3 计算 MD5 签名
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#924-token" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.2.4 调用其他接口获取 Token
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        十、数据驱动测试
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="十、数据驱动测试">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#101" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.1 应用场景
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#102" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.2 准备数据文件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#103" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.3 在请求中引用
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#104" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.4 执行数据驱动测试
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mock-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        十一、Mock Server 模拟服务
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="十一、Mock Server 模拟服务">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#111" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.1 应用场景
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#112-mock-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.2 创建 Mock Server
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#113" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.3 智能匹配
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#newman" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        十二、Newman 命令行执行
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="十二、Newman 命令行执行">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#121-newman" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.1 Newman 是什么
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#122-newman" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.2 安装 Newman
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#123-collection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.3 导出 Collection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#124" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.4 执行命令
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#125-cicd-github-actions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.5 CI/CD 集成示例（GitHub Actions）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        十三、接口测试实战案例
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="十三、接口测试实战案例">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#131-token" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13.1 案例一：登录 → 提取 Token → 查询用户信息
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#132" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13.2 案例二：参数化登录测试（数据驱动）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#133" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13.3 案例三：完整下单流程
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#134" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13.4 案例四：异常场景测试
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        十四、团队协作
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="十四、团队协作">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#141-workspace" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14.1 Workspace 工作空间
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#142" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14.2 同步与分享
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#143" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14.3 版本控制
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#144" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14.4 导出与备份
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        十五、常见问题排查
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="十五、常见问题排查">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#151-401-403" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15.1 接口返回 401 / 403
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#152-404" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15.2 接口返回 404
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#153" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15.3 变量没有生效
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#154-ssl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15.4 SSL 证书错误
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#155" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15.5 文件上传失败
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#156-collection-runner" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15.6 Collection Runner 卡住不动
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#157" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15.7 中文乱码
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#158-postman" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15.8 Postman 不能访问内网接口
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        十六、进阶建议
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="十六、进阶建议">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#161" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16.1 学习路径
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#162" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16.2 配套工具推荐
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#163" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16.3 最佳实践
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        附录：参考资料
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="postman">Postman 接口测试教程（软件测试人员专用）<a class="headerlink" href="#postman" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p>本教程面向软件测试工程师，系统讲解 Postman 在接口测试中的应用，覆盖从基础请求到自动化测试、数据驱动、CI/CD 集成的完整链路。</p>
+</blockquote>
+<hr />
+<h2 id="_1">目录<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="#一postman-简介">一、Postman 简介</a></li>
+<li><a href="#二安装与账号配置">二、安装与账号配置</a></li>
+<li><a href="#三界面布局详解">三、界面布局详解</a></li>
+<li><a href="#四发送第一个请求">四、发送第一个请求</a></li>
+<li><a href="#五请求详解">五、请求详解</a></li>
+<li><a href="#六环境与变量管理">六、环境与变量管理</a></li>
+<li><a href="#七collection-集合管理">七、Collection 集合管理</a></li>
+<li><a href="#八tests-断言脚本">八、Tests 断言脚本</a></li>
+<li><a href="#九pre-request-scripts-前置脚本">九、Pre-request Scripts 前置脚本</a></li>
+<li><a href="#十数据驱动测试">十、数据驱动测试</a></li>
+<li><a href="#十一mock-server-模拟服务">十一、Mock Server 模拟服务</a></li>
+<li><a href="#十二newman-命令行执行">十二、Newman 命令行执行</a></li>
+<li><a href="#十三接口测试实战案例">十三、接口测试实战案例</a></li>
+<li><a href="#十四团队协作">十四、团队协作</a></li>
+<li><a href="#十五常见问题排查">十五、常见问题排查</a></li>
+</ul>
+<hr />
+<h2 id="postman_1">一、Postman 简介<a class="headerlink" href="#postman_1" title="Permanent link">&para;</a></h2>
+<h3 id="11-postman">1.1 什么是 Postman<a class="headerlink" href="#11-postman" title="Permanent link">&para;</a></h3>
+<p>Postman 是一款功能强大的 <strong>API 开发与测试平台</strong>，最初是 Chrome 浏览器扩展，现已发展为支持 Windows/Mac/Linux 的桌面应用和 Web 版应用。</p>
+<h3 id="12-postman">1.2 Postman 能做什么<a class="headerlink" href="#12-postman" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>接口调试</td>
+<td>发送 HTTP/HTTPS 请求，查看响应</td>
+</tr>
+<tr>
+<td>接口测试</td>
+<td>编写断言脚本，自动化验证接口</td>
+</tr>
+<tr>
+<td>接口文档</td>
+<td>自动生成接口文档并分享</td>
+</tr>
+<tr>
+<td>Mock 服务</td>
+<td>模拟接口返回，前后端并行开发</td>
+</tr>
+<tr>
+<td>接口监控</td>
+<td>定时执行接口，监控可用性</td>
+</tr>
+<tr>
+<td>团队协作</td>
+<td>Workspace 共享接口集合</td>
+</tr>
+<tr>
+<td>CI/CD 集成</td>
+<td>通过 Newman 集成到流水线</td>
+</tr>
+<tr>
+<td>性能测试</td>
+<td>内置基础的性能测试能力</td>
+</tr>
+</tbody>
+</table>
+<h3 id="13-postman-vs-fiddler">1.3 Postman vs Fiddler<a class="headerlink" href="#13-postman-vs-fiddler" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>Postman</th>
+<th>Fiddler</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>定位</td>
+<td>主动构造请求</td>
+<td>被动抓取请求</td>
+</tr>
+<tr>
+<td>适用场景</td>
+<td>接口测试、自动化</td>
+<td>抓包分析、Mock</td>
+</tr>
+<tr>
+<td>协议层级</td>
+<td>HTTP/HTTPS 应用层</td>
+<td>HTTP/HTTPS 应用层</td>
+</tr>
+<tr>
+<td>脚本能力</td>
+<td>强（JavaScript）</td>
+<td>中（FiddlerScript）</td>
+</tr>
+<tr>
+<td>团队协作</td>
+<td>强（云同步）</td>
+<td>弱（本地）</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>测试人员建议：</strong> 两者搭配使用。Fiddler 用于抓取已有请求 → 导出/复制 → 在 Postman 中重构、参数化、写断言。</p>
+</blockquote>
+<hr />
+<h2 id="_2">二、安装与账号配置<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h3 id="21">2.1 下载安装<a class="headerlink" href="#21" title="Permanent link">&para;</a></h3>
+<ol>
+<li>访问官网：<code>https://www.postman.com/downloads/</code></li>
+<li>选择对应操作系统的版本下载</li>
+<li>双击安装包，全程默认即可</li>
+</ol>
+<blockquote>
+<p>Postman 也提供 Web 版（<code>https://web.postman.co</code>），但功能受限，桌面版功能更全。</p>
+</blockquote>
+<h3 id="22">2.2 注册登录<a class="headerlink" href="#22" title="Permanent link">&para;</a></h3>
+<ul>
+<li>首次启动建议注册账号，可享受：</li>
+<li>云端同步 Collection、Environment</li>
+<li>多设备数据互通</li>
+<li>团队协作功能</li>
+<li>也可点击底部 <code>Skip and go to the app</code> 离线使用（数据仅保存在本地）</li>
+</ul>
+<h3 id="23">2.3 基础设置<a class="headerlink" href="#23" title="Permanent link">&para;</a></h3>
+<p>点击右上角齿轮图标 → <code>Settings</code>：</p>
+<p><strong>General 标签：</strong></p>
+<ul>
+<li><code>Request timeout in ms</code>：请求超时时间（默认 0 即无限制，建议设为 30000）</li>
+<li><code>SSL certificate verification</code>：SSL 证书校验（测试自签名证书时建议关闭）</li>
+<li><code>Send anonymous usage data to Postman</code>：匿名数据上报（按需关闭）</li>
+<li><code>Working directory</code>：工作目录（用于上传文件，建议设置固定路径）</li>
+<li><code>Allow reading files outside working directory</code>：允许读取工作目录外文件</li>
+</ul>
+<p><strong>Themes：</strong> 可切换深色/浅色主题</p>
+<p><strong>Proxy：</strong> 配置代理，如需经过 Fiddler 抓包：
+- 勾选 <code>Use custom proxy configuration</code>
+- Proxy server: <code>127.0.0.1:8888</code></p>
+<hr />
+<h2 id="_3">三、界面布局详解<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>┌─────────────────────────────────────────────────────────────┐
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>│ 顶部菜单栏 / Workspace 切换                                    │
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>├──────────────┬──────────────────────────────────────────────┤
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>│              │ ┌──────────────────────────────────────────┐ │
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>│ 左侧侧边栏     │ │  Tab 区：请求标签页                       │ │
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>│ Collections  │ ├──────────────────────────────────────────┤ │
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>│ Environments │ │  请求 URL 栏 + Method + Send 按钮          │ │
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>│ History      │ ├──────────────────────────────────────────┤ │
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>│ APIs         │ │  请求参数区                                │ │
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>│ Mock Servers │ │  Params / Headers / Body / Auth /         │ │
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>│              │ │  Pre-request Script / Tests              │ │
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>│              │ ├──────────────────────────────────────────┤ │
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>│              │ │  响应展示区                                │ │
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>│              │ │  Body / Cookies / Headers / Test Results │ │
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>│              │ └──────────────────────────────────────────┘ │
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>└──────────────┴──────────────────────────────────────────────┘
+</code></pre></div>
+<h3 id="31">3.1 左侧侧边栏<a class="headerlink" href="#31" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>模块</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Collections</code></td>
+<td>接口集合（最核心，所有接口按项目组织在此）</td>
+</tr>
+<tr>
+<td><code>Environments</code></td>
+<td>环境变量管理（开发/测试/生产）</td>
+</tr>
+<tr>
+<td><code>Mock Servers</code></td>
+<td>模拟服务器</td>
+</tr>
+<tr>
+<td><code>Monitors</code></td>
+<td>接口监控任务</td>
+</tr>
+<tr>
+<td><code>History</code></td>
+<td>请求历史记录</td>
+</tr>
+<tr>
+<td><code>APIs</code></td>
+<td>API 设计（OpenAPI/Swagger）</td>
+</tr>
+<tr>
+<td><code>Flows</code></td>
+<td>可视化接口编排（新功能）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="32">3.2 中间核心区<a class="headerlink" href="#32" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>请求方法下拉框</strong>：GET / POST / PUT / PATCH / DELETE / HEAD / OPTIONS 等</li>
+<li><strong>URL 输入框</strong>：支持变量 <code>{{base_url}}/api/login</code></li>
+<li><strong>Send 按钮</strong>：发送请求（也可下拉选择 <code>Send and Download</code> 下载响应）</li>
+</ul>
+<h3 id="33">3.3 响应区关键信息<a class="headerlink" href="#33" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Status</strong>：HTTP 状态码</li>
+<li><strong>Time</strong>：响应耗时</li>
+<li><strong>Size</strong>：响应大小</li>
+<li><strong>Cookies</strong>：响应 Cookie</li>
+<li><strong>Headers</strong>：响应头数量</li>
+</ul>
+<hr />
+<h2 id="_4">四、发送第一个请求<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<p>以一个开放 API 为例，演示基础流程。</p>
+<h3 id="41">4.1 准备工作<a class="headerlink" href="#41" title="Permanent link">&para;</a></h3>
+<p>测试目标接口（公开测试 API）：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>GET https://jsonplaceholder.typicode.com/users/1
+</code></pre></div>
+<h3 id="42">4.2 操作步骤<a class="headerlink" href="#42" title="Permanent link">&para;</a></h3>
+<ol>
+<li>点击左上角 <code>+</code> 新建一个 Tab</li>
+<li>方法选择 <code>GET</code></li>
+<li>URL 输入：<code>https://jsonplaceholder.typicode.com/users/1</code></li>
+<li>点击 <code>Send</code></li>
+</ol>
+<h3 id="43">4.3 查看响应<a class="headerlink" href="#43" title="Permanent link">&para;</a></h3>
+<p>响应区会显示：</p>
+<ul>
+<li><strong>Status：</strong> <code>200 OK</code></li>
+<li><strong>Time：</strong> 如 <code>120 ms</code></li>
+<li><strong>Body：</strong> JSON 格式的用户数据</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="p">{</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Leanne Graham&quot;</span><span class="p">,</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">  </span><span class="nt">&quot;username&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Bret&quot;</span><span class="p">,</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">  </span><span class="nt">&quot;email&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Sincere@april.biz&quot;</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="p">}</span>
+</code></pre></div>
+<p>切换 Body 显示模式：
+- <code>Pretty</code>：格式化展示（推荐）
+- <code>Raw</code>：原始字符串
+- <code>Preview</code>：预览（HTML 渲染）
+- <code>Visualize</code>：可视化图表（需脚本支持）</p>
+<h3 id="44">4.4 保存请求<a class="headerlink" href="#44" title="Permanent link">&para;</a></h3>
+<p>请求只有保存到 Collection 才能持久化：</p>
+<ol>
+<li>点击右上角 <code>Save</code> 按钮</li>
+<li>输入请求名称：<code>查询用户详情</code></li>
+<li>选择或新建 Collection（如 <code>用户中心接口</code>）</li>
+<li>点击 <code>Save</code></li>
+</ol>
+<hr />
+<h2 id="_5">五、请求详解<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<h3 id="51-params">5.1 Params（查询参数）<a class="headerlink" href="#51-params" title="Permanent link">&para;</a></h3>
+<p>URL 中 <code>?</code> 后面的部分，如 <code>?page=1&amp;size=10</code>。</p>
+<p><strong>两种填写方式：</strong></p>
+<ul>
+<li>方式 A：直接在 URL 中拼接</li>
+<li>方式 B：在 <code>Params</code> 标签下以 Key-Value 形式填写（推荐，可勾选启用/禁用）</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>page</td>
+<td>1</td>
+<td>页码</td>
+</tr>
+<tr>
+<td>size</td>
+<td>10</td>
+<td>每页数量</td>
+</tr>
+<tr>
+<td>keyword</td>
+<td>postman</td>
+<td>搜索词</td>
+</tr>
+</tbody>
+</table>
+<h3 id="52-headers">5.2 Headers（请求头）<a class="headerlink" href="#52-headers" title="Permanent link">&para;</a></h3>
+<p>常见 Header：</p>
+<table>
+<thead>
+<tr>
+<th>Header</th>
+<th>含义</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Content-Type</code></td>
+<td>请求体类型</td>
+<td><code>application/json</code></td>
+</tr>
+<tr>
+<td><code>Authorization</code></td>
+<td>鉴权信息</td>
+<td><code>Bearer eyJhbGc...</code></td>
+</tr>
+<tr>
+<td><code>User-Agent</code></td>
+<td>客户端标识</td>
+<td><code>PostmanRuntime/7.x</code></td>
+</tr>
+<tr>
+<td><code>Accept</code></td>
+<td>接受的响应类型</td>
+<td><code>application/json</code></td>
+</tr>
+<tr>
+<td><code>Cookie</code></td>
+<td>会话 Cookie</td>
+<td><code>sessionId=abc123</code></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Postman 会自动添加一些 Header（如 <code>Postman-Token</code>、<code>Host</code>），可点击 <code>hidden</code> 查看。</p>
+</blockquote>
+<h3 id="53-body">5.3 Body（请求体）<a class="headerlink" href="#53-body" title="Permanent link">&para;</a></h3>
+<p>POST/PUT 等请求需要携带 Body，Postman 支持 6 种类型：</p>
+<h4 id="531-none">5.3.1 none<a class="headerlink" href="#531-none" title="Permanent link">&para;</a></h4>
+<p>无请求体</p>
+<h4 id="532-form-data">5.3.2 form-data<a class="headerlink" href="#532-form-data" title="Permanent link">&para;</a></h4>
+<p>表单格式，支持文件上传，常用于文件接口：</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Value</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>username</td>
+<td>testuser</td>
+<td>Text</td>
+</tr>
+<tr>
+<td>avatar</td>
+<td>(选择文件)</td>
+<td>File</td>
+</tr>
+</tbody>
+</table>
+<p>请求 Content-Type 自动为 <code>multipart/form-data</code></p>
+<h4 id="533-x-www-form-urlencoded">5.3.3 x-www-form-urlencoded<a class="headerlink" href="#533-x-www-form-urlencoded" title="Permanent link">&para;</a></h4>
+<p>URL 编码格式，传统表单提交：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>username=testuser&amp;password=123456
+</code></pre></div>
+<p>Content-Type 自动为 <code>application/x-www-form-urlencoded</code></p>
+<h4 id="534-raw">5.3.4 raw<a class="headerlink" href="#534-raw" title="Permanent link">&para;</a></h4>
+<p>原始数据，可选子类型：JSON / XML / HTML / Text / JavaScript</p>
+<p><strong>最常用：raw + JSON</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="p">{</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span><span class="nt">&quot;username&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;testuser&quot;</span><span class="p">,</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">  </span><span class="nt">&quot;password&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;123456&quot;</span><span class="p">,</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">  </span><span class="nt">&quot;remember&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="p">}</span>
+</code></pre></div>
+<h4 id="535-binary">5.3.5 binary<a class="headerlink" href="#535-binary" title="Permanent link">&para;</a></h4>
+<p>二进制文件，用于上传单个文件</p>
+<h4 id="536-graphql">5.3.6 GraphQL<a class="headerlink" href="#536-graphql" title="Permanent link">&para;</a></h4>
+<p>GraphQL 查询专用格式</p>
+<h3 id="54-authorization">5.4 Authorization（鉴权）<a class="headerlink" href="#54-authorization" title="Permanent link">&para;</a></h3>
+<p>Postman 内置多种鉴权方式，选中后自动添加对应 Header：</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>No Auth</code></td>
+<td>无鉴权</td>
+</tr>
+<tr>
+<td><code>Basic Auth</code></td>
+<td>用户名+密码 Base64</td>
+</tr>
+<tr>
+<td><code>Bearer Token</code></td>
+<td>Token 鉴权（最常见）</td>
+</tr>
+<tr>
+<td><code>OAuth 1.0</code></td>
+<td>OAuth 1.0 协议</td>
+</tr>
+<tr>
+<td><code>OAuth 2.0</code></td>
+<td>OAuth 2.0 协议</td>
+</tr>
+<tr>
+<td><code>API Key</code></td>
+<td>API Key 鉴权</td>
+</tr>
+<tr>
+<td><code>Digest Auth</code></td>
+<td>摘要鉴权</td>
+</tr>
+<tr>
+<td><code>AWS Signature</code></td>
+<td>AWS 签名</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Bearer Token 示例：</strong></p>
+<ul>
+<li>Type 选择 <code>Bearer Token</code></li>
+<li>Token 输入：<code>eyJhbGciOiJIUzI1NiIs...</code></li>
+<li>请求会自动添加 Header：<code>Authorization: Bearer eyJhbGciOiJIUzI1NiIs...</code></li>
+</ul>
+<h3 id="55-cookies">5.5 Cookies 管理<a class="headerlink" href="#55-cookies" title="Permanent link">&para;</a></h3>
+<p>点击 URL 栏右侧 <code>Cookies</code> 链接，进入 Cookie 管理器：</p>
+<ul>
+<li>按域名查看/编辑/删除 Cookie</li>
+<li>手动添加 Cookie 进行测试</li>
+<li>测试 Session 时常用</li>
+</ul>
+<hr />
+<h2 id="_6">六、环境与变量管理<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<h3 id="61">6.1 为什么需要变量<a class="headerlink" href="#61" title="Permanent link">&para;</a></h3>
+<p>接口测试中，同一组接口需要在 <strong>不同环境（开发/测试/预发布/生产）</strong> 执行，URL、Token、用户账号都不一样。变量可避免重复修改。</p>
+<h3 id="62">6.2 变量作用域（由低到高）<a class="headerlink" href="#62" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>Global（全局） &lt; Collection（集合） &lt; Environment（环境） &lt; Data（数据） &lt; Local（本地）
+</code></pre></div>
+<p>层级越高优先级越高，同名变量高层级覆盖低层级。</p>
+<blockquote>
+<p><strong>Data vs Local 说明：</strong>
+- <strong>Data（数据变量）</strong>：从外部 CSV/JSON 文件加载，在 Collection Runner 数据驱动迭代期间有效
+- <strong>Local（本地变量）</strong>：通过 <code>pm.variables.set("key", "val")</code> 在脚本中设置，仅当前请求生效
+- 优先级 Local &gt; Data，但 Data 在整个迭代周期内持久，Local 仅单次请求。两者都高于 Environment。</p>
+</blockquote>
+<h3 id="63">6.3 创建环境变量<a class="headerlink" href="#63" title="Permanent link">&para;</a></h3>
+<p><strong>Step 1：新建环境</strong></p>
+<ol>
+<li>左侧 <code>Environments</code> → <code>+</code> → 命名为 <code>测试环境</code></li>
+<li>添加变量：</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Type</th>
+<th>Initial Value</th>
+<th>Current Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>base_url</td>
+<td>default</td>
+<td>https://api-test.example.com</td>
+<td>https://api-test.example.com</td>
+</tr>
+<tr>
+<td>username</td>
+<td>default</td>
+<td>testuser</td>
+<td>testuser</td>
+</tr>
+<tr>
+<td>password</td>
+<td>secret</td>
+<td>123456</td>
+<td>123456</td>
+</tr>
+<tr>
+<td>token</td>
+<td>default</td>
+<td>(空)</td>
+<td>(空)</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Type 选择 secret</strong> 可隐藏敏感字段（密码、Token），团队共享时不暴露明文。</p>
+<p><strong>Initial Value 与 Current Value 区别：</strong> Initial 是分享时的默认值；Current 是本地实际生效值。</p>
+</blockquote>
+<ol>
+<li>点击 <code>Save</code> 保存</li>
+</ol>
+<p><strong>Step 2：激活环境</strong></p>
+<p>右上角环境下拉框选择 <code>测试环境</code>。</p>
+<p><strong>Step 3：使用变量</strong></p>
+<p>在 URL、Headers、Body 中使用 <code>{{变量名}}</code> 语法：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>URL:  {{base_url}}/api/login
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>Body: {&quot;username&quot;:&quot;{{username}}&quot;,&quot;password&quot;:&quot;{{password}}&quot;}
+</code></pre></div>
+<p>变量值会在发送请求时自动替换。</p>
+<h3 id="64">6.4 全局变量<a class="headerlink" href="#64" title="Permanent link">&para;</a></h3>
+<p><code>Environments</code> → <code>Globals</code> → 添加变量，所有环境都能访问。</p>
+<p>适合放：
+- 工具类变量（如 UUID 生成函数对应的值）
+- 不区分环境的固定值</p>
+<h3 id="65">6.5 变量赋值的几种方式<a class="headerlink" href="#65" title="Permanent link">&para;</a></h3>
+<p><strong>方式 1：界面手动设置</strong>（如上述）</p>
+<p><strong>方式 2：在脚本中动态设置</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1">// 设置环境变量</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="nx">pm</span><span class="p">.</span><span class="nx">environment</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s2">&quot;token&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;eyJhbGci...&quot;</span><span class="p">);</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="c1">// 设置全局变量</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="nx">pm</span><span class="p">.</span><span class="nx">globals</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s2">&quot;requestId&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;12345&quot;</span><span class="p">);</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="c1">// 设置 Collection 变量</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="nx">pm</span><span class="p">.</span><span class="nx">collectionVariables</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s2">&quot;nodeId&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;abc&quot;</span><span class="p">);</span>
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="c1">// 设置局部变量（仅当前请求生效）</span>
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="nx">pm</span><span class="p">.</span><span class="nx">variables</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s2">&quot;temp&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;value&quot;</span><span class="p">);</span>
+</code></pre></div>
+<p><strong>方式 3：从响应中提取</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1">// 解析 JSON 响应</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="kd">const</span><span class="w"> </span><span class="nx">responseJson</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">pm</span><span class="p">.</span><span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="c1">// 提取 token 并保存</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="nx">pm</span><span class="p">.</span><span class="nx">environment</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s2">&quot;token&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">responseJson</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">token</span><span class="p">);</span>
+</code></pre></div>
+<hr />
+<h2 id="collection">七、Collection 集合管理<a class="headerlink" href="#collection" title="Permanent link">&para;</a></h2>
+<h3 id="71-collection">7.1 Collection 是什么<a class="headerlink" href="#71-collection" title="Permanent link">&para;</a></h3>
+<p>Collection 是接口的逻辑分组容器，类似文件夹。一个项目通常对应一个 Collection。</p>
+<h3 id="72-collection">7.2 创建 Collection<a class="headerlink" href="#72-collection" title="Permanent link">&para;</a></h3>
+<ol>
+<li>左侧 <code>Collections</code> → <code>+ Create Collection</code></li>
+<li>命名：如 <code>电商系统-接口测试</code></li>
+<li>可选配置：</li>
+<li><strong>Authorization</strong>：集合级鉴权，所有子请求继承</li>
+<li><strong>Pre-request Scripts</strong>：集合级前置脚本（每个请求执行前都运行）</li>
+<li><strong>Tests</strong>：集合级测试脚本</li>
+<li><strong>Variables</strong>：集合级变量</li>
+</ol>
+<h3 id="73">7.3 文件夹组织<a class="headerlink" href="#73" title="Permanent link">&para;</a></h3>
+<p>在 Collection 下创建子文件夹按模块分类：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>电商系统-接口测试/
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>├── 01_用户模块/
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>│   ├── 注册
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>│   ├── 登录
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>│   └── 查询用户信息
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>├── 02_商品模块/
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>│   ├── 商品列表
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>│   └── 商品详情
+<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>├── 03_订单模块/
+<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>│   ├── 创建订单
+<a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>│   ├── 支付订单
+<a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a>│   └── 取消订单
+</code></pre></div>
+<h3 id="74-collection-runner">7.4 Collection Runner（集合运行器）<a class="headerlink" href="#74-collection-runner" title="Permanent link">&para;</a></h3>
+<p>批量执行整个 Collection 或文件夹的所有请求：</p>
+<ol>
+<li>点击 Collection 右侧 <code>...</code> → <code>Run collection</code></li>
+<li>配置运行参数：</li>
+<li><strong>Iterations</strong>：迭代次数</li>
+<li><strong>Delay</strong>：请求间隔（ms）</li>
+<li><strong>Data</strong>：数据文件（CSV/JSON，数据驱动用）</li>
+<li><strong>Environment</strong>：运行环境</li>
+<li><strong>Keep variable values</strong>：保留变量修改</li>
+<li>点击 <code>Run</code></li>
+</ol>
+<h3 id="75">7.5 接口顺序与依赖<a class="headerlink" href="#75" title="Permanent link">&para;</a></h3>
+<p>测试场景中接口往往有依赖（如先登录拿 Token 才能调其他接口）。Collection Runner 按文件夹中接口顺序执行，可通过：</p>
+<ul>
+<li>上下拖动调整顺序</li>
+<li>在 Tests 脚本中使用 <code>postman.setNextRequest("请求名")</code> 动态跳转</li>
+</ul>
+<hr />
+<h2 id="tests">八、Tests 断言脚本<a class="headerlink" href="#tests" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p><strong>Tests 是接口自动化测试的核心</strong>。每个请求执行后，Tests 中的脚本会自动运行，验证响应是否符合预期。</p>
+</blockquote>
+<h3 id="81">8.1 编写位置<a class="headerlink" href="#81" title="Permanent link">&para;</a></h3>
+<p>请求 Tab → <code>Tests</code> 标签下，使用 JavaScript 编写。</p>
+<h3 id="82">8.2 常用断言模板<a class="headerlink" href="#82" title="Permanent link">&para;</a></h3>
+<p>Postman 右侧提供 <code>Snippets</code> 代码片段，点击即可插入。</p>
+<h4 id="821">8.2.1 状态码断言<a class="headerlink" href="#821" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="nx">pm</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="s2">&quot;状态码为 200&quot;</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">    </span><span class="nx">pm</span><span class="p">.</span><span class="nx">response</span><span class="p">.</span><span class="nx">to</span><span class="p">.</span><span class="nx">have</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mf">200</span><span class="p">);</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="p">});</span>
+</code></pre></div>
+<h4 id="822">8.2.2 响应时间断言<a class="headerlink" href="#822" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="nx">pm</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="s2">&quot;响应时间小于 500ms&quot;</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">    </span><span class="nx">pm</span><span class="p">.</span><span class="nx">expect</span><span class="p">(</span><span class="nx">pm</span><span class="p">.</span><span class="nx">response</span><span class="p">.</span><span class="nx">responseTime</span><span class="p">).</span><span class="nx">to</span><span class="p">.</span><span class="nx">be</span><span class="p">.</span><span class="nx">below</span><span class="p">(</span><span class="mf">500</span><span class="p">);</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="p">});</span>
+</code></pre></div>
+<h4 id="823">8.2.3 响应体包含特定字符串<a class="headerlink" href="#823" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="nx">pm</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="s2">&quot;响应体包含 success&quot;</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="w">    </span><span class="nx">pm</span><span class="p">.</span><span class="nx">expect</span><span class="p">(</span><span class="nx">pm</span><span class="p">.</span><span class="nx">response</span><span class="p">.</span><span class="nx">text</span><span class="p">()).</span><span class="nx">to</span><span class="p">.</span><span class="nx">include</span><span class="p">(</span><span class="s2">&quot;success&quot;</span><span class="p">);</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="p">});</span>
+</code></pre></div>
+<h4 id="824-json">8.2.4 JSON 字段断言<a class="headerlink" href="#824-json" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="nx">pm</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="s2">&quot;返回 code 为 0&quot;</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">jsonData</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">pm</span><span class="p">.</span><span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="w">    </span><span class="nx">pm</span><span class="p">.</span><span class="nx">expect</span><span class="p">(</span><span class="nx">jsonData</span><span class="p">.</span><span class="nx">code</span><span class="p">).</span><span class="nx">to</span><span class="p">.</span><span class="nx">eql</span><span class="p">(</span><span class="mf">0</span><span class="p">);</span>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="p">});</span>
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="nx">pm</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="s2">&quot;data.userId 是数字类型&quot;</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">jsonData</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">pm</span><span class="p">.</span><span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a><span class="w">    </span><span class="nx">pm</span><span class="p">.</span><span class="nx">expect</span><span class="p">(</span><span class="nx">jsonData</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">userId</span><span class="p">).</span><span class="nx">to</span><span class="p">.</span><span class="nx">be</span><span class="p">.</span><span class="nx">a</span><span class="p">(</span><span class="s2">&quot;number&quot;</span><span class="p">);</span>
+<a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a><span class="p">});</span>
+<a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a>
+<a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a><span class="nx">pm</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="s2">&quot;data.list 数组长度为 10&quot;</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">jsonData</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">pm</span><span class="p">.</span><span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+<a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a><span class="w">    </span><span class="nx">pm</span><span class="p">.</span><span class="nx">expect</span><span class="p">(</span><span class="nx">jsonData</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">list</span><span class="p">).</span><span class="nx">to</span><span class="p">.</span><span class="nx">have</span><span class="p">.</span><span class="nx">lengthOf</span><span class="p">(</span><span class="mf">10</span><span class="p">);</span>
+<a id="__codelineno-13-14" name="__codelineno-13-14" href="#__codelineno-13-14"></a><span class="p">});</span>
+</code></pre></div>
+<h4 id="825">8.2.5 响应头断言<a class="headerlink" href="#825" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="nx">pm</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="s2">&quot;Content-Type 为 JSON&quot;</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="w">    </span><span class="nx">pm</span><span class="p">.</span><span class="nx">response</span><span class="p">.</span><span class="nx">to</span><span class="p">.</span><span class="nx">have</span><span class="p">.</span><span class="nx">header</span><span class="p">(</span><span class="s2">&quot;Content-Type&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;application/json; charset=utf-8&quot;</span><span class="p">);</span>
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="p">});</span>
+</code></pre></div>
+<h4 id="826-json-schema">8.2.6 JSON Schema 校验<a class="headerlink" href="#826-json-schema" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="kd">const</span><span class="w"> </span><span class="nx">schema</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="w">    </span><span class="s2">&quot;type&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;object&quot;</span><span class="p">,</span>
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="w">    </span><span class="s2">&quot;required&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;code&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;msg&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;data&quot;</span><span class="p">],</span>
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="w">    </span><span class="s2">&quot;properties&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="w">        </span><span class="s2">&quot;code&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;number&quot;</span><span class="p">},</span>
+<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a><span class="w">        </span><span class="s2">&quot;msg&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span><span class="p">},</span>
+<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="w">        </span><span class="s2">&quot;data&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a><span class="w">            </span><span class="s2">&quot;type&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;object&quot;</span><span class="p">,</span>
+<a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a><span class="w">            </span><span class="s2">&quot;required&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;userId&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;username&quot;</span><span class="p">],</span>
+<a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a><span class="w">            </span><span class="s2">&quot;properties&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a><span class="w">                </span><span class="s2">&quot;userId&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;number&quot;</span><span class="p">},</span>
+<a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a><span class="w">                </span><span class="s2">&quot;username&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span><span class="p">}</span>
+<a id="__codelineno-15-13" name="__codelineno-15-13" href="#__codelineno-15-13"></a><span class="w">            </span><span class="p">}</span>
+<a id="__codelineno-15-14" name="__codelineno-15-14" href="#__codelineno-15-14"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-15-15" name="__codelineno-15-15" href="#__codelineno-15-15"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-15-16" name="__codelineno-15-16" href="#__codelineno-15-16"></a><span class="p">};</span>
+<a id="__codelineno-15-17" name="__codelineno-15-17" href="#__codelineno-15-17"></a>
+<a id="__codelineno-15-18" name="__codelineno-15-18" href="#__codelineno-15-18"></a><span class="nx">pm</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="s2">&quot;响应结构符合 Schema&quot;</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-15-19" name="__codelineno-15-19" href="#__codelineno-15-19"></a><span class="w">    </span><span class="nx">pm</span><span class="p">.</span><span class="nx">response</span><span class="p">.</span><span class="nx">to</span><span class="p">.</span><span class="nx">have</span><span class="p">.</span><span class="nx">jsonSchema</span><span class="p">(</span><span class="nx">schema</span><span class="p">);</span>
+<a id="__codelineno-15-20" name="__codelineno-15-20" href="#__codelineno-15-20"></a><span class="p">});</span>
+</code></pre></div>
+<h3 id="83">8.3 提取数据传递给下一个请求<a class="headerlink" href="#83" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="c1">// 提取登录返回的 token，保存到环境变量</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="kd">const</span><span class="w"> </span><span class="nx">jsonData</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">pm</span><span class="p">.</span><span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">jsonData</span><span class="p">.</span><span class="nx">code</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="mf">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="w">    </span><span class="nx">pm</span><span class="p">.</span><span class="nx">environment</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s2">&quot;token&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">jsonData</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">token</span><span class="p">);</span>
+<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="w">    </span><span class="nx">pm</span><span class="p">.</span><span class="nx">environment</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s2">&quot;userId&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">jsonData</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">userId</span><span class="p">);</span>
+<a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a><span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Token 已保存：&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">jsonData</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">token</span><span class="p">);</span>
+<a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a><span class="p">}</span>
+</code></pre></div>
+<p>后续接口使用：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>Headers: Authorization = Bearer {{token}}
+</code></pre></div>
+<h3 id="84">8.4 控制流程<a class="headerlink" href="#84" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="c1">// 跳转到指定请求（按名称）</span>
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="nx">postman</span><span class="p">.</span><span class="nx">setNextRequest</span><span class="p">(</span><span class="s2">&quot;创建订单&quot;</span><span class="p">);</span>
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>
+<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="c1">// 停止后续请求执行</span>
+<a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a><span class="nx">postman</span><span class="p">.</span><span class="nx">setNextRequest</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
+<a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a>
+<a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a><span class="c1">// 循环：根据条件回到自己</span>
+<a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">pm</span><span class="p">.</span><span class="nx">environment</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&quot;retry&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mf">3</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-18-9" name="__codelineno-18-9" href="#__codelineno-18-9"></a><span class="w">    </span><span class="nx">pm</span><span class="p">.</span><span class="nx">environment</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s2">&quot;retry&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">pm</span><span class="p">.</span><span class="nx">environment</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&quot;retry&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">1</span><span class="p">);</span>
+<a id="__codelineno-18-10" name="__codelineno-18-10" href="#__codelineno-18-10"></a><span class="w">    </span><span class="nx">postman</span><span class="p">.</span><span class="nx">setNextRequest</span><span class="p">(</span><span class="nx">pm</span><span class="p">.</span><span class="nx">info</span><span class="p">.</span><span class="nx">requestName</span><span class="p">);</span>
+<a id="__codelineno-18-11" name="__codelineno-18-11" href="#__codelineno-18-11"></a><span class="p">}</span>
+</code></pre></div>
+<h3 id="85">8.5 输出调试信息<a class="headerlink" href="#85" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;当前 token：&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">pm</span><span class="p">.</span><span class="nx">environment</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&quot;token&quot;</span><span class="p">));</span>
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;响应体：&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">pm</span><span class="p">.</span><span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">());</span>
+</code></pre></div>
+<p>通过 <code>View</code> → <code>Show Postman Console</code>（快捷键 <code>Ctrl + Alt + C</code>）查看输出。</p>
+<hr />
+<h2 id="pre-request-scripts">九、Pre-request Scripts 前置脚本<a class="headerlink" href="#pre-request-scripts" title="Permanent link">&para;</a></h2>
+<h3 id="91">9.1 执行时机<a class="headerlink" href="#91" title="Permanent link">&para;</a></h3>
+<p>每个请求 <strong>发送前</strong> 自动运行，常用于：</p>
+<ul>
+<li>生成动态参数（时间戳、签名、UUID）</li>
+<li>数据准备（先调用其他接口获取数据）</li>
+<li>修改请求参数</li>
+</ul>
+<h3 id="92">9.2 常用示例<a class="headerlink" href="#92" title="Permanent link">&para;</a></h3>
+<h4 id="921">9.2.1 生成时间戳<a class="headerlink" href="#921" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="kd">const</span><span class="w"> </span><span class="nx">timestamp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Date</span><span class="p">().</span><span class="nx">getTime</span><span class="p">();</span>
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="nx">pm</span><span class="p">.</span><span class="nx">environment</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s2">&quot;timestamp&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">timestamp</span><span class="p">);</span>
+</code></pre></div>
+<p>请求 Body 中使用：<code>{"time": "{{timestamp}}"}</code></p>
+<h4 id="922-uuid">9.2.2 生成 UUID<a class="headerlink" href="#922-uuid" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="kd">const</span><span class="w"> </span><span class="nx">uuid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;uuid&#39;</span><span class="p">).</span><span class="nx">v4</span><span class="p">();</span>
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="nx">pm</span><span class="p">.</span><span class="nx">environment</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s2">&quot;requestId&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">uuid</span><span class="p">);</span>
+</code></pre></div>
+<h4 id="923-md5">9.2.3 计算 MD5 签名<a class="headerlink" href="#923-md5" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="kd">const</span><span class="w"> </span><span class="nx">CryptoJS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;crypto-js&quot;</span><span class="p">);</span>
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="kd">const</span><span class="w"> </span><span class="nx">params</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;timestamp=&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Date</span><span class="p">().</span><span class="nx">getTime</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s2">&quot;&amp;key=mySecretKey&quot;</span><span class="p">;</span>
+<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a><span class="kd">const</span><span class="w"> </span><span class="nx">sign</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">CryptoJS</span><span class="p">.</span><span class="nx">MD5</span><span class="p">(</span><span class="nx">params</span><span class="p">).</span><span class="nx">toString</span><span class="p">();</span>
+<a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a><span class="nx">pm</span><span class="p">.</span><span class="nx">environment</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s2">&quot;sign&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">sign</span><span class="p">);</span>
+</code></pre></div>
+<h4 id="924-token">9.2.4 调用其他接口获取 Token<a class="headerlink" href="#924-token" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="nx">pm</span><span class="p">.</span><span class="nx">sendRequest</span><span class="p">({</span>
+<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a><span class="w">    </span><span class="nx">url</span><span class="o">:</span><span class="w"> </span><span class="nx">pm</span><span class="p">.</span><span class="nx">environment</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&quot;base_url&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s2">&quot;/api/login&quot;</span><span class="p">,</span>
+<a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a><span class="w">    </span><span class="nx">method</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;POST&#39;</span><span class="p">,</span>
+<a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a><span class="w">    </span><span class="nx">header</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s1">&#39;Content-Type&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;application/json&#39;</span><span class="w"> </span><span class="p">},</span>
+<a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a><span class="w">    </span><span class="nx">body</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a><span class="w">        </span><span class="nx">mode</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;raw&#39;</span><span class="p">,</span>
+<a id="__codelineno-23-7" name="__codelineno-23-7" href="#__codelineno-23-7"></a><span class="w">        </span><span class="nx">raw</span><span class="o">:</span><span class="w"> </span><span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
+<a id="__codelineno-23-8" name="__codelineno-23-8" href="#__codelineno-23-8"></a><span class="w">            </span><span class="nx">username</span><span class="o">:</span><span class="w"> </span><span class="nx">pm</span><span class="p">.</span><span class="nx">environment</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&quot;username&quot;</span><span class="p">),</span>
+<a id="__codelineno-23-9" name="__codelineno-23-9" href="#__codelineno-23-9"></a><span class="w">            </span><span class="nx">password</span><span class="o">:</span><span class="w"> </span><span class="nx">pm</span><span class="p">.</span><span class="nx">environment</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&quot;password&quot;</span><span class="p">)</span>
+<a id="__codelineno-23-10" name="__codelineno-23-10" href="#__codelineno-23-10"></a><span class="w">        </span><span class="p">})</span>
+<a id="__codelineno-23-11" name="__codelineno-23-11" href="#__codelineno-23-11"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-23-12" name="__codelineno-23-12" href="#__codelineno-23-12"></a><span class="p">},</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="w"> </span><span class="nx">res</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-23-13" name="__codelineno-23-13" href="#__codelineno-23-13"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nx">err</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">res</span><span class="p">.</span><span class="nx">code</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="mf">200</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-23-14" name="__codelineno-23-14" href="#__codelineno-23-14"></a><span class="w">        </span><span class="kd">const</span><span class="w"> </span><span class="nx">token</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">().</span><span class="nx">data</span><span class="p">.</span><span class="nx">token</span><span class="p">;</span>
+<a id="__codelineno-23-15" name="__codelineno-23-15" href="#__codelineno-23-15"></a><span class="w">        </span><span class="nx">pm</span><span class="p">.</span><span class="nx">environment</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s2">&quot;token&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">token</span><span class="p">);</span>
+<a id="__codelineno-23-16" name="__codelineno-23-16" href="#__codelineno-23-16"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-23-17" name="__codelineno-23-17" href="#__codelineno-23-17"></a><span class="p">});</span>
+</code></pre></div>
+<hr />
+<h2 id="_7">十、数据驱动测试<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<h3 id="101">10.1 应用场景<a class="headerlink" href="#101" title="Permanent link">&para;</a></h3>
+<p>同一个接口需用 <strong>多组不同的测试数据</strong> 执行，验证不同场景（如登录的正常账号、错误密码、空账号、SQL 注入等）。</p>
+<h3 id="102">10.2 准备数据文件<a class="headerlink" href="#102" title="Permanent link">&para;</a></h3>
+<p><strong>方式 1：CSV 文件（推荐）</strong></p>
+<p><code>login_test_data.csv</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>case_name,username,password,expected_code,expected_msg
+<a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>正常登录,testuser,123456,0,成功
+<a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>密码错误,testuser,wrong,1001,密码错误
+<a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a>账号不存在,nouser,123456,1002,账号不存在
+<a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a>账号为空,,123456,1003,账号不能为空
+<a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a>SQL注入测试,admin&#39; OR &#39;1&#39;=&#39;1,123456,1001,密码错误
+</code></pre></div>
+<p><strong>方式 2：JSON 文件</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="p">[</span>
+<a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a><span class="w">  </span><span class="p">{</span>
+<a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a><span class="w">    </span><span class="nt">&quot;case_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;正常登录&quot;</span><span class="p">,</span>
+<a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a><span class="w">    </span><span class="nt">&quot;username&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;testuser&quot;</span><span class="p">,</span>
+<a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a><span class="w">    </span><span class="nt">&quot;password&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;123456&quot;</span><span class="p">,</span>
+<a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a><span class="w">    </span><span class="nt">&quot;expected_code&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span>
+<a id="__codelineno-25-7" name="__codelineno-25-7" href="#__codelineno-25-7"></a><span class="w">  </span><span class="p">},</span>
+<a id="__codelineno-25-8" name="__codelineno-25-8" href="#__codelineno-25-8"></a><span class="w">  </span><span class="p">{</span>
+<a id="__codelineno-25-9" name="__codelineno-25-9" href="#__codelineno-25-9"></a><span class="w">    </span><span class="nt">&quot;case_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;密码错误&quot;</span><span class="p">,</span>
+<a id="__codelineno-25-10" name="__codelineno-25-10" href="#__codelineno-25-10"></a><span class="w">    </span><span class="nt">&quot;username&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;testuser&quot;</span><span class="p">,</span>
+<a id="__codelineno-25-11" name="__codelineno-25-11" href="#__codelineno-25-11"></a><span class="w">    </span><span class="nt">&quot;password&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;wrong&quot;</span><span class="p">,</span>
+<a id="__codelineno-25-12" name="__codelineno-25-12" href="#__codelineno-25-12"></a><span class="w">    </span><span class="nt">&quot;expected_code&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1001</span>
+<a id="__codelineno-25-13" name="__codelineno-25-13" href="#__codelineno-25-13"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-25-14" name="__codelineno-25-14" href="#__codelineno-25-14"></a><span class="p">]</span>
+</code></pre></div>
+<h3 id="103">10.3 在请求中引用<a class="headerlink" href="#103" title="Permanent link">&para;</a></h3>
+<p>Body 中：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="p">{</span>
+<a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a><span class="w">  </span><span class="nt">&quot;username&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;{{username}}&quot;</span><span class="p">,</span>
+<a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a><span class="w">  </span><span class="nt">&quot;password&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;{{password}}&quot;</span>
+<a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a><span class="p">}</span>
+</code></pre></div>
+<p>Tests 中：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="nx">pm</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="sb">`[</span><span class="si">${</span><span class="nx">pm</span><span class="p">.</span><span class="nx">iterationData</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&quot;case_name&quot;</span><span class="p">)</span><span class="si">}</span><span class="sb">] code 符合预期`</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">jsonData</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">pm</span><span class="p">.</span><span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+<a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">expectedCode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">parseInt</span><span class="p">(</span><span class="nx">pm</span><span class="p">.</span><span class="nx">iterationData</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&quot;expected_code&quot;</span><span class="p">));</span>
+<a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a><span class="w">    </span><span class="nx">pm</span><span class="p">.</span><span class="nx">expect</span><span class="p">(</span><span class="nx">jsonData</span><span class="p">.</span><span class="nx">code</span><span class="p">).</span><span class="nx">to</span><span class="p">.</span><span class="nx">eql</span><span class="p">(</span><span class="nx">expectedCode</span><span class="p">);</span>
+<a id="__codelineno-27-5" name="__codelineno-27-5" href="#__codelineno-27-5"></a><span class="p">});</span>
+</code></pre></div>
+<h3 id="104">10.4 执行数据驱动测试<a class="headerlink" href="#104" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Collection Runner 中：</li>
+<li><code>Data</code> 区域选择 CSV/JSON 文件</li>
+<li><code>Iterations</code> 自动填充为数据行数</li>
+<li>点击 <code>Preview</code> 预览数据加载情况</li>
+<li><code>Run</code></li>
+</ol>
+<p>每一行数据会执行一次完整流程，所有结果汇总展示。</p>
+<hr />
+<h2 id="mock-server">十一、Mock Server 模拟服务<a class="headerlink" href="#mock-server" title="Permanent link">&para;</a></h2>
+<h3 id="111">11.1 应用场景<a class="headerlink" href="#111" title="Permanent link">&para;</a></h3>
+<ul>
+<li>后端接口未开发完成，前端/测试需要先行进行</li>
+<li>复现某些难以触发的响应（如服务器超时、5xx 错误）</li>
+<li>减少对真实环境的依赖</li>
+</ul>
+<h3 id="112-mock-server">11.2 创建 Mock Server<a class="headerlink" href="#112-mock-server" title="Permanent link">&para;</a></h3>
+<p><strong>Step 1：准备示例响应</strong></p>
+<p>在 Collection 中创建请求 → 点击 <code>Save Response</code> → <code>Save as example</code></p>
+<p>为每个请求添加多个 Example：
+- 状态码 200 的成功响应
+- 状态码 400 的参数错误响应
+- 状态码 500 的服务器错误响应</p>
+<p><strong>Step 2：创建 Mock</strong></p>
+<ol>
+<li>左侧 <code>Mock Servers</code> → <code>+</code></li>
+<li>选择对应的 Collection 和 Environment</li>
+<li>命名 Mock 服务</li>
+<li>创建后会生成 Mock URL，例如：
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>https://abc123.mock.pstmn.io
+</code></pre></div></li>
+</ol>
+<p><strong>Step 3：调用 Mock 接口</strong></p>
+<p>将原本调用 <code>https://api.example.com/users/1</code> 改为：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>https://abc123.mock.pstmn.io/users/1
+</code></pre></div>
+<p>Mock 服务会按 Example 配置返回响应。</p>
+<h3 id="113">11.3 智能匹配<a class="headerlink" href="#113" title="Permanent link">&para;</a></h3>
+<p>Postman Mock 会根据请求的 Method、URL、Query 参数、Header 智能匹配最合适的 Example。可在 Example 上设置 <code>x-mock-response-name</code> Header 强制指定返回某个 Example。</p>
+<hr />
+<h2 id="newman">十二、Newman 命令行执行<a class="headerlink" href="#newman" title="Permanent link">&para;</a></h2>
+<h3 id="121-newman">12.1 Newman 是什么<a class="headerlink" href="#121-newman" title="Permanent link">&para;</a></h3>
+<p>Newman 是 Postman 官方提供的命令行工具，用于在 <strong>终端 / CI/CD 流水线</strong> 中执行 Postman Collection。</p>
+<h3 id="122-newman">12.2 安装 Newman<a class="headerlink" href="#122-newman" title="Permanent link">&para;</a></h3>
+<p>需先安装 Node.js（Newman 6.x 起要求 Node 18+），然后：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>npm<span class="w"> </span>install<span class="w"> </span>-g<span class="w"> </span>newman
+<a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a>
+<a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a><span class="c1"># 验证安装</span>
+<a id="__codelineno-30-4" name="__codelineno-30-4" href="#__codelineno-30-4"></a>newman<span class="w"> </span>--version
+</code></pre></div>
+<p>如需 HTML 报告，额外安装：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>npm<span class="w"> </span>install<span class="w"> </span>-g<span class="w"> </span>newman-reporter-htmlextra
+</code></pre></div>
+<h3 id="123-collection">12.3 导出 Collection<a class="headerlink" href="#123-collection" title="Permanent link">&para;</a></h3>
+<p>Postman 中：右键 Collection → <code>Export</code> → 选择 <code>Collection v2.1</code> → 保存为 <code>collection.json</code></p>
+<p>同样导出环境：<code>Environments</code> → 右键 → <code>Export</code> → <code>environment.json</code></p>
+<h3 id="124">12.4 执行命令<a class="headerlink" href="#124" title="Permanent link">&para;</a></h3>
+<p><strong>基础执行：</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>newman<span class="w"> </span>run<span class="w"> </span>collection.json
+</code></pre></div>
+<p><strong>指定环境：</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a>newman<span class="w"> </span>run<span class="w"> </span>collection.json<span class="w"> </span>-e<span class="w"> </span>environment.json
+</code></pre></div>
+<p><strong>指定数据文件（数据驱动）：</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>newman<span class="w"> </span>run<span class="w"> </span>collection.json<span class="w"> </span>-e<span class="w"> </span>environment.json<span class="w"> </span>-d<span class="w"> </span>test_data.csv
+</code></pre></div>
+<p><strong>生成 HTML 报告：</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a>newman<span class="w"> </span>run<span class="w"> </span>collection.json<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a><span class="w">  </span>-e<span class="w"> </span>environment.json<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-35-3" name="__codelineno-35-3" href="#__codelineno-35-3"></a><span class="w">  </span>-r<span class="w"> </span>htmlextra<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-35-4" name="__codelineno-35-4" href="#__codelineno-35-4"></a><span class="w">  </span>--reporter-htmlextra-export<span class="w"> </span>report.html
+</code></pre></div>
+<p><strong>完整示例：</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>newman<span class="w"> </span>run<span class="w"> </span>collection.json<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-36-2" name="__codelineno-36-2" href="#__codelineno-36-2"></a><span class="w">  </span>-e<span class="w"> </span>environment.json<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-36-3" name="__codelineno-36-3" href="#__codelineno-36-3"></a><span class="w">  </span>-d<span class="w"> </span>test_data.csv<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-36-4" name="__codelineno-36-4" href="#__codelineno-36-4"></a><span class="w">  </span>-n<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-36-5" name="__codelineno-36-5" href="#__codelineno-36-5"></a><span class="w">  </span>--delay-request<span class="w"> </span><span class="m">500</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-36-6" name="__codelineno-36-6" href="#__codelineno-36-6"></a><span class="w">  </span>--timeout-request<span class="w"> </span><span class="m">10000</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-36-7" name="__codelineno-36-7" href="#__codelineno-36-7"></a><span class="w">  </span>-r<span class="w"> </span>cli,htmlextra,json<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-36-8" name="__codelineno-36-8" href="#__codelineno-36-8"></a><span class="w">  </span>--reporter-htmlextra-export<span class="w"> </span>report.html<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-36-9" name="__codelineno-36-9" href="#__codelineno-36-9"></a><span class="w">  </span>--reporter-json-export<span class="w"> </span>report.json
+</code></pre></div>
+<p>参数说明：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-n</code></td>
+<td>迭代次数</td>
+</tr>
+<tr>
+<td><code>--delay-request</code></td>
+<td>请求间隔（ms）</td>
+</tr>
+<tr>
+<td><code>--timeout-request</code></td>
+<td>请求超时（ms）</td>
+</tr>
+<tr>
+<td><code>-r</code></td>
+<td>报告类型，多个用逗号</td>
+</tr>
+<tr>
+<td><code>--bail</code></td>
+<td>遇到失败立即停止</td>
+</tr>
+<tr>
+<td><code>-k</code></td>
+<td>跳过 SSL 校验</td>
+</tr>
+</tbody>
+</table>
+<h3 id="125-cicd-github-actions">12.5 CI/CD 集成示例（GitHub Actions）<a class="headerlink" href="#125-cicd-github-actions" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">API Test</span>
+<a id="__codelineno-37-2" name="__codelineno-37-2" href="#__codelineno-37-2"></a><span class="nt">on</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">push</span><span class="p p-Indicator">]</span>
+<a id="__codelineno-37-3" name="__codelineno-37-3" href="#__codelineno-37-3"></a><span class="nt">jobs</span><span class="p">:</span>
+<a id="__codelineno-37-4" name="__codelineno-37-4" href="#__codelineno-37-4"></a><span class="w">  </span><span class="nt">api-test</span><span class="p">:</span>
+<a id="__codelineno-37-5" name="__codelineno-37-5" href="#__codelineno-37-5"></a><span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu-latest</span>
+<a id="__codelineno-37-6" name="__codelineno-37-6" href="#__codelineno-37-6"></a><span class="w">    </span><span class="nt">steps</span><span class="p">:</span>
+<a id="__codelineno-37-7" name="__codelineno-37-7" href="#__codelineno-37-7"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/checkout@v4</span>
+<a id="__codelineno-37-8" name="__codelineno-37-8" href="#__codelineno-37-8"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Install Newman</span>
+<a id="__codelineno-37-9" name="__codelineno-37-9" href="#__codelineno-37-9"></a><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<a id="__codelineno-37-10" name="__codelineno-37-10" href="#__codelineno-37-10"></a><span class="w">          </span><span class="no">npm install -g newman</span>
+<a id="__codelineno-37-11" name="__codelineno-37-11" href="#__codelineno-37-11"></a><span class="w">          </span><span class="no">npm install -g newman-reporter-htmlextra</span>
+<a id="__codelineno-37-12" name="__codelineno-37-12" href="#__codelineno-37-12"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Run API Tests</span>
+<a id="__codelineno-37-13" name="__codelineno-37-13" href="#__codelineno-37-13"></a><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<a id="__codelineno-37-14" name="__codelineno-37-14" href="#__codelineno-37-14"></a><span class="w">          </span><span class="no">newman run ./postman/collection.json \</span>
+<a id="__codelineno-37-15" name="__codelineno-37-15" href="#__codelineno-37-15"></a><span class="w">            </span><span class="no">-e ./postman/environment.json \</span>
+<a id="__codelineno-37-16" name="__codelineno-37-16" href="#__codelineno-37-16"></a><span class="w">            </span><span class="no">-r cli,htmlextra \</span>
+<a id="__codelineno-37-17" name="__codelineno-37-17" href="#__codelineno-37-17"></a><span class="w">            </span><span class="no">--reporter-htmlextra-export ./report.html</span>
+<a id="__codelineno-37-18" name="__codelineno-37-18" href="#__codelineno-37-18"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Upload Report</span>
+<a id="__codelineno-37-19" name="__codelineno-37-19" href="#__codelineno-37-19"></a><span class="w">        </span><span class="nt">if</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">always()</span>
+<a id="__codelineno-37-20" name="__codelineno-37-20" href="#__codelineno-37-20"></a><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/upload-artifact@v4</span>
+<a id="__codelineno-37-21" name="__codelineno-37-21" href="#__codelineno-37-21"></a><span class="w">        </span><span class="nt">with</span><span class="p">:</span>
+<a id="__codelineno-37-22" name="__codelineno-37-22" href="#__codelineno-37-22"></a><span class="w">          </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">test-report</span>
+<a id="__codelineno-37-23" name="__codelineno-37-23" href="#__codelineno-37-23"></a><span class="w">          </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./report.html</span>
+</code></pre></div>
+<hr />
+<h2 id="_8">十三、接口测试实战案例<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<h3 id="131-token">13.1 案例一：登录 → 提取 Token → 查询用户信息<a class="headerlink" href="#131-token" title="Permanent link">&para;</a></h3>
+<p><strong>接口 1：登录</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a>POST {{base_url}}/api/login
+<a id="__codelineno-38-2" name="__codelineno-38-2" href="#__codelineno-38-2"></a>Body (raw JSON):
+<a id="__codelineno-38-3" name="__codelineno-38-3" href="#__codelineno-38-3"></a>{
+<a id="__codelineno-38-4" name="__codelineno-38-4" href="#__codelineno-38-4"></a>    &quot;username&quot;: &quot;{{username}}&quot;,
+<a id="__codelineno-38-5" name="__codelineno-38-5" href="#__codelineno-38-5"></a>    &quot;password&quot;: &quot;{{password}}&quot;
+<a id="__codelineno-38-6" name="__codelineno-38-6" href="#__codelineno-38-6"></a>}
+<a id="__codelineno-38-7" name="__codelineno-38-7" href="#__codelineno-38-7"></a>
+<a id="__codelineno-38-8" name="__codelineno-38-8" href="#__codelineno-38-8"></a>Tests:
+<a id="__codelineno-38-9" name="__codelineno-38-9" href="#__codelineno-38-9"></a>pm.test(&quot;登录成功&quot;, function () {
+<a id="__codelineno-38-10" name="__codelineno-38-10" href="#__codelineno-38-10"></a>    pm.response.to.have.status(200);
+<a id="__codelineno-38-11" name="__codelineno-38-11" href="#__codelineno-38-11"></a>    const json = pm.response.json();
+<a id="__codelineno-38-12" name="__codelineno-38-12" href="#__codelineno-38-12"></a>    pm.expect(json.code).to.eql(0);
+<a id="__codelineno-38-13" name="__codelineno-38-13" href="#__codelineno-38-13"></a>    pm.environment.set(&quot;token&quot;, json.data.token);
+<a id="__codelineno-38-14" name="__codelineno-38-14" href="#__codelineno-38-14"></a>    pm.environment.set(&quot;userId&quot;, json.data.userId);
+<a id="__codelineno-38-15" name="__codelineno-38-15" href="#__codelineno-38-15"></a>});
+</code></pre></div>
+<p><strong>接口 2：查询用户信息</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a>GET {{base_url}}/api/user/{{userId}}
+<a id="__codelineno-39-2" name="__codelineno-39-2" href="#__codelineno-39-2"></a>Headers:
+<a id="__codelineno-39-3" name="__codelineno-39-3" href="#__codelineno-39-3"></a>    Authorization: Bearer {{token}}
+<a id="__codelineno-39-4" name="__codelineno-39-4" href="#__codelineno-39-4"></a>
+<a id="__codelineno-39-5" name="__codelineno-39-5" href="#__codelineno-39-5"></a>Tests:
+<a id="__codelineno-39-6" name="__codelineno-39-6" href="#__codelineno-39-6"></a>pm.test(&quot;查询成功&quot;, function () {
+<a id="__codelineno-39-7" name="__codelineno-39-7" href="#__codelineno-39-7"></a>    pm.response.to.have.status(200);
+<a id="__codelineno-39-8" name="__codelineno-39-8" href="#__codelineno-39-8"></a>    const json = pm.response.json();
+<a id="__codelineno-39-9" name="__codelineno-39-9" href="#__codelineno-39-9"></a>    pm.expect(json.data.userId).to.eql(parseInt(pm.environment.get(&quot;userId&quot;)));
+<a id="__codelineno-39-10" name="__codelineno-39-10" href="#__codelineno-39-10"></a>});
+</code></pre></div>
+<h3 id="132">13.2 案例二：参数化登录测试（数据驱动）<a class="headerlink" href="#132" title="Permanent link">&para;</a></h3>
+<p>数据文件 <code>login_cases.csv</code>：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a>case_name,username,password,expected_code
+<a id="__codelineno-40-2" name="__codelineno-40-2" href="#__codelineno-40-2"></a>正常登录,testuser,123456,0
+<a id="__codelineno-40-3" name="__codelineno-40-3" href="#__codelineno-40-3"></a>账号不存在,nouser,123456,1002
+<a id="__codelineno-40-4" name="__codelineno-40-4" href="#__codelineno-40-4"></a>密码错误,testuser,wrong,1001
+<a id="__codelineno-40-5" name="__codelineno-40-5" href="#__codelineno-40-5"></a>账号为空,,123456,1003
+</code></pre></div>
+<p>登录请求 Tests：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a><span class="nx">pm</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="sb">`[</span><span class="si">${</span><span class="nx">pm</span><span class="p">.</span><span class="nx">iterationData</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&quot;case_name&quot;</span><span class="p">)</span><span class="si">}</span><span class="sb">]`</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-41-2" name="__codelineno-41-2" href="#__codelineno-41-2"></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">json</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">pm</span><span class="p">.</span><span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+<a id="__codelineno-41-3" name="__codelineno-41-3" href="#__codelineno-41-3"></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">expected</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">parseInt</span><span class="p">(</span><span class="nx">pm</span><span class="p">.</span><span class="nx">iterationData</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&quot;expected_code&quot;</span><span class="p">));</span>
+<a id="__codelineno-41-4" name="__codelineno-41-4" href="#__codelineno-41-4"></a><span class="w">    </span><span class="nx">pm</span><span class="p">.</span><span class="nx">expect</span><span class="p">(</span><span class="nx">json</span><span class="p">.</span><span class="nx">code</span><span class="p">).</span><span class="nx">to</span><span class="p">.</span><span class="nx">eql</span><span class="p">(</span><span class="nx">expected</span><span class="p">);</span>
+<a id="__codelineno-41-5" name="__codelineno-41-5" href="#__codelineno-41-5"></a><span class="p">});</span>
+</code></pre></div>
+<p>Collection Runner 选择该 CSV → 运行 → 4 条用例自动执行并产出结果。</p>
+<h3 id="133">13.3 案例三：完整下单流程<a class="headerlink" href="#133" title="Permanent link">&para;</a></h3>
+<p>业务链路：登录 → 查询商品 → 加入购物车 → 创建订单 → 查询订单</p>
+<p>将 5 个接口放入同一文件夹，通过 Tests 串联：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a><span class="c1">// 接口 1：登录</span>
+<a id="__codelineno-42-2" name="__codelineno-42-2" href="#__codelineno-42-2"></a><span class="nx">pm</span><span class="p">.</span><span class="nx">environment</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s2">&quot;token&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">pm</span><span class="p">.</span><span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">().</span><span class="nx">data</span><span class="p">.</span><span class="nx">token</span><span class="p">);</span>
+<a id="__codelineno-42-3" name="__codelineno-42-3" href="#__codelineno-42-3"></a>
+<a id="__codelineno-42-4" name="__codelineno-42-4" href="#__codelineno-42-4"></a><span class="c1">// 接口 2：查询商品</span>
+<a id="__codelineno-42-5" name="__codelineno-42-5" href="#__codelineno-42-5"></a><span class="nx">pm</span><span class="p">.</span><span class="nx">environment</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s2">&quot;productId&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">pm</span><span class="p">.</span><span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">().</span><span class="nx">data</span><span class="p">.</span><span class="nx">list</span><span class="p">[</span><span class="mf">0</span><span class="p">].</span><span class="nx">id</span><span class="p">);</span>
+<a id="__codelineno-42-6" name="__codelineno-42-6" href="#__codelineno-42-6"></a>
+<a id="__codelineno-42-7" name="__codelineno-42-7" href="#__codelineno-42-7"></a><span class="c1">// 接口 3：加入购物车</span>
+<a id="__codelineno-42-8" name="__codelineno-42-8" href="#__codelineno-42-8"></a><span class="nx">pm</span><span class="p">.</span><span class="nx">environment</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s2">&quot;cartId&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">pm</span><span class="p">.</span><span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">().</span><span class="nx">data</span><span class="p">.</span><span class="nx">cartId</span><span class="p">);</span>
+<a id="__codelineno-42-9" name="__codelineno-42-9" href="#__codelineno-42-9"></a>
+<a id="__codelineno-42-10" name="__codelineno-42-10" href="#__codelineno-42-10"></a><span class="c1">// 接口 4：创建订单</span>
+<a id="__codelineno-42-11" name="__codelineno-42-11" href="#__codelineno-42-11"></a><span class="nx">pm</span><span class="p">.</span><span class="nx">environment</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s2">&quot;orderId&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">pm</span><span class="p">.</span><span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">().</span><span class="nx">data</span><span class="p">.</span><span class="nx">orderId</span><span class="p">);</span>
+<a id="__codelineno-42-12" name="__codelineno-42-12" href="#__codelineno-42-12"></a><span class="nx">pm</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="s2">&quot;订单创建成功&quot;</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-42-13" name="__codelineno-42-13" href="#__codelineno-42-13"></a><span class="w">    </span><span class="nx">pm</span><span class="p">.</span><span class="nx">expect</span><span class="p">(</span><span class="nx">pm</span><span class="p">.</span><span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">().</span><span class="nx">data</span><span class="p">.</span><span class="nx">orderId</span><span class="p">).</span><span class="nx">to</span><span class="p">.</span><span class="nx">be</span><span class="p">.</span><span class="nx">a</span><span class="p">(</span><span class="s2">&quot;number&quot;</span><span class="p">);</span>
+<a id="__codelineno-42-14" name="__codelineno-42-14" href="#__codelineno-42-14"></a><span class="p">});</span>
+<a id="__codelineno-42-15" name="__codelineno-42-15" href="#__codelineno-42-15"></a>
+<a id="__codelineno-42-16" name="__codelineno-42-16" href="#__codelineno-42-16"></a><span class="c1">// 接口 5：查询订单</span>
+<a id="__codelineno-42-17" name="__codelineno-42-17" href="#__codelineno-42-17"></a><span class="nx">pm</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="s2">&quot;订单状态正确&quot;</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-42-18" name="__codelineno-42-18" href="#__codelineno-42-18"></a><span class="w">    </span><span class="nx">pm</span><span class="p">.</span><span class="nx">expect</span><span class="p">(</span><span class="nx">pm</span><span class="p">.</span><span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">().</span><span class="nx">data</span><span class="p">.</span><span class="nx">status</span><span class="p">).</span><span class="nx">to</span><span class="p">.</span><span class="nx">eql</span><span class="p">(</span><span class="s2">&quot;WAIT_PAY&quot;</span><span class="p">);</span>
+<a id="__codelineno-42-19" name="__codelineno-42-19" href="#__codelineno-42-19"></a><span class="p">});</span>
+</code></pre></div>
+<p>Collection Runner 按顺序执行，可验证整条业务链路。</p>
+<h3 id="134">13.4 案例四：异常场景测试<a class="headerlink" href="#134" title="Permanent link">&para;</a></h3>
+<p>针对同一接口构造异常场景：</p>
+<table>
+<thead>
+<tr>
+<th>用例</th>
+<th>修改点</th>
+<th>预期结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>缺失必填参数</td>
+<td>删除 Body 中某字段</td>
+<td>返回 4xx，错误码提示字段缺失</td>
+</tr>
+<tr>
+<td>参数类型错误</td>
+<td>数字字段传字符串</td>
+<td>返回 4xx</td>
+</tr>
+<tr>
+<td>参数边界值</td>
+<td>长度上限 +1</td>
+<td>返回 4xx</td>
+</tr>
+<tr>
+<td>无 Token</td>
+<td>删除 Authorization</td>
+<td>返回 401</td>
+</tr>
+<tr>
+<td>过期 Token</td>
+<td>使用过期 Token</td>
+<td>返回 401</td>
+</tr>
+<tr>
+<td>无权限</td>
+<td>用普通用户访问管理接口</td>
+<td>返回 403</td>
+</tr>
+<tr>
+<td>重复提交</td>
+<td>短时间内发送 2 次相同请求</td>
+<td>第 2 次应被拦截</td>
+</tr>
+<tr>
+<td>SQL 注入</td>
+<td>输入 <code>' OR '1'='1</code></td>
+<td>应被拦截或转义</td>
+</tr>
+<tr>
+<td>XSS 攻击</td>
+<td>输入 <code>&lt;script&gt;alert(1)&lt;/script&gt;</code></td>
+<td>应被过滤</td>
+</tr>
+</tbody>
+</table>
+<p>每个用例独立保存为请求，配合数据驱动，可一次性运行所有异常场景。</p>
+<hr />
+<h2 id="_9">十四、团队协作<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
+<h3 id="141-workspace">14.1 Workspace 工作空间<a class="headerlink" href="#141-workspace" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Personal Workspace</strong>：个人工作空间，仅自己可见</li>
+<li><strong>Team Workspace</strong>：团队共享空间，成员可同时编辑（免费版有人数限制）</li>
+</ul>
+<h3 id="142">14.2 同步与分享<a class="headerlink" href="#142" title="Permanent link">&para;</a></h3>
+<ul>
+<li>登录账号后，所有变更自动云同步</li>
+<li>右键 Collection → <code>Share</code> → 生成分享链接 / 邀请成员</li>
+<li>团队可对 Collection 进行权限管理（View / Edit）</li>
+</ul>
+<h3 id="143">14.3 版本控制<a class="headerlink" href="#143" title="Permanent link">&para;</a></h3>
+<p>Postman 提供 fork/merge 功能：</p>
+<ul>
+<li>个人 fork 团队 Collection 进行本地修改</li>
+<li>修改完成后发起 Pull Request</li>
+<li>团队 Owner 审核合并</li>
+</ul>
+<h3 id="144">14.4 导出与备份<a class="headerlink" href="#144" title="Permanent link">&para;</a></h3>
+<p>定期导出 Collection 和 Environment 为 JSON，备份到 Git 仓库，避免账号问题导致数据丢失。</p>
+<hr />
+<h2 id="_10">十五、常见问题排查<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
+<h3 id="151-401-403">15.1 接口返回 401 / 403<a class="headerlink" href="#151-401-403" title="Permanent link">&para;</a></h3>
+<ul>
+<li>检查 Token 是否正确（特别注意 <code>Bearer</code> 前缀和空格）</li>
+<li>检查 Token 是否过期</li>
+<li>检查用户角色权限</li>
+<li>通过 Console 查看实际发送的 Header</li>
+</ul>
+<h3 id="152-404">15.2 接口返回 404<a class="headerlink" href="#152-404" title="Permanent link">&para;</a></h3>
+<ul>
+<li>检查 URL 拼写</li>
+<li>检查请求方法（GET/POST 不能混用）</li>
+<li>检查环境变量是否生效（鼠标悬停 <code>{{base_url}}</code> 查看实际值）</li>
+<li>检查接口是否已发布到对应环境</li>
+</ul>
+<h3 id="153">15.3 变量没有生效<a class="headerlink" href="#153" title="Permanent link">&para;</a></h3>
+<p>排查清单：
+- 是否已选中环境（右上角）
+- 变量名称是否拼写一致（区分大小写）
+- <code>Current Value</code> 是否有值（不是只填了 <code>Initial Value</code>）
+- 变量作用域是否被覆盖（同名变量高层级优先）</p>
+<blockquote>
+<p><strong>诊断方法：</strong> 在 Tests 中打印 <code>console.log(pm.environment.get("token"))</code>，从 Console 查看实际值。</p>
+</blockquote>
+<h3 id="154-ssl">15.4 SSL 证书错误<a class="headerlink" href="#154-ssl" title="Permanent link">&para;</a></h3>
+<p>测试环境常用自签名证书：</p>
+<ul>
+<li><code>Settings</code> → <code>General</code> → 关闭 <code>SSL certificate verification</code></li>
+<li>Newman 命令行：添加 <code>-k</code> 参数</li>
+</ul>
+<h3 id="155">15.5 文件上传失败<a class="headerlink" href="#155" title="Permanent link">&para;</a></h3>
+<ul>
+<li>检查 Body 类型是否选 <code>form-data</code></li>
+<li>检查 Type 列是否选 <code>File</code></li>
+<li>Postman 设置 → <code>Allow reading files outside working directory</code> 是否开启</li>
+<li>文件路径是否包含中文/特殊字符</li>
+</ul>
+<h3 id="156-collection-runner">15.6 Collection Runner 卡住不动<a class="headerlink" href="#156-collection-runner" title="Permanent link">&para;</a></h3>
+<ul>
+<li>检查 <code>Delay</code> 是否设置过大</li>
+<li>检查是否有死循环 <code>setNextRequest</code></li>
+<li>通过 Console 查看是否有未捕获异常</li>
+</ul>
+<h3 id="157">15.7 中文乱码<a class="headerlink" href="#157" title="Permanent link">&para;</a></h3>
+<ul>
+<li>响应区右上角切换 <code>UTF-8</code> 编码</li>
+<li>请求 Body Header 添加 <code>Content-Type: application/json; charset=utf-8</code></li>
+</ul>
+<h3 id="158-postman">15.8 Postman 不能访问内网接口<a class="headerlink" href="#158-postman" title="Permanent link">&para;</a></h3>
+<p>桌面版需配置代理或在内网机器上运行。或将代理指向公司 VPN 代理。</p>
+<hr />
+<h2 id="_11">十六、进阶建议<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
+<h3 id="161">16.1 学习路径<a class="headerlink" href="#161" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a>基础请求 → 变量与环境 → Tests 断言 → 数据驱动 
+<a id="__codelineno-43-2" name="__codelineno-43-2" href="#__codelineno-43-2"></a>→ Pre-request 脚本 → Mock Server → Newman → CI/CD 集成
+</code></pre></div>
+<h3 id="162">16.2 配套工具推荐<a class="headerlink" href="#162" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Fiddler / Charles</strong>：抓包工具，与 Postman 互补</li>
+<li><strong>Swagger / OpenAPI</strong>：接口文档，可直接导入 Postman</li>
+<li><strong>JMeter</strong>：性能压测</li>
+<li><strong>Allure</strong>：测试报告美化</li>
+<li><strong>Jenkins / GitLab CI</strong>：流水线集成</li>
+<li><strong>YApi / Apifox</strong>：国产替代方案（功能更全，免费）</li>
+</ul>
+<h3 id="163">16.3 最佳实践<a class="headerlink" href="#163" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>接口分层管理</strong>：按业务模块用文件夹组织 Collection</li>
+<li><strong>环境变量先行</strong>：所有可变内容都用变量，禁止硬编码</li>
+<li><strong>每个接口至少 3 个断言</strong>：状态码 / 关键字段 / 响应时间</li>
+<li><strong>善用 Pre-request 链路</strong>：自动处理 Token、签名等通用逻辑</li>
+<li><strong>数据驱动覆盖异常场景</strong>：CSV 中至少包含正常、异常、边界三类用例</li>
+<li><strong>定期备份导出</strong>：导出 JSON 到 Git 版本管理</li>
+<li><strong>CI/CD 集成</strong>：每次代码提交触发回归测试</li>
+</ol>
+<hr />
+<h2 id="_12">附录：参考资料<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Postman 官方文档：<code>https://learning.postman.com/</code></li>
+<li>Postman Public API Network：<code>https://www.postman.com/explore</code></li>
+<li>Newman 文档：<code>https://github.com/postmanlabs/newman</code></li>
+<li>Chai 断言库文档（Tests 脚本使用）：<code>https://www.chaijs.com/api/bdd/</code></li>
+</ul>
+<hr />
+<blockquote>
+<p><strong>文档说明：</strong> 本教程基于 Postman 桌面版 10.x 编写，适用于 Windows/Mac/Linux。</p>
+<p><strong>测试纪律：</strong> 接口测试请在测试环境进行，禁止用真实用户数据测试，禁止在生产环境执行批量请求。涉及第三方接口需注意调用频率限制。</p>
+</blockquote>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/yourname/test-tutorials" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "navigation.top", "navigation.instant", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,7081 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="面向软件测试工程师的系统化学习教程">
+      
+      
+        <meta name="author" content="Test Team">
+      
+      
+        <link rel="canonical" href="https://bingu7.github.io/test-tutorials/%E4%B8%93%E9%A1%B9%E6%B5%8B%E8%AF%95/%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95%E5%AE%8C%E6%95%B4%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/">
+      
+      
+        <link rel="prev" href="../../%E5%B7%A5%E5%85%B7%E6%93%8D%E4%BD%9C/Postman%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/">
+      
+      
+        <link rel="next" href="../JMeter%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>接口测试方法论 - 软件测试知识体系</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="软件测试知识体系" class="md-header__button md-logo" aria-label="软件测试知识体系" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            软件测试知识体系
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              接口测试方法论
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换到暗色模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切换到暗色模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换到浅色模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换到浅色模式" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/bingu7/test-tutorials" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    test-tutorials
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  首页
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/" class="md-tabs__link">
+          
+  
+  
+  基础理论
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../%E5%B7%A5%E5%85%B7%E6%93%8D%E4%BD%9C/%E6%95%B0%E6%8D%AE%E5%BA%93SQL%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-tabs__link">
+          
+  
+  
+  工具操作
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="./" class="md-tabs__link">
+          
+  
+  
+  专项测试
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/Python%2BRequests%2BAllure%E6%8E%A5%E5%8F%A3%E8%87%AA%E5%8A%A8%E5%8C%96%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-tabs__link">
+          
+  
+  
+  自动化测试
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90/Jenkins-CICD%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-tabs__link">
+          
+  
+  
+  持续集成
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="软件测试知识体系" class="md-nav__button md-logo" aria-label="软件测试知识体系" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    软件测试知识体系
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/bingu7/test-tutorials" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    test-tutorials
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    基础理论
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    基础理论
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    软件测试理论
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    工具操作
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    工具操作
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%B7%A5%E5%85%B7%E6%93%8D%E4%BD%9C/%E6%95%B0%E6%8D%AE%E5%BA%93SQL%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数据库 SQL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%B7%A5%E5%85%B7%E6%93%8D%E4%BD%9C/Linux%E5%AE%9E%E7%94%A8%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux 实用
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%B7%A5%E5%85%B7%E6%93%8D%E4%BD%9C/Git%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Git 版本控制
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%B7%A5%E5%85%B7%E6%93%8D%E4%BD%9C/Docker%E5%AE%B9%E5%99%A8%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docker 容器
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%B7%A5%E5%85%B7%E6%93%8D%E4%BD%9C/Fiddler%E6%8A%93%E5%8C%85%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fiddler 抓包
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%B7%A5%E5%85%B7%E6%93%8D%E4%BD%9C/Postman%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Postman 接口
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    专项测试
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    专项测试
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    接口测试方法论
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    接口测试方法论
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        目录
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一、接口测试基础理论
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="一、接口测试基础理论">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 什么是接口测试
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 为什么要做接口测试
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-vs-ui" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3 接口测试 vs UI 测试
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14-vs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4 接口测试 vs 单元测试
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5 接口测试关注什么
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#http" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        二、HTTP 协议详解
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="二、HTTP 协议详解">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-http" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 HTTP 协议特点
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-http" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 一个完整的 HTTP 请求
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 响应结构
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-method" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4 请求方法（Method）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25-status-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5 状态码（Status Code）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#26-header" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6 常见 Header
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#27-content-type" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.7 常见 Content-Type
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#28-cookie-session-token" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.8 Cookie / Session / Token
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#29-http-vs-https" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.9 HTTP vs HTTPS
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        三、常见接口类型
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="三、常见接口类型">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-restful-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 RESTful API（最常见）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-graphql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 GraphQL
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-websocket" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 WebSocket
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-rpcremote-procedure-call" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4 RPC（Remote Procedure Call）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#35-soap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.5 SOAP
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#36" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.6 接口风格对比
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        四、接口文档解读
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="四、接口文档解读">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 一份合格的接口文档应包含
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 标准示例
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 常见文档工具
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4 接口文档解读要点
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        五、接口测试用例设计
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="五、接口测试用例设计">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 用例设计思路
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 等价类划分
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3 边界值分析
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.4 错误推测法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#55" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.5 因果图 / 判定表
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#56" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.6 业务场景法（多接口）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#57" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.7 接口测试用例八大维度
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#58-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.8 用例设计 Checklist
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        六、接口测试完整流程
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="六、接口测试完整流程">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 总体流程
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 阶段详解
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.2 阶段详解">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        阶段一：需求分析
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        阶段二：接口梳理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        阶段三：用例设计
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        阶段四：用例评审
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        阶段五：环境准备
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        阶段六：用例执行
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        阶段七：缺陷跟踪
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        阶段八：测试报告
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        阶段九：复盘
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        七、测试用例模板
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="七、测试用例模板">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1 标准用例模板
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-excel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2 简化用例模板（Excel 格式）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.3 完整用例示例：登录接口
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7.3 完整用例示例：登录接口">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一、必填校验（5 条）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        二、参数类型（4 条）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        三、参数长度（6 条）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        四、特殊字符（5 条）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        五、业务逻辑（5 条）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#74" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.4 用例评审单
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        八、工具选型对比
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="八、工具选型对比">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.1 主流工具对比
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.2 选型建议
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#83" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.3 工具组合推荐
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mock" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        九、Mock 与挡板技术
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="九、Mock 与挡板技术">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91-mock" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.1 什么是 Mock
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#92-mock" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.2 Mock 工具
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#93-mock" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.3 Mock 数据策略
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#94" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.4 实战示例
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#95-stubvs-mock" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.5 挡板（Stub）vs Mock
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#96" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.6 注意事项
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        十、接口安全测试
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="十、接口安全测试">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#101-owasp-api-top-10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.1 OWASP API 安全 Top 10
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#102" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.2 认证与鉴权测试
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#103-sql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.3 SQL 注入测试
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#104-xss" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.4 XSS 攻击测试
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#105" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.5 越权测试
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#106" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.6 敏感信息泄露
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#107" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.7 限流与防刷
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#108" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.8 文件上传安全
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#109" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.9 安全测试清单
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        十一、接口性能测试
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="十一、接口性能测试">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#111" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.1 性能测试关注指标
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#112" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.2 性能测试类型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#113" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.3 性能测试工具
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#114-jmeter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.4 JMeter 极简流程
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#115" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.5 性能测试用例设计
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#116" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.6 性能测试报告要素
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        十二、接口自动化策略
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="十二、接口自动化策略">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#121" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.1 何时引入自动化
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#122" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.2 自动化覆盖范围建议
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#123" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.3 自动化分层策略
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#124" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.4 自动化分阶段实施
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#125" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.5 用例稳定性保证
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#126" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.6 自动化的常见误区
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        十三、实战案例
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="十三、实战案例">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#131" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13.1 案例一：电商下单接口完整测试
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="13.1 案例一：电商下单接口完整测试">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#5_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一、必填校验（5 条）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        二、参数有效性（10 条）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        三、业务规则（10 条）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        四、并发场景（3 条）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        五、安全场景（4 条）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        六、性能场景（3 条）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#132" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13.2 案例二：登录限流测试
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#133" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13.3 案例三：支付链路集成测试
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#134" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13.4 案例四：列表分页查询测试
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        十四、常见问题与最佳实践
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="十四、常见问题与最佳实践">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#141" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14.1 高频问题
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#142" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14.2 测试人员能力进阶路径
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#143" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14.3 最佳实践清单
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#144" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14.4 推荐学习资源
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_24" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        附录：术语速查表
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../JMeter%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JMeter 性能测试
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    自动化测试
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    自动化测试
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/Python%2BRequests%2BAllure%E6%8E%A5%E5%8F%A3%E8%87%AA%E5%8A%A8%E5%8C%96%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python 接口自动化
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/Selenium-Web%E8%87%AA%E5%8A%A8%E5%8C%96%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Selenium Web 自动化
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/Appium-App%E8%87%AA%E5%8A%A8%E5%8C%96%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Appium App 自动化
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    持续集成
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    持续集成
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90/Jenkins-CICD%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Jenkins CI/CD
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        目录
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一、接口测试基础理论
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="一、接口测试基础理论">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 什么是接口测试
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 为什么要做接口测试
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-vs-ui" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3 接口测试 vs UI 测试
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14-vs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4 接口测试 vs 单元测试
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5 接口测试关注什么
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#http" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        二、HTTP 协议详解
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="二、HTTP 协议详解">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-http" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 HTTP 协议特点
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-http" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 一个完整的 HTTP 请求
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 响应结构
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-method" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4 请求方法（Method）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25-status-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5 状态码（Status Code）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#26-header" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6 常见 Header
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#27-content-type" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.7 常见 Content-Type
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#28-cookie-session-token" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.8 Cookie / Session / Token
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#29-http-vs-https" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.9 HTTP vs HTTPS
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        三、常见接口类型
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="三、常见接口类型">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-restful-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 RESTful API（最常见）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-graphql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 GraphQL
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-websocket" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 WebSocket
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-rpcremote-procedure-call" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4 RPC（Remote Procedure Call）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#35-soap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.5 SOAP
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#36" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.6 接口风格对比
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        四、接口文档解读
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="四、接口文档解读">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 一份合格的接口文档应包含
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 标准示例
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 常见文档工具
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4 接口文档解读要点
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        五、接口测试用例设计
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="五、接口测试用例设计">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 用例设计思路
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 等价类划分
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3 边界值分析
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.4 错误推测法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#55" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.5 因果图 / 判定表
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#56" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.6 业务场景法（多接口）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#57" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.7 接口测试用例八大维度
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#58-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.8 用例设计 Checklist
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        六、接口测试完整流程
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="六、接口测试完整流程">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 总体流程
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 阶段详解
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.2 阶段详解">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        阶段一：需求分析
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        阶段二：接口梳理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        阶段三：用例设计
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        阶段四：用例评审
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        阶段五：环境准备
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        阶段六：用例执行
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        阶段七：缺陷跟踪
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        阶段八：测试报告
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        阶段九：复盘
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        七、测试用例模板
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="七、测试用例模板">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1 标准用例模板
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-excel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2 简化用例模板（Excel 格式）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.3 完整用例示例：登录接口
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7.3 完整用例示例：登录接口">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一、必填校验（5 条）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        二、参数类型（4 条）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        三、参数长度（6 条）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        四、特殊字符（5 条）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        五、业务逻辑（5 条）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#74" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.4 用例评审单
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        八、工具选型对比
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="八、工具选型对比">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.1 主流工具对比
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.2 选型建议
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#83" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.3 工具组合推荐
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mock" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        九、Mock 与挡板技术
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="九、Mock 与挡板技术">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91-mock" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.1 什么是 Mock
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#92-mock" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.2 Mock 工具
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#93-mock" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.3 Mock 数据策略
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#94" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.4 实战示例
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#95-stubvs-mock" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.5 挡板（Stub）vs Mock
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#96" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.6 注意事项
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        十、接口安全测试
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="十、接口安全测试">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#101-owasp-api-top-10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.1 OWASP API 安全 Top 10
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#102" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.2 认证与鉴权测试
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#103-sql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.3 SQL 注入测试
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#104-xss" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.4 XSS 攻击测试
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#105" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.5 越权测试
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#106" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.6 敏感信息泄露
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#107" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.7 限流与防刷
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#108" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.8 文件上传安全
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#109" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.9 安全测试清单
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        十一、接口性能测试
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="十一、接口性能测试">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#111" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.1 性能测试关注指标
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#112" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.2 性能测试类型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#113" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.3 性能测试工具
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#114-jmeter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.4 JMeter 极简流程
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#115" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.5 性能测试用例设计
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#116" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.6 性能测试报告要素
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        十二、接口自动化策略
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="十二、接口自动化策略">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#121" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.1 何时引入自动化
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#122" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.2 自动化覆盖范围建议
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#123" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.3 自动化分层策略
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#124" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.4 自动化分阶段实施
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#125" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.5 用例稳定性保证
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#126" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.6 自动化的常见误区
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        十三、实战案例
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="十三、实战案例">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#131" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13.1 案例一：电商下单接口完整测试
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="13.1 案例一：电商下单接口完整测试">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#5_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一、必填校验（5 条）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        二、参数有效性（10 条）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        三、业务规则（10 条）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        四、并发场景（3 条）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        五、安全场景（4 条）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        六、性能场景（3 条）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#132" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13.2 案例二：登录限流测试
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#133" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13.3 案例三：支付链路集成测试
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#134" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13.4 案例四：列表分页查询测试
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        十四、常见问题与最佳实践
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="十四、常见问题与最佳实践">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#141" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14.1 高频问题
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#142" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14.2 测试人员能力进阶路径
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#143" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14.3 最佳实践清单
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#144" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14.4 推荐学习资源
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_24" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        附录：术语速查表
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="_1">接口测试完整教程（软件测试人员专用）<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p>本教程从理论与方法论出发，系统讲解接口测试的概念、流程、用例设计、工具选型与实战案例。与工具类教程（Postman/Fiddler/Python 自动化）形成互补，帮助测试人员建立完整的接口测试知识体系。</p>
+</blockquote>
+<hr />
+<h2 id="_2">目录<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="#一接口测试基础理论">一、接口测试基础理论</a></li>
+<li><a href="#二http-协议详解">二、HTTP 协议详解</a></li>
+<li><a href="#三常见接口类型">三、常见接口类型</a></li>
+<li><a href="#四接口文档解读">四、接口文档解读</a></li>
+<li><a href="#五接口测试用例设计">五、接口测试用例设计</a></li>
+<li><a href="#六接口测试完整流程">六、接口测试完整流程</a></li>
+<li><a href="#七测试用例模板">七、测试用例模板</a></li>
+<li><a href="#八工具选型对比">八、工具选型对比</a></li>
+<li><a href="#九mock-与挡板技术">九、Mock 与挡板技术</a></li>
+<li><a href="#十接口安全测试">十、接口安全测试</a></li>
+<li><a href="#十一接口性能测试">十一、接口性能测试</a></li>
+<li><a href="#十二接口自动化策略">十二、接口自动化策略</a></li>
+<li><a href="#十三实战案例">十三、实战案例</a></li>
+<li><a href="#十四常见问题与最佳实践">十四、常见问题与最佳实践</a></li>
+</ul>
+<hr />
+<h2 id="_3">一、接口测试基础理论<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<h3 id="11">1.1 什么是接口测试<a class="headerlink" href="#11" title="Permanent link">&para;</a></h3>
+<p><strong>接口（Interface）</strong> 是不同软件模块之间进行数据交互的契约。<br />
+<strong>接口测试</strong> 是验证这些接口的功能、性能、安全、可靠性是否符合预期的测试活动。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>   前端 / App / 第三方系统
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>            ↓ 调用
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>   ┌──────────────────┐
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>   │     API 接口      │ ← 接口测试关注点
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>   └──────────────────┘
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>            ↓
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>       业务逻辑层
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>            ↓
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>       数据库 / 缓存
+</code></pre></div>
+<h3 id="12">1.2 为什么要做接口测试<a class="headerlink" href="#12" title="Permanent link">&para;</a></h3>
+<p><strong>质量保障维度：</strong></p>
+<table>
+<thead>
+<tr>
+<th>痛点</th>
+<th>接口测试的价值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>UI 测试覆盖率低</td>
+<td>接口能覆盖业务后端逻辑</td>
+</tr>
+<tr>
+<td>UI 测试不稳定</td>
+<td>接口测试更稳定、可重复</td>
+</tr>
+<tr>
+<td>缺陷发现晚</td>
+<td>接口测试提前到开发联调阶段</td>
+</tr>
+<tr>
+<td>修复成本高</td>
+<td>越早发现的 Bug 修复成本越低</td>
+</tr>
+<tr>
+<td>自动化困难</td>
+<td>接口自动化比 UI 自动化容易实现</td>
+</tr>
+<tr>
+<td>边界场景难复现</td>
+<td>接口可直接构造异常数据</td>
+</tr>
+</tbody>
+</table>
+<p><strong>测试金字塔理论：</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>         ╱╲
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>        ╱  ╲     UI 测试（少量）
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>       ╱────╲    端到端，慢，脆弱
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>      ╱      ╲   
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>     ╱接口测试╲  接口测试（中量）★
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>    ╱──────────╲ 稳定，覆盖业务逻辑
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>   ╱            ╲
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>  ╱  单元测试    ╲ 单元测试（大量）
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a> ╱────────────────╲ 快，开发负责
+</code></pre></div>
+<p>接口测试是测试金字塔的 <strong>核心层</strong>，性价比最高。</p>
+<h3 id="13-vs-ui">1.3 接口测试 vs UI 测试<a class="headerlink" href="#13-vs-ui" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>接口测试</th>
+<th>UI 测试</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>测试对象</td>
+<td>API（后端）</td>
+<td>页面（前端+后端）</td>
+</tr>
+<tr>
+<td>执行速度</td>
+<td>快（毫秒级）</td>
+<td>慢（秒级）</td>
+</tr>
+<tr>
+<td>稳定性</td>
+<td>高</td>
+<td>低（页面元素变动）</td>
+</tr>
+<tr>
+<td>维护成本</td>
+<td>低</td>
+<td>高</td>
+</tr>
+<tr>
+<td>覆盖能力</td>
+<td>业务逻辑、异常场景</td>
+<td>用户体验、视觉</td>
+</tr>
+<tr>
+<td>自动化成本</td>
+<td>低</td>
+<td>高</td>
+</tr>
+<tr>
+<td>缺陷定位</td>
+<td>精准（直接定位接口）</td>
+<td>难（前后端均可能）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="14-vs">1.4 接口测试 vs 单元测试<a class="headerlink" href="#14-vs" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>单元测试</th>
+<th>接口测试</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>测试粒度</td>
+<td>函数/方法</td>
+<td>接口/API</td>
+</tr>
+<tr>
+<td>执行者</td>
+<td>开发</td>
+<td>测试</td>
+</tr>
+<tr>
+<td>依赖</td>
+<td>Mock 内部依赖</td>
+<td>调用真实接口</td>
+</tr>
+<tr>
+<td>关注点</td>
+<td>代码逻辑正确性</td>
+<td>业务功能正确性</td>
+</tr>
+</tbody>
+</table>
+<h3 id="15">1.5 接口测试关注什么<a class="headerlink" href="#15" title="Permanent link">&para;</a></h3>
+<p><strong>功能测试：</strong>
+- 接口能否正常返回数据
+- 返回数据是否符合预期
+- 异常入参时的处理</p>
+<p><strong>性能测试：</strong>
+- 响应时间
+- 并发能力（TPS/QPS）
+- 资源占用</p>
+<p><strong>安全测试：</strong>
+- 认证鉴权
+- 数据加密
+- SQL 注入、XSS 等漏洞</p>
+<p><strong>可靠性测试：</strong>
+- 重复调用幂等性
+- 异常恢复能力
+- 限流降级</p>
+<hr />
+<h2 id="http">二、HTTP 协议详解<a class="headerlink" href="#http" title="Permanent link">&para;</a></h2>
+<h3 id="21-http">2.1 HTTP 协议特点<a class="headerlink" href="#21-http" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>无状态</strong>：每次请求独立，服务器不记录上下文（通过 Cookie/Session/Token 弥补）</li>
+<li><strong>基于 TCP</strong>：可靠传输</li>
+<li><strong>请求-响应模型</strong>：客户端发起，服务端响应</li>
+<li><strong>明文传输</strong>：HTTP 明文，HTTPS 加密</li>
+</ul>
+<h3 id="22-http">2.2 一个完整的 HTTP 请求<a class="headerlink" href="#22-http" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="err">POST /api/login HTTP/1.1            ← 请求行（方法 路径 协议版本）</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="err">Host: api.example.com               ← 请求头</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="err">Content-Type: application/json</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="err">Authorization: Bearer eyJhbGc...</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="err">User-Agent: TestClient/1.0</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="err">                                    ← 空行</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="err">{                                   ← 请求体</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="err">    &quot;username&quot;: &quot;test&quot;,</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="err">    &quot;password&quot;: &quot;123456&quot;</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="err">}</span>
+</code></pre></div>
+<h3 id="23">2.3 响应结构<a class="headerlink" href="#23" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK                     ← 状态行</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json      ← 响应头</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="na">Content-Length</span><span class="o">:</span> <span class="l">156</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="na">Set-Cookie</span><span class="o">:</span> <span class="l">sessionId=abc123</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>                                    <span class="l">← 空行</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="err">{</span>                                   <span class="l">← 响应体</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>    <span class="l">&quot;code&quot;: 0,</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>    <span class="l">&quot;msg&quot;: &quot;成功&quot;,</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>    <span class="l">&quot;data&quot;: {</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>        <span class="l">&quot;userId&quot;: 12345,</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>        <span class="l">&quot;token&quot;: &quot;eyJhbGc...&quot;</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>    <span class="l">}</span>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="err">}</span>
+</code></pre></div>
+<h3 id="24-method">2.4 请求方法（Method）<a class="headerlink" href="#24-method" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>用途</th>
+<th>幂等性</th>
+<th>安全性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>GET</strong></td>
+<td>查询资源</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr>
+<td><strong>POST</strong></td>
+<td>创建资源</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td><strong>PUT</strong></td>
+<td>更新资源（全量）</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td><strong>PATCH</strong></td>
+<td>更新资源（部分）</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td><strong>DELETE</strong></td>
+<td>删除资源</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td><strong>HEAD</strong></td>
+<td>获取响应头</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr>
+<td><strong>OPTIONS</strong></td>
+<td>探测支持的方法</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>幂等性：</strong> 多次执行结果相同<br />
+<strong>安全性：</strong> 不会修改服务器资源</p>
+<p><strong>DELETE 幂等性说明：</strong> HTTP 规范定义 DELETE 是幂等的（重复删除同一资源结果相同），但实际业务实现中，第二次 DELETE 已删除资源可能返回 404 而非 200，测试时需以接口文档约定为准。</p>
+</blockquote>
+<h3 id="25-status-code">2.5 状态码（Status Code）<a class="headerlink" href="#25-status-code" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>状态码段</th>
+<th>含义</th>
+<th>常见示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1xx</td>
+<td>信息提示</td>
+<td>100 Continue</td>
+</tr>
+<tr>
+<td>2xx</td>
+<td>成功</td>
+<td>200 OK, 201 Created, 204 No Content</td>
+</tr>
+<tr>
+<td>3xx</td>
+<td>重定向</td>
+<td>301 永久, 302 临时, 304 未修改</td>
+</tr>
+<tr>
+<td>4xx</td>
+<td>客户端错误</td>
+<td>400 参数错误, 401 未认证, 403 无权限, 404 未找到, 405 方法不允许, 408 超时, 429 频繁请求</td>
+</tr>
+<tr>
+<td>5xx</td>
+<td>服务端错误</td>
+<td>500 内部错误, 502 网关错误, 503 服务不可用, 504 网关超时</td>
+</tr>
+</tbody>
+</table>
+<p><strong>测试常见排查：</strong></p>
+<ul>
+<li><code>400</code> → 检查请求参数格式</li>
+<li><code>401</code> → 检查 Token 是否正确或过期</li>
+<li><code>403</code> → 检查用户权限</li>
+<li><code>404</code> → 检查 URL 路径</li>
+<li><code>415</code> → 检查 Content-Type</li>
+<li><code>500</code> → 后端 Bug，提交缺陷</li>
+<li><code>502/504</code> → 后端服务挂了或超时</li>
+</ul>
+<h3 id="26-header">2.6 常见 Header<a class="headerlink" href="#26-header" title="Permanent link">&para;</a></h3>
+<p><strong>请求 Header：</strong></p>
+<table>
+<thead>
+<tr>
+<th>Header</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Host</code></td>
+<td>目标主机</td>
+</tr>
+<tr>
+<td><code>Content-Type</code></td>
+<td>请求体类型</td>
+</tr>
+<tr>
+<td><code>Authorization</code></td>
+<td>鉴权信息</td>
+</tr>
+<tr>
+<td><code>User-Agent</code></td>
+<td>客户端标识</td>
+</tr>
+<tr>
+<td><code>Accept</code></td>
+<td>接受的响应类型</td>
+</tr>
+<tr>
+<td><code>Accept-Language</code></td>
+<td>语言偏好</td>
+</tr>
+<tr>
+<td><code>Accept-Encoding</code></td>
+<td>接受的压缩</td>
+</tr>
+<tr>
+<td><code>Cookie</code></td>
+<td>客户端 Cookie</td>
+</tr>
+<tr>
+<td><code>Referer</code></td>
+<td>来源页面</td>
+</tr>
+<tr>
+<td><code>X-Forwarded-For</code></td>
+<td>真实 IP（代理场景）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>响应 Header：</strong></p>
+<table>
+<thead>
+<tr>
+<th>Header</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Content-Type</code></td>
+<td>响应体类型</td>
+</tr>
+<tr>
+<td><code>Content-Length</code></td>
+<td>响应体长度</td>
+</tr>
+<tr>
+<td><code>Set-Cookie</code></td>
+<td>设置 Cookie</td>
+</tr>
+<tr>
+<td><code>Cache-Control</code></td>
+<td>缓存策略</td>
+</tr>
+<tr>
+<td><code>Location</code></td>
+<td>重定向地址</td>
+</tr>
+<tr>
+<td><code>Access-Control-Allow-Origin</code></td>
+<td>CORS 跨域</td>
+</tr>
+</tbody>
+</table>
+<h3 id="27-content-type">2.7 常见 Content-Type<a class="headerlink" href="#27-content-type" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>application/json</code></td>
+<td>JSON 数据（最常见）</td>
+</tr>
+<tr>
+<td><code>application/x-www-form-urlencoded</code></td>
+<td>表单提交</td>
+</tr>
+<tr>
+<td><code>multipart/form-data</code></td>
+<td>上传文件</td>
+</tr>
+<tr>
+<td><code>application/xml</code></td>
+<td>XML 数据</td>
+</tr>
+<tr>
+<td><code>text/plain</code></td>
+<td>纯文本</td>
+</tr>
+<tr>
+<td><code>text/html</code></td>
+<td>HTML 页面</td>
+</tr>
+<tr>
+<td><code>application/octet-stream</code></td>
+<td>二进制流</td>
+</tr>
+</tbody>
+</table>
+<h3 id="28-cookie-session-token">2.8 Cookie / Session / Token<a class="headerlink" href="#28-cookie-session-token" title="Permanent link">&para;</a></h3>
+<p><strong>Cookie：</strong> 服务器写入客户端的小段数据，客户端每次请求自动携带。</p>
+<p><strong>Session：</strong> 服务器端会话存储，通过 Cookie 中的 sessionId 关联。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>登录 → 服务端生成 SessionId → Set-Cookie 返回客户端
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>          → 服务端保存 Session 数据（账号、权限）
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>后续请求 → 客户端自动携带 Cookie → 服务端通过 SessionId 查 Session
+</code></pre></div>
+<p><strong>Token（JWT 常见）：</strong> 无状态认证，所有信息加密在 Token 里。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>登录 → 服务端生成 Token（含用户信息+签名）→ 返回客户端
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>后续请求 → 客户端在 Header 携带 Token → 服务端校验签名
+</code></pre></div>
+<p><strong>对比：</strong></p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>Cookie+Session</th>
+<th>Token</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>状态</td>
+<td>有状态</td>
+<td>无状态</td>
+</tr>
+<tr>
+<td>服务端存储</td>
+<td>需要</td>
+<td>不需要</td>
+</tr>
+<tr>
+<td>多端共享</td>
+<td>难</td>
+<td>易</td>
+</tr>
+<tr>
+<td>主流应用</td>
+<td>传统 Web</td>
+<td>API、移动端、微服务</td>
+</tr>
+</tbody>
+</table>
+<h3 id="29-http-vs-https">2.9 HTTP vs HTTPS<a class="headerlink" href="#29-http-vs-https" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>HTTP</th>
+<th>HTTPS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>端口</td>
+<td>80</td>
+<td>443</td>
+</tr>
+<tr>
+<td>加密</td>
+<td>明文</td>
+<td>TLS/SSL 加密</td>
+</tr>
+<tr>
+<td>证书</td>
+<td>不需要</td>
+<td>需要 CA 证书</td>
+</tr>
+<tr>
+<td>速度</td>
+<td>快</td>
+<td>稍慢（多了握手）</td>
+</tr>
+<tr>
+<td>安全</td>
+<td>低</td>
+<td>高</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>测试关注：</strong> 抓包工具（Fiddler/Charles）需要安装根证书才能解密 HTTPS 内容。</p>
+</blockquote>
+<hr />
+<h2 id="_4">三、常见接口类型<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<h3 id="31-restful-api">3.1 RESTful API（最常见）<a class="headerlink" href="#31-restful-api" title="Permanent link">&para;</a></h3>
+<p>REST = Representational State Transfer，基于 HTTP 的资源化设计风格。</p>
+<p><strong>核心原则：</strong>
+- 使用 URL 表示资源（名词，不是动词）
+- 使用 HTTP 方法表示操作
+- 使用 HTTP 状态码表示结果</p>
+<p><strong>示例：</strong></p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>URL</th>
+<th>方法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>查询所有用户</td>
+<td><code>/users</code></td>
+<td>GET</td>
+</tr>
+<tr>
+<td>查询指定用户</td>
+<td><code>/users/123</code></td>
+<td>GET</td>
+</tr>
+<tr>
+<td>创建用户</td>
+<td><code>/users</code></td>
+<td>POST</td>
+</tr>
+<tr>
+<td>全量更新用户</td>
+<td><code>/users/123</code></td>
+<td>PUT</td>
+</tr>
+<tr>
+<td>部分更新用户</td>
+<td><code>/users/123</code></td>
+<td>PATCH</td>
+</tr>
+<tr>
+<td>删除用户</td>
+<td><code>/users/123</code></td>
+<td>DELETE</td>
+</tr>
+<tr>
+<td>查询用户的订单</td>
+<td><code>/users/123/orders</code></td>
+<td>GET</td>
+</tr>
+</tbody>
+</table>
+<p><strong>对比"非 REST 风格"（仍很常见）：</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>POST /api/getUser?id=123
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>POST /api/createUser
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>POST /api/deleteUser?id=123
+</code></pre></div>
+<blockquote>
+<p><strong>测试不论风格，方法论一致。</strong> 实际项目中混搭很常见。</p>
+</blockquote>
+<h3 id="32-graphql">3.2 GraphQL<a class="headerlink" href="#32-graphql" title="Permanent link">&para;</a></h3>
+<p>由 Facebook 推出的查询语言，客户端可精确指定需要的字段。</p>
+<p><strong>特点：</strong>
+- 单一 endpoint（通常 <code>/graphql</code>）
+- 客户端定义返回结构
+- 减少 over-fetching 和 under-fetching</p>
+<p><strong>请求示例：</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="err">POST</span><span class="w"> </span><span class="err">/graphql</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="p">{</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">  </span><span class="n">user</span><span class="p">(</span><span class="n">id</span><span class="p">:</span><span class="w"> </span><span class="mi">123</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">    </span><span class="n">name</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">    </span><span class="n">email</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="w">    </span><span class="n">orders</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="w">      </span><span class="n">id</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="w">      </span><span class="n">amount</span>
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="p">}</span>
+</code></pre></div>
+<p>响应只返回请求的字段。</p>
+<h3 id="33-websocket">3.3 WebSocket<a class="headerlink" href="#33-websocket" title="Permanent link">&para;</a></h3>
+<p>基于 TCP 的全双工通信协议，常用于即时通讯、推送、实时数据。</p>
+<p><strong>与 HTTP 区别：</strong>
+- 长连接（HTTP 通常短连接）
+- 双向通信（HTTP 单向请求-响应）
+- 协议头从 <code>http://</code> 变为 <code>ws://</code>，HTTPS 对应 <code>wss://</code></p>
+<p><strong>测试工具：</strong> Postman 支持 WebSocket、<code>wscat</code> 命令行工具</p>
+<h3 id="34-rpcremote-procedure-call">3.4 RPC（Remote Procedure Call）<a class="headerlink" href="#34-rpcremote-procedure-call" title="Permanent link">&para;</a></h3>
+<p>远程过程调用，常见于微服务内部通信。</p>
+<p><strong>主流框架：</strong></p>
+<table>
+<thead>
+<tr>
+<th>框架</th>
+<th>公司</th>
+<th>协议</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>gRPC</strong></td>
+<td>Google</td>
+<td>HTTP/2 + Protobuf</td>
+</tr>
+<tr>
+<td><strong>Dubbo</strong></td>
+<td>阿里</td>
+<td>TCP 二进制</td>
+</tr>
+<tr>
+<td><strong>Thrift</strong></td>
+<td>Facebook</td>
+<td>自定义二进制</td>
+</tr>
+<tr>
+<td><strong>HSF</strong></td>
+<td>阿里</td>
+<td>内部框架</td>
+</tr>
+</tbody>
+</table>
+<p><strong>特点：</strong>
+- 调用远程方法像调用本地方法
+- 性能比 HTTP+JSON 高
+- 通常需要专门的测试工具（如 BloomRPC、Apifox 支持 gRPC）</p>
+<h3 id="35-soap">3.5 SOAP<a class="headerlink" href="#35-soap" title="Permanent link">&para;</a></h3>
+<p>老旧的 XML 接口协议，目前主要在金融、政府、传统行业仍有使用。</p>
+<p><strong>特点：</strong>
+- 基于 XML
+- 复杂的 WSDL 描述
+- 主要工具：SoapUI</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nt">&lt;soap:Envelope&gt;</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">  </span><span class="nt">&lt;soap:Body&gt;</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">    </span><span class="nt">&lt;m:GetUser&gt;</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">      </span><span class="nt">&lt;m:UserId&gt;</span>123<span class="nt">&lt;/m:UserId&gt;</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="w">    </span><span class="nt">&lt;/m:GetUser&gt;</span>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="w">  </span><span class="nt">&lt;/soap:Body&gt;</span>
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="nt">&lt;/soap:Envelope&gt;</span>
+</code></pre></div>
+<h3 id="36">3.6 接口风格对比<a class="headerlink" href="#36" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>风格</th>
+<th>易用性</th>
+<th>性能</th>
+<th>主流场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RESTful</td>
+<td>⭐⭐⭐⭐⭐</td>
+<td>⭐⭐⭐</td>
+<td>Web/App 后端</td>
+</tr>
+<tr>
+<td>GraphQL</td>
+<td>⭐⭐⭐</td>
+<td>⭐⭐⭐⭐</td>
+<td>复杂前端聚合</td>
+</tr>
+<tr>
+<td>WebSocket</td>
+<td>⭐⭐⭐</td>
+<td>⭐⭐⭐⭐</td>
+<td>实时通讯</td>
+</tr>
+<tr>
+<td>RPC</td>
+<td>⭐⭐</td>
+<td>⭐⭐⭐⭐⭐</td>
+<td>微服务内部</td>
+</tr>
+<tr>
+<td>SOAP</td>
+<td>⭐</td>
+<td>⭐⭐</td>
+<td>传统企业</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_5">四、接口文档解读<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<h3 id="41">4.1 一份合格的接口文档应包含<a class="headerlink" href="#41" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>信息</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>接口名称</td>
+<td>用户登录</td>
+</tr>
+<tr>
+<td>接口描述</td>
+<td>用户使用账号密码登录系统</td>
+</tr>
+<tr>
+<td>请求 URL</td>
+<td><code>/api/v1/login</code></td>
+</tr>
+<tr>
+<td>请求方法</td>
+<td>POST</td>
+</tr>
+<tr>
+<td>请求头</td>
+<td>Content-Type, Authorization 等</td>
+</tr>
+<tr>
+<td>请求参数</td>
+<td>字段名/类型/是否必填/说明/示例</td>
+</tr>
+<tr>
+<td>响应格式</td>
+<td>JSON 结构</td>
+</tr>
+<tr>
+<td>响应字段</td>
+<td>每个字段的类型/含义</td>
+</tr>
+<tr>
+<td>状态码说明</td>
+<td>业务状态码及含义</td>
+</tr>
+<tr>
+<td>示例</td>
+<td>请求示例 + 响应示例</td>
+</tr>
+<tr>
+<td>异常说明</td>
+<td>异常场景的返回</td>
+</tr>
+<tr>
+<td>备注</td>
+<td>限流、安全、版本说明</td>
+</tr>
+</tbody>
+</table>
+<h3 id="42">4.2 标准示例<a class="headerlink" href="#42" title="Permanent link">&para;</a></h3>
+<p><strong>接口：</strong> 用户登录<br />
+<strong>URL：</strong> <code>POST /api/v1/login</code><br />
+<strong>Content-Type:</strong> <code>application/json</code></p>
+<p><strong>请求参数：</strong></p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>类型</th>
+<th>必填</th>
+<th>说明</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>username</td>
+<td>string</td>
+<td>是</td>
+<td>用户名，4-20 字符</td>
+<td>testuser</td>
+</tr>
+<tr>
+<td>password</td>
+<td>string</td>
+<td>是</td>
+<td>密码，6-20 字符</td>
+<td>123456</td>
+</tr>
+<tr>
+<td>captcha</td>
+<td>string</td>
+<td>否</td>
+<td>验证码（5 次错误后必填）</td>
+<td>a1b2</td>
+</tr>
+<tr>
+<td>remember</td>
+<td>boolean</td>
+<td>否</td>
+<td>是否记住登录，默认 false</td>
+<td>true</td>
+</tr>
+</tbody>
+</table>
+<p><strong>响应：</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="p">{</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">    </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">    </span><span class="nt">&quot;msg&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;成功&quot;</span><span class="p">,</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">    </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="w">        </span><span class="nt">&quot;userId&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">12345</span><span class="p">,</span>
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="w">        </span><span class="nt">&quot;username&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;testuser&quot;</span><span class="p">,</span>
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="w">        </span><span class="nt">&quot;token&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;eyJhbGciOiJIUzI1NiIs...&quot;</span><span class="p">,</span>
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="w">        </span><span class="nt">&quot;expiresIn&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">7200</span>
+<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="p">}</span>
+</code></pre></div>
+<p><strong>响应字段：</strong></p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>code</td>
+<td>int</td>
+<td>业务状态码，0 表示成功</td>
+</tr>
+<tr>
+<td>msg</td>
+<td>string</td>
+<td>提示信息</td>
+</tr>
+<tr>
+<td>data.userId</td>
+<td>long</td>
+<td>用户 ID</td>
+</tr>
+<tr>
+<td>data.token</td>
+<td>string</td>
+<td>登录凭证</td>
+</tr>
+<tr>
+<td>data.expiresIn</td>
+<td>int</td>
+<td>Token 有效期（秒）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>业务状态码：</strong></p>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>成功</td>
+</tr>
+<tr>
+<td>1001</td>
+<td>密码错误</td>
+</tr>
+<tr>
+<td>1002</td>
+<td>账号不存在</td>
+</tr>
+<tr>
+<td>1003</td>
+<td>参数错误</td>
+</tr>
+<tr>
+<td>1004</td>
+<td>需要验证码</td>
+</tr>
+<tr>
+<td>1005</td>
+<td>账号被锁定</td>
+</tr>
+</tbody>
+</table>
+<h3 id="43">4.3 常见文档工具<a class="headerlink" href="#43" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>工具</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Swagger / OpenAPI</strong></td>
+<td>代码注解生成，开源标准</td>
+</tr>
+<tr>
+<td><strong>YApi</strong></td>
+<td>国产开源，团队协作</td>
+</tr>
+<tr>
+<td><strong>Apifox</strong></td>
+<td>国产，文档+测试+Mock 一体化</td>
+</tr>
+<tr>
+<td><strong>ShowDoc</strong></td>
+<td>轻量、Markdown 风格</td>
+</tr>
+<tr>
+<td><strong>Postman</strong></td>
+<td>文档可自动生成</td>
+</tr>
+<tr>
+<td><strong>语雀 / Confluence</strong></td>
+<td>通用文档工具</td>
+</tr>
+</tbody>
+</table>
+<h3 id="44">4.4 接口文档解读要点<a class="headerlink" href="#44" title="Permanent link">&para;</a></h3>
+<p>测试人员拿到接口文档，要重点关注：</p>
+<ol>
+<li><strong>参数边界</strong>：长度、范围、格式</li>
+<li><strong>必填字段</strong>：缺失会怎样</li>
+<li><strong>字段类型</strong>：传错类型怎么处理</li>
+<li><strong>业务规则</strong>：账号锁定逻辑、验证码触发条件</li>
+<li><strong>异常状态码</strong>：是否覆盖了所有场景</li>
+<li><strong>接口依赖</strong>：调用前需要哪些前置数据</li>
+<li><strong>接口幂等性</strong>：重复调用是否有问题</li>
+<li><strong>接口版本</strong>：是否有 v1/v2 区别</li>
+</ol>
+<hr />
+<h2 id="_6">五、接口测试用例设计<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<h3 id="51">5.1 用例设计思路<a class="headerlink" href="#51" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>功能正常 ── 单接口验证
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>    ↓
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>参数异常 ── 等价类、边界值、错误推测
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>    ↓
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>业务异常 ── 业务规则、状态机
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>    ↓
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>场景组合 ── 多接口业务流程
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>    ↓
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>安全性  ── 鉴权、注入、越权
+<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>    ↓
+<a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a>性能   ── 响应时间、并发
+</code></pre></div>
+<h3 id="52">5.2 等价类划分<a class="headerlink" href="#52" title="Permanent link">&para;</a></h3>
+<p>将输入分为有效等价类和无效等价类，每类取代表测试。</p>
+<p><strong>示例：用户名字段（4-20 字符）</strong></p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>等价类</th>
+<th>测试用例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>有效</td>
+<td>4-20 字符</td>
+<td>testuser</td>
+</tr>
+<tr>
+<td>无效</td>
+<td>空</td>
+<td>(空)</td>
+</tr>
+<tr>
+<td>无效</td>
+<td>少于 4 字符</td>
+<td>abc</td>
+</tr>
+<tr>
+<td>无效</td>
+<td>超过 20 字符</td>
+<td>a*25</td>
+</tr>
+<tr>
+<td>无效</td>
+<td>含特殊字符</td>
+<td>test@user</td>
+</tr>
+<tr>
+<td>无效</td>
+<td>含中文</td>
+<td>测试用户</td>
+</tr>
+<tr>
+<td>无效</td>
+<td>null</td>
+<td>null</td>
+</tr>
+</tbody>
+</table>
+<h3 id="53">5.3 边界值分析<a class="headerlink" href="#53" title="Permanent link">&para;</a></h3>
+<p>针对边界进行测试，往往是 Bug 多发区。</p>
+<p><strong>示例：年龄（18-65）</strong></p>
+<table>
+<thead>
+<tr>
+<th>用例</th>
+<th>输入</th>
+<th>期望</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>下边界</td>
+<td>18</td>
+<td>通过</td>
+</tr>
+<tr>
+<td>下边界 -1</td>
+<td>17</td>
+<td>失败</td>
+</tr>
+<tr>
+<td>下边界 +1</td>
+<td>19</td>
+<td>通过</td>
+</tr>
+<tr>
+<td>上边界</td>
+<td>65</td>
+<td>通过</td>
+</tr>
+<tr>
+<td>上边界 -1</td>
+<td>64</td>
+<td>通过</td>
+</tr>
+<tr>
+<td>上边界 +1</td>
+<td>66</td>
+<td>失败</td>
+</tr>
+<tr>
+<td>极小值</td>
+<td>0、-1</td>
+<td>失败</td>
+</tr>
+<tr>
+<td>极大值</td>
+<td>999</td>
+<td>失败</td>
+</tr>
+</tbody>
+</table>
+<p><strong>示例：分页接口（page, size）</strong></p>
+<table>
+<thead>
+<tr>
+<th>用例</th>
+<th>page</th>
+<th>size</th>
+<th>期望</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>正常</td>
+<td>1</td>
+<td>10</td>
+<td>返回数据</td>
+</tr>
+<tr>
+<td>边界</td>
+<td>1</td>
+<td>1</td>
+<td>1 条</td>
+</tr>
+<tr>
+<td>边界</td>
+<td>1</td>
+<td>100</td>
+<td>100 条（上限）</td>
+</tr>
+<tr>
+<td>异常</td>
+<td>0</td>
+<td>10</td>
+<td>报错</td>
+</tr>
+<tr>
+<td>异常</td>
+<td>-1</td>
+<td>10</td>
+<td>报错</td>
+</tr>
+<tr>
+<td>异常</td>
+<td>1</td>
+<td>0</td>
+<td>报错或返回空</td>
+</tr>
+<tr>
+<td>异常</td>
+<td>1</td>
+<td>101</td>
+<td>报错（超上限）</td>
+</tr>
+<tr>
+<td>异常</td>
+<td>999999</td>
+<td>10</td>
+<td>返回空（无数据）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="54">5.4 错误推测法<a class="headerlink" href="#54" title="Permanent link">&para;</a></h3>
+<p>凭经验设计可能出错的场景。</p>
+<p><strong>常见错误推测：</strong></p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>空值</td>
+<td>必填字段空 / null / "" / " "</td>
+</tr>
+<tr>
+<td>类型错误</td>
+<td>数字字段传字符串</td>
+</tr>
+<tr>
+<td>格式错误</td>
+<td>邮箱不带 @、手机号长度错</td>
+</tr>
+<tr>
+<td>长度异常</td>
+<td>超长字符串（256/1000/10000）</td>
+</tr>
+<tr>
+<td>特殊字符</td>
+<td><code>' " &lt; &gt; &amp; ; \ /</code></td>
+</tr>
+<tr>
+<td>Unicode</td>
+<td>表情符 <code>😀</code>、繁体字、特殊文字</td>
+</tr>
+<tr>
+<td>SQL 关键字</td>
+<td><code>OR 1=1</code>, <code>;DROP TABLE</code></td>
+</tr>
+<tr>
+<td>重复值</td>
+<td>唯一字段重复提交</td>
+</tr>
+<tr>
+<td>不存在的 ID</td>
+<td>查询不存在的资源</td>
+</tr>
+<tr>
+<td>大数字</td>
+<td>int 越界（21 亿+）</td>
+</tr>
+<tr>
+<td>浮点精度</td>
+<td>0.1 + 0.2</td>
+</tr>
+<tr>
+<td>时间格式</td>
+<td>错误格式、未来时间、闰年</td>
+</tr>
+</tbody>
+</table>
+<h3 id="55">5.5 因果图 / 判定表<a class="headerlink" href="#55" title="Permanent link">&para;</a></h3>
+<p>适合复杂业务规则的设计。</p>
+<p><strong>示例：会员折扣规则</strong></p>
+<ul>
+<li>条件 1：是会员？</li>
+<li>条件 2：订单金额 &gt;= 100？</li>
+<li>条件 3：当日首单？</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>用例</th>
+<th>是会员</th>
+<th>金额≥100</th>
+<th>首单</th>
+<th>折扣</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Y</td>
+<td>Y</td>
+<td>Y</td>
+<td>0.7（满足全部，7 折）</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Y</td>
+<td>Y</td>
+<td>N</td>
+<td>0.8</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Y</td>
+<td>N</td>
+<td>Y</td>
+<td>0.9</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Y</td>
+<td>N</td>
+<td>N</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td>5</td>
+<td>N</td>
+<td>Y</td>
+<td>Y</td>
+<td>0.95</td>
+</tr>
+<tr>
+<td>6</td>
+<td>N</td>
+<td>Y</td>
+<td>N</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td>7</td>
+<td>N</td>
+<td>N</td>
+<td>Y</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td>8</td>
+<td>N</td>
+<td>N</td>
+<td>N</td>
+<td>1.0</td>
+</tr>
+</tbody>
+</table>
+<h3 id="56">5.6 业务场景法（多接口）<a class="headerlink" href="#56" title="Permanent link">&para;</a></h3>
+<p>跑通业务链路，验证多接口配合：</p>
+<p><strong>电商下单完整链路：</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>1. 登录 → 拿 token
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>2. 浏览商品 → 拿 productId
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>3. 加入购物车 → 拿 cartId
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>4. 提交订单 → 拿 orderId
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>5. 支付订单 → 拿 paymentId
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>6. 查询订单 → 验证状态
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>7. 申请退款 → 验证退款流程
+</code></pre></div>
+<p>每个接口的成功是下一个接口的前提，要设计：</p>
+<ul>
+<li>正常流程</li>
+<li>中途任一接口失败的处理</li>
+<li>数据不一致的处理（如先支付后取消）</li>
+</ul>
+<h3 id="57">5.7 接口测试用例八大维度<a class="headerlink" href="#57" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>关注点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>必填校验</strong></td>
+<td>必填字段为空、未传</td>
+</tr>
+<tr>
+<td><strong>参数类型</strong></td>
+<td>类型错误、null、类型转换</td>
+</tr>
+<tr>
+<td><strong>参数范围</strong></td>
+<td>边界值、超出范围</td>
+</tr>
+<tr>
+<td><strong>参数格式</strong></td>
+<td>邮箱、手机、日期格式</td>
+</tr>
+<tr>
+<td><strong>业务逻辑</strong></td>
+<td>业务规则、状态流转</td>
+</tr>
+<tr>
+<td><strong>接口安全</strong></td>
+<td>未登录、越权、SQL 注入</td>
+</tr>
+<tr>
+<td><strong>接口性能</strong></td>
+<td>响应时间、并发</td>
+</tr>
+<tr>
+<td><strong>异常处理</strong></td>
+<td>服务异常、超时、降级</td>
+</tr>
+</tbody>
+</table>
+<h3 id="58-checklist">5.8 用例设计 Checklist<a class="headerlink" href="#58-checklist" title="Permanent link">&para;</a></h3>
+<p>发起测试前对照检查：</p>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> 所有必填字段覆盖</li>
+<li class="task-list-item"><input type="checkbox" disabled/> 字段类型/长度/格式覆盖</li>
+<li class="task-list-item"><input type="checkbox" disabled/> 边界值覆盖</li>
+<li class="task-list-item"><input type="checkbox" disabled/> 业务规则全部覆盖</li>
+<li class="task-list-item"><input type="checkbox" disabled/> 异常场景（网络/超时/服务器错误）</li>
+<li class="task-list-item"><input type="checkbox" disabled/> 鉴权场景（无 token/过期 token/无权限）</li>
+<li class="task-list-item"><input type="checkbox" disabled/> 安全场景（SQL 注入/XSS/越权）</li>
+<li class="task-list-item"><input type="checkbox" disabled/> 幂等性测试（重复调用）</li>
+<li class="task-list-item"><input type="checkbox" disabled/> 数据一致性（接口返回 vs 数据库）</li>
+<li class="task-list-item"><input type="checkbox" disabled/> 接口依赖（上下游服务状态）</li>
+<li class="task-list-item"><input type="checkbox" disabled/> 日志/监控验证</li>
+</ul>
+<hr />
+<h2 id="_7">六、接口测试完整流程<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<h3 id="61">6.1 总体流程<a class="headerlink" href="#61" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>需求分析 → 接口梳理 → 用例设计 → 评审 
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>   → 环境准备 → 用例执行 → 缺陷跟踪 → 报告 → 复盘
+</code></pre></div>
+<h3 id="62">6.2 阶段详解<a class="headerlink" href="#62" title="Permanent link">&para;</a></h3>
+<h4 id="_8">阶段一：需求分析<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h4>
+<p><strong>目标：</strong> 理解业务，确认接口范围。</p>
+<p><strong>产出：</strong>
+- 接口清单（哪些接口、谁负责、何时联调）
+- 测试范围
+- 风险点</p>
+<p><strong>关键问题：</strong>
+- 接口的业务背景是什么？
+- 接口的上下游依赖有哪些？
+- 哪些是新接口、哪些是改动接口？
+- 改动接口的影响范围？</p>
+<h4 id="_9">阶段二：接口梳理<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h4>
+<p>向开发要清接口文档，至少明确：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>| 接口名 | URL | 方法 | 负责人 | 文档地址 | 联调时间 |
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>|--------|-----|------|--------|---------|---------|
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>| 登录   | /api/login | POST | 张三 | swagger#login | 6/10 |
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>| 注册   | /api/register | POST | 李四 | swagger#register | 6/11 |
+</code></pre></div>
+<h4 id="_10">阶段三：用例设计<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h4>
+<p>按"用例设计章节"方法设计，输出 <strong>接口测试用例文档</strong>。</p>
+<p><strong>用例数量参考：</strong>
+- 简单接口（如查询）：5-10 条
+- 中等接口（如创建）：10-20 条
+- 复杂接口（如下单）：20-50 条</p>
+<h4 id="_11">阶段四：用例评审<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h4>
+<p>参与人：<strong>测试 + 开发 + 产品</strong></p>
+<p>评审要点：
+- 用例是否覆盖需求
+- 异常场景是否充分
+- 是否有冗余用例
+- 优先级是否合理</p>
+<h4 id="_12">阶段五：环境准备<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>准备项</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>测试环境</td>
+<td>接口服务已部署</td>
+</tr>
+<tr>
+<td>测试账号</td>
+<td>不同角色账号（管理员、普通、新用户）</td>
+</tr>
+<tr>
+<td>测试数据</td>
+<td>基础数据准备好（商品、订单等）</td>
+</tr>
+<tr>
+<td>测试工具</td>
+<td>Postman/Apifox 等配置好</td>
+</tr>
+<tr>
+<td>抓包工具</td>
+<td>Fiddler/Charles 准备</td>
+</tr>
+<tr>
+<td>数据库访问</td>
+<td>必要时直连数据库校验</td>
+</tr>
+</tbody>
+</table>
+<h4 id="_13">阶段六：用例执行<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h4>
+<p><strong>执行原则：</strong>
+- 按优先级执行：P0 → P1 → P2
+- 先冒烟后全面：先验证主流程通畅
+- 实时记录：边执行边记录 Bug
+- 截图保存：异常场景保留证据</p>
+<p><strong>执行节奏：</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>day1: 冒烟（核心接口主流程）
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>day2-3: P0 全量
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>day4: P1 全量
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>day5: P2 全量
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>day6+: 回归 + 集成场景
+</code></pre></div>
+<h4 id="_14">阶段七：缺陷跟踪<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h4>
+<p><strong>缺陷管理工具：</strong> Jira / TAPD / 禅道 / GitHub Issues</p>
+<p><strong>缺陷应包含：</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>标题：[接口] 登录接口在密码包含特殊字符时返回 500
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>环境：测试环境 / Chrome 120 / API v1.2.0
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>前置条件：用户已注册
+<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>
+<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>复现步骤：
+<a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a>1. 调用 POST /api/login
+<a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a>2. Body：{&quot;username&quot;:&quot;test&quot;,&quot;password&quot;:&quot;a&#39;b\&quot;c&quot;}
+<a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a>
+<a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a>期望结果：返回 200，code=0 或参数错误码
+<a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a>
+<a id="__codelineno-15-13" name="__codelineno-15-13" href="#__codelineno-15-13"></a>实际结果：返回 500，msg=&quot;Internal Server Error&quot;
+<a id="__codelineno-15-14" name="__codelineno-15-14" href="#__codelineno-15-14"></a>
+<a id="__codelineno-15-15" name="__codelineno-15-15" href="#__codelineno-15-15"></a>附件：
+<a id="__codelineno-15-16" name="__codelineno-15-16" href="#__codelineno-15-16"></a>- 请求详情截图
+<a id="__codelineno-15-17" name="__codelineno-15-17" href="#__codelineno-15-17"></a>- 响应详情截图
+<a id="__codelineno-15-18" name="__codelineno-15-18" href="#__codelineno-15-18"></a>- 应用日志片段
+<a id="__codelineno-15-19" name="__codelineno-15-19" href="#__codelineno-15-19"></a>
+<a id="__codelineno-15-20" name="__codelineno-15-20" href="#__codelineno-15-20"></a>优先级：P0
+<a id="__codelineno-15-21" name="__codelineno-15-21" href="#__codelineno-15-21"></a>严重度：严重
+</code></pre></div>
+<h4 id="_15">阶段八：测试报告<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h4>
+<p><strong>报告内容：</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="gh"># 接口测试报告</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="gu">## 1. 测试概况</span>
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="k">-</span><span class="w"> </span>测试周期：2026-06-01 ~ 2026-06-07
+<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="k">-</span><span class="w"> </span>测试环境：test
+<a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a><span class="k">-</span><span class="w"> </span>接口版本：v1.2.0
+<a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a><span class="k">-</span><span class="w"> </span>执行人：xxx
+<a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a>
+<a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a><span class="gu">## 2. 测试范围</span>
+<a id="__codelineno-16-10" name="__codelineno-16-10" href="#__codelineno-16-10"></a><span class="k">-</span><span class="w"> </span>用户模块：8 个接口
+<a id="__codelineno-16-11" name="__codelineno-16-11" href="#__codelineno-16-11"></a><span class="k">-</span><span class="w"> </span>订单模块：12 个接口
+<a id="__codelineno-16-12" name="__codelineno-16-12" href="#__codelineno-16-12"></a><span class="k">-</span><span class="w"> </span>支付模块：5 个接口
+<a id="__codelineno-16-13" name="__codelineno-16-13" href="#__codelineno-16-13"></a><span class="k">-</span><span class="w"> </span>合计：25 个接口，约 380 条用例
+<a id="__codelineno-16-14" name="__codelineno-16-14" href="#__codelineno-16-14"></a>
+<a id="__codelineno-16-15" name="__codelineno-16-15" href="#__codelineno-16-15"></a><span class="gu">## 3. 测试结果</span>
+<a id="__codelineno-16-16" name="__codelineno-16-16" href="#__codelineno-16-16"></a>| 优先级 | 用例数 | 通过 | 失败 | 阻塞 | 通过率 |
+<a id="__codelineno-16-17" name="__codelineno-16-17" href="#__codelineno-16-17"></a>|--------|-------|------|------|------|--------|
+<a id="__codelineno-16-18" name="__codelineno-16-18" href="#__codelineno-16-18"></a>| P0     | 80    | 78   | 2    | 0    | 97.5%  |
+<a id="__codelineno-16-19" name="__codelineno-16-19" href="#__codelineno-16-19"></a>| P1     | 200   | 195  | 5    | 0    | 97.5%  |
+<a id="__codelineno-16-20" name="__codelineno-16-20" href="#__codelineno-16-20"></a>| P2     | 100   | 90   | 8    | 2    | 90%    |
+<a id="__codelineno-16-21" name="__codelineno-16-21" href="#__codelineno-16-21"></a>
+<a id="__codelineno-16-22" name="__codelineno-16-22" href="#__codelineno-16-22"></a><span class="gu">## 4. 缺陷统计</span>
+<a id="__codelineno-16-23" name="__codelineno-16-23" href="#__codelineno-16-23"></a>| 优先级 | 总数 | 已修复 | 待修复 |
+<a id="__codelineno-16-24" name="__codelineno-16-24" href="#__codelineno-16-24"></a>|--------|------|--------|--------|
+<a id="__codelineno-16-25" name="__codelineno-16-25" href="#__codelineno-16-25"></a>| P0     | 2    | 2      | 0      |
+<a id="__codelineno-16-26" name="__codelineno-16-26" href="#__codelineno-16-26"></a>| P1     | 5    | 4      | 1      |
+<a id="__codelineno-16-27" name="__codelineno-16-27" href="#__codelineno-16-27"></a>| P2     | 8    | 6      | 2      |
+<a id="__codelineno-16-28" name="__codelineno-16-28" href="#__codelineno-16-28"></a>
+<a id="__codelineno-16-29" name="__codelineno-16-29" href="#__codelineno-16-29"></a><span class="gu">## 5. 风险与建议</span>
+<a id="__codelineno-16-30" name="__codelineno-16-30" href="#__codelineno-16-30"></a><span class="k">-</span><span class="w"> </span>支付接口在并发场景下有偶发 500，建议加强并发测试
+<a id="__codelineno-16-31" name="__codelineno-16-31" href="#__codelineno-16-31"></a><span class="k">-</span><span class="w"> </span>...
+</code></pre></div>
+<h4 id="_16">阶段九：复盘<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h4>
+<p>每个版本结束做复盘：
+- 漏测了哪些场景？为什么？
+- 哪些 Bug 应该更早发现？
+- 用例库需要补充什么？
+- 流程上哪里可以改进？</p>
+<hr />
+<h2 id="_17">七、测试用例模板<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h2>
+<h3 id="71">7.1 标准用例模板<a class="headerlink" href="#71" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>用例编号：API_LOGIN_001
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>用例标题：正常账号密码登录成功
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>所属模块：用户中心 - 登录
+<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>优先级：P0
+<a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>预置条件：账号 testuser 已注册，密码为 123456
+<a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a>测试步骤：
+<a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a>  1. 发起 POST 请求 /api/login
+<a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a>  2. 请求 Header：Content-Type: application/json
+<a id="__codelineno-17-9" name="__codelineno-17-9" href="#__codelineno-17-9"></a>  3. 请求 Body：{&quot;username&quot;:&quot;testuser&quot;,&quot;password&quot;:&quot;123456&quot;}
+<a id="__codelineno-17-10" name="__codelineno-17-10" href="#__codelineno-17-10"></a>预期结果：
+<a id="__codelineno-17-11" name="__codelineno-17-11" href="#__codelineno-17-11"></a>  1. HTTP 状态码：200
+<a id="__codelineno-17-12" name="__codelineno-17-12" href="#__codelineno-17-12"></a>  2. 响应 code：0
+<a id="__codelineno-17-13" name="__codelineno-17-13" href="#__codelineno-17-13"></a>  3. 响应 msg：成功
+<a id="__codelineno-17-14" name="__codelineno-17-14" href="#__codelineno-17-14"></a>  4. 响应 data.token：非空字符串
+<a id="__codelineno-17-15" name="__codelineno-17-15" href="#__codelineno-17-15"></a>  5. 响应 data.userId：12345
+<a id="__codelineno-17-16" name="__codelineno-17-16" href="#__codelineno-17-16"></a>  6. 响应耗时 &lt; 500ms
+<a id="__codelineno-17-17" name="__codelineno-17-17" href="#__codelineno-17-17"></a>实际结果：（执行后填写）
+<a id="__codelineno-17-18" name="__codelineno-17-18" href="#__codelineno-17-18"></a>执行状态：（通过/失败）
+<a id="__codelineno-17-19" name="__codelineno-17-19" href="#__codelineno-17-19"></a>缺陷链接：（如有）
+<a id="__codelineno-17-20" name="__codelineno-17-20" href="#__codelineno-17-20"></a>执行人：xxx
+<a id="__codelineno-17-21" name="__codelineno-17-21" href="#__codelineno-17-21"></a>执行时间：2026-06-07
+</code></pre></div>
+<h3 id="72-excel">7.2 简化用例模板（Excel 格式）<a class="headerlink" href="#72-excel" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>编号</th>
+<th>标题</th>
+<th>模块</th>
+<th>优先级</th>
+<th>前置条件</th>
+<th>请求方法</th>
+<th>URL</th>
+<th>Headers</th>
+<th>Body</th>
+<th>预期 code</th>
+<th>预期 msg</th>
+<th>其他断言</th>
+<th>实际结果</th>
+<th>状态</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>001</td>
+<td>正常登录</td>
+<td>登录</td>
+<td>P0</td>
+<td>testuser 已注册</td>
+<td>POST</td>
+<td>/api/login</td>
+<td>application/json</td>
+<td>{"u":"testuser","p":"123456"}</td>
+<td>0</td>
+<td>成功</td>
+<td>data.token 非空</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>002</td>
+<td>密码错误</td>
+<td>登录</td>
+<td>P0</td>
+<td>testuser 已注册</td>
+<td>POST</td>
+<td>/api/login</td>
+<td>application/json</td>
+<td>{"u":"testuser","p":"wrong"}</td>
+<td>1001</td>
+<td>密码错误</td>
+<td>data 为 null</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>003</td>
+<td>账号不存在</td>
+<td>登录</td>
+<td>P0</td>
+<td>nouser 未注册</td>
+<td>POST</td>
+<td>/api/login</td>
+<td>application/json</td>
+<td>{"u":"nouser","p":"123456"}</td>
+<td>1002</td>
+<td>账号不存在</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="73">7.3 完整用例示例：登录接口<a class="headerlink" href="#73" title="Permanent link">&para;</a></h3>
+<p><strong>用例集：用户登录接口（25 条用例）</strong></p>
+<h4 id="5">一、必填校验（5 条）<a class="headerlink" href="#5" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>编号</th>
+<th>场景</th>
+<th>username</th>
+<th>password</th>
+<th>期望</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>001</td>
+<td>username 不传</td>
+<td>(不传)</td>
+<td>123456</td>
+<td>code=1003，提示 username 必填</td>
+</tr>
+<tr>
+<td>002</td>
+<td>username 空字符串</td>
+<td>""</td>
+<td>123456</td>
+<td>code=1003</td>
+</tr>
+<tr>
+<td>003</td>
+<td>username 为 null</td>
+<td>null</td>
+<td>123456</td>
+<td>code=1003</td>
+</tr>
+<tr>
+<td>004</td>
+<td>password 不传</td>
+<td>testuser</td>
+<td>(不传)</td>
+<td>code=1003</td>
+</tr>
+<tr>
+<td>005</td>
+<td>全部不传</td>
+<td>(不传)</td>
+<td>(不传)</td>
+<td>code=1003</td>
+</tr>
+</tbody>
+</table>
+<h4 id="4">二、参数类型（4 条）<a class="headerlink" href="#4" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>编号</th>
+<th>场景</th>
+<th>username</th>
+<th>password</th>
+<th>期望</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>006</td>
+<td>username 传数字</td>
+<td>12345</td>
+<td>123456</td>
+<td>系统应转字符串处理或报错</td>
+</tr>
+<tr>
+<td>007</td>
+<td>username 传 JSON 对象</td>
+<td>{}</td>
+<td>123456</td>
+<td>code=1003</td>
+</tr>
+<tr>
+<td>008</td>
+<td>password 传数字</td>
+<td>testuser</td>
+<td>123456 (数字类型)</td>
+<td>视约定</td>
+</tr>
+<tr>
+<td>009</td>
+<td>password 传 boolean</td>
+<td>testuser</td>
+<td>true</td>
+<td>code=1003</td>
+</tr>
+</tbody>
+</table>
+<h4 id="6">三、参数长度（6 条）<a class="headerlink" href="#6" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>编号</th>
+<th>场景</th>
+<th>username</th>
+<th>password</th>
+<th>期望</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>010</td>
+<td>username 1 个字符</td>
+<td>a</td>
+<td>123456</td>
+<td>code=1003</td>
+</tr>
+<tr>
+<td>011</td>
+<td>username 4 个字符（下边界）</td>
+<td>abcd</td>
+<td>123456</td>
+<td>code=0</td>
+</tr>
+<tr>
+<td>012</td>
+<td>username 20 个字符（上边界）</td>
+<td>a*20</td>
+<td>123456</td>
+<td>code=0</td>
+</tr>
+<tr>
+<td>013</td>
+<td>username 21 个字符</td>
+<td>a*21</td>
+<td>123456</td>
+<td>code=1003</td>
+</tr>
+<tr>
+<td>014</td>
+<td>password 5 个字符</td>
+<td>testuser</td>
+<td>12345</td>
+<td>code=1003</td>
+</tr>
+<tr>
+<td>015</td>
+<td>password 1000 个字符</td>
+<td>testuser</td>
+<td>a*1000</td>
+<td>code=1003</td>
+</tr>
+</tbody>
+</table>
+<h4 id="5_1">四、特殊字符（5 条）<a class="headerlink" href="#5_1" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>编号</th>
+<th>场景</th>
+<th>username</th>
+<th>password</th>
+<th>期望</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>016</td>
+<td>username 含中文</td>
+<td>测试用户</td>
+<td>123456</td>
+<td>code=1003 或允许（看需求）</td>
+</tr>
+<tr>
+<td>017</td>
+<td>username 含表情</td>
+<td>test😀</td>
+<td>123456</td>
+<td>不报错，正确处理</td>
+</tr>
+<tr>
+<td>018</td>
+<td>username SQL 注入</td>
+<td>admin' OR '1'='1</td>
+<td>any</td>
+<td>code=1001 或 1002，不应登录成功</td>
+</tr>
+<tr>
+<td>019</td>
+<td>username XSS</td>
+<td><code>&lt;script&gt;alert(1)&lt;/script&gt;</code></td>
+<td>123456</td>
+<td>不报错，字符被转义</td>
+</tr>
+<tr>
+<td>020</td>
+<td>password 含特殊字符</td>
+<td>testuser</td>
+<td>a!@#$%^&amp;*</td>
+<td>应支持</td>
+</tr>
+</tbody>
+</table>
+<h4 id="5_2">五、业务逻辑（5 条）<a class="headerlink" href="#5_2" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>编号</th>
+<th>场景</th>
+<th>前置</th>
+<th>期望</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>021</td>
+<td>正常登录</td>
+<td>账号正常</td>
+<td>code=0，返回 token</td>
+</tr>
+<tr>
+<td>022</td>
+<td>密码错误</td>
+<td>账号正常</td>
+<td>code=1001</td>
+</tr>
+<tr>
+<td>023</td>
+<td>账号不存在</td>
+<td>账号未注册</td>
+<td>code=1002</td>
+</tr>
+<tr>
+<td>024</td>
+<td>账号被锁定</td>
+<td>账号被锁</td>
+<td>code=1005</td>
+</tr>
+<tr>
+<td>025</td>
+<td>连续 5 次密码错误后需验证码</td>
+<td>已错 4 次</td>
+<td>第 5 次返回 code=1004</td>
+</tr>
+</tbody>
+</table>
+<h3 id="74">7.4 用例评审单<a class="headerlink" href="#74" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>评审项目：登录接口测试用例
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>评审时间：2026-06-07
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>参与人员：测试-张三、开发-李四、产品-王五
+<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>
+<a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>评审结论：
+<a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a>[√] 通过
+<a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a>[ ] 修改后通过
+<a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a>[ ] 不通过
+<a id="__codelineno-18-9" name="__codelineno-18-9" href="#__codelineno-18-9"></a>
+<a id="__codelineno-18-10" name="__codelineno-18-10" href="#__codelineno-18-10"></a>修改意见：
+<a id="__codelineno-18-11" name="__codelineno-18-11" href="#__codelineno-18-11"></a>1. 用例 016 中文用户名需求未明确，会后产品补充
+<a id="__codelineno-18-12" name="__codelineno-18-12" href="#__codelineno-18-12"></a>2. 增加&quot;密码包含空格&quot;的用例
+<a id="__codelineno-18-13" name="__codelineno-18-13" href="#__codelineno-18-13"></a>3. 用例 018 SQL 注入需联调安全组验证
+<a id="__codelineno-18-14" name="__codelineno-18-14" href="#__codelineno-18-14"></a>
+<a id="__codelineno-18-15" name="__codelineno-18-15" href="#__codelineno-18-15"></a>签字：
+<a id="__codelineno-18-16" name="__codelineno-18-16" href="#__codelineno-18-16"></a>测试：张三
+<a id="__codelineno-18-17" name="__codelineno-18-17" href="#__codelineno-18-17"></a>开发：李四
+<a id="__codelineno-18-18" name="__codelineno-18-18" href="#__codelineno-18-18"></a>产品：王五
+</code></pre></div>
+<hr />
+<h2 id="_18">八、工具选型对比<a class="headerlink" href="#_18" title="Permanent link">&para;</a></h2>
+<h3 id="81">8.1 主流工具对比<a class="headerlink" href="#81" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>工具</th>
+<th>类型</th>
+<th>优势</th>
+<th>劣势</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Postman</strong></td>
+<td>商业</td>
+<td>易用、生态成熟、协作好</td>
+<td>高级功能收费</td>
+<td>手工测试+轻自动化</td>
+</tr>
+<tr>
+<td><strong>Apifox</strong></td>
+<td>国产免费</td>
+<td>文档+测试+Mock 一体化</td>
+<td>桌面端较重</td>
+<td>国内团队首选</td>
+</tr>
+<tr>
+<td><strong>JMeter</strong></td>
+<td>开源</td>
+<td>性能测试强、免费</td>
+<td>学习曲线陡</td>
+<td>性能测试</td>
+</tr>
+<tr>
+<td><strong>SoapUI</strong></td>
+<td>商业/开源</td>
+<td>SOAP 接口强</td>
+<td>现代接口偏弱</td>
+<td>传统行业</td>
+</tr>
+<tr>
+<td><strong>HttpRunner</strong></td>
+<td>开源</td>
+<td>YAML 驱动、轻量</td>
+<td>社区相对小</td>
+<td>自动化框架</td>
+</tr>
+<tr>
+<td><strong>RestAssured</strong></td>
+<td>开源</td>
+<td>Java 生态融合</td>
+<td>需要 Java 基础</td>
+<td>Java 团队</td>
+</tr>
+<tr>
+<td><strong>Python + Requests</strong></td>
+<td>自研</td>
+<td>灵活、可定制</td>
+<td>需要开发</td>
+<td>中大型自动化</td>
+</tr>
+<tr>
+<td><strong>Fiddler/Charles</strong></td>
+<td>商业</td>
+<td>抓包分析</td>
+<td>不能主动测试</td>
+<td>配合手工测试</td>
+</tr>
+</tbody>
+</table>
+<h3 id="82">8.2 选型建议<a class="headerlink" href="#82" title="Permanent link">&para;</a></h3>
+<p><strong>按场景选型：</strong></p>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>推荐工具</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>手工接口测试</td>
+<td>Postman / Apifox</td>
+</tr>
+<tr>
+<td>性能测试</td>
+<td>JMeter / Locust</td>
+</tr>
+<tr>
+<td>抓包分析</td>
+<td>Fiddler / Charles</td>
+</tr>
+<tr>
+<td>接口自动化（轻量）</td>
+<td>Postman + Newman</td>
+</tr>
+<tr>
+<td>接口自动化（重量）</td>
+<td>Python + Pytest + Allure</td>
+</tr>
+<tr>
+<td>团队协作管理</td>
+<td>Apifox / YApi</td>
+</tr>
+<tr>
+<td>Mock 服务</td>
+<td>Apifox / WireMock</td>
+</tr>
+</tbody>
+</table>
+<p><strong>按团队选型：</strong></p>
+<table>
+<thead>
+<tr>
+<th>团队情况</th>
+<th>推荐</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>测试人员代码能力弱</td>
+<td>Postman / Apifox</td>
+</tr>
+<tr>
+<td>测试人员有 Python 基础</td>
+<td>Python + Pytest</td>
+</tr>
+<tr>
+<td>测试人员有 Java 基础</td>
+<td>RestAssured / TestNG</td>
+</tr>
+<tr>
+<td>测试外包/初创公司</td>
+<td>Apifox（免费、一体化）</td>
+</tr>
+<tr>
+<td>需要平台化</td>
+<td>自研平台 / 开源 MeterSphere</td>
+</tr>
+</tbody>
+</table>
+<h3 id="83">8.3 工具组合推荐<a class="headerlink" href="#83" title="Permanent link">&para;</a></h3>
+<p><strong>最小可行组合（初级测试）：</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>Postman（手工测试）+ Fiddler（抓包）
+</code></pre></div>
+<p><strong>标准组合（中级测试）：</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>Apifox（手工 + 文档 + Mock）+ JMeter（性能）
+</code></pre></div>
+<p><strong>高级组合（自动化测试）：</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>Python + Requests + Pytest + Allure + Jenkins + Fiddler
+</code></pre></div>
+<hr />
+<h2 id="mock">九、Mock 与挡板技术<a class="headerlink" href="#mock" title="Permanent link">&para;</a></h2>
+<h3 id="91-mock">9.1 什么是 Mock<a class="headerlink" href="#91-mock" title="Permanent link">&para;</a></h3>
+<p><strong>Mock：</strong> 模拟接口的返回，让测试不依赖真实服务。</p>
+<p><strong>为什么需要 Mock：</strong></p>
+<ul>
+<li>后端接口未开发完</li>
+<li>第三方接口调用费用高（短信、支付）</li>
+<li>难以触发的场景（账号被冻结、第三方超时）</li>
+<li>测试环境不稳定</li>
+<li>前后端并行开发</li>
+</ul>
+<h3 id="92-mock">9.2 Mock 工具<a class="headerlink" href="#92-mock" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>工具</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Apifox Mock</strong></td>
+<td>配置简单，与文档联动</td>
+</tr>
+<tr>
+<td><strong>Postman Mock Server</strong></td>
+<td>与 Postman 生态集成</td>
+</tr>
+<tr>
+<td><strong>WireMock</strong></td>
+<td>强大、可编程</td>
+</tr>
+<tr>
+<td><strong>JSON Server</strong></td>
+<td>30 秒搭建 REST Mock</td>
+</tr>
+<tr>
+<td><strong>Mock.js</strong></td>
+<td>前端 Mock</td>
+</tr>
+<tr>
+<td><strong>MockServer</strong></td>
+<td>Java 编写，企业级</td>
+</tr>
+</tbody>
+</table>
+<h3 id="93-mock">9.3 Mock 数据策略<a class="headerlink" href="#93-mock" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>策略</th>
+<th>说明</th>
+<th>使用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>固定 Mock</strong></td>
+<td>总返回相同内容</td>
+<td>简单场景</td>
+</tr>
+<tr>
+<td><strong>条件 Mock</strong></td>
+<td>按请求参数返回不同</td>
+<td>多场景测试</td>
+</tr>
+<tr>
+<td><strong>随机 Mock</strong></td>
+<td>返回随机数据</td>
+<td>数据多样性</td>
+</tr>
+<tr>
+<td><strong>延迟 Mock</strong></td>
+<td>模拟超时</td>
+<td>异常测试</td>
+</tr>
+<tr>
+<td><strong>错误 Mock</strong></td>
+<td>返回 5xx/异常</td>
+<td>容错测试</td>
+</tr>
+<tr>
+<td><strong>状态机 Mock</strong></td>
+<td>多次调用状态变化</td>
+<td>流程测试</td>
+</tr>
+</tbody>
+</table>
+<h3 id="94">9.4 实战示例<a class="headerlink" href="#94" title="Permanent link">&para;</a></h3>
+<p><strong>场景：测试支付回调，但真实支付不便触发</strong></p>
+<ol>
+<li>Mock 支付回调接口的请求格式（与生产一致）</li>
+<li>准备多种场景的 Mock 响应：</li>
+<li>支付成功</li>
+<li>支付失败</li>
+<li>支付处理中</li>
+<li>重复回调</li>
+<li>触发被测系统调用 Mock，验证业务逻辑</li>
+</ol>
+<p><strong>示例：Apifox 配置条件 Mock</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="c1">// 根据请求参数返回不同响应</span>
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">amount</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">1000</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">code</span><span class="o">:</span><span class="w"> </span><span class="mf">4001</span><span class="p">,</span><span class="w"> </span><span class="nx">msg</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;金额超限&quot;</span><span class="w"> </span><span class="p">};</span>
+<a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">amount</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mf">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">code</span><span class="o">:</span><span class="w"> </span><span class="mf">4002</span><span class="p">,</span><span class="w"> </span><span class="nx">msg</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;金额非法&quot;</span><span class="w"> </span><span class="p">};</span>
+<a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">code</span><span class="o">:</span><span class="w"> </span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="nx">msg</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;成功&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">data</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">orderId</span><span class="o">:</span><span class="w"> </span><span class="mf">100001</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">};</span>
+<a id="__codelineno-22-8" name="__codelineno-22-8" href="#__codelineno-22-8"></a><span class="p">}</span>
+</code></pre></div>
+<h3 id="95-stubvs-mock">9.5 挡板（Stub）vs Mock<a class="headerlink" href="#95-stubvs-mock" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Mock：</strong> 主动模拟返回，有断言能力</li>
+<li><strong>Stub：</strong> 替代真实服务的桩，更轻量</li>
+</ul>
+<p>在测试人员视角，两者差异不大，统称 Mock。</p>
+<h3 id="96">9.6 注意事项<a class="headerlink" href="#96" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Mock 和真实接口要一致</strong>：字段、类型、状态码</li>
+<li><strong>及时切换回真实接口</strong>：联调完成后用真实接口回归</li>
+<li><strong>Mock 数据要清晰标识</strong>：避免误用 Mock 数据上线</li>
+<li><strong>同步更新</strong>：接口变更后 Mock 也要更新</li>
+</ol>
+<hr />
+<h2 id="_19">十、接口安全测试<a class="headerlink" href="#_19" title="Permanent link">&para;</a></h2>
+<h3 id="101-owasp-api-top-10">10.1 OWASP API 安全 Top 10<a class="headerlink" href="#101-owasp-api-top-10" title="Permanent link">&para;</a></h3>
+<p>OWASP 是国际安全权威组织，定期发布 API 安全风险榜单。以下为 <strong>2023 版</strong>（相比 2019 版新增了 SSRF、Unsafe Consumption of APIs 等项）：</p>
+<ol>
+<li>失效的对象级授权（BOLA / IDOR）</li>
+<li>失效的认证（Broken Authentication）</li>
+<li>失效的对象属性级授权（原"过度数据暴露"+"批量分配"合并）</li>
+<li>不受限制的资源消耗（Unrestricted Resource Consumption，含缺乏速率限制、资源不限制等）</li>
+<li>失效的功能级授权（Broken Function Level Authorization）</li>
+<li>不受限制的敏感业务流访问（Unrestricted Access to Sensitive Business Flows）</li>
+<li>服务端请求伪造（SSRF）— 2023 新增</li>
+<li>安全配置错误（Security Misconfiguration）</li>
+<li>不当的资产管理与 API 服务退役（Improper Inventory Management）</li>
+<li>不安全的 API 消费（Unsafe Consumption of APIs）— 2023 新增</li>
+</ol>
+<h3 id="102">10.2 认证与鉴权测试<a class="headerlink" href="#102" title="Permanent link">&para;</a></h3>
+<p><strong>认证（Authentication）：</strong> 你是谁<br />
+<strong>鉴权（Authorization）：</strong> 你能做什么</p>
+<p><strong>测试要点：</strong></p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>测试场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>未认证</td>
+<td>不带 Token 访问需要登录的接口 → 应返回 401</td>
+</tr>
+<tr>
+<td>Token 无效</td>
+<td>随机字符串作为 Token → 应返回 401</td>
+</tr>
+<tr>
+<td>Token 过期</td>
+<td>使用过期 Token → 应返回 401</td>
+</tr>
+<tr>
+<td>Token 篡改</td>
+<td>修改 Token 中间几位 → 应返回 401</td>
+</tr>
+<tr>
+<td>Token 复用</td>
+<td>注销后 Token 还能用 → Bug</td>
+</tr>
+<tr>
+<td>越权访问</td>
+<td>用户 A 用 token 访问用户 B 的资源 → 应拒绝</td>
+</tr>
+<tr>
+<td>权限提升</td>
+<td>普通用户访问管理员接口 → 应拒绝</td>
+</tr>
+<tr>
+<td>接口绕过</td>
+<td>直接访问需要前置接口的接口</td>
+</tr>
+</tbody>
+</table>
+<p><strong>越权（IDOR）经典案例：</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>正常：用户 A 查询自己订单
+<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>GET /api/order/123
+<a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>Headers: token=A 的 token
+<a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a>
+<a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a>越权测试：用 A 的 token 查询 B 的订单
+<a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a>GET /api/order/456  (456 是用户 B 的订单)
+<a id="__codelineno-23-7" name="__codelineno-23-7" href="#__codelineno-23-7"></a>Headers: token=A 的 token
+<a id="__codelineno-23-8" name="__codelineno-23-8" href="#__codelineno-23-8"></a>
+<a id="__codelineno-23-9" name="__codelineno-23-9" href="#__codelineno-23-9"></a>期望：返回 403 或 404（不能透露资源存在）
+<a id="__codelineno-23-10" name="__codelineno-23-10" href="#__codelineno-23-10"></a>实际：如果返回 B 的订单详情 → 严重 Bug
+</code></pre></div>
+<h3 id="103-sql">10.3 SQL 注入测试<a class="headerlink" href="#103-sql" title="Permanent link">&para;</a></h3>
+<p><strong>原理：</strong> 在参数中插入 SQL 代码，骗后端拼接执行。</p>
+<p><strong>经典 Payload：</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>&#39; OR &#39;1&#39;=&#39;1
+<a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>&#39; OR 1=1--
+<a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>admin&#39; --
+<a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a>&#39;; DROP TABLE users; --
+<a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a>1&#39; UNION SELECT username, password FROM users--
+</code></pre></div>
+<p><strong>测试方法：</strong></p>
+<ol>
+<li>在所有用户可控的输入点尝试上述 Payload</li>
+<li>观察响应：</li>
+<li>返回不该返回的数据 → 注入成功</li>
+<li>返回 SQL 错误信息 → 后端有漏洞</li>
+<li>响应时间异常长 → 可能时间盲注</li>
+</ol>
+<p><strong>示例：登录接口</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="p">{</span><span class="nt">&quot;username&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;admin&#39; OR &#39;1&#39;=&#39;1&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;password&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;anything&quot;</span><span class="p">}</span>
+</code></pre></div>
+<p>如果能成功登录 → SQL 注入 Bug。</p>
+<p><strong>工具：</strong> SQLMap（自动化 SQL 注入检测）</p>
+<h3 id="104-xss">10.4 XSS 攻击测试<a class="headerlink" href="#104-xss" title="Permanent link">&para;</a></h3>
+<p><strong>原理：</strong> 注入恶意脚本到页面，他人访问时执行。</p>
+<p><strong>经典 Payload：</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span><span class="nx">alert</span><span class="p">(</span><span class="mf">1</span><span class="p">)&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a><span class="p">&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">x</span> <span class="na">onerror</span><span class="o">=</span><span class="s">alert(1)</span><span class="p">&gt;</span>
+<a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a><span class="p">&lt;</span><span class="nt">svg</span> <span class="na">onload</span><span class="o">=</span><span class="s">alert(1)</span><span class="p">&gt;</span>
+<a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a>javascript:alert(1)
+</code></pre></div>
+<p><strong>测试方法：</strong></p>
+<ol>
+<li>在评论、昵称、描述等字段提交 Payload</li>
+<li>在其他页面查看是否被解析执行</li>
+<li>检查响应：恶意字符应被转义为 <code>&amp;lt;script&amp;gt;</code></li>
+</ol>
+<h3 id="105">10.5 越权测试<a class="headerlink" href="#105" title="Permanent link">&para;</a></h3>
+<p><strong>水平越权：</strong> 同级用户互相访问数据</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>用户 A：GET /api/user/A/info  ✓
+<a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a>用户 A：GET /api/user/B/info  应失败
+</code></pre></div>
+<p><strong>垂直越权：</strong> 低权限用户访问高权限接口</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>普通用户：POST /api/admin/deleteUser  应失败
+</code></pre></div>
+<h3 id="106">10.6 敏感信息泄露<a class="headerlink" href="#106" title="Permanent link">&para;</a></h3>
+<p><strong>测试场景：</strong></p>
+<ul>
+<li>响应中是否含密码、手机号、身份证（应脱敏）</li>
+<li>错误信息是否泄露技术栈（如 SQL 语句、文件路径）</li>
+<li>接口是否传输了不必要的字段（如内部状态、价格成本）</li>
+<li>Token 是否在 URL 中（应放 Header）</li>
+<li>日志是否记录了敏感信息</li>
+</ul>
+<h3 id="107">10.7 限流与防刷<a class="headerlink" href="#107" title="Permanent link">&para;</a></h3>
+<p><strong>测试场景：</strong></p>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>期望</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>短时间高频调用同一接口</td>
+<td>触发限流，返回 429</td>
+</tr>
+<tr>
+<td>同一 IP 大量调用</td>
+<td>触发 IP 封禁</td>
+</tr>
+<tr>
+<td>同一账号同时多端登录</td>
+<td>按策略处理</td>
+</tr>
+<tr>
+<td>暴力破解密码</td>
+<td>5 次错误锁定账号</td>
+</tr>
+<tr>
+<td>验证码爆破</td>
+<td>验证码失效或限频</td>
+</tr>
+</tbody>
+</table>
+<h3 id="108">10.8 文件上传安全<a class="headerlink" href="#108" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>测试场景</th>
+<th>期望</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>上传超大文件</td>
+<td>限制大小，不应拒绝服务</td>
+</tr>
+<tr>
+<td>上传可执行文件（.exe、.sh）</td>
+<td>应拒绝</td>
+</tr>
+<tr>
+<td>上传脚本文件（.php、.jsp）</td>
+<td>应拒绝</td>
+</tr>
+<tr>
+<td>文件名含 <code>../../</code></td>
+<td>不应能跳出目录</td>
+</tr>
+<tr>
+<td>上传重复文件</td>
+<td>应处理冲突</td>
+</tr>
+<tr>
+<td>上传 0KB 文件</td>
+<td>应处理</td>
+</tr>
+</tbody>
+</table>
+<h3 id="109">10.9 安全测试清单<a class="headerlink" href="#109" title="Permanent link">&para;</a></h3>
+<p>每个接口必查：</p>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> 是否需要认证（公开接口除外）</li>
+<li class="task-list-item"><input type="checkbox" disabled/> Token 失效后无法访问</li>
+<li class="task-list-item"><input type="checkbox" disabled/> 越权场景测试通过</li>
+<li class="task-list-item"><input type="checkbox" disabled/> SQL 注入 Payload 不生效</li>
+<li class="task-list-item"><input type="checkbox" disabled/> XSS Payload 被正确转义</li>
+<li class="task-list-item"><input type="checkbox" disabled/> 敏感字段已脱敏</li>
+<li class="task-list-item"><input type="checkbox" disabled/> 高频调用有限流</li>
+<li class="task-list-item"><input type="checkbox" disabled/> 错误信息不泄露技术细节</li>
+<li class="task-list-item"><input type="checkbox" disabled/> 上传接口有文件类型/大小校验</li>
+<li class="task-list-item"><input type="checkbox" disabled/> 关键操作有日志记录</li>
+</ul>
+<hr />
+<h2 id="_20">十一、接口性能测试<a class="headerlink" href="#_20" title="Permanent link">&para;</a></h2>
+<h3 id="111">11.1 性能测试关注指标<a class="headerlink" href="#111" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th>含义</th>
+<th>关注阈值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>RT（响应时间）</strong></td>
+<td>单次请求耗时</td>
+<td>&lt; 200ms 优秀，&lt; 1s 可接受</td>
+</tr>
+<tr>
+<td><strong>TPS</strong></td>
+<td>每秒事务数</td>
+<td>看业务要求</td>
+</tr>
+<tr>
+<td><strong>QPS</strong></td>
+<td>每秒查询数</td>
+<td>看业务要求</td>
+</tr>
+<tr>
+<td><strong>并发用户数</strong></td>
+<td>同时在线人数</td>
+<td>看业务要求</td>
+</tr>
+<tr>
+<td><strong>错误率</strong></td>
+<td>失败请求占比</td>
+<td>&lt; 0.1%</td>
+</tr>
+<tr>
+<td><strong>CPU 使用率</strong></td>
+<td>服务器 CPU</td>
+<td>&lt; 70%</td>
+</tr>
+<tr>
+<td><strong>内存使用率</strong></td>
+<td>服务器内存</td>
+<td>&lt; 80%</td>
+</tr>
+</tbody>
+</table>
+<h3 id="112">11.2 性能测试类型<a class="headerlink" href="#112" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>目的</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>基准测试</strong></td>
+<td>单用户单次性能基线</td>
+</tr>
+<tr>
+<td><strong>负载测试</strong></td>
+<td>增加压力，找性能拐点</td>
+</tr>
+<tr>
+<td><strong>压力测试</strong></td>
+<td>超出极限，看系统行为</td>
+</tr>
+<tr>
+<td><strong>并发测试</strong></td>
+<td>同时操作的正确性</td>
+</tr>
+<tr>
+<td><strong>稳定性测试</strong></td>
+<td>长时间运行（24 小时+）</td>
+</tr>
+<tr>
+<td><strong>峰值测试</strong></td>
+<td>模拟瞬时高峰（秒杀）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="113">11.3 性能测试工具<a class="headerlink" href="#113" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>工具</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>JMeter</strong></td>
+<td>老牌、功能全</td>
+</tr>
+<tr>
+<td><strong>Locust</strong></td>
+<td>Python 编写、简洁</td>
+</tr>
+<tr>
+<td><strong>k6</strong></td>
+<td>JavaScript、现代</td>
+</tr>
+<tr>
+<td><strong>Gatling</strong></td>
+<td>Scala、高性能</td>
+</tr>
+<tr>
+<td><strong>wrk</strong></td>
+<td>命令行、简单粗暴</td>
+</tr>
+<tr>
+<td><strong>Apifox 性能模块</strong></td>
+<td>国产工具集成</td>
+</tr>
+</tbody>
+</table>
+<h3 id="114-jmeter">11.4 JMeter 极简流程<a class="headerlink" href="#114-jmeter" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>1. 测试计划 → 添加线程组（虚拟用户）
+<a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a>2. 线程组 → 添加 HTTP 请求
+<a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a>3. HTTP 请求 → 配置 URL/参数
+<a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a>4. 添加监听器（聚合报告/查看结果树）
+<a id="__codelineno-29-5" name="__codelineno-29-5" href="#__codelineno-29-5"></a>5. 配置：并发数、循环次数、压测时长
+<a id="__codelineno-29-6" name="__codelineno-29-6" href="#__codelineno-29-6"></a>6. 启动 → 查看报告
+</code></pre></div>
+<p><strong>线程组参数：</strong></p>
+<ul>
+<li><strong>线程数（用户数）：</strong> 同时模拟多少个虚拟用户</li>
+<li><strong>Ramp-Up 时间：</strong> 多久内启动所有线程（避免瞬时高峰）</li>
+<li><strong>循环次数：</strong> 每个用户跑几次</li>
+</ul>
+<h3 id="115">11.5 性能测试用例设计<a class="headerlink" href="#115" title="Permanent link">&para;</a></h3>
+<p><strong>示例：登录接口性能测试</strong></p>
+<table>
+<thead>
+<tr>
+<th>用例</th>
+<th>并发数</th>
+<th>持续时间</th>
+<th>期望 RT</th>
+<th>期望 TPS</th>
+<th>期望错误率</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>基准</td>
+<td>1</td>
+<td>1 分钟</td>
+<td>&lt; 200ms</td>
+<td>-</td>
+<td>0%</td>
+</tr>
+<tr>
+<td>低并发</td>
+<td>50</td>
+<td>5 分钟</td>
+<td>&lt; 300ms</td>
+<td>&gt; 200</td>
+<td>&lt; 0.1%</td>
+</tr>
+<tr>
+<td>中并发</td>
+<td>200</td>
+<td>10 分钟</td>
+<td>&lt; 500ms</td>
+<td>&gt; 800</td>
+<td>&lt; 0.5%</td>
+</tr>
+<tr>
+<td>高并发</td>
+<td>500</td>
+<td>5 分钟</td>
+<td>&lt; 1s</td>
+<td>&gt; 1500</td>
+<td>&lt; 1%</td>
+</tr>
+<tr>
+<td>极限</td>
+<td>1000</td>
+<td>5 分钟</td>
+<td>找拐点</td>
+<td>找瓶颈</td>
+<td>-</td>
+</tr>
+<tr>
+<td>稳定性</td>
+<td>200</td>
+<td>4 小时</td>
+<td>稳定</td>
+<td>稳定</td>
+<td>&lt; 0.5%</td>
+</tr>
+</tbody>
+</table>
+<h3 id="116">11.6 性能测试报告要素<a class="headerlink" href="#116" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="gh"># 登录接口性能测试报告</span>
+<a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a>
+<a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a><span class="gu">## 测试目的</span>
+<a id="__codelineno-30-4" name="__codelineno-30-4" href="#__codelineno-30-4"></a>评估登录接口在 500 用户并发下的性能表现。
+<a id="__codelineno-30-5" name="__codelineno-30-5" href="#__codelineno-30-5"></a>
+<a id="__codelineno-30-6" name="__codelineno-30-6" href="#__codelineno-30-6"></a><span class="gu">## 测试环境</span>
+<a id="__codelineno-30-7" name="__codelineno-30-7" href="#__codelineno-30-7"></a><span class="k">-</span><span class="w"> </span>服务器：4C8G * 2 台
+<a id="__codelineno-30-8" name="__codelineno-30-8" href="#__codelineno-30-8"></a><span class="k">-</span><span class="w"> </span>数据库：MySQL 8.0，单实例 4C16G
+<a id="__codelineno-30-9" name="__codelineno-30-9" href="#__codelineno-30-9"></a><span class="k">-</span><span class="w"> </span>测试工具：JMeter 5.6
+<a id="__codelineno-30-10" name="__codelineno-30-10" href="#__codelineno-30-10"></a><span class="k">-</span><span class="w"> </span>测试机：4C8G
+<a id="__codelineno-30-11" name="__codelineno-30-11" href="#__codelineno-30-11"></a>
+<a id="__codelineno-30-12" name="__codelineno-30-12" href="#__codelineno-30-12"></a><span class="gu">## 测试场景</span>
+<a id="__codelineno-30-13" name="__codelineno-30-13" href="#__codelineno-30-13"></a><span class="k">-</span><span class="w"> </span>并发用户数：500
+<a id="__codelineno-30-14" name="__codelineno-30-14" href="#__codelineno-30-14"></a><span class="k">-</span><span class="w"> </span>Ramp-Up：60 秒
+<a id="__codelineno-30-15" name="__codelineno-30-15" href="#__codelineno-30-15"></a><span class="k">-</span><span class="w"> </span>测试时长：10 分钟
+<a id="__codelineno-30-16" name="__codelineno-30-16" href="#__codelineno-30-16"></a><span class="k">-</span><span class="w"> </span>测试数据：1000 个测试账号
+<a id="__codelineno-30-17" name="__codelineno-30-17" href="#__codelineno-30-17"></a>
+<a id="__codelineno-30-18" name="__codelineno-30-18" href="#__codelineno-30-18"></a><span class="gu">## 测试结果</span>
+<a id="__codelineno-30-19" name="__codelineno-30-19" href="#__codelineno-30-19"></a>| 指标 | 实际值 | 期望值 | 是否通过 |
+<a id="__codelineno-30-20" name="__codelineno-30-20" href="#__codelineno-30-20"></a>|------|--------|--------|---------|
+<a id="__codelineno-30-21" name="__codelineno-30-21" href="#__codelineno-30-21"></a>| 平均 RT | 280ms | &lt; 500ms | ✓ |
+<a id="__codelineno-30-22" name="__codelineno-30-22" href="#__codelineno-30-22"></a>| 95% RT | 450ms | &lt; 800ms | ✓ |
+<a id="__codelineno-30-23" name="__codelineno-30-23" href="#__codelineno-30-23"></a>| TPS | 1620 | &gt; 1500 | ✓ |
+<a id="__codelineno-30-24" name="__codelineno-30-24" href="#__codelineno-30-24"></a>| 错误率 | 0.05% | &lt; 0.5% | ✓ |
+<a id="__codelineno-30-25" name="__codelineno-30-25" href="#__codelineno-30-25"></a>| CPU | 65% | &lt; 70% | ✓ |
+<a id="__codelineno-30-26" name="__codelineno-30-26" href="#__codelineno-30-26"></a>| 内存 | 72% | &lt; 80% | ✓ |
+<a id="__codelineno-30-27" name="__codelineno-30-27" href="#__codelineno-30-27"></a>
+<a id="__codelineno-30-28" name="__codelineno-30-28" href="#__codelineno-30-28"></a><span class="gu">## 性能瓶颈分析</span>
+<a id="__codelineno-30-29" name="__codelineno-30-29" href="#__codelineno-30-29"></a><span class="k">-</span><span class="w"> </span>数据库连接池已用 80%，建议调整
+<a id="__codelineno-30-30" name="__codelineno-30-30" href="#__codelineno-30-30"></a><span class="k">-</span><span class="w"> </span>...
+<a id="__codelineno-30-31" name="__codelineno-30-31" href="#__codelineno-30-31"></a>
+<a id="__codelineno-30-32" name="__codelineno-30-32" href="#__codelineno-30-32"></a><span class="gu">## 结论与建议</span>
+<a id="__codelineno-30-33" name="__codelineno-30-33" href="#__codelineno-30-33"></a>登录接口在 500 并发下满足性能要求，建议数据库连接池扩容。
+</code></pre></div>
+<hr />
+<h2 id="_21">十二、接口自动化策略<a class="headerlink" href="#_21" title="Permanent link">&para;</a></h2>
+<h3 id="121">12.1 何时引入自动化<a class="headerlink" href="#121" title="Permanent link">&para;</a></h3>
+<p><strong>适合：</strong>
+- 接口相对稳定
+- 回归测试频繁
+- 测试用例可复用
+- 团队有维护能力</p>
+<p><strong>不适合：</strong>
+- 接口频繁变动（每周大改）
+- 一次性项目
+- 团队完全没编码能力</p>
+<h3 id="122">12.2 自动化覆盖范围建议<a class="headerlink" href="#122" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>用例类型</th>
+<th>自动化建议</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>冒烟测试</td>
+<td>100% 自动化（每次发布必跑）</td>
+</tr>
+<tr>
+<td>主流程</td>
+<td>80% 自动化</td>
+</tr>
+<tr>
+<td>异常分支</td>
+<td>50% 自动化（高价值场景）</td>
+</tr>
+<tr>
+<td>边界值</td>
+<td>50% 自动化</td>
+</tr>
+<tr>
+<td>一次性场景</td>
+<td>不自动化（投入产出比低）</td>
+</tr>
+<tr>
+<td>探索性测试</td>
+<td>不自动化（人工灵活）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="123">12.3 自动化分层策略<a class="headerlink" href="#123" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>   ╱╲
+<a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a>  ╱  ╲   UI 自动化（5%）
+<a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a> ╱    ╲   关键流程冒烟
+<a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a>╱──────╲
+<a id="__codelineno-31-5" name="__codelineno-31-5" href="#__codelineno-31-5"></a>─────────  
+<a id="__codelineno-31-6" name="__codelineno-31-6" href="#__codelineno-31-6"></a>   接口自动化（25%）    ← 主战场
+<a id="__codelineno-31-7" name="__codelineno-31-7" href="#__codelineno-31-7"></a>   覆盖业务逻辑
+<a id="__codelineno-31-8" name="__codelineno-31-8" href="#__codelineno-31-8"></a>─────────
+<a id="__codelineno-31-9" name="__codelineno-31-9" href="#__codelineno-31-9"></a>   单元测试（70%）
+<a id="__codelineno-31-10" name="__codelineno-31-10" href="#__codelineno-31-10"></a>   开发负责
+</code></pre></div>
+<h3 id="124">12.4 自动化分阶段实施<a class="headerlink" href="#124" title="Permanent link">&para;</a></h3>
+<p><strong>阶段一：试点（1-2 个月）</strong>
+- 选 1-2 个稳定模块
+- 跑通基础框架（5-10 个用例）
+- 验证可行性</p>
+<p><strong>阶段二：扩展（3-6 个月）</strong>
+- 覆盖核心模块
+- 建立用例库（100+ 用例）
+- 接入 CI/CD</p>
+<p><strong>阶段三：成熟（6 个月后）</strong>
+- 全面覆盖（500+ 用例）
+- 每天定时回归
+- 接入监控告警</p>
+<h3 id="125">12.5 用例稳定性保证<a class="headerlink" href="#125" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>问题</th>
+<th>解决方案</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>测试数据被污染</td>
+<td>每个用例使用独立数据，或执行后清理</td>
+</tr>
+<tr>
+<td>接口偶发超时</td>
+<td>失败重试（pytest-rerunfailures）</td>
+</tr>
+<tr>
+<td>环境不稳定</td>
+<td>健康检查 + 告警</td>
+</tr>
+<tr>
+<td>并发资源冲突</td>
+<td>用例之间避免操作同一资源</td>
+</tr>
+<tr>
+<td>字段顺序变化</td>
+<td>用 JSONPath 提取，不依赖顺序</td>
+</tr>
+<tr>
+<td>时间相关字段</td>
+<td>用相对断言（如"在最近 1 分钟内"）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="126">12.6 自动化的常见误区<a class="headerlink" href="#126" title="Permanent link">&para;</a></h3>
+<p>❌ <strong>追求 100% 覆盖率</strong> → 投入产出不平衡<br />
+❌ <strong>完全替代手工测试</strong> → 探索性测试依然需要<br />
+❌ <strong>自动化等于无人值守</strong> → 仍需维护、监控<br />
+❌ <strong>用例越多越好</strong> → 维护成本指数增长<br />
+❌ <strong>跑通了就完事</strong> → 失败用例不分析等于没跑  </p>
+<hr />
+<h2 id="_22">十三、实战案例<a class="headerlink" href="#_22" title="Permanent link">&para;</a></h2>
+<h3 id="131">13.1 案例一：电商下单接口完整测试<a class="headerlink" href="#131" title="Permanent link">&para;</a></h3>
+<p><strong>接口信息：</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>POST /api/order/create
+<a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a>Content-Type: application/json
+<a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a>Authorization: Bearer {token}
+<a id="__codelineno-32-4" name="__codelineno-32-4" href="#__codelineno-32-4"></a>
+<a id="__codelineno-32-5" name="__codelineno-32-5" href="#__codelineno-32-5"></a>Body:
+<a id="__codelineno-32-6" name="__codelineno-32-6" href="#__codelineno-32-6"></a>{
+<a id="__codelineno-32-7" name="__codelineno-32-7" href="#__codelineno-32-7"></a>    &quot;userId&quot;: 12345,
+<a id="__codelineno-32-8" name="__codelineno-32-8" href="#__codelineno-32-8"></a>    &quot;items&quot;: [
+<a id="__codelineno-32-9" name="__codelineno-32-9" href="#__codelineno-32-9"></a>        {&quot;productId&quot;: 1001, &quot;quantity&quot;: 2},
+<a id="__codelineno-32-10" name="__codelineno-32-10" href="#__codelineno-32-10"></a>        {&quot;productId&quot;: 1002, &quot;quantity&quot;: 1}
+<a id="__codelineno-32-11" name="__codelineno-32-11" href="#__codelineno-32-11"></a>    ],
+<a id="__codelineno-32-12" name="__codelineno-32-12" href="#__codelineno-32-12"></a>    &quot;addressId&quot;: 999,
+<a id="__codelineno-32-13" name="__codelineno-32-13" href="#__codelineno-32-13"></a>    &quot;couponId&quot;: 888,
+<a id="__codelineno-32-14" name="__codelineno-32-14" href="#__codelineno-32-14"></a>    &quot;remark&quot;: &quot;尽快发货&quot;
+<a id="__codelineno-32-15" name="__codelineno-32-15" href="#__codelineno-32-15"></a>}
+</code></pre></div>
+<p><strong>用例集（35 条）：</strong></p>
+<h4 id="5_3">一、必填校验（5 条）<a class="headerlink" href="#5_3" title="Permanent link">&para;</a></h4>
+<ul>
+<li>userId 不传 / 为空 / 为 null</li>
+<li>items 不传 / 为空数组</li>
+<li>addressId 不传</li>
+</ul>
+<h4 id="10">二、参数有效性（10 条）<a class="headerlink" href="#10" title="Permanent link">&para;</a></h4>
+<ul>
+<li>userId 不存在</li>
+<li>productId 不存在</li>
+<li>productId 已下架</li>
+<li>quantity 为 0 / 负数 / 超大</li>
+<li>addressId 不属于该用户（越权）</li>
+<li>couponId 已使用 / 已过期 / 不存在</li>
+</ul>
+<h4 id="10_1">三、业务规则（10 条）<a class="headerlink" href="#10_1" title="Permanent link">&para;</a></h4>
+<ul>
+<li>商品库存不足</li>
+<li>商品价格在下单时被改</li>
+<li>优惠券不满足使用条件（最低消费）</li>
+<li>优惠券与商品不匹配</li>
+<li>多商品分别属于不同店铺（拆单）</li>
+<li>触发库存预警</li>
+<li>触发风控规则</li>
+<li>用户被限购</li>
+<li>秒杀商品时段外下单</li>
+<li>跨境商品不能配送到指定地址</li>
+</ul>
+<h4 id="3">四、并发场景（3 条）<a class="headerlink" href="#3" title="Permanent link">&para;</a></h4>
+<ul>
+<li>同一商品多用户秒杀（库存 1，100 人抢）</li>
+<li>同一用户重复提交（防重）</li>
+<li>优惠券抢光后还能否用</li>
+</ul>
+<h4 id="4_1">五、安全场景（4 条）<a class="headerlink" href="#4_1" title="Permanent link">&para;</a></h4>
+<ul>
+<li>无 token 调用</li>
+<li>token 过期</li>
+<li>修改 userId 用别人账户下单</li>
+<li>SQL 注入 / XSS 测试</li>
+</ul>
+<h4 id="3_1">六、性能场景（3 条）<a class="headerlink" href="#3_1" title="Permanent link">&para;</a></h4>
+<ul>
+<li>单接口 RT &lt; 500ms</li>
+<li>200 并发持续 5 分钟</li>
+<li>1000 并发峰值</li>
+</ul>
+<p><strong>典型用例详情：</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">编号</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ORDER_001</span>
+<a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a><span class="w">  </span><span class="nt">场景</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">正常下单</span>
+<a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a><span class="w">  </span><span class="nt">前置</span><span class="p">:</span>
+<a id="__codelineno-33-4" name="__codelineno-33-4" href="#__codelineno-33-4"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">用户 testuser 已登录</span>
+<a id="__codelineno-33-5" name="__codelineno-33-5" href="#__codelineno-33-5"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">商品 1001 库存充足</span>
+<a id="__codelineno-33-6" name="__codelineno-33-6" href="#__codelineno-33-6"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">地址 999 属于该用户</span>
+<a id="__codelineno-33-7" name="__codelineno-33-7" href="#__codelineno-33-7"></a><span class="w">  </span><span class="nt">请求</span><span class="p">:</span>
+<a id="__codelineno-33-8" name="__codelineno-33-8" href="#__codelineno-33-8"></a><span class="w">    </span><span class="nt">method</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">POST</span>
+<a id="__codelineno-33-9" name="__codelineno-33-9" href="#__codelineno-33-9"></a><span class="w">    </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/api/order/create</span>
+<a id="__codelineno-33-10" name="__codelineno-33-10" href="#__codelineno-33-10"></a><span class="w">    </span><span class="nt">headers</span><span class="p">:</span>
+<a id="__codelineno-33-11" name="__codelineno-33-11" href="#__codelineno-33-11"></a><span class="w">      </span><span class="nt">Authorization</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Bearer {{token}}</span>
+<a id="__codelineno-33-12" name="__codelineno-33-12" href="#__codelineno-33-12"></a><span class="w">    </span><span class="nt">body</span><span class="p">:</span>
+<a id="__codelineno-33-13" name="__codelineno-33-13" href="#__codelineno-33-13"></a><span class="w">      </span><span class="nt">userId</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">12345</span>
+<a id="__codelineno-33-14" name="__codelineno-33-14" href="#__codelineno-33-14"></a><span class="w">      </span><span class="nt">items</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[{</span><span class="s">&quot;productId&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="nv">1001</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;quantity&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="nv">2</span><span class="p p-Indicator">}]</span>
+<a id="__codelineno-33-15" name="__codelineno-33-15" href="#__codelineno-33-15"></a><span class="w">      </span><span class="nt">addressId</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">999</span>
+<a id="__codelineno-33-16" name="__codelineno-33-16" href="#__codelineno-33-16"></a><span class="w">  </span><span class="nt">期望</span><span class="p">:</span>
+<a id="__codelineno-33-17" name="__codelineno-33-17" href="#__codelineno-33-17"></a><span class="w">    </span><span class="nt">http_status</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">200</span>
+<a id="__codelineno-33-18" name="__codelineno-33-18" href="#__codelineno-33-18"></a><span class="w">    </span><span class="nt">code</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<a id="__codelineno-33-19" name="__codelineno-33-19" href="#__codelineno-33-19"></a><span class="w">    </span><span class="nt">msg</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">成功</span>
+<a id="__codelineno-33-20" name="__codelineno-33-20" href="#__codelineno-33-20"></a><span class="w">    </span><span class="nt">data.orderId</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">非空</span>
+<a id="__codelineno-33-21" name="__codelineno-33-21" href="#__codelineno-33-21"></a><span class="w">    </span><span class="nt">data.totalAmount</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">= 商品单价 * 2</span>
+<a id="__codelineno-33-22" name="__codelineno-33-22" href="#__codelineno-33-22"></a><span class="w">    </span><span class="nt">data.status</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">WAIT_PAY</span>
+<a id="__codelineno-33-23" name="__codelineno-33-23" href="#__codelineno-33-23"></a><span class="w">  </span><span class="nt">附加验证</span><span class="p">:</span>
+<a id="__codelineno-33-24" name="__codelineno-33-24" href="#__codelineno-33-24"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">数据库 orders 表新增 1 条记录</span>
+<a id="__codelineno-33-25" name="__codelineno-33-25" href="#__codelineno-33-25"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">商品库存减少 2</span>
+<a id="__codelineno-33-26" name="__codelineno-33-26" href="#__codelineno-33-26"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">用户消息推送已发送</span>
+<a id="__codelineno-33-27" name="__codelineno-33-27" href="#__codelineno-33-27"></a>
+<a id="__codelineno-33-28" name="__codelineno-33-28" href="#__codelineno-33-28"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">编号</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ORDER_015</span>
+<a id="__codelineno-33-29" name="__codelineno-33-29" href="#__codelineno-33-29"></a><span class="w">  </span><span class="nt">场景</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">库存不足</span>
+<a id="__codelineno-33-30" name="__codelineno-33-30" href="#__codelineno-33-30"></a><span class="w">  </span><span class="nt">前置</span><span class="p">:</span>
+<a id="__codelineno-33-31" name="__codelineno-33-31" href="#__codelineno-33-31"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">商品 1003 库存 = 1</span>
+<a id="__codelineno-33-32" name="__codelineno-33-32" href="#__codelineno-33-32"></a><span class="w">  </span><span class="nt">请求</span><span class="p">:</span>
+<a id="__codelineno-33-33" name="__codelineno-33-33" href="#__codelineno-33-33"></a><span class="w">    </span><span class="nt">body</span><span class="p">:</span>
+<a id="__codelineno-33-34" name="__codelineno-33-34" href="#__codelineno-33-34"></a><span class="w">      </span><span class="nt">items</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[{</span><span class="s">&quot;productId&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="nv">1003</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;quantity&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="nv">5</span><span class="p p-Indicator">}]</span>
+<a id="__codelineno-33-35" name="__codelineno-33-35" href="#__codelineno-33-35"></a><span class="w">  </span><span class="nt">期望</span><span class="p">:</span>
+<a id="__codelineno-33-36" name="__codelineno-33-36" href="#__codelineno-33-36"></a><span class="w">    </span><span class="nt">code</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3001</span>
+<a id="__codelineno-33-37" name="__codelineno-33-37" href="#__codelineno-33-37"></a><span class="w">    </span><span class="nt">msg</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">商品库存不足</span>
+<a id="__codelineno-33-38" name="__codelineno-33-38" href="#__codelineno-33-38"></a><span class="w">  </span><span class="nt">附加验证</span><span class="p">:</span>
+<a id="__codelineno-33-39" name="__codelineno-33-39" href="#__codelineno-33-39"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">数据库 orders 表无新增</span>
+<a id="__codelineno-33-40" name="__codelineno-33-40" href="#__codelineno-33-40"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">商品库存不变</span>
+</code></pre></div>
+<h3 id="132">13.2 案例二：登录限流测试<a class="headerlink" href="#132" title="Permanent link">&para;</a></h3>
+<p><strong>需求：</strong> 同一账号 1 分钟内密码错误 5 次后锁定 30 分钟。</p>
+<p><strong>测试设计：</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>准备：测试账号 limit_test，初始正常状态
+<a id="__codelineno-34-2" name="__codelineno-34-2" href="#__codelineno-34-2"></a>
+<a id="__codelineno-34-3" name="__codelineno-34-3" href="#__codelineno-34-3"></a>执行：
+<a id="__codelineno-34-4" name="__codelineno-34-4" href="#__codelineno-34-4"></a>  循环 5 次：
+<a id="__codelineno-34-5" name="__codelineno-34-5" href="#__codelineno-34-5"></a>    调用登录，密码 wrong
+<a id="__codelineno-34-6" name="__codelineno-34-6" href="#__codelineno-34-6"></a>    期望返回 1001（密码错误）
+<a id="__codelineno-34-7" name="__codelineno-34-7" href="#__codelineno-34-7"></a>  第 6 次：
+<a id="__codelineno-34-8" name="__codelineno-34-8" href="#__codelineno-34-8"></a>    调用登录，密码 wrong
+<a id="__codelineno-34-9" name="__codelineno-34-9" href="#__codelineno-34-9"></a>    期望返回 1005（账号锁定）
+<a id="__codelineno-34-10" name="__codelineno-34-10" href="#__codelineno-34-10"></a>  第 7 次：
+<a id="__codelineno-34-11" name="__codelineno-34-11" href="#__codelineno-34-11"></a>    调用登录，密码正确
+<a id="__codelineno-34-12" name="__codelineno-34-12" href="#__codelineno-34-12"></a>    期望返回 1005（仍锁定）
+<a id="__codelineno-34-13" name="__codelineno-34-13" href="#__codelineno-34-13"></a>
+<a id="__codelineno-34-14" name="__codelineno-34-14" href="#__codelineno-34-14"></a>等待 30 分钟（自动化中可用脚本修改数据库时间或等待）
+<a id="__codelineno-34-15" name="__codelineno-34-15" href="#__codelineno-34-15"></a>
+<a id="__codelineno-34-16" name="__codelineno-34-16" href="#__codelineno-34-16"></a>继续：
+<a id="__codelineno-34-17" name="__codelineno-34-17" href="#__codelineno-34-17"></a>  调用登录，密码正确
+<a id="__codelineno-34-18" name="__codelineno-34-18" href="#__codelineno-34-18"></a>  期望返回 0（成功）
+<a id="__codelineno-34-19" name="__codelineno-34-19" href="#__codelineno-34-19"></a>
+<a id="__codelineno-34-20" name="__codelineno-34-20" href="#__codelineno-34-20"></a>数据库验证：
+<a id="__codelineno-34-21" name="__codelineno-34-21" href="#__codelineno-34-21"></a>  - 检查 user 表 lock_status 字段
+<a id="__codelineno-34-22" name="__codelineno-34-22" href="#__codelineno-34-22"></a>  - 检查 login_log 表的失败记录
+</code></pre></div>
+<h3 id="133">13.3 案例三：支付链路集成测试<a class="headerlink" href="#133" title="Permanent link">&para;</a></h3>
+<p><strong>业务流程：</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a>创建订单 → 发起支付 → 第三方支付 → 支付回调 → 订单状态更新 → 触发发货
+</code></pre></div>
+<p><strong>测试要点：</strong></p>
+<ol>
+<li><strong>正常链路</strong>：每个环节都成功</li>
+<li><strong>支付失败</strong>：用户取消、银行返回失败</li>
+<li><strong>支付超时</strong>：用户长时间不操作</li>
+<li><strong>回调丢失</strong>：第三方回调未到达</li>
+<li><strong>回调重复</strong>：同一回调多次触发</li>
+<li><strong>回调篡改</strong>：签名校验</li>
+<li><strong>金额不一致</strong>：订单金额 vs 回调金额</li>
+<li><strong>状态机异常</strong>：未支付订单收到退款回调</li>
+</ol>
+<p><strong>Mock 应用：</strong> 第三方支付难以触发的场景，用 Mock 模拟回调请求。</p>
+<h3 id="134">13.4 案例四：列表分页查询测试<a class="headerlink" href="#134" title="Permanent link">&para;</a></h3>
+<p><strong>接口：</strong> <code>GET /api/order/list?page=1&amp;size=10&amp;status=PAID&amp;startDate=2026-01-01</code></p>
+<p><strong>用例集（22 条）：</strong></p>
+<table>
+<thead>
+<tr>
+<th>编号</th>
+<th>场景</th>
+<th>期望</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>001</td>
+<td>正常分页</td>
+<td>返回 10 条</td>
+</tr>
+<tr>
+<td>002</td>
+<td>不传 page</td>
+<td>默认 page=1</td>
+</tr>
+<tr>
+<td>003</td>
+<td>不传 size</td>
+<td>默认 size=20</td>
+</tr>
+<tr>
+<td>004</td>
+<td>page=0</td>
+<td>报错或默认 1</td>
+</tr>
+<tr>
+<td>005</td>
+<td>page=-1</td>
+<td>报错</td>
+</tr>
+<tr>
+<td>006</td>
+<td>page 极大值</td>
+<td>返回空列表</td>
+</tr>
+<tr>
+<td>007</td>
+<td>size=0</td>
+<td>报错</td>
+</tr>
+<tr>
+<td>008</td>
+<td>size 超上限（如 1000）</td>
+<td>报错或限制为最大值</td>
+</tr>
+<tr>
+<td>009</td>
+<td>status 合法值</td>
+<td>正确过滤</td>
+</tr>
+<tr>
+<td>010</td>
+<td>status 非法值</td>
+<td>报错</td>
+</tr>
+<tr>
+<td>011</td>
+<td>status 不传</td>
+<td>返回全部</td>
+</tr>
+<tr>
+<td>012</td>
+<td>日期格式错误</td>
+<td>报错</td>
+</tr>
+<tr>
+<td>013</td>
+<td>startDate &gt; endDate</td>
+<td>报错或空</td>
+</tr>
+<tr>
+<td>014</td>
+<td>跨年查询</td>
+<td>正确</td>
+</tr>
+<tr>
+<td>015</td>
+<td>总数为 0</td>
+<td>返回空列表，total=0</td>
+</tr>
+<tr>
+<td>016</td>
+<td>越权查别人订单</td>
+<td>不返回</td>
+</tr>
+<tr>
+<td>017</td>
+<td>排序字段错误</td>
+<td>报错</td>
+</tr>
+<tr>
+<td>018</td>
+<td>数据按时间倒序</td>
+<td>第一条最新</td>
+</tr>
+<tr>
+<td>019</td>
+<td>分页 total 准确</td>
+<td>与数据库总数一致</td>
+</tr>
+<tr>
+<td>020</td>
+<td>翻页数据无重复无遗漏</td>
+<td>1-10 页拼接 = 全量</td>
+</tr>
+<tr>
+<td>021</td>
+<td>性能：1000 万数据查询</td>
+<td>&lt; 1s</td>
+</tr>
+<tr>
+<td>022</td>
+<td>并发查询</td>
+<td>数据一致</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_23">十四、常见问题与最佳实践<a class="headerlink" href="#_23" title="Permanent link">&para;</a></h2>
+<h3 id="141">14.1 高频问题<a class="headerlink" href="#141" title="Permanent link">&para;</a></h3>
+<p><strong>Q1：接口返回 200，但 code 不为 0，算成功还是失败？</strong></p>
+<p>A：HTTP 200 只是传输层成功，业务层成功要看 code。测试时两者都要断言：
+- HTTP 状态码 = 200（传输成功）
+- 业务 code = 0（业务成功）</p>
+<p><strong>Q2：没有接口文档怎么测？</strong></p>
+<p>A：
+1. 先抓包了解接口形态（Fiddler）
+2. 找开发要 Swagger 或直接看代码
+3. 测试时倒逼开发补文档
+4. 不要默默接受"无文档测试"，这是流程问题</p>
+<p><strong>Q3：接口测试和功能测试有冲突吗？</strong></p>
+<p>A：不冲突，互补关系：
+- 接口测试：验证后端逻辑、异常分支
+- 功能测试：验证完整用户体验
+- 协同：接口测试覆盖底层，功能测试覆盖端到端</p>
+<p><strong>Q4：接口字段很多，每个都要断言吗？</strong></p>
+<p>A：不必。优先断言：
+- 业务关键字段（如 orderId、amount、status）
+- 容易出 Bug 的字段（计算字段、时间字段）
+- 字段类型（避免类型错误）</p>
+<p>次要字段可批量校验 JSON Schema。</p>
+<p><strong>Q5：发现 Bug 后开发说"前端会处理"，要不要提？</strong></p>
+<p>A：必须提。原因：
+1. 接口是公共能力，可能被多端调用
+2. 第三方可能直接调你的接口
+3. 后端兜底是底线
+4. 防御性编程是基本要求</p>
+<p><strong>Q6：自动化用例失败了，是 Bug 还是脚本问题？</strong></p>
+<p>A：排查顺序：
+1. 手工复现（Postman 调一次）
+2. 如果手工 OK → 脚本问题
+3. 如果手工也失败 → Bug
+4. 如果偶发失败 → 加重试机制 + 收集监控数据</p>
+<h3 id="142">14.2 测试人员能力进阶路径<a class="headerlink" href="#142" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>初级（半年）
+<a id="__codelineno-36-2" name="__codelineno-36-2" href="#__codelineno-36-2"></a>├─ 掌握 HTTP 协议基础
+<a id="__codelineno-36-3" name="__codelineno-36-3" href="#__codelineno-36-3"></a>├─ 会用 Postman / Apifox
+<a id="__codelineno-36-4" name="__codelineno-36-4" href="#__codelineno-36-4"></a>├─ 能基于文档设计用例
+<a id="__codelineno-36-5" name="__codelineno-36-5" href="#__codelineno-36-5"></a>└─ 会基础抓包
+<a id="__codelineno-36-6" name="__codelineno-36-6" href="#__codelineno-36-6"></a>
+<a id="__codelineno-36-7" name="__codelineno-36-7" href="#__codelineno-36-7"></a>中级（1-2 年）
+<a id="__codelineno-36-8" name="__codelineno-36-8" href="#__codelineno-36-8"></a>├─ 熟悉接口文档工具
+<a id="__codelineno-36-9" name="__codelineno-36-9" href="#__codelineno-36-9"></a>├─ 掌握用例设计方法
+<a id="__codelineno-36-10" name="__codelineno-36-10" href="#__codelineno-36-10"></a>├─ 能独立完成接口测试
+<a id="__codelineno-36-11" name="__codelineno-36-11" href="#__codelineno-36-11"></a>├─ 会简单的脚本（Python/JS 基础）
+<a id="__codelineno-36-12" name="__codelineno-36-12" href="#__codelineno-36-12"></a>└─ 了解性能测试基础
+<a id="__codelineno-36-13" name="__codelineno-36-13" href="#__codelineno-36-13"></a>
+<a id="__codelineno-36-14" name="__codelineno-36-14" href="#__codelineno-36-14"></a>高级（3 年+）
+<a id="__codelineno-36-15" name="__codelineno-36-15" href="#__codelineno-36-15"></a>├─ 搭建接口自动化框架
+<a id="__codelineno-36-16" name="__codelineno-36-16" href="#__codelineno-36-16"></a>├─ 接入 CI/CD
+<a id="__codelineno-36-17" name="__codelineno-36-17" href="#__codelineno-36-17"></a>├─ 独立完成性能测试
+<a id="__codelineno-36-18" name="__codelineno-36-18" href="#__codelineno-36-18"></a>├─ 掌握安全测试基础
+<a id="__codelineno-36-19" name="__codelineno-36-19" href="#__codelineno-36-19"></a>├─ 推动测试流程优化
+<a id="__codelineno-36-20" name="__codelineno-36-20" href="#__codelineno-36-20"></a>└─ 培养团队成员
+<a id="__codelineno-36-21" name="__codelineno-36-21" href="#__codelineno-36-21"></a>
+<a id="__codelineno-36-22" name="__codelineno-36-22" href="#__codelineno-36-22"></a>专家（5 年+）
+<a id="__codelineno-36-23" name="__codelineno-36-23" href="#__codelineno-36-23"></a>├─ 测试平台建设
+<a id="__codelineno-36-24" name="__codelineno-36-24" href="#__codelineno-36-24"></a>├─ 测试策略制定
+<a id="__codelineno-36-25" name="__codelineno-36-25" href="#__codelineno-36-25"></a>├─ 跨团队推动质量改进
+<a id="__codelineno-36-26" name="__codelineno-36-26" href="#__codelineno-36-26"></a>├─ 引入新方法、新工具
+<a id="__codelineno-36-27" name="__codelineno-36-27" href="#__codelineno-36-27"></a>└─ 测试技术分享、社区影响力
+</code></pre></div>
+<h3 id="143">14.3 最佳实践清单<a class="headerlink" href="#143" title="Permanent link">&para;</a></h3>
+<p><strong>用例设计：</strong>
+- [ ] 每个接口至少覆盖必填、类型、长度、业务、异常 5 个维度
+- [ ] 用例独立可重复
+- [ ] 优先级清晰
+- [ ] 期望结果具体到字段</p>
+<p><strong>执行规范：</strong>
+- [ ] 测试环境单独搭建，不共用
+- [ ] 测试数据独立，不污染共享数据
+- [ ] 异常场景必测，不只测正常路径
+- [ ] 数据库结果校验作为补充</p>
+<p><strong>协作流程：</strong>
+- [ ] 提早介入需求评审
+- [ ] 用例评审拉上开发和产品
+- [ ] 缺陷描述清晰，含复现步骤
+- [ ] 定期复盘漏测原因</p>
+<p><strong>自动化：</strong>
+- [ ] 自动化用例稳定（成功率 &gt; 95%）
+- [ ] 失败用例当天分析
+- [ ] 框架持续优化
+- [ ] 与 CI/CD 集成</p>
+<p><strong>安全意识：</strong>
+- [ ] 不在用例中硬编码生产账号
+- [ ] 敏感数据加密存储
+- [ ] 不在生产环境跑自动化
+- [ ] 测试日志注意脱敏</p>
+<h3 id="144">14.4 推荐学习资源<a class="headerlink" href="#144" title="Permanent link">&para;</a></h3>
+<p><strong>书籍：</strong>
+- 《HTTP 权威指南》
+- 《图解 HTTP》
+- 《RESTful Web APIs》
+- 《Web 安全攻防：渗透测试实战指南》
+- 《全栈性能测试修炼宝典：JMeter 实战》</p>
+<p><strong>社区/网站：</strong>
+- TesterHome（国内最大测试社区）
+- 阿里测试技术博客
+- OWASP 官方文档
+- MDN Web Docs（HTTP 学习）</p>
+<p><strong>视频/课程：</strong>
+- 极客时间《接口测试入门课》
+- B 站搜"接口测试"相关教程</p>
+<hr />
+<h2 id="_24">附录：术语速查表<a class="headerlink" href="#_24" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>术语</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>API</td>
+<td>Application Programming Interface</td>
+</tr>
+<tr>
+<td>REST</td>
+<td>Representational State Transfer</td>
+</tr>
+<tr>
+<td>RPC</td>
+<td>Remote Procedure Call</td>
+</tr>
+<tr>
+<td>JWT</td>
+<td>JSON Web Token</td>
+</tr>
+<tr>
+<td>CORS</td>
+<td>跨域资源共享</td>
+</tr>
+<tr>
+<td>CSRF</td>
+<td>跨站请求伪造</td>
+</tr>
+<tr>
+<td>XSS</td>
+<td>跨站脚本攻击</td>
+</tr>
+<tr>
+<td>SQL Injection</td>
+<td>SQL 注入</td>
+</tr>
+<tr>
+<td>IDOR</td>
+<td>不安全的直接对象引用（越权）</td>
+</tr>
+<tr>
+<td>BOLA</td>
+<td>失效的对象级授权</td>
+</tr>
+<tr>
+<td>TPS</td>
+<td>Transactions Per Second</td>
+</tr>
+<tr>
+<td>QPS</td>
+<td>Queries Per Second</td>
+</tr>
+<tr>
+<td>RT</td>
+<td>Response Time</td>
+</tr>
+<tr>
+<td>Mock</td>
+<td>模拟接口</td>
+</tr>
+<tr>
+<td>Stub</td>
+<td>桩 / 挡板</td>
+</tr>
+<tr>
+<td>CI/CD</td>
+<td>持续集成 / 持续部署</td>
+</tr>
+<tr>
+<td>OWASP</td>
+<td>开放式 Web 应用安全项目</td>
+</tr>
+<tr>
+<td>OpenAPI</td>
+<td>接口描述规范（Swagger 2.0 捐给 Linux 基金会后改名为 OpenAPI 3.0；Swagger 现指工具集，如 Swagger UI/Editor）</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<blockquote>
+<p><strong>文档说明：</strong> 本教程为接口测试方法论教程，与 Postman / Fiddler / Python 自动化等工具类教程配合使用，效果更佳。</p>
+<p><strong>测试纪律：</strong> 接口测试中涉及的所有用户数据、Token、密码等敏感信息，必须使用测试专用账号，禁止使用真实生产数据。安全测试（SQL 注入、XSS 等）必须在测试环境进行，禁止对生产系统未授权测试。</p>
+</blockquote>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/yourname/test-tutorials" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "navigation.top", "navigation.instant", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

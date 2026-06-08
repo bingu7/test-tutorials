@@ -1,0 +1,4898 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="面向软件测试工程师的系统化学习教程">
+      
+      
+        <meta name="author" content="Test Team">
+      
+      
+        <link rel="canonical" href="https://bingu7.github.io/test-tutorials/%E4%B8%93%E9%A1%B9%E6%B5%8B%E8%AF%95/JMeter%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/">
+      
+      
+        <link rel="prev" href="../%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95%E5%AE%8C%E6%95%B4%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/">
+      
+      
+        <link rel="next" href="../../%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/Python%2BRequests%2BAllure%E6%8E%A5%E5%8F%A3%E8%87%AA%E5%8A%A8%E5%8C%96%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>JMeter 性能测试 - 软件测试知识体系</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#jmeter" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="软件测试知识体系" class="md-header__button md-logo" aria-label="软件测试知识体系" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            软件测试知识体系
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              JMeter 性能测试
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换到暗色模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切换到暗色模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换到浅色模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换到浅色模式" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/bingu7/test-tutorials" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    test-tutorials
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  首页
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/" class="md-tabs__link">
+          
+  
+  
+  基础理论
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../%E5%B7%A5%E5%85%B7%E6%93%8D%E4%BD%9C/%E6%95%B0%E6%8D%AE%E5%BA%93SQL%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-tabs__link">
+          
+  
+  
+  工具操作
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95%E5%AE%8C%E6%95%B4%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-tabs__link">
+          
+  
+  
+  专项测试
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/Python%2BRequests%2BAllure%E6%8E%A5%E5%8F%A3%E8%87%AA%E5%8A%A8%E5%8C%96%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-tabs__link">
+          
+  
+  
+  自动化测试
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90/Jenkins-CICD%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-tabs__link">
+          
+  
+  
+  持续集成
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="软件测试知识体系" class="md-nav__button md-logo" aria-label="软件测试知识体系" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    软件测试知识体系
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/bingu7/test-tutorials" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    test-tutorials
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    基础理论
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    基础理论
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    软件测试理论
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    工具操作
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    工具操作
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%B7%A5%E5%85%B7%E6%93%8D%E4%BD%9C/%E6%95%B0%E6%8D%AE%E5%BA%93SQL%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数据库 SQL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%B7%A5%E5%85%B7%E6%93%8D%E4%BD%9C/Linux%E5%AE%9E%E7%94%A8%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux 实用
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%B7%A5%E5%85%B7%E6%93%8D%E4%BD%9C/Git%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Git 版本控制
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%B7%A5%E5%85%B7%E6%93%8D%E4%BD%9C/Docker%E5%AE%B9%E5%99%A8%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docker 容器
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%B7%A5%E5%85%B7%E6%93%8D%E4%BD%9C/Fiddler%E6%8A%93%E5%8C%85%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fiddler 抓包
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%B7%A5%E5%85%B7%E6%93%8D%E4%BD%9C/Postman%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Postman 接口
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    专项测试
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    专项测试
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95%E5%AE%8C%E6%95%B4%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    接口测试方法论
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JMeter 性能测试
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JMeter 性能测试
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        目录
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一、性能测试基础
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="一、性能测试基础">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 什么是性能测试
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 性能测试类型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3 关键指标
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4 性能要求确认
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15-vs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5 性能测试 vs 功能测试
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#jmeter_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        二、JMeter 简介与安装
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="二、JMeter 简介与安装">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-jmeter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 JMeter 是什么
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 安装
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 中文界面
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4 安装插件
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        三、界面与核心组件
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="三、界面与核心组件">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 主界面结构
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 核心组件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 组件作用域
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        四、第一个性能测试
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="四、第一个性能测试">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 目标
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 步骤
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 看结果
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        五、线程组详解
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="五、线程组详解">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 普通线程组参数
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-setup-thread-group-teardown-thread-group" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 setUp Thread Group / tearDown Thread Group
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3 自定义线程组（插件）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.4 并发模型对比
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#http" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        六、HTTP 取样器
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="六、HTTP 取样器">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-http-request" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 HTTP Request 配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-http-header-manager" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 HTTP Header Manager（请求头管理）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-http-request-defaults" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3 HTTP Request Defaults（默认配置）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#64-cookie-managercookie" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4 Cookie Manager（Cookie 管理）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#65" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.5 上传文件
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        七、参数化与数据驱动
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="七、参数化与数据驱动">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1 用户参数（少量数据）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-csv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2 CSV 数据文件（大量数据，最常用）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.3 函数生成参数
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#74-counter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.4 计数器（Counter）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        八、关联与变量提取
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="八、关联与变量提取">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81-json-extractorjson" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.1 JSON Extractor（JSON 提取，最常用）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.2 正则表达式提取器
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#83" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.3 边界提取器（推荐用于简单场景）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#84" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.4 调试变量
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        九、断言与检查点
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="九、断言与检查点">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91-response-assertion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.1 响应断言（Response Assertion）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#92-json" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.2 JSON 断言
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#93" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.3 持续时间断言
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#94" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.4 大小断言
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        十、监听器与结果分析
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="十、监听器与结果分析">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#101" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.1 监听器类型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#102" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.2 聚合报告字段
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#103-html" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.3 HTML 报告（命令行模式生成）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#104-influxdb-grafana" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.4 实时监控（InfluxDB + Grafana）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        十一、分布式压测
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="十一、分布式压测">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#111" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.1 为什么需要分布式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#112" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.2 架构
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#113" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.3 配置步骤
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#114" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.4 数据文件分发
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        十二、命令行执行
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="十二、命令行执行">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#121" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.1 为什么用命令行
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#122" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.2 基础命令
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#123" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.3 完整命令示例
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#124" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.4 后台执行
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        十三、性能测试实战
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="十三、性能测试实战">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#131" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13.1 案例一：登录接口压测
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#132" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13.2 案例二：完整下单链路压测
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#133" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13.3 案例三：阶梯加压找拐点
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#134" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13.4 案例四：稳定性测试
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        十四、性能瓶颈分析
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="十四、性能瓶颈分析">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#141" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14.1 分析思路
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#142" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14.2 服务器监控指标
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#143" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14.3 常见瓶颈与定位
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#144-java" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14.4 Java 应用性能分析工具
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#145" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14.5 优化建议
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        十五、常见问题排查
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="十五、常见问题排查">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#151-outofmemoryerror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15.1 OutOfMemoryError
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#152-gui" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15.2 GUI 模式压测变形
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#153" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15.3 监听器影响性能
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#154-csv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15.4 CSV 数据用完
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#155-ssl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15.5 SSL 握手失败
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#156" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15.6 压力机本身成瓶颈
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#157" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15.7 结果不稳定
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#158" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15.8 中文乱码
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        十六、最佳实践
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="十六、最佳实践">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#161" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16.1 性能测试流程
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#162" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16.2 测试脚本规范
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#163" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16.3 压测纪律
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#164" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16.4 性能测试报告模板
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        附录：推荐学习资源
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    自动化测试
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    自动化测试
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/Python%2BRequests%2BAllure%E6%8E%A5%E5%8F%A3%E8%87%AA%E5%8A%A8%E5%8C%96%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python 接口自动化
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/Selenium-Web%E8%87%AA%E5%8A%A8%E5%8C%96%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Selenium Web 自动化
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/Appium-App%E8%87%AA%E5%8A%A8%E5%8C%96%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Appium App 自动化
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    持续集成
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    持续集成
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90/Jenkins-CICD%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Jenkins CI/CD
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        目录
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一、性能测试基础
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="一、性能测试基础">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 什么是性能测试
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 性能测试类型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3 关键指标
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4 性能要求确认
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15-vs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5 性能测试 vs 功能测试
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#jmeter_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        二、JMeter 简介与安装
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="二、JMeter 简介与安装">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-jmeter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 JMeter 是什么
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 安装
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 中文界面
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4 安装插件
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        三、界面与核心组件
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="三、界面与核心组件">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 主界面结构
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 核心组件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 组件作用域
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        四、第一个性能测试
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="四、第一个性能测试">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 目标
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 步骤
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 看结果
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        五、线程组详解
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="五、线程组详解">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 普通线程组参数
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-setup-thread-group-teardown-thread-group" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 setUp Thread Group / tearDown Thread Group
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3 自定义线程组（插件）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.4 并发模型对比
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#http" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        六、HTTP 取样器
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="六、HTTP 取样器">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-http-request" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 HTTP Request 配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-http-header-manager" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 HTTP Header Manager（请求头管理）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-http-request-defaults" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3 HTTP Request Defaults（默认配置）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#64-cookie-managercookie" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4 Cookie Manager（Cookie 管理）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#65" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.5 上传文件
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        七、参数化与数据驱动
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="七、参数化与数据驱动">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1 用户参数（少量数据）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-csv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2 CSV 数据文件（大量数据，最常用）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.3 函数生成参数
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#74-counter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.4 计数器（Counter）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        八、关联与变量提取
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="八、关联与变量提取">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81-json-extractorjson" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.1 JSON Extractor（JSON 提取，最常用）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.2 正则表达式提取器
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#83" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.3 边界提取器（推荐用于简单场景）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#84" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.4 调试变量
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        九、断言与检查点
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="九、断言与检查点">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91-response-assertion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.1 响应断言（Response Assertion）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#92-json" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.2 JSON 断言
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#93" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.3 持续时间断言
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#94" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.4 大小断言
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        十、监听器与结果分析
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="十、监听器与结果分析">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#101" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.1 监听器类型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#102" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.2 聚合报告字段
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#103-html" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.3 HTML 报告（命令行模式生成）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#104-influxdb-grafana" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.4 实时监控（InfluxDB + Grafana）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        十一、分布式压测
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="十一、分布式压测">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#111" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.1 为什么需要分布式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#112" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.2 架构
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#113" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.3 配置步骤
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#114" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.4 数据文件分发
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        十二、命令行执行
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="十二、命令行执行">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#121" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.1 为什么用命令行
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#122" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.2 基础命令
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#123" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.3 完整命令示例
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#124" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.4 后台执行
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        十三、性能测试实战
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="十三、性能测试实战">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#131" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13.1 案例一：登录接口压测
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#132" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13.2 案例二：完整下单链路压测
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#133" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13.3 案例三：阶梯加压找拐点
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#134" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13.4 案例四：稳定性测试
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        十四、性能瓶颈分析
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="十四、性能瓶颈分析">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#141" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14.1 分析思路
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#142" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14.2 服务器监控指标
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#143" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14.3 常见瓶颈与定位
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#144-java" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14.4 Java 应用性能分析工具
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#145" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14.5 优化建议
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        十五、常见问题排查
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="十五、常见问题排查">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#151-outofmemoryerror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15.1 OutOfMemoryError
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#152-gui" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15.2 GUI 模式压测变形
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#153" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15.3 监听器影响性能
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#154-csv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15.4 CSV 数据用完
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#155-ssl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15.5 SSL 握手失败
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#156" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15.6 压力机本身成瓶颈
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#157" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15.7 结果不稳定
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#158" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15.8 中文乱码
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        十六、最佳实践
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="十六、最佳实践">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#161" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16.1 性能测试流程
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#162" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16.2 测试脚本规范
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#163" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16.3 压测纪律
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#164" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16.4 性能测试报告模板
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        附录：推荐学习资源
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="jmeter">JMeter 性能测试教程（软件测试人员专用）<a class="headerlink" href="#jmeter" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p>本教程面向软件测试工程师，系统讲解 JMeter 性能测试，从基础概念、工具使用到完整压测方案落地。</p>
+</blockquote>
+<hr />
+<h2 id="_1">目录<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="#一性能测试基础">一、性能测试基础</a></li>
+<li><a href="#二jmeter-简介与安装">二、JMeter 简介与安装</a></li>
+<li><a href="#三界面与核心组件">三、界面与核心组件</a></li>
+<li><a href="#四第一个性能测试">四、第一个性能测试</a></li>
+<li><a href="#五线程组详解">五、线程组详解</a></li>
+<li><a href="#六http-取样器">六、HTTP 取样器</a></li>
+<li><a href="#七参数化与数据驱动">七、参数化与数据驱动</a></li>
+<li><a href="#八关联与变量提取">八、关联与变量提取</a></li>
+<li><a href="#九断言与检查点">九、断言与检查点</a></li>
+<li><a href="#十监听器与结果分析">十、监听器与结果分析</a></li>
+<li><a href="#十一分布式压测">十一、分布式压测</a></li>
+<li><a href="#十二命令行执行">十二、命令行执行</a></li>
+<li><a href="#十三性能测试实战">十三、性能测试实战</a></li>
+<li><a href="#十四性能瓶颈分析">十四、性能瓶颈分析</a></li>
+<li><a href="#十五常见问题排查">十五、常见问题排查</a></li>
+</ul>
+<hr />
+<h2 id="_2">一、性能测试基础<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h3 id="11">1.1 什么是性能测试<a class="headerlink" href="#11" title="Permanent link">&para;</a></h3>
+<p><strong>性能测试：</strong> 验证系统在特定负载下的响应时间、吞吐量、资源利用率等指标是否达标。</p>
+<h3 id="12">1.2 性能测试类型<a class="headerlink" href="#12" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>目的</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>基准测试</strong></td>
+<td>单用户单次性能基线</td>
+<td>1 用户跑 1 分钟</td>
+</tr>
+<tr>
+<td><strong>负载测试</strong></td>
+<td>找性能拐点</td>
+<td>逐步加压到性能下降</td>
+</tr>
+<tr>
+<td><strong>压力测试</strong></td>
+<td>找系统极限</td>
+<td>加压至崩溃</td>
+</tr>
+<tr>
+<td><strong>并发测试</strong></td>
+<td>多用户同时操作的正确性</td>
+<td>100 人同时秒杀</td>
+</tr>
+<tr>
+<td><strong>稳定性测试</strong></td>
+<td>长时间运行无问题</td>
+<td>24 小时持续</td>
+</tr>
+<tr>
+<td><strong>峰值测试</strong></td>
+<td>瞬时高峰</td>
+<td>双 11 0 点</td>
+</tr>
+<tr>
+<td><strong>容量测试</strong></td>
+<td>系统最大承载</td>
+<td>找最大并发用户</td>
+</tr>
+</tbody>
+</table>
+<h3 id="13">1.3 关键指标<a class="headerlink" href="#13" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th>全称</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>RT</strong></td>
+<td>Response Time</td>
+<td>响应时间（毫秒）</td>
+</tr>
+<tr>
+<td><strong>TPS</strong></td>
+<td>Transactions Per Second</td>
+<td>每秒事务数</td>
+</tr>
+<tr>
+<td><strong>QPS</strong></td>
+<td>Queries Per Second</td>
+<td>每秒查询数</td>
+</tr>
+<tr>
+<td><strong>并发用户</strong></td>
+<td>Concurrent Users</td>
+<td>同一时刻发起请求的用户数</td>
+</tr>
+<tr>
+<td><strong>错误率</strong></td>
+<td>Error Rate</td>
+<td>失败请求 / 总请求</td>
+</tr>
+<tr>
+<td><strong>吞吐量</strong></td>
+<td>Throughput</td>
+<td>单位时间处理量</td>
+</tr>
+<tr>
+<td><strong>CPU/内存</strong></td>
+<td>Resource Usage</td>
+<td>服务器资源占用</td>
+</tr>
+</tbody>
+</table>
+<p><strong>指标关系：</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>TPS = 并发数 / 平均 RT
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>例：100 并发，平均 RT 200ms（0.2s）
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>TPS = 100 / 0.2 = 500
+</code></pre></div>
+<h3 id="14">1.4 性能要求确认<a class="headerlink" href="#14" title="Permanent link">&para;</a></h3>
+<p>性能测试前必须明确：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>1. 业务场景：登录？下单？查询？
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>2. 用户规模：DAU / 同时在线 / 峰值并发
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>3. 性能目标：RT &lt; ?ms，TPS &gt; ?，错误率 &lt; ?%
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>4. 测试环境：服务器配置、网络
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>5. 测试数据：账号、商品、订单的量级
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>6. 监控范围：应用 / 数据库 / 中间件
+</code></pre></div>
+<h3 id="15-vs">1.5 性能测试 vs 功能测试<a class="headerlink" href="#15-vs" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>功能测试</th>
+<th>性能测试</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>目标</td>
+<td>功能正确</td>
+<td>性能达标</td>
+</tr>
+<tr>
+<td>用户数</td>
+<td>1 个</td>
+<td>大量</td>
+</tr>
+<tr>
+<td>关注</td>
+<td>是否能用</td>
+<td>多快、多稳</td>
+</tr>
+<tr>
+<td>数据量</td>
+<td>少量</td>
+<td>大量真实数据</td>
+</tr>
+<tr>
+<td>工具</td>
+<td>Postman 等</td>
+<td>JMeter / Locust</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="jmeter_1">二、JMeter 简介与安装<a class="headerlink" href="#jmeter_1" title="Permanent link">&para;</a></h2>
+<h3 id="21-jmeter">2.1 JMeter 是什么<a class="headerlink" href="#21-jmeter" title="Permanent link">&para;</a></h3>
+<p>Apache JMeter 是开源的性能测试工具，由 Java 开发，特点：</p>
+<ul>
+<li><strong>完全免费</strong>、开源</li>
+<li><strong>协议支持广</strong>：HTTP、HTTPS、FTP、JDBC、TCP、SOAP、WebSocket 等</li>
+<li><strong>图形界面 + 命令行</strong></li>
+<li><strong>插件生态丰富</strong></li>
+<li><strong>分布式压测</strong></li>
+<li><strong>Web 报告</strong></li>
+</ul>
+<h3 id="22">2.2 安装<a class="headerlink" href="#22" title="Permanent link">&para;</a></h3>
+<p><strong>前置：</strong> 需要 JDK 8+（JMeter 5.6 推荐使用 JDK 17）</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># 验证 Java</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>java<span class="w"> </span>-version
+</code></pre></div>
+<p><strong>下载：</strong></p>
+<ol>
+<li>官网：<code>https://jmeter.apache.org/download_jmeter.cgi</code></li>
+<li>下载 Binary 包（zip / tgz）</li>
+<li>解压到本地，如 <code>D:\tools\apache-jmeter-5.6.3</code></li>
+</ol>
+<p><strong>启动：</strong></p>
+<ul>
+<li><strong>Windows：</strong> 双击 <code>bin/jmeter.bat</code></li>
+<li><strong>Mac/Linux：</strong> <code>./bin/jmeter</code></li>
+</ul>
+<p><strong>环境变量（推荐）：</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># 添加到 PATH，方便命令行使用</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">JMETER_HOME</span><span class="o">=</span>/opt/apache-jmeter-5.6.3
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$JMETER_HOME</span>/bin:<span class="nv">$PATH</span>
+</code></pre></div>
+<h3 id="23">2.3 中文界面<a class="headerlink" href="#23" title="Permanent link">&para;</a></h3>
+<p>JMeter 默认英文，临时切换：</p>
+<p><code>Options</code> → <code>Choose Language</code> → <code>Chinese (Simplified)</code></p>
+<p><strong>永久切换：</strong> 修改 <code>bin/jmeter.properties</code>：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="na">language</span><span class="o">=</span><span class="s">zh_CN</span>
+</code></pre></div>
+<blockquote>
+<p><strong>建议：</strong> 用英文界面，因为多数教程、错误信息是英文，方便排错。</p>
+</blockquote>
+<h3 id="24">2.4 安装插件<a class="headerlink" href="#24" title="Permanent link">&para;</a></h3>
+<p>JMeter 插件管理器（强烈推荐）：</p>
+<ol>
+<li>下载 <code>jmeter-plugins-manager.jar</code>：<code>https://jmeter-plugins.org/install/Install/</code></li>
+<li>放到 <code>lib/ext/</code> 目录</li>
+<li>重启 JMeter</li>
+<li>菜单 <code>Options</code> 出现 <code>Plugins Manager</code></li>
+</ol>
+<p><strong>推荐插件：</strong></p>
+<ul>
+<li>3 Basic Graphs：基础图表</li>
+<li>Custom Thread Groups：自定义线程组（阶梯加压）</li>
+<li>Throughput Shaping Timer：吞吐量整形</li>
+</ul>
+<hr />
+<h2 id="_3">三、界面与核心组件<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<h3 id="31">3.1 主界面结构<a class="headerlink" href="#31" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>┌──────────────────────────────────────────┐
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>│ 菜单 / 工具栏                              │
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>├────────────┬─────────────────────────────┤
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>│            │                             │
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>│ 左侧测试树  │  右侧组件配置面板             │
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>│            │                             │
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>│ Test Plan  │                             │
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>│ └ ThreadGr │                             │
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>│   └ HTTP   │                             │
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>│   └ Listen │                             │
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>│            │                             │
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>└────────────┴─────────────────────────────┘
+</code></pre></div>
+<h3 id="32">3.2 核心组件<a class="headerlink" href="#32" title="Permanent link">&para;</a></h3>
+<p><strong>测试计划（Test Plan）：</strong> 根节点，整个测试的容器</p>
+<p><strong>线程组（Thread Group）：</strong> 模拟用户</p>
+<p><strong>取样器（Sampler）：</strong> 发送请求（HTTP、JDBC 等）</p>
+<p><strong>逻辑控制器（Logic Controller）：</strong> 控制执行流程</p>
+<p><strong>前置处理器（Pre Processor）：</strong> 请求前执行</p>
+<p><strong>后置处理器（Post Processor）：</strong> 请求后执行（如提取响应数据）</p>
+<p><strong>断言（Assertion）：</strong> 校验响应</p>
+<p><strong>定时器（Timer）：</strong> 控制请求频率</p>
+<p><strong>配置元件（Config Element）：</strong> 默认配置、变量等</p>
+<p><strong>监听器（Listener）：</strong> 收集结果</p>
+<h3 id="33">3.3 组件作用域<a class="headerlink" href="#33" title="Permanent link">&para;</a></h3>
+<p>JMeter 组件按 <strong>树形结构</strong> 生效：父节点对所有子节点有效。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>Test Plan
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>├── HTTP Default Config（对整个测试有效）
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>├── Thread Group A
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>│   ├── HTTP Sampler 1
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>│   ├── HTTP Sampler 2
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>│   └── Listener（只对 A 有效）
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>└── Thread Group B
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>    └── HTTP Sampler 3
+</code></pre></div>
+<hr />
+<h2 id="_4">四、第一个性能测试<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<h3 id="41">4.1 目标<a class="headerlink" href="#41" title="Permanent link">&para;</a></h3>
+<p>测试 <code>https://httpbin.org/get</code> 接口在 10 并发下的性能。</p>
+<h3 id="42">4.2 步骤<a class="headerlink" href="#42" title="Permanent link">&para;</a></h3>
+<p><strong>Step 1：添加线程组</strong></p>
+<ul>
+<li>右键 <code>Test Plan</code> → <code>Add</code> → <code>Threads (Users)</code> → <code>Thread Group</code></li>
+<li>配置：</li>
+<li>Number of Threads（线程数）：10</li>
+<li>Ramp-up period（启动时间）：5（5 秒内启动 10 个）</li>
+<li>Loop Count（循环次数）：10</li>
+</ul>
+<p><strong>Step 2：添加 HTTP 请求</strong></p>
+<ul>
+<li>右键 <code>Thread Group</code> → <code>Add</code> → <code>Sampler</code> → <code>HTTP Request</code></li>
+<li>配置：</li>
+<li>Protocol：https</li>
+<li>Server Name：httpbin.org</li>
+<li>Method：GET</li>
+<li>Path：/get</li>
+</ul>
+<p><strong>Step 3：添加监听器</strong></p>
+<ul>
+<li>右键 <code>Thread Group</code> → <code>Add</code> → <code>Listener</code> → <code>View Results Tree</code>（看每条结果）</li>
+<li>再加 <code>Summary Report</code>（看汇总）</li>
+</ul>
+<p><strong>Step 4：保存并运行</strong></p>
+<ul>
+<li><code>Ctrl+S</code> 保存为 <code>first_test.jmx</code></li>
+<li>点击工具栏绿色 <strong>▶</strong> 启动</li>
+<li>看右侧监听器结果</li>
+</ul>
+<h3 id="43">4.3 看结果<a class="headerlink" href="#43" title="Permanent link">&para;</a></h3>
+<p><strong>Summary Report：</strong></p>
+<table>
+<thead>
+<tr>
+<th>Label</th>
+<th># Samples</th>
+<th>Average</th>
+<th>Min</th>
+<th>Max</th>
+<th>Std. Dev.</th>
+<th>Error %</th>
+<th>Throughput</th>
+<th>Received</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HTTP Request</td>
+<td>100</td>
+<td>320</td>
+<td>280</td>
+<td>450</td>
+<td>35</td>
+<td>0.00%</td>
+<td>18.5/sec</td>
+<td>12 KB/sec</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Samples：</strong> 总请求数</li>
+<li><strong>Average：</strong> 平均响应时间（ms）</li>
+<li><strong>Min/Max：</strong> 最小/最大</li>
+<li><strong>Error %：</strong> 错误率</li>
+<li><strong>Throughput：</strong> 吞吐量（请求/秒）</li>
+</ul>
+<hr />
+<h2 id="_5">五、线程组详解<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<h3 id="51">5.1 普通线程组参数<a class="headerlink" href="#51" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Number of Threads</td>
+<td>模拟的用户数（并发）</td>
+</tr>
+<tr>
+<td>Ramp-up period</td>
+<td>启动所有线程所需时间（秒）</td>
+</tr>
+<tr>
+<td>Loop Count</td>
+<td>每个用户循环多少次</td>
+</tr>
+<tr>
+<td>Same user on each iteration</td>
+<td>同用户多次（影响 cookie）</td>
+</tr>
+<tr>
+<td>Delay Thread creation until needed</td>
+<td>延迟创建（节省资源）</td>
+</tr>
+<tr>
+<td>Scheduler</td>
+<td>调度器（按时间运行）</td>
+</tr>
+<tr>
+<td>Duration</td>
+<td>持续时间（秒）</td>
+</tr>
+<tr>
+<td>Startup Delay</td>
+<td>延迟启动</td>
+</tr>
+</tbody>
+</table>
+<p><strong>举例：</strong></p>
+<ul>
+<li>100 线程，Ramp-up 100 秒 → 每秒启 1 个</li>
+<li>100 线程，Ramp-up 0 → 瞬时全启动</li>
+<li>Loop = Forever + Duration = 300 → 持续 5 分钟</li>
+</ul>
+<h3 id="52-setup-thread-group-teardown-thread-group">5.2 setUp Thread Group / tearDown Thread Group<a class="headerlink" href="#52-setup-thread-group-teardown-thread-group" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>setUp：</strong> 测试前执行（造数据、登录拿 token）</li>
+<li><strong>tearDown：</strong> 测试后执行（清数据）</li>
+</ul>
+<h3 id="53">5.3 自定义线程组（插件）<a class="headerlink" href="#53" title="Permanent link">&para;</a></h3>
+<p>需要插件支持。</p>
+<p><strong>Stepping Thread Group（阶梯加压）：</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>0~30 秒：启动 100 线程
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>30~60 秒：每 10 秒加 50 线程，直到 500
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>500 线程持续 5 分钟
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>然后每 10 秒减 50，直到全部停止
+</code></pre></div>
+<p><strong>Ultimate Thread Group（终极版）：</strong></p>
+<p>更灵活，可设置多段加压、保压、减压时间。</p>
+<p><strong>适用场景：</strong></p>
+<ul>
+<li>找拐点：阶梯加压</li>
+<li>模拟峰值：瞬时大量并发</li>
+<li>持续稳定性：长时间保压</li>
+</ul>
+<h3 id="54">5.4 并发模型对比<a class="headerlink" href="#54" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>模型</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>固定并发</td>
+<td>验证某个具体并发下的性能</td>
+</tr>
+<tr>
+<td>阶梯加压</td>
+<td>找性能拐点</td>
+</tr>
+<tr>
+<td>峰值脉冲</td>
+<td>模拟秒杀、限时活动</td>
+</tr>
+<tr>
+<td>持续保压</td>
+<td>稳定性测试</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="http">六、HTTP 取样器<a class="headerlink" href="#http" title="Permanent link">&para;</a></h2>
+<h3 id="61-http-request">6.1 HTTP Request 配置<a class="headerlink" href="#61-http-request" title="Permanent link">&para;</a></h3>
+<p><strong>基础配置：</strong></p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Protocol</td>
+<td>http / https</td>
+</tr>
+<tr>
+<td>Server Name or IP</td>
+<td>服务器地址</td>
+</tr>
+<tr>
+<td>Port</td>
+<td>端口</td>
+</tr>
+<tr>
+<td>Method</td>
+<td>GET/POST/PUT/DELETE</td>
+</tr>
+<tr>
+<td>Path</td>
+<td>URL 路径</td>
+</tr>
+<tr>
+<td>Content encoding</td>
+<td>UTF-8</td>
+</tr>
+</tbody>
+</table>
+<p><strong>参数传递：</strong></p>
+<ul>
+<li>GET：在 <code>Parameters</code> 标签下加 key-value</li>
+<li>POST 表单：在 <code>Parameters</code> 标签</li>
+<li>POST JSON：在 <code>Body Data</code> 标签贴 JSON，并加 Header <code>Content-Type: application/json</code></li>
+</ul>
+<h3 id="62-http-header-manager">6.2 HTTP Header Manager（请求头管理）<a class="headerlink" href="#62-http-header-manager" title="Permanent link">&para;</a></h3>
+<p><code>Thread Group</code> → 右键 → <code>Add</code> → <code>Config Element</code> → <code>HTTP Header Manager</code></p>
+<p>添加：</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Content-Type</td>
+<td>application/json</td>
+</tr>
+<tr>
+<td>Authorization</td>
+<td>Bearer ${token}</td>
+</tr>
+<tr>
+<td>User-Agent</td>
+<td>JMeter/5.6</td>
+</tr>
+</tbody>
+</table>
+<h3 id="63-http-request-defaults">6.3 HTTP Request Defaults（默认配置）<a class="headerlink" href="#63-http-request-defaults" title="Permanent link">&para;</a></h3>
+<p>避免每个请求重复填 Server 等：</p>
+<p><code>Add</code> → <code>Config Element</code> → <code>HTTP Request Defaults</code></p>
+<p>填一次 Protocol、Server、Port，下面所有请求自动继承。</p>
+<h3 id="64-cookie-managercookie">6.4 Cookie Manager（Cookie 管理）<a class="headerlink" href="#64-cookie-managercookie" title="Permanent link">&para;</a></h3>
+<p>自动管理 Cookie（登录后保持会话）：</p>
+<p><code>Add</code> → <code>Config Element</code> → <code>HTTP Cookie Manager</code></p>
+<p>勾选 <code>Clear cookies each iteration?</code>（每次迭代清理）。</p>
+<h3 id="65">6.5 上传文件<a class="headerlink" href="#65" title="Permanent link">&para;</a></h3>
+<p>HTTP Request 的 <code>Files Upload</code> 标签：</p>
+<table>
+<thead>
+<tr>
+<th>File Path</th>
+<th>Parameter Name</th>
+<th>MIME Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>D:/test.jpg</td>
+<td>file</td>
+<td>image/jpeg</td>
+</tr>
+</tbody>
+</table>
+<p>Method 自动变 multipart/form-data。</p>
+<hr />
+<h2 id="_6">七、参数化与数据驱动<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<p>性能测试常需要每个用户用不同数据（如不同账号），避免击中缓存或重复登录。</p>
+<h3 id="71">7.1 用户参数（少量数据）<a class="headerlink" href="#71" title="Permanent link">&para;</a></h3>
+<p><code>Add</code> → <code>Config Element</code> → <code>User Defined Variables</code></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>base_url</td>
+<td>https://api-test.example.com</td>
+</tr>
+<tr>
+<td>username</td>
+<td>testuser</td>
+</tr>
+</tbody>
+</table>
+<p>引用：<code>${base_url}</code></p>
+<h3 id="72-csv">7.2 CSV 数据文件（大量数据，最常用）<a class="headerlink" href="#72-csv" title="Permanent link">&para;</a></h3>
+<p><strong>数据文件 <code>users.csv</code>：</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>username,password
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>user001,123456
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>user002,123456
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>user003,123456
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>...
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>user100,123456
+</code></pre></div>
+<p><strong>配置 CSV Data Set Config：</strong></p>
+<p><code>Add</code> → <code>Config Element</code> → <code>CSV Data Set Config</code></p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Filename</td>
+<td>D:/test/users.csv</td>
+</tr>
+<tr>
+<td>Variable Names</td>
+<td>username,password</td>
+</tr>
+<tr>
+<td>Delimiter</td>
+<td>,</td>
+</tr>
+<tr>
+<td>Recycle on EOF?</td>
+<td>True/False</td>
+</tr>
+<tr>
+<td>Stop thread on EOF?</td>
+<td>True/False</td>
+</tr>
+<tr>
+<td>Sharing mode</td>
+<td>All threads（所有线程共享）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>引用：</strong></p>
+<p>HTTP Request Body：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="p">{</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">  </span><span class="nt">&quot;username&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;${username}&quot;</span><span class="p">,</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">  </span><span class="nt">&quot;password&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;${password}&quot;</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="p">}</span>
+</code></pre></div>
+<p><strong>Sharing mode 详解：</strong></p>
+<ul>
+<li><code>All threads</code>：所有线程共享一份数据（多线程顺序读）</li>
+<li><code>Current thread group</code>：当前线程组共享</li>
+<li><code>Current thread</code>：每个线程独立读（每线程从头开始）</li>
+</ul>
+<h3 id="73">7.3 函数生成参数<a class="headerlink" href="#73" title="Permanent link">&para;</a></h3>
+<p><strong>__Random 随机数：</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>${__Random(1,100)}        随机 1~100
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>${__Random(1000,9999)}    4 位随机
+</code></pre></div>
+<p><strong>__time 时间戳：</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>${__time(yyyy-MM-dd HH:mm:ss)}
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>${__time()}                毫秒时间戳
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>${__time(/1000)}           秒级时间戳
+</code></pre></div>
+<p><strong>__UUID：</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>${__UUID()}    生成 UUID
+</code></pre></div>
+<p><strong>__counter 计数器：</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>${__counter(TRUE,)}    每线程独立计数（第 2 参为变量名，可省略）
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>${__counter(FALSE,)}   全局计数
+</code></pre></div>
+<blockquote>
+<p>规范写法：<code>${__counter(TRUE)}</code> 或 <code>${__counter(TRUE,myVar)}</code>，尾随逗号虽可工作但不推荐。</p>
+</blockquote>
+<p><strong>__RandomString：</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>${__RandomString(10,abcdefghijklmn)}    10 位随机字符
+</code></pre></div>
+<h3 id="74-counter">7.4 计数器（Counter）<a class="headerlink" href="#74-counter" title="Permanent link">&para;</a></h3>
+<p><code>Add</code> → <code>Config Element</code> → <code>Counter</code></p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Starting Value</td>
+<td>起始</td>
+</tr>
+<tr>
+<td>Increment</td>
+<td>增量</td>
+</tr>
+<tr>
+<td>Maximum Value</td>
+<td>最大</td>
+</tr>
+<tr>
+<td>Reference Name</td>
+<td>变量名</td>
+</tr>
+</tbody>
+</table>
+<p>引用：<code>${counter_var}</code></p>
+<hr />
+<h2 id="_7">八、关联与变量提取<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<p>性能测试中常见场景：登录返回 Token，后续请求要带 Token。需从响应中提取数据传给下一请求。</p>
+<h3 id="81-json-extractorjson">8.1 JSON Extractor（JSON 提取，最常用）<a class="headerlink" href="#81-json-extractorjson" title="Permanent link">&para;</a></h3>
+<p>接口返回 JSON：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="p">{</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="w">  </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="w">  </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="w">    </span><span class="nt">&quot;token&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;eyJhbGciOi...&quot;</span><span class="p">,</span>
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="w">    </span><span class="nt">&quot;userId&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">12345</span>
+<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="p">}</span>
+</code></pre></div>
+<p>在登录请求下 <code>Add</code> → <code>Post Processors</code> → <code>JSON Extractor</code>：</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Names of created variables</td>
+<td>token</td>
+</tr>
+<tr>
+<td>JSON Path expressions</td>
+<td>$.data.token</td>
+</tr>
+<tr>
+<td>Match No.</td>
+<td>1（第一个匹配）</td>
+</tr>
+<tr>
+<td>Default Values</td>
+<td>NOT_FOUND（未提取到时的默认值）</td>
+</tr>
+</tbody>
+</table>
+<p>后续请求引用：<code>${token}</code></p>
+<h3 id="82">8.2 正则表达式提取器<a class="headerlink" href="#82" title="Permanent link">&para;</a></h3>
+<p>对非 JSON 响应或复杂场景：</p>
+<p><code>Add</code> → <code>Post Processors</code> → <code>Regular Expression Extractor</code></p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Field to check</td>
+<td>Body</td>
+</tr>
+<tr>
+<td>Reference Name</td>
+<td>token</td>
+</tr>
+<tr>
+<td>Regular Expression</td>
+<td>"token":"(.+?)"</td>
+</tr>
+<tr>
+<td>Template</td>
+<td><span class="arithmatex"><span class="MathJax_Preview">1</span><script type="math/tex">1</script></span></td>
+</tr>
+<tr>
+<td>Match No.</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<h3 id="83">8.3 边界提取器（推荐用于简单场景）<a class="headerlink" href="#83" title="Permanent link">&para;</a></h3>
+<p><code>Add</code> → <code>Post Processors</code> → <code>Boundary Extractor</code></p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Reference Name</td>
+<td>token</td>
+</tr>
+<tr>
+<td>Left Boundary</td>
+<td>"token":"</td>
+</tr>
+<tr>
+<td>Right Boundary</td>
+<td>"</td>
+</tr>
+</tbody>
+</table>
+<p>比正则更简单。</p>
+<h3 id="84">8.4 调试变量<a class="headerlink" href="#84" title="Permanent link">&para;</a></h3>
+<p>加 <code>Add</code> → <code>Sampler</code> → <code>Debug Sampler</code>，可在 View Results Tree 中看到所有变量值。</p>
+<hr />
+<h2 id="_8">九、断言与检查点<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<p>接口响应正确才算成功，否则算失败。</p>
+<h3 id="91-response-assertion">9.1 响应断言（Response Assertion）<a class="headerlink" href="#91-response-assertion" title="Permanent link">&para;</a></h3>
+<p><code>Add</code> → <code>Assertions</code> → <code>Response Assertion</code></p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Apply to</td>
+<td>Main sample only（默认）</td>
+</tr>
+<tr>
+<td>Field to Test</td>
+<td>Response Text / Code / Headers</td>
+</tr>
+<tr>
+<td>Pattern Matching Rules</td>
+<td>Contains / Matches / Equals</td>
+</tr>
+<tr>
+<td>Patterns to Test</td>
+<td>期望包含的字符串</td>
+</tr>
+</tbody>
+</table>
+<p><strong>示例：</strong></p>
+<ul>
+<li>检查响应码：Test field 选 <code>Response Code</code>，Pattern 填 <code>200</code></li>
+<li>检查响应包含：Test field 选 <code>Response Text</code>，Pattern 填 <code>"code":0</code></li>
+</ul>
+<h3 id="92-json">9.2 JSON 断言<a class="headerlink" href="#92-json" title="Permanent link">&para;</a></h3>
+<p><code>Add</code> → <code>Assertions</code> → <code>JSON Assertion</code></p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Assert JSON Path</td>
+<td>$.code</td>
+</tr>
+<tr>
+<td>Additionally assert value</td>
+<td>勾选</td>
+</tr>
+<tr>
+<td>Expected Value</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<h3 id="93">9.3 持续时间断言<a class="headerlink" href="#93" title="Permanent link">&para;</a></h3>
+<p>请求耗时不超过 N 毫秒：</p>
+<p><code>Add</code> → <code>Assertions</code> → <code>Duration Assertion</code></p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Duration in milliseconds</td>
+<td>1000</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>接口耗时 &gt; 1 秒算失败。</p>
+</blockquote>
+<h3 id="94">9.4 大小断言<a class="headerlink" href="#94" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>Add → Assertions → Size Assertion
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>Size in bytes: &gt; 100
+</code></pre></div>
+<hr />
+<h2 id="_9">十、监听器与结果分析<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
+<h3 id="101">10.1 监听器类型<a class="headerlink" href="#101" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>监听器</th>
+<th>用途</th>
+<th>性能影响</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>View Results Tree</strong></td>
+<td>看每条详情</td>
+<td>高</td>
+</tr>
+<tr>
+<td><strong>Summary Report</strong></td>
+<td>汇总统计</td>
+<td>低</td>
+</tr>
+<tr>
+<td><strong>Aggregate Report</strong></td>
+<td>聚合报告（含 90%、95%）</td>
+<td>低</td>
+</tr>
+<tr>
+<td><strong>Backend Listener</strong></td>
+<td>推送到 InfluxDB → Grafana</td>
+<td>低</td>
+</tr>
+<tr>
+<td><strong>Graph Results</strong></td>
+<td>图表展示</td>
+<td>中</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>重要：</strong> 正式压测时关闭 <code>View Results Tree</code>，否则严重影响性能。</p>
+</blockquote>
+<h3 id="102">10.2 聚合报告字段<a class="headerlink" href="#102" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Label</td>
+<td>请求名</td>
+</tr>
+<tr>
+<td># Samples</td>
+<td>总请求数</td>
+</tr>
+<tr>
+<td>Average</td>
+<td>平均响应时间</td>
+</tr>
+<tr>
+<td>Median</td>
+<td>中位数（50%）</td>
+</tr>
+<tr>
+<td>90% Line</td>
+<td>90% 用户响应时间小于此</td>
+</tr>
+<tr>
+<td>95% Line</td>
+<td>95% 用户响应时间小于此</td>
+</tr>
+<tr>
+<td>99% Line</td>
+<td>99% 用户响应时间小于此</td>
+</tr>
+<tr>
+<td>Min/Max</td>
+<td>最小/最大</td>
+</tr>
+<tr>
+<td>Error %</td>
+<td>错误率</td>
+</tr>
+<tr>
+<td>Throughput</td>
+<td>吞吐量</td>
+</tr>
+</tbody>
+</table>
+<p><strong>重点关注：</strong></p>
+<ul>
+<li><strong>平均值会被极端值拉偏</strong>，看 90%、95% 更准</li>
+<li><strong>Throughput 等于 TPS</strong></li>
+<li><strong>Error % 应 &lt; 0.5%</strong></li>
+</ul>
+<h3 id="103-html">10.3 HTML 报告（命令行模式生成）<a class="headerlink" href="#103-html" title="Permanent link">&para;</a></h3>
+<p>JMeter 自带 HTML 报告生成：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>jmeter<span class="w"> </span>-n<span class="w"> </span>-t<span class="w"> </span>test.jmx<span class="w"> </span>-l<span class="w"> </span>result.jtl<span class="w"> </span>-e<span class="w"> </span>-o<span class="w"> </span>report/
+</code></pre></div>
+<ul>
+<li><code>-n</code> 非 GUI 模式</li>
+<li><code>-t</code> 测试脚本</li>
+<li><code>-l</code> 结果日志</li>
+<li><code>-e</code> 生成报告</li>
+<li><code>-o</code> 报告输出目录</li>
+</ul>
+<p>打开 <code>report/index.html</code> 查看，包含：</p>
+<ul>
+<li>Statistics（统计表）</li>
+<li>Errors（错误明细）</li>
+<li>Top 5 Errors by sampler</li>
+<li>Response Times Over Time（时间趋势）</li>
+<li>TPS Over Time</li>
+<li>各 Percentile 分布图</li>
+</ul>
+<h3 id="104-influxdb-grafana">10.4 实时监控（InfluxDB + Grafana）<a class="headerlink" href="#104-influxdb-grafana" title="Permanent link">&para;</a></h3>
+<p><strong>架构：</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>JMeter → Backend Listener → InfluxDB → Grafana 仪表盘
+</code></pre></div>
+<p>实时看 TPS、RT 曲线、错误率，是企业级标配。</p>
+<p><strong>配置 Backend Listener：</strong></p>
+<p><code>Add</code> → <code>Listener</code> → <code>Backend Listener</code></p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Backend Listener implementation</td>
+<td>InfluxDB Backend Listener</td>
+</tr>
+<tr>
+<td>influxdbUrl</td>
+<td>http://192.168.1.100:8086/write?db=jmeter</td>
+</tr>
+<tr>
+<td>application</td>
+<td>my_test</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>InfluxDB 版本差异：</strong>
+- InfluxDB 1.x：<code>http://host:8086/write?db=jmeter</code>
+- InfluxDB 2.x：API 路径改为 <code>/api/v2/write?org=xxx&amp;bucket=jmeter</code>，需用支持 2.x 的 Backend Listener 实现（或社区插件），并配置 Token。</p>
+</blockquote>
+<hr />
+<h2 id="_10">十一、分布式压测<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
+<h3 id="111">11.1 为什么需要分布式<a class="headerlink" href="#111" title="Permanent link">&para;</a></h3>
+<p>单台 JMeter 机器有性能上限（通常 500~1000 并发），更大压力需多机配合。</p>
+<h3 id="112">11.2 架构<a class="headerlink" href="#112" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>        Master（控制机）
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>            │
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>    ┌───────┼───────┐
+<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>    │       │       │
+<a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>  Slave1  Slave2  Slave3   （压力机）
+<a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a>    │       │       │
+<a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a>    └───────┼───────┘
+<a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a>            ↓
+<a id="__codelineno-19-9" name="__codelineno-19-9" href="#__codelineno-19-9"></a>       被测系统
+</code></pre></div>
+<h3 id="113">11.3 配置步骤<a class="headerlink" href="#113" title="Permanent link">&para;</a></h3>
+<p><strong>前置条件：</strong></p>
+<ul>
+<li>Master 和 Slave 在同一网络</li>
+<li>所有机器 JMeter 版本一致</li>
+<li>关闭防火墙或开放 1099 端口</li>
+<li>时间同步</li>
+</ul>
+<p><strong>Slave 配置：</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="c1"># Linux Slave</span>
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="nb">cd</span><span class="w"> </span><span class="nv">$JMETER_HOME</span>/bin
+<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>./jmeter-server<span class="w"> </span>-Djava.rmi.server.hostname<span class="o">=</span><span class="m">192</span>.168.1.101
+</code></pre></div>
+<p><strong>Master 配置：</strong></p>
+<p>修改 <code>bin/jmeter.properties</code>：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="na">remote_hosts</span><span class="o">=</span><span class="s">192.168.1.101:1099,192.168.1.102:1099</span>
+</code></pre></div>
+<p><strong>启动分布式压测：</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="c1"># GUI 模式</span>
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>菜单：Run<span class="w"> </span>→<span class="w"> </span>Remote<span class="w"> </span>Start<span class="w"> </span>All
+<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>
+<a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a><span class="c1"># 命令行模式</span>
+<a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a>jmeter<span class="w"> </span>-n<span class="w"> </span>-t<span class="w"> </span>test.jmx<span class="w"> </span>-R<span class="w"> </span><span class="m">192</span>.168.1.101,192.168.1.102<span class="w"> </span>-l<span class="w"> </span>result.jtl
+</code></pre></div>
+<p><code>-R</code> 指定远程压力机。</p>
+<h3 id="114">11.4 数据文件分发<a class="headerlink" href="#114" title="Permanent link">&para;</a></h3>
+<p>CSV 数据文件需手动复制到每台 Slave，或使用共享存储。</p>
+<hr />
+<h2 id="_11">十二、命令行执行<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
+<h3 id="121">12.1 为什么用命令行<a class="headerlink" href="#121" title="Permanent link">&para;</a></h3>
+<ul>
+<li>节省资源（GUI 占用大）</li>
+<li>可集成 CI/CD</li>
+<li>服务器上跑（无图形界面）</li>
+</ul>
+<h3 id="122">12.2 基础命令<a class="headerlink" href="#122" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>jmeter<span class="w"> </span>-n<span class="w"> </span>-t<span class="w"> </span>test.jmx<span class="w"> </span>-l<span class="w"> </span>result.jtl
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-n</code></td>
+<td>非 GUI 模式</td>
+</tr>
+<tr>
+<td><code>-t</code></td>
+<td>测试脚本（.jmx）</td>
+</tr>
+<tr>
+<td><code>-l</code></td>
+<td>结果文件（.jtl）</td>
+</tr>
+<tr>
+<td><code>-e</code></td>
+<td>测试结束后生成报告</td>
+</tr>
+<tr>
+<td><code>-o</code></td>
+<td>报告输出目录</td>
+</tr>
+<tr>
+<td><code>-R</code></td>
+<td>远程主机（分布式）</td>
+</tr>
+<tr>
+<td><code>-J</code></td>
+<td>传递参数</td>
+</tr>
+<tr>
+<td><code>-G</code></td>
+<td>传递全局参数</td>
+</tr>
+</tbody>
+</table>
+<h3 id="123">12.3 完整命令示例<a class="headerlink" href="#123" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>jmeter<span class="w"> </span>-n<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a><span class="w">  </span>-t<span class="w"> </span>login_test.jmx<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a><span class="w">  </span>-l<span class="w"> </span>result/login_<span class="k">$(</span>date<span class="w"> </span>+%Y%m%d_%H%M%S<span class="k">)</span>.jtl<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a><span class="w">  </span>-e<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a><span class="w">  </span>-o<span class="w"> </span>report/login_<span class="k">$(</span>date<span class="w"> </span>+%Y%m%d_%H%M%S<span class="k">)</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a><span class="w">  </span>-Jthreads<span class="o">=</span><span class="m">500</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-24-7" name="__codelineno-24-7" href="#__codelineno-24-7"></a><span class="w">  </span>-Jduration<span class="o">=</span><span class="m">300</span>
+</code></pre></div>
+<p>脚本中可用 <code>${__P(threads,100)}</code> 引用参数（100 是默认值）。</p>
+<h3 id="124">12.4 后台执行<a class="headerlink" href="#124" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="c1"># Linux 后台执行</span>
+<a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>nohup<span class="w"> </span>jmeter<span class="w"> </span>-n<span class="w"> </span>-t<span class="w"> </span>test.jmx<span class="w"> </span>-l<span class="w"> </span>result.jtl<span class="w"> </span>&gt;<span class="w"> </span>jmeter.log<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span><span class="w"> </span><span class="p">&amp;</span>
+<a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>
+<a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a><span class="c1"># 看进度</span>
+<a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a>tail<span class="w"> </span>-f<span class="w"> </span>jmeter.log
+</code></pre></div>
+<hr />
+<h2 id="_12">十三、性能测试实战<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h2>
+<h3 id="131">13.1 案例一：登录接口压测<a class="headerlink" href="#131" title="Permanent link">&para;</a></h3>
+<p><strong>目标：</strong> 验证登录接口在 500 并发下 RT &lt; 500ms。</p>
+<p><strong>脚本结构：</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>Test Plan
+<a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>├── HTTP Request Defaults（默认配置 base_url）
+<a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a>├── HTTP Header Manager（Content-Type: application/json）
+<a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a>├── CSV Data Set Config（users.csv）
+<a id="__codelineno-26-5" name="__codelineno-26-5" href="#__codelineno-26-5"></a>├── Thread Group（500 线程，Ramp-up 60s，Duration 300s）
+<a id="__codelineno-26-6" name="__codelineno-26-6" href="#__codelineno-26-6"></a>│   ├── HTTP Request: POST /api/login
+<a id="__codelineno-26-7" name="__codelineno-26-7" href="#__codelineno-26-7"></a>│   │   ├── Body: {&quot;username&quot;:&quot;${username}&quot;,&quot;password&quot;:&quot;${password}&quot;}
+<a id="__codelineno-26-8" name="__codelineno-26-8" href="#__codelineno-26-8"></a>│   │   └── JSON Assertion: $.code = 0
+<a id="__codelineno-26-9" name="__codelineno-26-9" href="#__codelineno-26-9"></a>│   └── Constant Throughput Timer（限制 TPS 上限，避免压垮）
+<a id="__codelineno-26-10" name="__codelineno-26-10" href="#__codelineno-26-10"></a>└── Listeners
+<a id="__codelineno-26-11" name="__codelineno-26-11" href="#__codelineno-26-11"></a>    ├── Summary Report
+<a id="__codelineno-26-12" name="__codelineno-26-12" href="#__codelineno-26-12"></a>    └── Backend Listener（InfluxDB）
+</code></pre></div>
+<p><strong>用例数据：</strong> 准备 500 个测试账号</p>
+<p><strong>执行：</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>jmeter<span class="w"> </span>-n<span class="w"> </span>-t<span class="w"> </span>login_perf.jmx<span class="w"> </span>-l<span class="w"> </span>result.jtl<span class="w"> </span>-e<span class="w"> </span>-o<span class="w"> </span>report/
+</code></pre></div>
+<p><strong>结果分析：</strong></p>
+<ul>
+<li>平均 RT：280ms ✓</li>
+<li>95% RT：450ms ✓</li>
+<li>TPS：1620 ✓</li>
+<li>错误率：0.05% ✓</li>
+</ul>
+<h3 id="132">13.2 案例二：完整下单链路压测<a class="headerlink" href="#132" title="Permanent link">&para;</a></h3>
+<p><strong>链路：</strong> 登录 → 查商品 → 加购物车 → 创建订单 → 支付</p>
+<p><strong>脚本：</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>Test Plan
+<a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>├── HTTP Defaults
+<a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a>├── CSV Data（users.csv）
+<a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a>├── Thread Group（200 线程）
+<a id="__codelineno-28-5" name="__codelineno-28-5" href="#__codelineno-28-5"></a>│   ├── HTTP: POST /api/login
+<a id="__codelineno-28-6" name="__codelineno-28-6" href="#__codelineno-28-6"></a>│   │   └── JSON Extractor: $.data.token → token
+<a id="__codelineno-28-7" name="__codelineno-28-7" href="#__codelineno-28-7"></a>│   ├── HTTP Header: Authorization: Bearer ${token}
+<a id="__codelineno-28-8" name="__codelineno-28-8" href="#__codelineno-28-8"></a>│   ├── HTTP: GET /api/products?page=1
+<a id="__codelineno-28-9" name="__codelineno-28-9" href="#__codelineno-28-9"></a>│   │   └── JSON Extractor: $.data[0].id → productId
+<a id="__codelineno-28-10" name="__codelineno-28-10" href="#__codelineno-28-10"></a>│   ├── HTTP: POST /api/cart/add
+<a id="__codelineno-28-11" name="__codelineno-28-11" href="#__codelineno-28-11"></a>│   │   └── Body: {&quot;productId&quot;:${productId},&quot;quantity&quot;:1}
+<a id="__codelineno-28-12" name="__codelineno-28-12" href="#__codelineno-28-12"></a>│   ├── HTTP: POST /api/order/create
+<a id="__codelineno-28-13" name="__codelineno-28-13" href="#__codelineno-28-13"></a>│   │   └── JSON Extractor: $.data.orderId → orderId
+<a id="__codelineno-28-14" name="__codelineno-28-14" href="#__codelineno-28-14"></a>│   └── HTTP: POST /api/order/pay
+<a id="__codelineno-28-15" name="__codelineno-28-15" href="#__codelineno-28-15"></a>│       └── Body: {&quot;orderId&quot;:${orderId}}
+<a id="__codelineno-28-16" name="__codelineno-28-16" href="#__codelineno-28-16"></a>└── Listeners
+</code></pre></div>
+<p><strong>注意事项：</strong></p>
+<ul>
+<li>链路有依赖，任一接口失败后续都失败</li>
+<li>各接口单独看 RT/TPS</li>
+<li>同一用户不应同时发起多个订单（用计数器或控制器隔离）</li>
+</ul>
+<h3 id="133">13.3 案例三：阶梯加压找拐点<a class="headerlink" href="#133" title="Permanent link">&para;</a></h3>
+<p><strong>目标：</strong> 找系统最大承载，定位拐点。</p>
+<p><strong>用 Stepping Thread Group：</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>0~60 秒：100 线程
+<a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a>60~120 秒：再加 100，达 200
+<a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a>120~180 秒：再加 100，达 300
+<a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a>...
+<a id="__codelineno-29-5" name="__codelineno-29-5" href="#__codelineno-29-5"></a>依次加压到 1000
+</code></pre></div>
+<p><strong>观察：</strong></p>
+<ul>
+<li>持续盯 TPS 曲线</li>
+<li>当增加并发但 TPS 不增反降 → 拐点</li>
+<li>此时 RT 急剧上升 → 系统过载</li>
+</ul>
+<p><strong>报告示例：</strong></p>
+<table>
+<thead>
+<tr>
+<th>并发</th>
+<th>TPS</th>
+<th>RT(ms)</th>
+<th>Error%</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>100</td>
+<td>800</td>
+<td>125</td>
+<td>0%</td>
+</tr>
+<tr>
+<td>200</td>
+<td>1500</td>
+<td>130</td>
+<td>0%</td>
+</tr>
+<tr>
+<td>300</td>
+<td>2100</td>
+<td>140</td>
+<td>0.1%</td>
+</tr>
+<tr>
+<td>400</td>
+<td>2400</td>
+<td>165</td>
+<td>0.2%</td>
+</tr>
+<tr>
+<td>500</td>
+<td>2500</td>
+<td>200</td>
+<td>0.5%</td>
+</tr>
+<tr>
+<td>600</td>
+<td>2400</td>
+<td>250</td>
+<td>1.5% ← 拐点</td>
+</tr>
+<tr>
+<td>700</td>
+<td>2200</td>
+<td>320</td>
+<td>5%</td>
+</tr>
+<tr>
+<td>800</td>
+<td>1800</td>
+<td>450</td>
+<td>12% ← 崩溃</td>
+</tr>
+</tbody>
+</table>
+<p>结论：系统最佳承载 500 并发，最大 600。</p>
+<h3 id="134">13.4 案例四：稳定性测试<a class="headerlink" href="#134" title="Permanent link">&para;</a></h3>
+<p><strong>目标：</strong> 200 并发持续 4 小时，验证无内存泄漏、性能不下降。</p>
+<p><strong>关注：</strong></p>
+<ul>
+<li>TPS 是否稳定（前 10 分钟 vs 中间 vs 末尾对比）</li>
+<li>RT 是否上升</li>
+<li>错误率是否累积</li>
+<li>内存使用是否持续增长（监控服务器 free 命令）</li>
+<li>GC 频率（Java 应用）</li>
+</ul>
+<hr />
+<h2 id="_13">十四、性能瓶颈分析<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h2>
+<h3 id="141">14.1 分析思路<a class="headerlink" href="#141" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>现象 → 监控 → 定位 → 验证
+</code></pre></div>
+<h3 id="142">14.2 服务器监控指标<a class="headerlink" href="#142" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th>命令</th>
+<th>关注阈值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CPU 使用率</td>
+<td><code>top</code></td>
+<td>&lt; 70%</td>
+</tr>
+<tr>
+<td>CPU 负载</td>
+<td><code>uptime</code></td>
+<td>&lt; CPU 核数</td>
+</tr>
+<tr>
+<td>内存</td>
+<td><code>free -h</code></td>
+<td>available &gt; 20%</td>
+</tr>
+<tr>
+<td>磁盘 IO</td>
+<td><code>iostat -x 1</code></td>
+<td>%util &lt; 80%</td>
+</tr>
+<tr>
+<td>网络</td>
+<td><code>sar -n DEV 1</code></td>
+<td>看带宽</td>
+</tr>
+<tr>
+<td>TCP 连接</td>
+<td><code>netstat -ant</code> 再 <code>wc -l</code> 看连接数</td>
+<td>看积压</td>
+</tr>
+</tbody>
+</table>
+<h3 id="143">14.3 常见瓶颈与定位<a class="headerlink" href="#143" title="Permanent link">&para;</a></h3>
+<p><strong>CPU 飙高：</strong></p>
+<ul>
+<li>应用计算密集</li>
+<li>GC 频繁（Java）</li>
+<li>死循环</li>
+</ul>
+<p><strong>内存爆掉：</strong></p>
+<ul>
+<li>内存泄漏</li>
+<li>大对象常驻</li>
+<li>缓存无上限</li>
+</ul>
+<p><strong>IO 等待高（%wa）：</strong></p>
+<ul>
+<li>磁盘慢</li>
+<li>数据库慢查询</li>
+<li>大量日志输出</li>
+</ul>
+<p><strong>网络瓶颈：</strong></p>
+<ul>
+<li>带宽打满</li>
+<li>TCP 连接数耗尽</li>
+<li>防火墙限制</li>
+</ul>
+<p><strong>数据库瓶颈：</strong></p>
+<ul>
+<li>慢查询（看慢日志）</li>
+<li>锁等待</li>
+<li>连接池满</li>
+<li>缺索引</li>
+</ul>
+<p><strong>应用层瓶颈：</strong></p>
+<ul>
+<li>线程池满</li>
+<li>线程死锁（jstack 看线程栈）</li>
+<li>内存满（jstat 看 GC）</li>
+</ul>
+<h3 id="144-java">14.4 Java 应用性能分析工具<a class="headerlink" href="#144-java" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="c1"># 看 GC</span>
+<a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a>jstat<span class="w"> </span>-gc<span class="w"> </span>&lt;pid&gt;<span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="m">10</span>
+<a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a>
+<a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a><span class="c1"># 看堆内存</span>
+<a id="__codelineno-31-5" name="__codelineno-31-5" href="#__codelineno-31-5"></a>jmap<span class="w"> </span>-heap<span class="w"> </span>&lt;pid&gt;
+<a id="__codelineno-31-6" name="__codelineno-31-6" href="#__codelineno-31-6"></a>jmap<span class="w"> </span>-histo:live<span class="w"> </span>&lt;pid&gt;<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-20
+<a id="__codelineno-31-7" name="__codelineno-31-7" href="#__codelineno-31-7"></a>
+<a id="__codelineno-31-8" name="__codelineno-31-8" href="#__codelineno-31-8"></a><span class="c1"># 看线程</span>
+<a id="__codelineno-31-9" name="__codelineno-31-9" href="#__codelineno-31-9"></a>jstack<span class="w"> </span>&lt;pid&gt;
+<a id="__codelineno-31-10" name="__codelineno-31-10" href="#__codelineno-31-10"></a>
+<a id="__codelineno-31-11" name="__codelineno-31-11" href="#__codelineno-31-11"></a><span class="c1"># 推荐工具</span>
+<a id="__codelineno-31-12" name="__codelineno-31-12" href="#__codelineno-31-12"></a><span class="c1"># - Arthas（阿里开源，强大）</span>
+<a id="__codelineno-31-13" name="__codelineno-31-13" href="#__codelineno-31-13"></a><span class="c1"># - JProfiler（商业）</span>
+<a id="__codelineno-31-14" name="__codelineno-31-14" href="#__codelineno-31-14"></a><span class="c1"># - VisualVM（免费）</span>
+</code></pre></div>
+<h3 id="145">14.5 优化建议<a class="headerlink" href="#145" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>问题</th>
+<th>优化方向</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CPU 高</td>
+<td>算法优化、缓存、异步化</td>
+</tr>
+<tr>
+<td>内存高</td>
+<td>排查泄漏、调整 JVM、限制对象</td>
+</tr>
+<tr>
+<td>IO 高</td>
+<td>减少日志、SSD、批量操作</td>
+</tr>
+<tr>
+<td>数据库慢</td>
+<td>加索引、优化 SQL、读写分离</td>
+</tr>
+<tr>
+<td>线程满</td>
+<td>调线程池、异步、限流</td>
+</tr>
+<tr>
+<td>网络瓶颈</td>
+<td>CDN、压缩、长连接</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_14">十五、常见问题排查<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h2>
+<h3 id="151-outofmemoryerror">15.1 OutOfMemoryError<a class="headerlink" href="#151-outofmemoryerror" title="Permanent link">&para;</a></h3>
+<p>JMeter 自身内存不够：</p>
+<p>修改 <code>bin/jmeter.bat</code>（Windows）或 <code>bin/jmeter</code>（Linux/Mac）：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="nv">HEAP</span><span class="o">=</span><span class="s2">&quot;-Xms1g -Xmx4g&quot;</span><span class="w">     </span><span class="c1"># 改大</span>
+</code></pre></div>
+<h3 id="152-gui">15.2 GUI 模式压测变形<a class="headerlink" href="#152-gui" title="Permanent link">&para;</a></h3>
+<p>GUI 占用资源大，导致结果不准。<strong>正式压测必须用命令行</strong>。</p>
+<h3 id="153">15.3 监听器影响性能<a class="headerlink" href="#153" title="Permanent link">&para;</a></h3>
+<p>正式压测关闭：
+- View Results Tree
+- View Results in Table
+- Graph Results</p>
+<p>只保留 Summary Report 或 Backend Listener。</p>
+<h3 id="154-csv">15.4 CSV 数据用完<a class="headerlink" href="#154-csv" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a>报错：CSV exhausted...
+</code></pre></div>
+<p>设置 <code>Recycle on EOF? = True</code> 或准备足够数据。</p>
+<h3 id="155-ssl">15.5 SSL 握手失败<a class="headerlink" href="#155-ssl" title="Permanent link">&para;</a></h3>
+<p>HTTPS 接口：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>Add → Config → HTTP Request Defaults
+<a id="__codelineno-34-2" name="__codelineno-34-2" href="#__codelineno-34-2"></a>Implementation: Java
+</code></pre></div>
+<p>或忽略证书：在 <code>bin/jmeter.properties</code>：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a><span class="na">https.use.cached.ssl.context</span><span class="o">=</span><span class="s">false</span>
+</code></pre></div>
+<h3 id="156">15.6 压力机本身成瓶颈<a class="headerlink" href="#156" title="Permanent link">&para;</a></h3>
+<p><strong>判断：</strong></p>
+<ul>
+<li>看 JMeter 机器 CPU、内存、网络</li>
+<li>看请求是否真的发出去了（用抓包工具）</li>
+</ul>
+<p><strong>优化：</strong></p>
+<ul>
+<li>减少线程数</li>
+<li>增加压力机（分布式）</li>
+<li>关掉 GUI 模式</li>
+</ul>
+<h3 id="157">15.7 结果不稳定<a class="headerlink" href="#157" title="Permanent link">&para;</a></h3>
+<p><strong>排查：</strong></p>
+<ul>
+<li>测试环境是否被其他人占用</li>
+<li>网络是否有波动</li>
+<li>数据库是否预热（首次跑慢）</li>
+<li>GC 是否影响</li>
+<li>多次跑取均值</li>
+</ul>
+<h3 id="158">15.8 中文乱码<a class="headerlink" href="#158" title="Permanent link">&para;</a></h3>
+<p>请求 Body 中文乱码：HTTP Request 的 Content encoding 填 <code>UTF-8</code>。</p>
+<p>响应中文乱码：在 <code>bin/jmeter.properties</code>：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a><span class="na">sampleresult.default.encoding</span><span class="o">=</span><span class="s">UTF-8</span>
+</code></pre></div>
+<hr />
+<h2 id="_15">十六、最佳实践<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h2>
+<h3 id="161">16.1 性能测试流程<a class="headerlink" href="#161" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a>1. 需求分析（明确目标）
+<a id="__codelineno-37-2" name="__codelineno-37-2" href="#__codelineno-37-2"></a>2. 环境准备（独立环境、监控）
+<a id="__codelineno-37-3" name="__codelineno-37-3" href="#__codelineno-37-3"></a>3. 脚本设计（参数化、关联）
+<a id="__codelineno-37-4" name="__codelineno-37-4" href="#__codelineno-37-4"></a>4. 脚本调试（少量并发先跑通）
+<a id="__codelineno-37-5" name="__codelineno-37-5" href="#__codelineno-37-5"></a>5. 基准测试（单用户基线）
+<a id="__codelineno-37-6" name="__codelineno-37-6" href="#__codelineno-37-6"></a>6. 正式压测（按计划加压）
+<a id="__codelineno-37-7" name="__codelineno-37-7" href="#__codelineno-37-7"></a>7. 监控分析（服务器+应用+数据库）
+<a id="__codelineno-37-8" name="__codelineno-37-8" href="#__codelineno-37-8"></a>8. 报告输出（结果+瓶颈+建议）
+<a id="__codelineno-37-9" name="__codelineno-37-9" href="#__codelineno-37-9"></a>9. 性能调优（开发协作）
+<a id="__codelineno-37-10" name="__codelineno-37-10" href="#__codelineno-37-10"></a>10. 回归验证
+</code></pre></div>
+<h3 id="162">16.2 测试脚本规范<a class="headerlink" href="#162" title="Permanent link">&para;</a></h3>
+<ul>
+<li>用 HTTP Request Defaults 减少重复</li>
+<li>用 Header Manager 统一 Header</li>
+<li>数据参数化（不硬编码）</li>
+<li>添加合理断言（不能只看请求成功）</li>
+<li>思考用 Constant Throughput Timer 控制 TPS</li>
+</ul>
+<h3 id="163">16.3 压测纪律<a class="headerlink" href="#163" title="Permanent link">&para;</a></h3>
+<ul>
+<li>⚠️ <strong>禁止在生产环境直接压测</strong>（除非授权且做好预案）</li>
+<li>⚠️ <strong>提前通知相关团队</strong>（运维、开发）</li>
+<li>⚠️ <strong>准备熔断方案</strong>（中止条件、应急联系人）</li>
+<li>⚠️ <strong>测试数据隔离</strong>（不影响业务数据）</li>
+<li>⚠️ <strong>报告必须含瓶颈分析</strong>（光给数据不解读 = 无价值）</li>
+</ul>
+<h3 id="164">16.4 性能测试报告模板<a class="headerlink" href="#164" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a><span class="gh"># 登录接口性能测试报告</span>
+<a id="__codelineno-38-2" name="__codelineno-38-2" href="#__codelineno-38-2"></a>
+<a id="__codelineno-38-3" name="__codelineno-38-3" href="#__codelineno-38-3"></a><span class="gu">## 1. 测试目的</span>
+<a id="__codelineno-38-4" name="__codelineno-38-4" href="#__codelineno-38-4"></a>验证登录接口在 500 并发下 RT、TPS 是否满足业务要求。
+<a id="__codelineno-38-5" name="__codelineno-38-5" href="#__codelineno-38-5"></a>
+<a id="__codelineno-38-6" name="__codelineno-38-6" href="#__codelineno-38-6"></a><span class="gu">## 2. 测试环境</span>
+<a id="__codelineno-38-7" name="__codelineno-38-7" href="#__codelineno-38-7"></a><span class="k">-</span><span class="w"> </span>应用服务器：4C8G * 2 台
+<a id="__codelineno-38-8" name="__codelineno-38-8" href="#__codelineno-38-8"></a><span class="k">-</span><span class="w"> </span>数据库：MySQL 8.0，4C16G
+<a id="__codelineno-38-9" name="__codelineno-38-9" href="#__codelineno-38-9"></a><span class="k">-</span><span class="w"> </span>JMeter：5.6.3
+<a id="__codelineno-38-10" name="__codelineno-38-10" href="#__codelineno-38-10"></a><span class="k">-</span><span class="w"> </span>压力机：4C8G * 2
+<a id="__codelineno-38-11" name="__codelineno-38-11" href="#__codelineno-38-11"></a>
+<a id="__codelineno-38-12" name="__codelineno-38-12" href="#__codelineno-38-12"></a><span class="gu">## 3. 测试场景</span>
+<a id="__codelineno-38-13" name="__codelineno-38-13" href="#__codelineno-38-13"></a><span class="k">-</span><span class="w"> </span>接口：POST /api/login
+<a id="__codelineno-38-14" name="__codelineno-38-14" href="#__codelineno-38-14"></a><span class="k">-</span><span class="w"> </span>并发：500
+<a id="__codelineno-38-15" name="__codelineno-38-15" href="#__codelineno-38-15"></a><span class="k">-</span><span class="w"> </span>Ramp-up：60s
+<a id="__codelineno-38-16" name="__codelineno-38-16" href="#__codelineno-38-16"></a><span class="k">-</span><span class="w"> </span>持续时间：10 分钟
+<a id="__codelineno-38-17" name="__codelineno-38-17" href="#__codelineno-38-17"></a><span class="k">-</span><span class="w"> </span>测试数据：500 个真实账号
+<a id="__codelineno-38-18" name="__codelineno-38-18" href="#__codelineno-38-18"></a>
+<a id="__codelineno-38-19" name="__codelineno-38-19" href="#__codelineno-38-19"></a><span class="gu">## 4. 测试结果</span>
+<a id="__codelineno-38-20" name="__codelineno-38-20" href="#__codelineno-38-20"></a>| 指标 | 实际 | 期望 | 是否达标 |
+<a id="__codelineno-38-21" name="__codelineno-38-21" href="#__codelineno-38-21"></a>|------|------|------|---------|
+<a id="__codelineno-38-22" name="__codelineno-38-22" href="#__codelineno-38-22"></a>| 平均 RT | 280ms | &lt;500ms | ✓ |
+<a id="__codelineno-38-23" name="__codelineno-38-23" href="#__codelineno-38-23"></a>| 95% RT | 450ms | &lt;800ms | ✓ |
+<a id="__codelineno-38-24" name="__codelineno-38-24" href="#__codelineno-38-24"></a>| TPS | 1620 | &gt;1500 | ✓ |
+<a id="__codelineno-38-25" name="__codelineno-38-25" href="#__codelineno-38-25"></a>| 错误率 | 0.05% | &lt;0.5% | ✓ |
+<a id="__codelineno-38-26" name="__codelineno-38-26" href="#__codelineno-38-26"></a>
+<a id="__codelineno-38-27" name="__codelineno-38-27" href="#__codelineno-38-27"></a><span class="gu">## 5. 资源监控</span>
+<a id="__codelineno-38-28" name="__codelineno-38-28" href="#__codelineno-38-28"></a><span class="k">-</span><span class="w"> </span>CPU：65%（应用），50%（DB）
+<a id="__codelineno-38-29" name="__codelineno-38-29" href="#__codelineno-38-29"></a><span class="k">-</span><span class="w"> </span>内存：72%（应用），60%（DB）
+<a id="__codelineno-38-30" name="__codelineno-38-30" href="#__codelineno-38-30"></a><span class="k">-</span><span class="w"> </span>磁盘 IO：%util 35%
+<a id="__codelineno-38-31" name="__codelineno-38-31" href="#__codelineno-38-31"></a><span class="k">-</span><span class="w"> </span>数据库连接池：80/100 使用
+<a id="__codelineno-38-32" name="__codelineno-38-32" href="#__codelineno-38-32"></a>
+<a id="__codelineno-38-33" name="__codelineno-38-33" href="#__codelineno-38-33"></a><span class="gu">## 6. 瓶颈分析</span>
+<a id="__codelineno-38-34" name="__codelineno-38-34" href="#__codelineno-38-34"></a><span class="k">-</span><span class="w"> </span>数据库连接池接近上限，建议扩容到 200
+<a id="__codelineno-38-35" name="__codelineno-38-35" href="#__codelineno-38-35"></a><span class="k">-</span><span class="w"> </span>应用 GC 频率偏高，建议调整 JVM 参数
+<a id="__codelineno-38-36" name="__codelineno-38-36" href="#__codelineno-38-36"></a>
+<a id="__codelineno-38-37" name="__codelineno-38-37" href="#__codelineno-38-37"></a><span class="gu">## 7. 结论与建议</span>
+<a id="__codelineno-38-38" name="__codelineno-38-38" href="#__codelineno-38-38"></a>满足业务要求。建议下次发布前回归一次。
+<a id="__codelineno-38-39" name="__codelineno-38-39" href="#__codelineno-38-39"></a>
+<a id="__codelineno-38-40" name="__codelineno-38-40" href="#__codelineno-38-40"></a><span class="gu">## 8. 附件</span>
+<a id="__codelineno-38-41" name="__codelineno-38-41" href="#__codelineno-38-41"></a><span class="k">-</span><span class="w"> </span>jmx 脚本
+<a id="__codelineno-38-42" name="__codelineno-38-42" href="#__codelineno-38-42"></a><span class="k">-</span><span class="w"> </span>jtl 结果
+<a id="__codelineno-38-43" name="__codelineno-38-43" href="#__codelineno-38-43"></a><span class="k">-</span><span class="w"> </span>HTML 报告
+<a id="__codelineno-38-44" name="__codelineno-38-44" href="#__codelineno-38-44"></a><span class="k">-</span><span class="w"> </span>服务器监控截图
+</code></pre></div>
+<hr />
+<h2 id="_16">附录：推荐学习资源<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h2>
+<ul>
+<li>官方文档：<code>https://jmeter.apache.org/usermanual/</code></li>
+<li>JMeter 插件：<code>https://jmeter-plugins.org/</code></li>
+<li>B 站搜"JMeter 实战"教程</li>
+<li>书籍：《全栈性能测试修炼宝典：JMeter 实战》</li>
+</ul>
+<hr />
+<blockquote>
+<p><strong>测试纪律：</strong> 性能测试是高风险测试，必须在独立测试环境进行，禁止未授权对生产系统压测。压测前通知运维、开发，准备应急预案。测试后及时清理数据，恢复环境。</p>
+</blockquote>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/yourname/test-tutorials" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "navigation.top", "navigation.instant", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
