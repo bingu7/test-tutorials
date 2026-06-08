@@ -1,0 +1,110 @@
+# 软件测试知识体系 - MkDocs 配置
+site_name: 软件测试知识体系
+site_description: 面向软件测试工程师的系统化学习教程
+site_author: Test Team
+site_url: https://bingu7.github.io/test-tutorials/
+
+# GitHub Pages 仓库信息
+repo_name: test-tutorials
+repo_url: https://github.com/bingu7/test-tutorials
+edit_uri: edit/main/docs/
+
+# 主题配置
+theme:
+  name: material
+  language: zh
+  palette:
+    # 浅色模式
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: 切换到暗色模式
+    # 暗色模式
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: 切换到浅色模式
+  features:
+    - navigation.tabs           # 顶部标签导航
+    - navigation.sections       # 侧边栏分组折叠
+    - navigation.expand         # 默认展开侧边栏
+    - navigation.top            # 返回顶部按钮
+    - navigation.instant        # 即时加载（SPA 体验）
+    - search.suggest            # 搜索建议
+    - search.highlight          # 搜索高亮
+    - content.code.copy         # 代码块复制按钮
+    - content.code.annotate     # 代码注释
+    - toc.follow                # 目录跟随滚动
+
+  icon:
+    repo: fontawesome/brands/github
+
+# 搜索插件
+plugins:
+  - search:
+      separator: '[\s\-\.]+'   # 中文搜索分词
+  - tags
+
+# Markdown 扩展
+markdown_extensions:
+  - abbr                       # 缩写
+  - admonition                 # 提示框
+  - attr_list                  # 属性列表
+  - def_list                   # 定义列表
+  - footnotes                  # 脚注
+  - tables                     # 表格
+  - toc:
+      permalink: true          # 标题永久链接
+  - pymdownx.arithmatex        # 数学公式
+  - pymdownx.betterem          # 更好的强调
+  - pymdownx.caret             # 上标
+  - pymdownx.details           # 折叠块
+  - pymdownx.emoji             # 表情
+  - pymdownx.highlight:        # 代码高亮
+      anchor_linenums: true
+  - pymdownx.inlinehilite      # 行内代码高亮
+  - pymdownx.keys              # 键盘按键
+  - pymdownx.mark              # 高亮文本
+  - pymdownx.smartsymbols      # 智能符号
+  - pymdownx.superfences       # 超级围栏（支持嵌套）
+  - pymdownx.tabbed:           # 标签页
+      alternate_style: true
+  - pymdownx.tasklist          # 任务列表
+  - pymdownx.tilde             # 删除线
+
+# 导航结构
+nav:
+  - 首页: index.md
+  - 基础理论:
+    - 软件测试理论: 基础理论/软件测试理论基础教程.md
+  - 工具操作:
+    - 数据库 SQL: 工具操作/数据库SQL教程-软件测试版.md
+    - Linux 实用: 工具操作/Linux实用教程-软件测试版.md
+    - Git 版本控制: 工具操作/Git版本控制教程-软件测试版.md
+    - Docker 容器: 工具操作/Docker容器教程-软件测试版.md
+    - Fiddler 抓包: 工具操作/Fiddler抓包教程-软件测试版.md
+    - Postman 接口: 工具操作/Postman接口测试教程-软件测试版.md
+  - 专项测试:
+    - 接口测试方法论: 专项测试/接口测试完整教程-软件测试版.md
+    - JMeter 性能测试: 专项测试/JMeter性能测试教程-软件测试版.md
+  - 自动化测试:
+    - Python 接口自动化: 自动化测试/Python+Requests+Allure接口自动化教程-软件测试版.md
+    - Selenium Web 自动化: 自动化测试/Selenium-Web自动化教程-软件测试版.md
+    - Appium App 自动化: 自动化测试/Appium-App自动化教程-软件测试版.md
+  - 持续集成:
+    - Jenkins CI/CD: 持续集成/Jenkins-CICD教程-软件测试版.md
+
+# 额外样式
+extra_css:
+  - stylesheets/extra.css
+
+# 页脚
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/yourname/test-tutorials
+  generator: false
