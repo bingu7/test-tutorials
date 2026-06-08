@@ -3810,7 +3810,7 @@
 </tbody>
 </table>
 <blockquote>
-<p><strong>测试人员建议：</strong> CentOS &#8542; 和 Ubuntu 是企业最常见的两个，掌握这两个即可应对 90% 场景。</p>
+<p><strong>测试人员建议：</strong> 生产环境更常见的是 RHEL 系（Rocky Linux、AlmaLinux、CentOS Stream）与 Ubuntu LTS；老项目仍可能遇到 CentOS 7，相关命令需要结合系统版本确认。</p>
 </blockquote>
 <h3 id="13-linux">1.3 Linux 目录结构<a class="headerlink" href="#13-linux" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>/                根目录
@@ -4769,7 +4769,7 @@
 <a id="__codelineno-41-18" name="__codelineno-41-18" href="#__codelineno-41-18"></a><span class="nb">disown</span><span class="w"> </span>-h<span class="w"> </span>%1
 </code></pre></div>
 <h3 id="94-systemd">9.4 systemd 服务管理<a class="headerlink" href="#94-systemd" title="Permanent link">&para;</a></h3>
-<p>CentOS 7+ / Ubuntu 16+ 使用 systemd 管理服务。</p>
+<p>RHEL/CentOS 7+、CentOS Stream 与 Ubuntu 16+ 使用 systemd 管理服务。</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a><span class="c1"># 启动 / 停止 / 重启 / 重载</span>
 <a id="__codelineno-42-2" name="__codelineno-42-2" href="#__codelineno-42-2"></a>systemctl<span class="w"> </span>start<span class="w"> </span>nginx
 <a id="__codelineno-42-3" name="__codelineno-42-3" href="#__codelineno-42-3"></a>systemctl<span class="w"> </span>stop<span class="w"> </span>nginx
@@ -4913,7 +4913,7 @@
 <a id="__codelineno-50-3" name="__codelineno-50-3" href="#__codelineno-50-3"></a>netstat<span class="w"> </span>-anp<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="m">8080</span><span class="w">       </span><span class="c1"># 查看 8080 端口占用</span>
 <a id="__codelineno-50-4" name="__codelineno-50-4" href="#__codelineno-50-4"></a>netstat<span class="w"> </span>-ant<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>ESTABLISHED<span class="w"> </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-l<span class="w">   </span><span class="c1"># 当前连接数</span>
 <a id="__codelineno-50-5" name="__codelineno-50-5" href="#__codelineno-50-5"></a>
-<a id="__codelineno-50-6" name="__codelineno-50-6" href="#__codelineno-50-6"></a><span class="c1"># 新版命令（CentOS 7+）</span>
+<a id="__codelineno-50-6" name="__codelineno-50-6" href="#__codelineno-50-6"></a><span class="c1"># 新版命令（多数现代 Linux 发行版可用）</span>
 <a id="__codelineno-50-7" name="__codelineno-50-7" href="#__codelineno-50-7"></a>ss<span class="w"> </span>-anp
 <a id="__codelineno-50-8" name="__codelineno-50-8" href="#__codelineno-50-8"></a>ss<span class="w"> </span>-tlnp<span class="w">                       </span><span class="c1"># 监听的 TCP 端口</span>
 <a id="__codelineno-50-9" name="__codelineno-50-9" href="#__codelineno-50-9"></a>
@@ -4970,7 +4970,7 @@
 <a id="__codelineno-53-8" name="__codelineno-53-8" href="#__codelineno-53-8"></a>route<span class="w"> </span>-n
 <a id="__codelineno-53-9" name="__codelineno-53-9" href="#__codelineno-53-9"></a>
 <a id="__codelineno-53-10" name="__codelineno-53-10" href="#__codelineno-53-10"></a><span class="c1"># 防火墙</span>
-<a id="__codelineno-53-11" name="__codelineno-53-11" href="#__codelineno-53-11"></a>firewall-cmd<span class="w"> </span>--list-all<span class="w">        </span><span class="c1"># CentOS 7+</span>
+<a id="__codelineno-53-11" name="__codelineno-53-11" href="#__codelineno-53-11"></a>firewall-cmd<span class="w"> </span>--list-all<span class="w">        </span><span class="c1"># RHEL 系发行版常用</span>
 <a id="__codelineno-53-12" name="__codelineno-53-12" href="#__codelineno-53-12"></a>iptables<span class="w"> </span>-L<span class="w">                    </span><span class="c1"># iptables</span>
 <a id="__codelineno-53-13" name="__codelineno-53-13" href="#__codelineno-53-13"></a>ufw<span class="w"> </span>status<span class="w">                     </span><span class="c1"># Ubuntu</span>
 <a id="__codelineno-53-14" name="__codelineno-53-14" href="#__codelineno-53-14"></a>
@@ -5114,7 +5114,7 @@
 <a id="__codelineno-60-18" name="__codelineno-60-18" href="#__codelineno-60-18"></a>yum<span class="w"> </span>repolist<span class="w">                      </span><span class="c1"># 列出仓库</span>
 <a id="__codelineno-60-19" name="__codelineno-60-19" href="#__codelineno-60-19"></a>yum-config-manager<span class="w"> </span>--add-repo<span class="w"> </span>URL
 <a id="__codelineno-60-20" name="__codelineno-60-20" href="#__codelineno-60-20"></a>
-<a id="__codelineno-60-21" name="__codelineno-60-21" href="#__codelineno-60-21"></a><span class="c1"># CentOS 8+ 推荐 dnf（用法一致）</span>
+<a id="__codelineno-60-21" name="__codelineno-60-21" href="#__codelineno-60-21"></a><span class="c1"># RHEL 8+ / CentOS Stream 推荐 dnf（用法一致）</span>
 <a id="__codelineno-60-22" name="__codelineno-60-22" href="#__codelineno-60-22"></a>dnf<span class="w"> </span>install<span class="w"> </span>nginx
 </code></pre></div>
 <h3 id="132-ubuntu-debianapt">13.2 Ubuntu / Debian（apt）<a class="headerlink" href="#132-ubuntu-debianapt" title="Permanent link">&para;</a></h3>
@@ -5728,7 +5728,7 @@
 </ul>
 <hr />
 <blockquote>
-<p><strong>文档说明：</strong> 本教程基于 CentOS 7 / Ubuntu 20.04 编写，多数命令在其他主流发行版通用。</p>
+<p><strong>文档说明：</strong> 本教程以 RHEL 系发行版与 Ubuntu LTS 的通用命令为主，多数命令在其他主流发行版通用；老项目中的 CentOS 7 命令需结合系统版本确认。</p>
 <p><strong>测试纪律：</strong> 操作生产环境务必经过申请审批，禁止在生产环境执行未经评审的 Shell 脚本，禁止使用 root 账户进行日常测试操作。<code>rm -rf</code> 命令使用前务必三思。</p>
 </blockquote>
 

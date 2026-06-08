@@ -4022,7 +4022,7 @@
 </code></pre></div>
 <h3 id="122-docker">12.2 Docker 运行<a class="headerlink" href="#122-docker" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a><span class="c"># 版本号需与 pip install playwright 的版本一致</span>
-<a id="__codelineno-47-2" name="__codelineno-47-2" href="#__codelineno-47-2"></a><span class="c"># 基础镜像标签格式：v&lt;playwright版本&gt;-jammy (Ubuntu 22.04)</span>
+<a id="__codelineno-47-2" name="__codelineno-47-2" href="#__codelineno-47-2"></a><span class="c"># 基础镜像标签按官方可用标签选择，如 noble / jammy 等系统版本</span>
 <a id="__codelineno-47-3" name="__codelineno-47-3" href="#__codelineno-47-3"></a><span class="c"># 查看可用标签：https://mcr.microsoft.com/en-us/artifact/mar/playwright/python</span>
 <a id="__codelineno-47-4" name="__codelineno-47-4" href="#__codelineno-47-4"></a><span class="k">FROM</span><span class="w"> </span><span class="s">mcr.microsoft.com/playwright/python:v1.52.0-jammy</span>
 <a id="__codelineno-47-5" name="__codelineno-47-5" href="#__codelineno-47-5"></a><span class="k">WORKDIR</span><span class="w"> </span><span class="s">/app</span>

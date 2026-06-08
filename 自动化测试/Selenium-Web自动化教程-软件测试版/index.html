@@ -1845,7 +1845,7 @@
   <a href="#86" class="md-nav__link">
     <span class="md-ellipsis">
       
-        8.6 性能日志
+        8.6 性能日志（历史方式）
       
     </span>
   </a>
@@ -3150,7 +3150,7 @@
   <a href="#86" class="md-nav__link">
     <span class="md-ellipsis">
       
-        8.6 性能日志
+        8.6 性能日志（历史方式）
       
     </span>
   </a>
@@ -3708,7 +3708,7 @@
 </table>
 <h3 id="13">1.3 工作原理<a class="headerlink" href="#13" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>测试脚本 → Selenium Client → WebDriver 协议 → 浏览器驱动 → 浏览器
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>（Python）                   (JSON Wire)      (chromedriver)
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>（Python）                   (W3C WebDriver)  (chromedriver)
 </code></pre></div>
 <h3 id="14-selenium-4">1.4 Selenium 4 新特性<a class="headerlink" href="#14-selenium-4" title="Permanent link">&para;</a></h3>
 <ul>
@@ -3793,7 +3793,7 @@
 <ol>
 <li><strong>Chrome 驱动：</strong> </li>
 <li>看 Chrome 版本：地址栏 <code>chrome://version</code></li>
-<li>下载对应版本：<code>https://chromedriver.chromium.org/downloads</code></li>
+<li>下载对应版本：<code>https://googlechromelabs.github.io/chrome-for-testing/</code></li>
 <li>
 <p>把 chromedriver 放到 PATH，或在代码中指定</p>
 </li>
@@ -4533,7 +4533,7 @@
 <a id="__codelineno-41-3" name="__codelineno-41-3" href="#__codelineno-41-3"></a><span class="n">shadow</span> <span class="o">=</span> <span class="n">host</span><span class="o">.</span><span class="n">shadow_root</span>
 <a id="__codelineno-41-4" name="__codelineno-41-4" href="#__codelineno-41-4"></a><span class="n">el</span> <span class="o">=</span> <span class="n">shadow</span><span class="o">.</span><span class="n">find_element</span><span class="p">(</span><span class="n">By</span><span class="o">.</span><span class="n">CSS_SELECTOR</span><span class="p">,</span> <span class="s2">&quot;input&quot;</span><span class="p">)</span>
 </code></pre></div>
-<h3 id="86">8.6 性能日志<a class="headerlink" href="#86" title="Permanent link">&para;</a></h3>
+<h3 id="86">8.6 性能日志（历史方式）<a class="headerlink" href="#86" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a><span class="n">options</span><span class="o">.</span><span class="n">set_capability</span><span class="p">(</span>
 <a id="__codelineno-42-2" name="__codelineno-42-2" href="#__codelineno-42-2"></a>    <span class="s2">&quot;goog:loggingPrefs&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;performance&quot;</span><span class="p">:</span> <span class="s2">&quot;ALL&quot;</span><span class="p">}</span>
 <a id="__codelineno-42-3" name="__codelineno-42-3" href="#__codelineno-42-3"></a><span class="p">)</span>
@@ -4543,7 +4543,7 @@
 <a id="__codelineno-42-7" name="__codelineno-42-7" href="#__codelineno-42-7"></a><span class="n">logs</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">get_log</span><span class="p">(</span><span class="s2">&quot;performance&quot;</span><span class="p">)</span>
 </code></pre></div>
 <blockquote>
-<p><strong>注意：</strong> Selenium 4.10+ 已弃用 <code>driver.get_log()</code>，新项目推荐使用 BiDi 协议或 CDP（Chrome DevTools Protocol）抓取网络/性能数据。</p>
+<p><strong>注意：</strong> 基于 <code>goog:loggingPrefs</code> / <code>driver.get_log("performance")</code> 的方式依赖浏览器和驱动实现，兼容性会变化。新项目优先使用 BiDi 协议或 CDP（Chrome DevTools Protocol）抓取网络/性能数据。</p>
 </blockquote>
 <h3 id="87-selenium-4-bidi">8.7 网络拦截（Selenium 4 + BiDi）<a class="headerlink" href="#87-selenium-4-bidi" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a><span class="c1"># 拦截请求、修改响应（实验性功能）</span>

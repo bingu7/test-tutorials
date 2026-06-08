@@ -3898,20 +3898,21 @@
 <a id="__codelineno-37-17" name="__codelineno-37-17" href="#__codelineno-37-17"></a><span class="w">        </span>wget<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-37-18" name="__codelineno-37-18" href="#__codelineno-37-18"></a><span class="w">    </span>rm<span class="w"> </span>-rf<span class="w"> </span>/var/lib/apt/lists/*
 <a id="__codelineno-37-19" name="__codelineno-37-19" href="#__codelineno-37-19"></a>
-<a id="__codelineno-37-20" name="__codelineno-37-20" href="#__codelineno-37-20"></a><span class="c"># 安装 Allure</span>
-<a id="__codelineno-37-21" name="__codelineno-37-21" href="#__codelineno-37-21"></a><span class="k">RUN</span><span class="w"> </span>wget<span class="w"> </span>https://github.com/allure-framework/allure2/releases/download/2.24.0/allure-2.24.0.tgz<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-37-22" name="__codelineno-37-22" href="#__codelineno-37-22"></a><span class="w">    </span>tar<span class="w"> </span>-zxvf<span class="w"> </span>allure-2.24.0.tgz<span class="w"> </span>-C<span class="w"> </span>/opt<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-37-23" name="__codelineno-37-23" href="#__codelineno-37-23"></a><span class="w">    </span>ln<span class="w"> </span>-s<span class="w"> </span>/opt/allure-2.24.0/bin/allure<span class="w"> </span>/usr/local/bin/allure<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-37-24" name="__codelineno-37-24" href="#__codelineno-37-24"></a><span class="w">    </span>rm<span class="w"> </span>allure-2.24.0.tgz
-<a id="__codelineno-37-25" name="__codelineno-37-25" href="#__codelineno-37-25"></a>
-<a id="__codelineno-37-26" name="__codelineno-37-26" href="#__codelineno-37-26"></a><span class="c"># Python 依赖</span>
-<a id="__codelineno-37-27" name="__codelineno-37-27" href="#__codelineno-37-27"></a><span class="k">COPY</span><span class="w"> </span>requirements.txt<span class="w"> </span>.
-<a id="__codelineno-37-28" name="__codelineno-37-28" href="#__codelineno-37-28"></a><span class="k">RUN</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--no-cache-dir<span class="w"> </span>-r<span class="w"> </span>requirements.txt
-<a id="__codelineno-37-29" name="__codelineno-37-29" href="#__codelineno-37-29"></a>
-<a id="__codelineno-37-30" name="__codelineno-37-30" href="#__codelineno-37-30"></a><span class="c"># 源码</span>
-<a id="__codelineno-37-31" name="__codelineno-37-31" href="#__codelineno-37-31"></a><span class="k">COPY</span><span class="w"> </span>.<span class="w"> </span>.
-<a id="__codelineno-37-32" name="__codelineno-37-32" href="#__codelineno-37-32"></a>
-<a id="__codelineno-37-33" name="__codelineno-37-33" href="#__codelineno-37-33"></a><span class="k">CMD</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;pytest&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;--alluredir=./allure-results&quot;</span><span class="p">]</span>
+<a id="__codelineno-37-20" name="__codelineno-37-20" href="#__codelineno-37-20"></a><span class="c"># 安装 Allure：构建前可到 releases 页面确认最新稳定版</span>
+<a id="__codelineno-37-21" name="__codelineno-37-21" href="#__codelineno-37-21"></a><span class="k">ARG</span><span class="w"> </span><span class="nv">ALLURE_VERSION</span><span class="o">=</span><span class="m">2</span>.30.0
+<a id="__codelineno-37-22" name="__codelineno-37-22" href="#__codelineno-37-22"></a><span class="k">RUN</span><span class="w"> </span>wget<span class="w"> </span>-O<span class="w"> </span>allure.tgz<span class="w"> </span>https://github.com/allure-framework/allure2/releases/download/<span class="si">${</span><span class="nv">ALLURE_VERSION</span><span class="si">}</span>/allure-<span class="si">${</span><span class="nv">ALLURE_VERSION</span><span class="si">}</span>.tgz<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-37-23" name="__codelineno-37-23" href="#__codelineno-37-23"></a><span class="w">    </span>tar<span class="w"> </span>-zxvf<span class="w"> </span>allure.tgz<span class="w"> </span>-C<span class="w"> </span>/opt<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-37-24" name="__codelineno-37-24" href="#__codelineno-37-24"></a><span class="w">    </span>ln<span class="w"> </span>-sf<span class="w"> </span>/opt/allure-<span class="si">${</span><span class="nv">ALLURE_VERSION</span><span class="si">}</span>/bin/allure<span class="w"> </span>/usr/local/bin/allure<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-37-25" name="__codelineno-37-25" href="#__codelineno-37-25"></a><span class="w">    </span>rm<span class="w"> </span>allure.tgz
+<a id="__codelineno-37-26" name="__codelineno-37-26" href="#__codelineno-37-26"></a>
+<a id="__codelineno-37-27" name="__codelineno-37-27" href="#__codelineno-37-27"></a><span class="c"># Python 依赖</span>
+<a id="__codelineno-37-28" name="__codelineno-37-28" href="#__codelineno-37-28"></a><span class="k">COPY</span><span class="w"> </span>requirements.txt<span class="w"> </span>.
+<a id="__codelineno-37-29" name="__codelineno-37-29" href="#__codelineno-37-29"></a><span class="k">RUN</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--no-cache-dir<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+<a id="__codelineno-37-30" name="__codelineno-37-30" href="#__codelineno-37-30"></a>
+<a id="__codelineno-37-31" name="__codelineno-37-31" href="#__codelineno-37-31"></a><span class="c"># 源码</span>
+<a id="__codelineno-37-32" name="__codelineno-37-32" href="#__codelineno-37-32"></a><span class="k">COPY</span><span class="w"> </span>.<span class="w"> </span>.
+<a id="__codelineno-37-33" name="__codelineno-37-33" href="#__codelineno-37-33"></a>
+<a id="__codelineno-37-34" name="__codelineno-37-34" href="#__codelineno-37-34"></a><span class="k">CMD</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;pytest&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;--alluredir=./allure-results&quot;</span><span class="p">]</span>
 </code></pre></div>
 <p><strong>构建并运行：</strong></p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>api-test:v1<span class="w"> </span>.
