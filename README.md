@@ -42,6 +42,7 @@
 | [Postman 接口](docs/工具操作/Postman接口测试教程-软件测试版.md) | 接口调试、断言脚本、环境变量、数据驱动、Newman 命令行 |
 | [接口抓包联调实战](docs/工具操作/接口抓包联调实战教程-软件测试版.md) | Fiddler 抓包 → Postman 调试 → Python 自动化完整工作流 |
 | [正则表达式](docs/工具操作/正则表达式教程-软件测试版.md) | 元字符、量词、分组、常用模式、Python re 模块 |
+| [网络知识](docs/工具操作/网络知识教程-软件测试版.md) | TCP/IP、HTTP/HTTPS、DNS、代理、WebSocket、CDN、负载均衡、微服务网络 |
 
 ### 专项测试（3 篇）
 
