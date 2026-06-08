@@ -27,7 +27,7 @@ Selenium 是开源的 **Web UI 自动化测试框架**：
 
 ```
 测试脚本 → Selenium Client → WebDriver 协议 → 浏览器驱动 → 浏览器
-（Python）                   (JSON Wire)      (chromedriver)
+（Python）                   (W3C WebDriver)  (chromedriver)
 ```
 
 ### 1.4 Selenium 4 新特性
@@ -91,7 +91,7 @@ driver = webdriver.Chrome()    # 自动下载 chromedriver
 
 1. **Chrome 驱动：** 
    - 看 Chrome 版本：地址栏 `chrome://version`
-   - 下载对应版本：`https://chromedriver.chromium.org/downloads`
+   - 下载对应版本：`https://googlechromelabs.github.io/chrome-for-testing/`
    - 把 chromedriver 放到 PATH，或在代码中指定
 
 2. **Firefox 驱动：**
@@ -911,7 +911,7 @@ shadow = host.shadow_root
 el = shadow.find_element(By.CSS_SELECTOR, "input")
 ```
 
-### 8.6 性能日志
+### 8.6 性能日志（历史方式）
 
 ```python
 options.set_capability(
@@ -923,7 +923,7 @@ driver = webdriver.Chrome(options=options)
 logs = driver.get_log("performance")
 ```
 
-> **注意：** Selenium 4.10+ 已弃用 `driver.get_log()`，新项目推荐使用 BiDi 协议或 CDP（Chrome DevTools Protocol）抓取网络/性能数据。
+> **注意：** 基于 `goog:loggingPrefs` / `driver.get_log("performance")` 的方式依赖浏览器和驱动实现，兼容性会变化。新项目优先使用 BiDi 协议或 CDP（Chrome DevTools Protocol）抓取网络/性能数据。
 
 ### 8.7 网络拦截（Selenium 4 + BiDi）
 

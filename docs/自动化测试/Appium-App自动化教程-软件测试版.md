@@ -78,11 +78,11 @@ WebDriver 协议  转换指令       UiAutomator2/XCUITest
 
 ### 2.2 安装 JDK
 
-需要 JDK 8+：
+建议使用 JDK 17；如果公司项目锁定旧 Android 构建工具，再按项目要求选择 JDK 8/11：
 
 ```bash
 # Mac
-brew install openjdk@11
+brew install openjdk@17
 
 # Windows
 # 官网下载安装
@@ -124,8 +124,9 @@ sdkmanager --list
 brew install node
 
 # Windows 官网下载
-# Linux
-sudo apt install nodejs npm
+# Linux（Ubuntu/Debian 示例，建议安装 LTS，避免系统仓库版本过旧）
+curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
+sudo apt install -y nodejs
 
 # 验证
 node -v

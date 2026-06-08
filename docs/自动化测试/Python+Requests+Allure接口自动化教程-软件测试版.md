@@ -50,7 +50,7 @@
 
 **Windows：**
 
-1. 官网下载：`https://www.python.org/downloads/`（推荐 3.9+）
+1. 官网下载：`https://www.python.org/downloads/`（推荐 3.11+；至少使用仍在维护的版本）
 2. 安装时 **务必勾选** `Add Python to PATH`
 3. 验证：
 
@@ -124,8 +124,8 @@ scoop install allure
 
 方式 2：手动安装
 1. 下载：`https://github.com/allure-framework/allure2/releases`
-2. 解压到本地，如 `D:\tools\allure-2.24.0`
-3. 添加到系统环境变量 PATH：`D:\tools\allure-2.24.0\bin`
+2. 解压到本地，如 `D:\tools\allure-<版本号>`
+3. 添加到系统环境变量 PATH：`D:\tools\allure-<版本号>\bin`
 4. 验证：`allure --version`
 
 **Mac：**
@@ -137,11 +137,12 @@ brew install allure
 **Linux：**
 
 ```bash
-# 下载
-wget https://github.com/allure-framework/allure2/releases/download/2.24.0/allure-2.24.0.tgz
-tar -zxvf allure-2.24.0.tgz -C /opt/
+# 下载前到 https://github.com/allure-framework/allure2/releases 确认最新稳定版
+ALLURE_VERSION=2.30.0
+wget -O allure.tgz https://github.com/allure-framework/allure2/releases/download/${ALLURE_VERSION}/allure-${ALLURE_VERSION}.tgz
+tar -zxvf allure.tgz -C /opt/
 # 添加软链接
-ln -s /opt/allure-2.24.0/bin/allure /usr/local/bin/allure
+ln -sf /opt/allure-${ALLURE_VERSION}/bin/allure /usr/local/bin/allure
 allure --version
 ```
 
@@ -1628,9 +1629,10 @@ jobs:
       
       - name: Install Allure
         run: |
-          wget -O allure.tgz https://github.com/allure-framework/allure2/releases/download/2.24.0/allure-2.24.0.tgz
+          ALLURE_VERSION=2.30.0
+          wget -O allure.tgz https://github.com/allure-framework/allure2/releases/download/${ALLURE_VERSION}/allure-${ALLURE_VERSION}.tgz
           sudo tar -zxvf allure.tgz -C /opt/
-          sudo ln -s /opt/allure-2.24.0/bin/allure /usr/local/bin/allure
+          sudo ln -sf /opt/allure-${ALLURE_VERSION}/bin/allure /usr/local/bin/allure
       
       - name: Run Tests
         run: pytest --alluredir=./reports/allure-results

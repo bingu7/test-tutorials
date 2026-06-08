@@ -893,7 +893,7 @@ jobs:
 
 ```dockerfile
 # 版本号需与 pip install playwright 的版本一致
-# 基础镜像标签格式：v<playwright版本>-jammy (Ubuntu 22.04)
+# 基础镜像标签按官方可用标签选择，如 noble / jammy 等系统版本
 # 查看可用标签：https://mcr.microsoft.com/en-us/artifact/mar/playwright/python
 FROM mcr.microsoft.com/playwright/python:v1.52.0-jammy
 WORKDIR /app

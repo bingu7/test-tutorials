@@ -754,7 +754,7 @@ Newman 是 Postman 官方提供的命令行工具，用于在 **终端 / CI/CD �
 
 ### 12.2 安装 Newman
 
-需先安装 Node.js（Newman 6.x 起要求 Node 18+），然后：
+需先安装 Node.js（Newman 当前版本要求 Node.js 16+；CI 中建议使用 Node 20 LTS 或更新的 LTS 版本），然后：
 
 ```bash
 npm install -g newman

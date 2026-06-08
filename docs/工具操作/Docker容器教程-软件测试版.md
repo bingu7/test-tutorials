@@ -522,11 +522,12 @@ RUN apt-get update && \
         wget && \
     rm -rf /var/lib/apt/lists/*
 
-# 安装 Allure
-RUN wget https://github.com/allure-framework/allure2/releases/download/2.24.0/allure-2.24.0.tgz && \
-    tar -zxvf allure-2.24.0.tgz -C /opt && \
-    ln -s /opt/allure-2.24.0/bin/allure /usr/local/bin/allure && \
-    rm allure-2.24.0.tgz
+# 安装 Allure：构建前可到 releases 页面确认最新稳定版
+ARG ALLURE_VERSION=2.30.0
+RUN wget -O allure.tgz https://github.com/allure-framework/allure2/releases/download/${ALLURE_VERSION}/allure-${ALLURE_VERSION}.tgz && \
+    tar -zxvf allure.tgz -C /opt && \
+    ln -sf /opt/allure-${ALLURE_VERSION}/bin/allure /usr/local/bin/allure && \
+    rm allure.tgz
 
 # Python 依赖
 COPY requirements.txt .

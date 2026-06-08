@@ -1,6 +1,6 @@
 # 🧪 软件测试知识体系
 
-> 面向软件测试工程师的系统化学习教程，18 篇文档覆盖从零基础入门到自动化进阶的完整技能栈。
+> 面向软件测试工程师的系统化学习教程，22 篇文档覆盖从零基础入门到自动化进阶的完整技能栈。
 
 **📖 在线阅读：[https://bingu7.github.io/test-tutorials/](https://bingu7.github.io/test-tutorials/)**
 
@@ -18,9 +18,9 @@
 
 ## 📚 教程目录
 
-> 说明：站点发布以 `docs/` 目录为唯一文档源，根目录同名 Markdown 文件仅作为原稿/备份保留。
+> 说明：站点发布以 `docs/` 目录为唯一文档源。
 
-### 基础理论（2 篇）
+### 基础理论（4 篇）
 
 | 教程 | 内容 |
 |------|------|
@@ -29,7 +29,7 @@
 | [前端基础](docs/基础理论/前端基础教程-软件测试版.md) | HTML/CSS/JS 基础、浏览器开发者工具、元素定位辅助 |
 | [敏捷测试](docs/基础理论/敏捷测试教程-软件测试版.md) | Scrum 框架、用户故事、验收标准、测试策略 |
 
-### 工具操作（8 篇）
+### 工具操作（10 篇）
 
 | 教程 | 内容 |
 |------|------|
@@ -79,7 +79,7 @@ git clone https://github.com/bingu7/test-tutorials.git
 cd test-tutorials
 
 # 安装依赖
-pip install mkdocs-material
+pip install -r requirements.txt
 
 # 启动本地服务
 mkdocs serve

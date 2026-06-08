@@ -28,7 +28,7 @@
 | **Alpine** | 体积小，Docker 常用 | `apk` |
 | **OpenEuler / 麒麟** | 国产化替代 | `yum` / `dnf` |
 
-> **测试人员建议：** CentOS 7/8 和 Ubuntu 是企业最常见的两个，掌握这两个即可应对 90% 场景。
+> **测试人员建议：** 生产环境更常见的是 RHEL 系（Rocky Linux、AlmaLinux、CentOS Stream）与 Ubuntu LTS；老项目仍可能遇到 CentOS 7，相关命令需要结合系统版本确认。
 
 ### 1.3 Linux 目录结构
 
@@ -855,7 +855,7 @@ disown -h %1
 
 ### 9.4 systemd 服务管理
 
-CentOS 7+ / Ubuntu 16+ 使用 systemd 管理服务。
+RHEL/CentOS 7+、CentOS Stream 与 Ubuntu 16+ 使用 systemd 管理服务。
 
 ```bash
 # 启动 / 停止 / 重启 / 重载
@@ -1029,7 +1029,7 @@ netstat -an                    # 所有连接
 netstat -anp | grep 8080       # 查看 8080 端口占用
 netstat -ant | grep ESTABLISHED | wc -l   # 当前连接数
 
-# 新版命令（CentOS 7+）
+# 新版命令（多数现代 Linux 发行版可用）
 ss -anp
 ss -tlnp                       # 监听的 TCP 端口
 
@@ -1097,7 +1097,7 @@ ip route
 route -n
 
 # 防火墙
-firewall-cmd --list-all        # CentOS 7+
+firewall-cmd --list-all        # RHEL 系发行版常用
 iptables -L                    # iptables
 ufw status                     # Ubuntu
 
@@ -1266,7 +1266,7 @@ yum info nginx                    # 详细信息
 yum repolist                      # 列出仓库
 yum-config-manager --add-repo URL
 
-# CentOS 8+ 推荐 dnf（用法一致）
+# RHEL 8+ / CentOS Stream 推荐 dnf（用法一致）
 dnf install nginx
 ```
 
@@ -1890,6 +1890,6 @@ systemctl   # 服务
 
 ---
 
-> **文档说明：** 本教程基于 CentOS 7 / Ubuntu 20.04 编写，多数命令在其他主流发行版通用。
+> **文档说明：** 本教程以 RHEL 系发行版与 Ubuntu LTS 的通用命令为主，多数命令在其他主流发行版通用；老项目中的 CentOS 7 命令需结合系统版本确认。
 > 
 > **测试纪律：** 操作生产环境务必经过申请审批，禁止在生产环境执行未经评审的 Shell 脚本，禁止使用 root 账户进行日常测试操作。`rm -rf` 命令使用前务必三思。
