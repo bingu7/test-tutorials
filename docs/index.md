@@ -39,6 +39,7 @@ hide:
 <p>从手工到自动化</p>
 <a href="自动化测试/Python+Requests+Allure接口自动化教程-软件测试版/">Python 自动化</a>
 <a href="自动化测试/Selenium-Web自动化教程-软件测试版/">Selenium</a>
+<a href="自动化测试/Playwright自动化测试教程-软件测试版/">Playwright</a>
 <a href="自动化测试/Appium-App自动化教程-软件测试版/">Appium</a>
 <a href="专项测试/JMeter性能测试教程-软件测试版/">JMeter</a>
 </td>
@@ -86,6 +87,7 @@ hide:
     |------|------|------|--------|
     | [Python 接口自动化](自动化测试/Python+Requests+Allure接口自动化教程-软件测试版.md) | Requests + Pytest + Allure 框架 | 5天 | ⭐⭐⭐⭐⭐ |
     | [Selenium Web 自动化](自动化测试/Selenium-Web自动化教程-软件测试版.md) | Web UI 自动化、Page Object | 3天 | ⭐⭐⭐⭐ |
+    | [Playwright Web 自动化](自动化测试/Playwright自动化测试教程-软件测试版.md) | 现代 Web 自动化、自动等待、网络拦截 | 3天 | ⭐⭐⭐⭐ |
     | [Appium App 自动化](自动化测试/Appium-App自动化教程-软件测试版.md) | 移动端自动化测试 | 3天 | ⭐⭐⭐ |
     | [JMeter 性能测试](专项测试/JMeter性能测试教程-软件测试版.md) | 压测脚本、结果分析 | 3天 | ⭐⭐⭐⭐ |
 
@@ -128,6 +130,7 @@ hide:
 <ul>
 <li><a href="自动化测试/Python+Requests+Allure接口自动化教程-软件测试版/">Python 接口自动化</a></li>
 <li><a href="自动化测试/Selenium-Web自动化教程-软件测试版/">Selenium Web</a></li>
+<li><a href="自动化测试/Playwright自动化测试教程-软件测试版/">Playwright Web</a></li>
 <li><a href="自动化测试/Appium-App自动化教程-软件测试版/">Appium App</a></li>
 </ul>
 </td>
@@ -152,9 +155,9 @@ hide:
 | 基础理论 | 1 | 测试思维、用例设计、缺陷管理 |
 | 工具操作 | 6 | SQL、Linux、Git、Docker、Fiddler、Postman |
 | 专项测试 | 2 | 接口测试方法论、JMeter 性能测试 |
-| 自动化测试 | 3 | Python+Selenium+Appium |
+| 自动化测试 | 4 | Python+Selenium+Playwright+Appium |
 | 持续集成 | 1 | Jenkins CI/CD |
-| **合计** | **13** | **测试工程师全栈技能** |
+| **合计** | **14** | **测试工程师全栈技能** |
 
 ---
 

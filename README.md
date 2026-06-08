@@ -48,6 +48,7 @@
 |------|------|
 | [Python 接口自动化](docs/自动化测试/Python+Requests+Allure接口自动化教程-软件测试版.md) | Requests + Pytest + Allure 框架搭建、数据驱动、CI 集成 |
 | [Selenium Web 自动化](docs/自动化测试/Selenium-Web自动化教程-软件测试版.md) | 元素定位、Page Object 模式、框架设计、Grid 分布式 |
+| [Playwright Web 自动化](docs/自动化测试/Playwright自动化测试教程-软件测试版.md) | 自动等待、网络拦截、Codegen 录制、Trace 回放、API 测试 |
 | [Appium App 自动化](docs/自动化测试/Appium-App自动化教程-软件测试版.md) | 移动端自动化、Android/iOS 元素定位、框架设计 |
 
 ### 持续集成（1 篇）
