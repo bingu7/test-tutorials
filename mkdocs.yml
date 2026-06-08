@@ -111,5 +111,5 @@ extra_css:
 extra:
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/yourname/test-tutorials
+      link: https://github.com/bingu7/test-tutorials
   generator: false

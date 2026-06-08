@@ -4,19 +4,6 @@
 
 ---
 
-## 目录
-
-- [一、为什么测试要学 Redis 和 MongoDB](#一为什么测试要学-redis-和-mongodb)
-- [二、Redis 基础](#二redis-基础)
-- [三、Redis 常用操作](#三redis-常用操作)
-- [四、Redis 测试场景实战](#四redis-测试场景实战)
-- [五、MongoDB 基础](#五mongodb-基础)
-- [六、MongoDB 常用操作](#六mongodb-常用操作)
-- [七、MongoDB 测试场景实战](#七mongodb-测试场景实战)
-- [八、常见问题排查](#八常见问题排查)
-
----
-
 ## 一、为什么测试要学 Redis 和 MongoDB
 
 | 场景 | 用途 |
