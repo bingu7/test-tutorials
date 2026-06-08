@@ -3440,18 +3440,19 @@
 <a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="c1"># ssh-keygen -t rsa -b 4096 -C &quot;zhangsan@company.com&quot;</span>
 <a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>
 <a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="c1"># 2. 查看公钥</span>
-<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>cat<span class="w"> </span>~/.ssh/id_rsa.pub
-<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="c1"># Windows Git Bash 路径：~/.ssh/id_rsa.pub</span>
-<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>
-<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="c1"># 3. 复制公钥内容</span>
-<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>
-<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="c1"># 4. 粘贴到平台（注意 ed25519 用 id_ed25519.pub）</span>
-<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="c1"># GitHub: Settings → SSH and GPG keys → New SSH key</span>
-<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="c1"># GitLab: 头像 → Preferences → SSH Keys</span>
-<a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="c1"># Gitee: 设置 → 安全设置 → SSH 公钥</span>
-<a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a>
-<a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a><span class="c1"># 5. 验证</span>
-<a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a>ssh<span class="w"> </span>-T<span class="w"> </span>git@github.com
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>cat<span class="w"> </span>~/.ssh/id_ed25519.pub
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="c1"># Windows Git Bash 路径：~/.ssh/id_ed25519.pub</span>
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="c1"># 如果用的是 rsa：cat ~/.ssh/id_rsa.pub</span>
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="c1"># 3. 复制公钥内容</span>
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>
+<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="c1"># 4. 粘贴到平台（注意 ed25519 用 id_ed25519.pub）</span>
+<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="c1"># GitHub: Settings → SSH and GPG keys → New SSH key</span>
+<a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="c1"># GitLab: 头像 → Preferences → SSH Keys</span>
+<a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a><span class="c1"># Gitee: 设置 → 安全设置 → SSH 公钥</span>
+<a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a>
+<a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a><span class="c1"># 5. 验证</span>
+<a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a>ssh<span class="w"> </span>-T<span class="w"> </span>git@github.com
 </code></pre></div>
 <h3 id="24-gui">2.4 GUI 客户端推荐<a class="headerlink" href="#24-gui" title="Permanent link">&para;</a></h3>
 <table>
