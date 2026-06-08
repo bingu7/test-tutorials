@@ -81,16 +81,20 @@ nav:
   - 首页: index.md
   - 基础理论:
     - 软件测试理论: 基础理论/软件测试理论基础教程.md
+    - Python 基础: 基础理论/Python基础教程-软件测试版.md
   - 工具操作:
     - 数据库 SQL: 工具操作/数据库SQL教程-软件测试版.md
+    - Redis 与 MongoDB: 工具操作/Redis与MongoDB教程-软件测试版.md
     - Linux 实用: 工具操作/Linux实用教程-软件测试版.md
     - Git 版本控制: 工具操作/Git版本控制教程-软件测试版.md
     - Docker 容器: 工具操作/Docker容器教程-软件测试版.md
     - Fiddler 抓包: 工具操作/Fiddler抓包教程-软件测试版.md
     - Postman 接口: 工具操作/Postman接口测试教程-软件测试版.md
+    - 接口抓包联调实战: 工具操作/接口抓包联调实战教程-软件测试版.md
   - 专项测试:
     - 接口测试方法论: 专项测试/接口测试完整教程-软件测试版.md
     - JMeter 性能测试: 专项测试/JMeter性能测试教程-软件测试版.md
+    - Web 安全测试: 专项测试/Web安全测试教程-软件测试版.md
   - 自动化测试:
     - Python 接口自动化: 自动化测试/Python+Requests+Allure接口自动化教程-软件测试版.md
     - Selenium Web 自动化: 自动化测试/Selenium-Web自动化教程-软件测试版.md

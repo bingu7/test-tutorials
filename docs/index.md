@@ -16,9 +16,10 @@ hide:
 <tr>
 <td class="stage s1">
 <h3>1️⃣ 入门基础</h3>
-<p><strong>1-2 天 · 必读</strong></p>
-<p>建立测试思维</p>
+<p><strong>3-5 天 · 必读</strong></p>
+<p>建立测试思维 + Python 基础</p>
 <a href="基础理论/软件测试理论基础教程/">软件测试理论</a>
+<a href="基础理论/Python基础教程-软件测试版/">Python 基础</a>
 </td>
 <td class="arrow">➡️</td>
 <td class="stage s2">
@@ -26,11 +27,13 @@ hide:
 <p><strong>10+ 天 · 必读</strong></p>
 <p>掌握日常测试工具</p>
 <a href="工具操作/数据库SQL教程-软件测试版/">SQL</a>
+<a href="工具操作/Redis与MongoDB教程-软件测试版/">Redis/MongoDB</a>
 <a href="工具操作/Linux实用教程-软件测试版/">Linux</a>
 <a href="工具操作/Git版本控制教程-软件测试版/">Git</a>
 <a href="工具操作/Fiddler抓包教程-软件测试版/">Fiddler</a>
 <a href="工具操作/Postman接口测试教程-软件测试版/">Postman</a>
 <a href="专项测试/接口测试完整教程-软件测试版/">接口测试</a>
+<a href="工具操作/接口抓包联调实战教程-软件测试版/">接口联调实战</a>
 </td>
 <td class="arrow">➡️</td>
 <td class="stage s3">
@@ -41,6 +44,7 @@ hide:
 <a href="自动化测试/Selenium-Web自动化教程-软件测试版/">Selenium</a>
 <a href="自动化测试/Playwright自动化测试教程-软件测试版/">Playwright</a>
 <a href="自动化测试/Appium-App自动化教程-软件测试版/">Appium</a>
+<a href="专项测试/Web安全测试教程-软件测试版/">Web 安全</a>
 <a href="专项测试/JMeter性能测试教程-软件测试版/">JMeter</a>
 </td>
 <td class="arrow">➡️</td>
@@ -65,6 +69,7 @@ hide:
     | 教程 | 内容 | 学时 | 优先级 |
     |------|------|------|--------|
     | [软件测试理论](基础理论/软件测试理论基础教程.md) | 测试分类、用例设计、缺陷管理 | 2天 | ⭐⭐⭐⭐⭐ |
+    | [Python 基础](基础理论/Python基础教程-软件测试版.md) | 语法、数据类型、函数、文件操作 | 3天 | ⭐⭐⭐⭐⭐ |
 
 === "🔧 第二阶段：工具实战"
 
@@ -73,10 +78,12 @@ hide:
     | 教程 | 内容 | 学时 | 优先级 |
     |------|------|------|--------|
     | [数据库 SQL](工具操作/数据库SQL教程-软件测试版.md) | 增删改查、多表查询、数据校验 | 3天 | ⭐⭐⭐⭐⭐ |
+    | [Redis 与 MongoDB](工具操作/Redis与MongoDB教程-软件测试版.md) | 缓存/NoSQL 查询、数据校验、清理 | 2天 | ⭐⭐⭐⭐ |
     | [Linux 实用](工具操作/Linux实用教程-软件测试版.md) | 命令行、日志排查、进程管理 | 3天 | ⭐⭐⭐⭐⭐ |
     | [Git 版本控制](工具操作/Git版本控制教程-软件测试版.md) | 分支管理、协作流程 | 1天 | ⭐⭐⭐⭐ |
     | [Fiddler 抓包](工具操作/Fiddler抓包教程-软件测试版.md) | HTTP 抓包分析、Mock | 1天 | ⭐⭐⭐⭐ |
     | [Postman 接口](工具操作/Postman接口测试教程-软件测试版.md) | 接口调试、断言脚本 | 2天 | ⭐⭐⭐⭐ |
+    | [接口联调实战](工具操作/接口抓包联调实战教程-软件测试版.md) | 抓包→调试→自动化完整工作流 | 1天 | ⭐⭐⭐⭐ |
     | [接口测试方法论](专项测试/接口测试完整教程-软件测试版.md) | 用例设计、安全测试、性能测试 | 2天 | ⭐⭐⭐⭐ |
 
 === "🤖 第三阶段：自动化进阶"
@@ -89,6 +96,7 @@ hide:
     | [Selenium Web 自动化](自动化测试/Selenium-Web自动化教程-软件测试版.md) | Web UI 自动化、Page Object | 3天 | ⭐⭐⭐⭐ |
     | [Playwright Web 自动化](自动化测试/Playwright自动化测试教程-软件测试版.md) | 现代 Web 自动化、自动等待、网络拦截 | 3天 | ⭐⭐⭐⭐ |
     | [Appium App 自动化](自动化测试/Appium-App自动化教程-软件测试版.md) | 移动端自动化测试 | 3天 | ⭐⭐⭐ |
+    | [Web 安全测试](专项测试/Web安全测试教程-软件测试版.md) | Burp Suite、SQL 注入、XSS、越权 | 2天 | ⭐⭐⭐⭐ |
     | [JMeter 性能测试](专项测试/JMeter性能测试教程-软件测试版.md) | 压测脚本、结果分析 | 3天 | ⭐⭐⭐⭐ |
 
 === "🏗️ 第四阶段：体系能力"
@@ -111,6 +119,7 @@ hide:
 <p>适合零基础，1-3 天上手</p>
 <ul>
 <li><a href="基础理论/软件测试理论基础教程/">软件测试理论</a></li>
+<li><a href="基础理论/Python基础教程-软件测试版/">Python 基础</a></li>
 <li><a href="工具操作/Fiddler抓包教程-软件测试版/">Fiddler 抓包</a></li>
 <li><a href="工具操作/Postman接口测试教程-软件测试版/">Postman 接口</a></li>
 </ul>
@@ -120,8 +129,10 @@ hide:
 <p>测试日常高频工具</p>
 <ul>
 <li><a href="工具操作/数据库SQL教程-软件测试版/">SQL 数据库</a></li>
+<li><a href="工具操作/Redis与MongoDB教程-软件测试版/">Redis / MongoDB</a></li>
 <li><a href="工具操作/Linux实用教程-软件测试版/">Linux 命令</a></li>
 <li><a href="工具操作/Git版本控制教程-软件测试版/">Git 版本控制</a></li>
+<li><a href="工具操作/接口抓包联调实战教程-软件测试版/">接口联调实战</a></li>
 </ul>
 </td>
 <td class="tag-card">
@@ -132,6 +143,7 @@ hide:
 <li><a href="自动化测试/Selenium-Web自动化教程-软件测试版/">Selenium Web</a></li>
 <li><a href="自动化测试/Playwright自动化测试教程-软件测试版/">Playwright Web</a></li>
 <li><a href="自动化测试/Appium-App自动化教程-软件测试版/">Appium App</a></li>
+<li><a href="专项测试/Web安全测试教程-软件测试版/">Web 安全测试</a></li>
 </ul>
 </td>
 <td class="tag-card">
@@ -152,12 +164,12 @@ hide:
 
 | 分类 | 教程数 | 覆盖技能 |
 |------|--------|---------|
-| 基础理论 | 1 | 测试思维、用例设计、缺陷管理 |
-| 工具操作 | 6 | SQL、Linux、Git、Docker、Fiddler、Postman |
-| 专项测试 | 2 | 接口测试方法论、JMeter 性能测试 |
+| 基础理论 | 2 | 测试思维、Python 基础 |
+| 工具操作 | 8 | SQL、Redis/MongoDB、Linux、Git、Docker、Fiddler、Postman、接口联调 |
+| 专项测试 | 3 | 接口测试方法论、JMeter 性能、Web 安全 |
 | 自动化测试 | 4 | Python+Selenium+Playwright+Appium |
 | 持续集成 | 1 | Jenkins CI/CD |
-| **合计** | **14** | **测试工程师全栈技能** |
+| **合计** | **18** | **测试工程师全栈技能** |
 
 ---
 
