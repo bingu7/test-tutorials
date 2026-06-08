@@ -3,3 +3,7 @@ __pycache__/
 *.pyc
 .DS_Store
 .claude/
+
+# Root draft tutorial markdown files
+/*.md
+!/README.md
