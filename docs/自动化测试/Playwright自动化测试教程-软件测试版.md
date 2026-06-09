@@ -4,6 +4,21 @@
 
 ---
 
+## 新手导读
+
+Playwright 比 Selenium 更现代，但新手仍然要按基础流程学：打开页面、定位元素、操作元素、等待结果、断言结果。
+
+建议第一遍重点掌握：
+
+1. `page.goto()` 打开页面。
+2. `get_by_role`、`get_by_text`、`get_by_test_id` 定位元素。
+3. `click()`、`fill()` 完成操作。
+4. 自动等待和断言。
+5. Trace 用来回放失败过程。
+
+不要一开始就追求复杂框架。先写出 3 条稳定用例，再学习 Page Object 和 CI 集成。
+
+---
 ## 一、Playwright 简介
 
 ### 1.1 什么是 Playwright

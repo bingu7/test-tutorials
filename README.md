@@ -1,6 +1,6 @@
 # 🧪 软件测试知识体系
 
-> 面向软件测试工程师的系统化学习教程，22 篇文档覆盖从零基础入门到自动化进阶的完整技能栈。
+> 面向软件测试工程师的系统化学习教程，29 篇文档覆盖从零基础入门到自动化进阶的完整技能栈。
 
 **📖 在线阅读：[https://bingu7.github.io/test-tutorials/](https://bingu7.github.io/test-tutorials/)**
 
@@ -13,12 +13,18 @@
 ────────        ────────────────      ────────────────    ────────────
 软件测试理论 ──→ SQL / Linux / Git ──→ Python 接口自动化 ──→ Jenkins CI/CD
                 Fiddler / Postman ──→ Selenium Web 自动化 ──→ Docker 容器
-                接口测试方法论 ──────→ Appium App 自动化 ──→ JMeter 性能测试
+                接口测试方法论 ──────→ Appium App 自动化 ──→ 项目实战
 ```
 
 ## 📚 教程目录
 
 > 说明：站点发布以 `docs/` 目录为唯一文档源。
+
+### 学习路线（1 篇）
+
+| 文档 | 内容 |
+|------|------|
+| [软件测试学习路线](docs/学习路线.md) | 阶段目标、推荐教程、练习任务、达成标准 |
 
 ### 基础理论（4 篇）
 
@@ -61,6 +67,17 @@
 | [Playwright Web 自动化](docs/自动化测试/Playwright自动化测试教程-软件测试版.md) | 自动等待、网络拦截、Codegen 录制、Trace 回放、API 测试 |
 | [Appium App 自动化](docs/自动化测试/Appium-App自动化教程-软件测试版.md) | 移动端自动化、Android/iOS 元素定位、框架设计 |
 
+### 项目实战（6 篇）
+
+| 文档 | 内容 |
+|------|------|
+| [项目实战总览](docs/项目实战/index.md) | 实战模块定位、训练顺序、产出物、使用方式 |
+| [电商系统测试实战](docs/项目实战/电商系统测试实战.md) | 需求分析、测试点拆解、用例设计、接口测试、数据库校验、缺陷与报告 |
+| [接口自动化项目实战](docs/项目实战/接口自动化项目实战.md) | Requests 封装、Pytest 用例组织、数据驱动、断言策略、Allure 报告、CI 集成 |
+| [Web 自动化项目实战](docs/项目实战/Web自动化项目实战.md) | 自动化范围选择、页面对象模型、元素定位、核心流程、失败截图、CI 运行 |
+| [性能测试项目实战](docs/项目实战/性能测试项目实战.md) | 性能指标、压测场景、JMeter 脚本、测试数据、结果分析、瓶颈定位 |
+| [CI/CD 自动化回归实战](docs/项目实战/CICD自动化回归实战.md) | 流水线阶段、测试分层、触发策略、报告归档、失败诊断、质量门禁 |
+
 ### 持续集成（1 篇）
 
 | 教程 | 内容 |
@@ -96,8 +113,8 @@ mkdocs serve
 ## 🛠️ 技术栈
 
 - **文档引擎**：[MkDocs Material](https://squidfunk.github.io/mkdocs-material/)
-- **托管平台**：[GitHub Pages](https://pages.github.com/)
-- **自动部署**：GitHub Actions（push 到 main 自动构建）
+- **托管平台**：[GitHub Pages](https://pages.github.com/) + 宝塔服务器静态站点
+- **自动部署**：GitHub Actions（push 到 main 自动构建并双端部署）
 
 ---
 
