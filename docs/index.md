@@ -266,9 +266,39 @@ hide:
 
 ## 📚 外部资源
 
-- [TesterHome](https://testerhome.com/) - 国内最大测试社区
+### 社区与测试标准
+
+- [TesterHome](https://testerhome.com/) - 国内测试技术社区，适合看真实问题和工具实践
+- [Ministry of Testing](https://www.ministryoftesting.com/) - 国际测试社区，适合拓展测试思维和职业视野
+- [ISTQB](https://www.istqb.org/) - 国际软件测试认证与测试基础体系
+- [ISTQB Glossary](https://glossary.istqb.org/) - 软件测试术语速查，写文档和面试时很有用
+
+### 接口、HTTP 与安全
+
+- [Postman Learning Center](https://learning.postman.com/docs/introduction/overview/) - Postman 官方学习中心
+- [MDN HTTP 文档](https://developer.mozilla.org/zh-CN/docs/Web/HTTP) - HTTP 方法、状态码、Header、Cookie 等基础知识
 - [OWASP](https://owasp.org/) - Web 安全权威组织
-- [ISTQB](https://www.istqb.org/) - 国际软件测试认证
+- [OWASP Web Security Testing Guide](https://owasp.org/www-project-web-security-testing-guide/) - Web 安全测试清单和方法
+- [OWASP API Security Top 10](https://owasp.org/www-project-api-security/) - API 安全风险学习入口
+
+### 自动化测试
+
 - [Pytest 官方文档](https://docs.pytest.org/) - Python 测试框架
-- [Selenium 官方文档](https://www.selenium.dev/) - Web 自动化
-- [Appium 官方文档](https://appium.io/docs/en/latest/) - 移动端自动化
+- [Requests 官方文档](https://requests.readthedocs.io/) - Python HTTP 请求库
+- [Playwright 官方文档](https://playwright.dev/docs/intro) - 现代 Web 自动化测试框架
+- [Selenium 官方文档](https://www.selenium.dev/documentation/) - Web 自动化标准工具
+- [Appium 官方文档](https://appium.io/docs/en/latest/) - 移动端自动化测试
+
+### 性能、报告与持续集成
+
+- [Apache JMeter 用户手册](https://jmeter.apache.org/usermanual/index.html) - 性能测试工具官方手册
+- [Allure Report 文档](https://allurereport.org/docs/) - 自动化测试报告工具
+- [Jenkins 用户文档](https://www.jenkins.io/doc/) - CI/CD 流水线与自动化调度
+- [GitHub Actions 文档](https://docs.github.com/actions) - GitHub 自动化构建和部署
+
+### 基础技术手册
+
+- [Python 官方文档](https://docs.python.org/zh-cn/3/) - Python 语言基础和标准库
+- [Git 官方文档](https://git-scm.com/doc) - 版本控制基础与命令参考
+- [Docker 官方文档](https://docs.docker.com/) - 容器基础、镜像和部署
+- [Chrome DevTools 文档](https://developer.chrome.com/docs/devtools/) - 浏览器调试、网络分析和前端问题定位
