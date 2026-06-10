@@ -2179,7 +2179,7 @@
   <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
       
-        容易漏测
+        测试数据准备
       
     </span>
   </a>
@@ -2188,6 +2188,50 @@
       
         <li class="md-nav__item">
   <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        执行步骤示例
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        接口与 SQL 校验示例
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        缺陷示例
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        容易漏测
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
     <span class="md-ellipsis">
       
         复盘问题
@@ -2689,7 +2733,7 @@
   <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
       
-        容易漏测
+        测试数据准备
       
     </span>
   </a>
@@ -2698,6 +2742,50 @@
       
         <li class="md-nav__item">
   <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        执行步骤示例
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        接口与 SQL 校验示例
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        缺陷示例
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        容易漏测
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
     <span class="md-ellipsis">
       
         复盘问题
@@ -2838,7 +2926,98 @@
 <li>删除后是物理删除还是逻辑删除。</li>
 <li>商品价格变化后购物车展示是否按需求刷新。</li>
 </ul>
-<h2 id="_6">容易漏测<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<h2 id="_6">测试数据准备<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>数据</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>正常用户</td>
+<td>验证添加、修改、删除、勾选</td>
+</tr>
+<tr>
+<td>未登录状态</td>
+<td>验证游客购物车或未登录限制</td>
+</tr>
+<tr>
+<td>库存充足商品</td>
+<td>验证正常加入购物车</td>
+</tr>
+<tr>
+<td>库存为 1 的商品</td>
+<td>验证边界数量</td>
+</tr>
+<tr>
+<td>下架商品</td>
+<td>验证不可结算</td>
+</tr>
+<tr>
+<td>多规格商品</td>
+<td>验证规格 ID 和价格是否正确</td>
+</tr>
+</tbody>
+</table>
+<p>如果项目支持优惠券或促销价，还要准备一件有优惠的商品，专门检查购物车总价。</p>
+<h2 id="_7">执行步骤示例<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<ol>
+<li>登录正常用户，清空购物车。</li>
+<li>选择库存充足商品加入购物车。</li>
+<li>刷新页面，确认商品仍在购物车。</li>
+<li>修改数量为 2，再改为超过库存的数量。</li>
+<li>勾选部分商品，检查总价是否只计算已勾选商品。</li>
+<li>将商品下架或库存改为 0，再尝试结算。</li>
+<li>删除商品，确认页面、接口、数据库结果一致。</li>
+</ol>
+<h2 id="sql">接口与 SQL 校验示例<a class="headerlink" href="#sql" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>GET  /api/cart
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>POST /api/cart
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>PUT  /api/cart/{itemId}
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>DELETE /api/cart/{itemId}
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">user_id</span><span class="p">,</span><span class="w"> </span><span class="n">product_id</span><span class="p">,</span><span class="w"> </span><span class="n">sku_id</span><span class="p">,</span><span class="w"> </span><span class="n">quantity</span><span class="p">,</span><span class="w"> </span><span class="n">selected</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="k">FROM</span><span class="w"> </span><span class="n">cart_items</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">user_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10001</span><span class="p">;</span>
+</code></pre></div>
+<h2 id="_8">缺陷示例<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>标题</td>
+<td>购物车商品数量可修改为超过库存数量</td>
+</tr>
+<tr>
+<td>前置条件</td>
+<td>商品库存为 5，购物车已有该商品 1 件</td>
+</tr>
+<tr>
+<td>复现步骤</td>
+<td>在购物车中将数量改为 6 并保存</td>
+</tr>
+<tr>
+<td>实际结果</td>
+<td>数量保存成功，总价按 6 件计算</td>
+</tr>
+<tr>
+<td>期望结果</td>
+<td>提示库存不足，数量不能超过当前可售库存</td>
+</tr>
+<tr>
+<td>影响</td>
+<td>后续下单可能出现库存超卖或订单失败</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_9">容易漏测<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
 <ul>
 <li>商品加入购物车后价格发生变化。</li>
 <li>商品加入购物车后库存不足。</li>
@@ -2846,7 +3025,7 @@
 <li>未登录用户加入购物车后登录，数据是否合并。</li>
 <li>多端同时修改购物车，数据是否同步。</li>
 </ul>
-<h2 id="_7">复盘问题<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<h2 id="_10">复盘问题<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
 <ul>
 <li>购物车价格应该保存加入时价格，还是每次按实时价格计算？</li>
 <li>库存是在加入购物车时扣减，还是下单时扣减？</li>

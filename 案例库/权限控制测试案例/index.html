@@ -2235,7 +2235,7 @@
   <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
       
-        容易漏测
+        测试数据准备
       
     </span>
   </a>
@@ -2244,6 +2244,50 @@
       
         <li class="md-nav__item">
   <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        执行步骤示例
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SQL 校验示例
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        缺陷示例
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        容易漏测
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
     <span class="md-ellipsis">
       
         复盘问题
@@ -2689,7 +2733,7 @@
   <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
       
-        容易漏测
+        测试数据准备
       
     </span>
   </a>
@@ -2698,6 +2742,50 @@
       
         <li class="md-nav__item">
   <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        执行步骤示例
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SQL 校验示例
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        缺陷示例
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        容易漏测
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
     <span class="md-ellipsis">
       
         复盘问题
@@ -2829,7 +2917,101 @@
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>Authorization: Bearer 用户A的token
 </code></pre></div>
 <p>然后把订单 ID 改成用户 B 的订单 ID，观察是否能访问。</p>
-<h2 id="_6">容易漏测<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<h2 id="_6">测试数据准备<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>数据</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>普通用户 A</td>
+<td>验证只能访问自己的订单</td>
+</tr>
+<tr>
+<td>普通用户 B</td>
+<td>作为水平越权目标用户</td>
+</tr>
+<tr>
+<td>客服账号</td>
+<td>验证查看权限和禁止修改价格</td>
+</tr>
+<tr>
+<td>管理员账号</td>
+<td>验证管理功能和操作日志</td>
+</tr>
+<tr>
+<td>用户 A 订单</td>
+<td>正常访问基准数据</td>
+</tr>
+<tr>
+<td>用户 B 订单</td>
+<td>越权访问测试数据</td>
+</tr>
+</tbody>
+</table>
+<p>准备数据时要记录用户 ID、订单 ID、角色和 token，执行后再清理测试订单或恢复权限。</p>
+<h2 id="_7">执行步骤示例<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<ol>
+<li>分别登录普通用户 A、普通用户 B、客服、管理员，保存各自 token。</li>
+<li>用户 A 正常查看自己的订单，确认基准请求可用。</li>
+<li>用户 A 把订单 ID 改成用户 B 的订单 ID，检查是否被拒绝。</li>
+<li>普通用户直接请求管理员接口，检查是否返回 403 或无权限。</li>
+<li>客服尝试修改订单价格，确认后端拒绝。</li>
+<li>管理员执行敏感操作后，检查操作日志是否记录操作人和时间。</li>
+</ol>
+<h2 id="sql">SQL 校验示例<a class="headerlink" href="#sql" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">username</span><span class="p">,</span><span class="w"> </span><span class="k">role</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="k">FROM</span><span class="w"> </span><span class="n">users</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">username</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;user_a&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;user_b&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;service_01&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;admin_01&#39;</span><span class="p">);</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">user_id</span><span class="p">,</span><span class="w"> </span><span class="n">status</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="k">FROM</span><span class="w"> </span><span class="n">orders</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span><span class="mi">10001</span><span class="p">,</span><span class="w"> </span><span class="mi">10002</span><span class="p">);</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">operator_id</span><span class="p">,</span><span class="w"> </span><span class="n">action</span><span class="p">,</span><span class="w"> </span><span class="n">target_id</span><span class="p">,</span><span class="w"> </span><span class="n">created_at</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="k">FROM</span><span class="w"> </span><span class="n">operation_logs</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">target_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10001</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">created_at</span><span class="w"> </span><span class="k">DESC</span><span class="p">;</span>
+</code></pre></div>
+<h2 id="_8">缺陷示例<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>标题</td>
+<td>普通用户修改订单 ID 后可查看他人订单详情</td>
+</tr>
+<tr>
+<td>前置条件</td>
+<td>用户 A 和用户 B 均存在订单</td>
+</tr>
+<tr>
+<td>复现步骤</td>
+<td>用户 A 登录后请求 <code>/api/orders/{用户B订单ID}</code></td>
+</tr>
+<tr>
+<td>实际结果</td>
+<td>接口返回用户 B 的订单收货人、手机号和金额</td>
+</tr>
+<tr>
+<td>期望结果</td>
+<td>返回 403、404 或无权限提示，不返回任何用户 B 数据</td>
+</tr>
+<tr>
+<td>影响</td>
+<td>隐私数据泄露，属于高风险越权问题</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_9">容易漏测<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
 <ul>
 <li>前端隐藏按钮，但接口没有权限校验。</li>
 <li>只能防止未登录，不能防止越权。</li>
@@ -2837,7 +3019,7 @@
 <li>管理员权限过大，没有操作日志。</li>
 <li>token 过期后接口仍可访问。</li>
 </ul>
-<h2 id="_7">复盘问题<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<h2 id="_10">复盘问题<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
 <ul>
 <li>什么是水平越权？什么是垂直越权？</li>
 <li>为什么权限必须在后端校验？</li>

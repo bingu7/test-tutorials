@@ -2207,7 +2207,7 @@
   <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
       
-        容易漏测
+        测试数据准备
       
     </span>
   </a>
@@ -2216,6 +2216,50 @@
       
         <li class="md-nav__item">
   <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        执行步骤示例
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        接口与 SQL 校验示例
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        缺陷示例
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        容易漏测
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
     <span class="md-ellipsis">
       
         复盘问题
@@ -2689,7 +2733,7 @@
   <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
       
-        容易漏测
+        测试数据准备
       
     </span>
   </a>
@@ -2698,6 +2742,50 @@
       
         <li class="md-nav__item">
   <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        执行步骤示例
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        接口与 SQL 校验示例
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        缺陷示例
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        容易漏测
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
     <span class="md-ellipsis">
       
         复盘问题
@@ -2839,7 +2927,106 @@
 <li>优惠券状态是否正确。</li>
 <li>重复回调是否没有产生重复数据。</li>
 </ul>
-<h2 id="_6">容易漏测<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<h2 id="_6">测试数据准备<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>数据</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>正常用户</td>
+<td>验证创建订单和支付流程</td>
+</tr>
+<tr>
+<td>库存充足商品</td>
+<td>验证正常下单</td>
+</tr>
+<tr>
+<td>库存不足商品</td>
+<td>验证失败下单</td>
+</tr>
+<tr>
+<td>可用优惠券</td>
+<td>验证金额计算</td>
+</tr>
+<tr>
+<td>待支付订单</td>
+<td>验证支付成功、取消、超时</td>
+</tr>
+<tr>
+<td>支付沙箱或 Mock 回调</td>
+<td>验证支付结果和回调幂等</td>
+</tr>
+</tbody>
+</table>
+<p>支付场景尽量使用沙箱或 Mock，不要在真实支付环境里反复试错。</p>
+<h2 id="_7">执行步骤示例<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<ol>
+<li>下单前查询商品库存和用户优惠券状态。</li>
+<li>从购物车提交订单，记录订单号和应付金额。</li>
+<li>查询订单表、订单明细表、库存表，确认状态和金额正确。</li>
+<li>使用沙箱完成支付或模拟支付成功回调。</li>
+<li>再次查询订单状态、支付流水和库存。</li>
+<li>重放同一支付回调，确认不会重复扣款或重复发货。</li>
+<li>创建一笔待支付订单不支付，验证超时取消和库存释放。</li>
+</ol>
+<h2 id="sql">接口与 SQL 校验示例<a class="headerlink" href="#sql" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>POST /api/orders
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>POST /api/pay
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>POST /api/pay/callback
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>GET  /api/orders/{orderId}
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">user_id</span><span class="p">,</span><span class="w"> </span><span class="n">status</span><span class="p">,</span><span class="w"> </span><span class="n">total_amount</span><span class="p">,</span><span class="w"> </span><span class="n">pay_amount</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="k">FROM</span><span class="w"> </span><span class="n">orders</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10001</span><span class="p">;</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">order_id</span><span class="p">,</span><span class="w"> </span><span class="n">product_id</span><span class="p">,</span><span class="w"> </span><span class="n">quantity</span><span class="p">,</span><span class="w"> </span><span class="n">price</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="k">FROM</span><span class="w"> </span><span class="n">order_items</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">order_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10001</span><span class="p">;</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">order_id</span><span class="p">,</span><span class="w"> </span><span class="n">pay_status</span><span class="p">,</span><span class="w"> </span><span class="n">transaction_no</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="k">FROM</span><span class="w"> </span><span class="n">payment_records</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">order_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10001</span><span class="p">;</span>
+</code></pre></div>
+<h2 id="_8">缺陷示例<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>标题</td>
+<td>支付平台重复回调导致重复生成支付流水</td>
+</tr>
+<tr>
+<td>前置条件</td>
+<td>订单已支付成功，支付平台回调报文可重放</td>
+</tr>
+<tr>
+<td>复现步骤</td>
+<td>对同一订单连续发送两次支付成功回调</td>
+</tr>
+<tr>
+<td>实际结果</td>
+<td>系统生成两条成功支付流水</td>
+</tr>
+<tr>
+<td>期望结果</td>
+<td>第二次回调识别为重复通知，不改变订单和流水结果</td>
+</tr>
+<tr>
+<td>影响</td>
+<td>对账异常，存在重复发货或财务风险</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_9">容易漏测<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
 <ul>
 <li>支付成功但订单状态未更新。</li>
 <li>订单取消后库存没有释放。</li>
@@ -2847,7 +3034,7 @@
 <li>金额计算只看页面，不校验数据库。</li>
 <li>优惠券使用失败但订单仍按优惠价生成。</li>
 </ul>
-<h2 id="_7">复盘问题<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<h2 id="_10">复盘问题<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
 <ul>
 <li>库存应该在下单时扣，还是支付成功时扣？</li>
 <li>支付回调为什么要做幂等？</li>

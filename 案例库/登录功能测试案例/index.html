@@ -2151,7 +2151,7 @@
   <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
       
-        容易漏测
+        测试数据准备
       
     </span>
   </a>
@@ -2160,6 +2160,50 @@
       
         <li class="md-nav__item">
   <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        执行步骤示例
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        数据校验示例
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        缺陷示例
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        容易漏测
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
     <span class="md-ellipsis">
       
         复盘问题
@@ -2689,7 +2733,7 @@
   <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
       
-        容易漏测
+        测试数据准备
       
     </span>
   </a>
@@ -2698,6 +2742,50 @@
       
         <li class="md-nav__item">
   <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        执行步骤示例
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        数据校验示例
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        缺陷示例
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        容易漏测
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
     <span class="md-ellipsis">
       
         复盘问题
@@ -2839,7 +2927,95 @@
 <li>连续失败次数是否被记录。</li>
 <li>锁定状态是否正确写入数据库或缓存。</li>
 </ul>
-<h2 id="_6">容易漏测<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<h2 id="_6">测试数据准备<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>数据</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>正常账号</td>
+<td>验证登录成功、刷新页面、退出登录</td>
+</tr>
+<tr>
+<td>密码错误账号</td>
+<td>验证错误提示和失败次数累计</td>
+</tr>
+<tr>
+<td>禁用账号</td>
+<td>验证账号状态限制</td>
+</tr>
+<tr>
+<td>锁定账号</td>
+<td>验证锁定期间不能登录</td>
+</tr>
+<tr>
+<td>未注册手机号</td>
+<td>验证错误提示是否泄露账号状态</td>
+</tr>
+</tbody>
+</table>
+<p>新手练习时至少准备两个账号：一个正常账号，一个用于反复输错密码的账号，避免把正常账号锁住影响后续测试。</p>
+<h2 id="_7">执行步骤示例<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<ol>
+<li>先用正常账号登录，确认主流程可用。</li>
+<li>再验证手机号为空、格式错误、密码为空等参数校验。</li>
+<li>连续输入错误密码 5 次，观察页面提示和接口响应。</li>
+<li>锁定后立刻输入正确密码，确认不能绕过锁定。</li>
+<li>退出登录后访问首页或个人中心，确认需要重新登录。</li>
+<li>用 Postman 重放登录接口，检查失败时不会返回 token。</li>
+</ol>
+<h2 id="_8">数据校验示例<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1">-- 查看用户状态和失败次数，字段名以实际项目为准</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">phone</span><span class="p">,</span><span class="w"> </span><span class="n">status</span><span class="p">,</span><span class="w"> </span><span class="n">login_fail_count</span><span class="p">,</span><span class="w"> </span><span class="n">locked_until</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="k">FROM</span><span class="w"> </span><span class="n">users</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">phone</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;13800138000&#39;</span><span class="p">;</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="c1">-- 查看登录日志</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">user_id</span><span class="p">,</span><span class="w"> </span><span class="n">login_result</span><span class="p">,</span><span class="w"> </span><span class="n">login_ip</span><span class="p">,</span><span class="w"> </span><span class="n">created_at</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="k">FROM</span><span class="w"> </span><span class="n">login_logs</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">user_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10001</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">created_at</span><span class="w"> </span><span class="k">DESC</span><span class="p">;</span>
+</code></pre></div>
+<h2 id="_9">缺陷示例<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>标题</td>
+<td>连续输错 5 次密码后账号未被锁定</td>
+</tr>
+<tr>
+<td>前置条件</td>
+<td>用户账号状态正常，锁定规则为连续输错 5 次锁定 15 分钟</td>
+</tr>
+<tr>
+<td>复现步骤</td>
+<td>连续 5 次输入错误密码后，再输入正确密码登录</td>
+</tr>
+<tr>
+<td>实际结果</td>
+<td>正确密码可以登录成功</td>
+</tr>
+<tr>
+<td>期望结果</td>
+<td>账号被锁定，15 分钟内不能登录</td>
+</tr>
+<tr>
+<td>影响</td>
+<td>暴力破解风险增加</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_10">容易漏测<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
 <ul>
 <li>只测错误密码，不测账号锁定。</li>
 <li>只看页面提示，不看接口是否返回敏感信息。</li>
@@ -2847,7 +3023,7 @@
 <li>不验证禁用账号、注销账号、未注册账号。</li>
 <li>忽略移动端输入法、大小写、空格复制粘贴。</li>
 </ul>
-<h2 id="_7">复盘问题<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<h2 id="_11">复盘问题<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
 <ul>
 <li>账号不存在时，应该提示“账号不存在”还是“账号或密码错误”？为什么？</li>
 <li>登录失败次数应该存数据库还是缓存？各有什么风险？</li>
