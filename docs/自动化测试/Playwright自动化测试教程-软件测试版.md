@@ -18,6 +18,14 @@ Playwright 比 Selenium 更现代，但新手仍然要按基础流程学：打�
 
 不要一开始就追求复杂框架。先写出 3 条稳定用例，再学习 Page Object 和 CI 集成。
 
+### 版本与维护说明
+
+| 项目 | 说明 |
+|------|------|
+| 适用技术栈 | Playwright Python、Pytest、官方浏览器依赖 |
+| 使用建议 | 先学定位、自动等待、断言和 Trace，再搭 Page Object |
+| 更新提醒 | 官方镜像标签、浏览器依赖和 Action 版本会变化，CI 前先本地执行最小用例 |
+
 ---
 ## 一、Playwright 简介
 

@@ -18,6 +18,14 @@ App 自动化比 Web 自动化环境更复杂，新手第一遍不要急着写�
 
 如果环境没有跑通，后面的脚本都会失败。先解决环境，再写用例。
 
+### 版本与维护说明
+
+| 项目 | 说明 |
+|------|------|
+| 适用技术栈 | Appium 2.x、Android SDK、Node.js、Python Client |
+| 使用建议 | 先确认 `adb devices`、Appium Server、驱动和 Inspector 都可用 |
+| 更新提醒 | Android SDK、Appium Driver、客户端 API 会变化，遇到命令不可用时优先查看当前驱动文档 |
+
 ---
 ## 一、App 自动化基础
 

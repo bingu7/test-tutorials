@@ -4,6 +4,20 @@
 
 ---
 
+## 新手导读
+
+| 项目 | 说明 |
+|------|------|
+| 适合人群 | 已有自动化用例，想让它们在 GitHub Actions 或 Jenkins 中自动运行的新手 |
+| 前置知识 | Git、Pytest、依赖安装、环境变量、测试报告基础 |
+| 最终产出 | 一条可手动触发的回归流水线、测试报告归档、失败诊断思路 |
+| 跟练方式 | 先跑最小 `pytest` workflow，再逐步加入 Secret、报告、Web 浏览器依赖和通知 |
+| 常见卡点 | Secret 写进代码；失败日志不会看；测试集太重；报告没有上传 |
+
+流水线学习要从“能跑一次”开始。第一次成功后再加复杂能力，每加一个能力都确认失败时能看懂日志。
+
+---
+
 ## 一、项目目标
 
 本项目目标是搭建一条面向测试回归的流水线：
@@ -193,7 +207,7 @@ env:
 
 ## 八、自动化执行
 
-### 6.1 接口自动化
+### 8.1 接口自动化
 
 ```bash
 pytest tests/api --alluredir=reports/allure-results
@@ -201,7 +215,7 @@ pytest tests/api --alluredir=reports/allure-results
 
 适合放入每次提交后的快速回归。
 
-### 6.2 Web 冒烟自动化
+### 8.2 Web 冒烟自动化
 
 ```bash
 pytest tests/web/smoke --alluredir=reports/allure-results
@@ -209,7 +223,7 @@ pytest tests/web/smoke --alluredir=reports/allure-results
 
 Web 自动化应控制数量，优先选择稳定主流程。页面频繁变化时，不要让大量 UI 用例阻塞每次提交。
 
-### 6.3 失败策略
+### 8.3 失败策略
 
 建议：
 

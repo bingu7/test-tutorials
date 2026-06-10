@@ -18,6 +18,14 @@ Postman 是接口测试入门最重要的工具之一。新手第一遍不要急
 
 当你能把登录接口、查询接口、创建订单接口串起来，再学习 Collection、数据驱动和 Newman。
 
+### 版本与维护说明
+
+| 项目 | 说明 |
+|------|------|
+| 适用工具 | Postman 桌面版 / Web 版、Newman 命令行 |
+| 使用建议 | 菜单名称可能随版本变化，核心学习目标是请求、环境变量、断言和集合运行 |
+| 更新提醒 | 使用前建议核对 Postman 官方文档，尤其是团队协作、云同步和 Newman 参数 |
+
 ---
 ## 一、Postman 简介
 
@@ -545,9 +553,11 @@ const jsonData = pm.response.json();
 if (jsonData.code === 0) {
     pm.environment.set("token", jsonData.data.token);
     pm.environment.set("userId", jsonData.data.userId);
-    console.log("Token 已保存：" + jsonData.data.token);
+    console.log("Token 已保存：" + jsonData.data.token.slice(0, 8) + "...");
 }
 ```
+
+真实项目不要在 Console 或 CI 日志中打印完整 Token、密码、Cookie、私钥。需要排查时只打印前后几位，或打印“已获取/未获取”的状态。
 
 后续接口使用：
 
@@ -574,7 +584,8 @@ if (pm.environment.get("retry") < 3) {
 ### 8.5 输出调试信息
 
 ```javascript
-console.log("当前 token：", pm.environment.get("token"));
+const token = pm.environment.get("token");
+console.log("当前 token：", token ? token.slice(0, 8) + "..." : "未获取");
 console.log("响应体：", pm.response.json());
 ```
 
@@ -1038,7 +1049,7 @@ Postman 提供 fork/merge 功能：
 - `Current Value` 是否有值（不是只填了 `Initial Value`）
 - 变量作用域是否被覆盖（同名变量高层级优先）
 
-> **诊断方法：** 在 Tests 中打印 `console.log(pm.environment.get("token"))`，从 Console 查看实际值。
+> **诊断方法：** 在 Tests 中打印脱敏后的 token，例如 `token.slice(0, 8) + "..."`，从 Console 判断是否成功提取。不要打印完整 token。
 
 ### 15.4 SSL 证书错误
 

@@ -17,6 +17,14 @@
 
 如果你还不会 Python 基础和 Postman，建议先补这两部分，否则直接看框架会比较吃力。
 
+### 版本与维护说明
+
+| 项目 | 说明 |
+|------|------|
+| 适用技术栈 | Python 3.x、Requests、Pytest、Allure |
+| 使用建议 | 示例以接口自动化思路为主，具体依赖版本以项目 `requirements.txt` 为准 |
+| 更新提醒 | Pytest 插件、Allure 命令行和 CI Action 版本可能变化，落地前先用最小用例验证 |
+
 ---
 ## 一、技术栈介绍
 
@@ -461,13 +469,15 @@ def login_token():
     print("\n→ 清理工作（用例执行后）")
 
 def test_get_user_info(login_token):
-    print(f"使用 token：{login_token}")
+    print(f"使用 token：{login_token[:8]}...")
     assert login_token is not None
 
 def test_get_order_list(login_token):
-    print(f"使用 token：{login_token}")
+    print(f"使用 token：{login_token[:8]}...")
     assert login_token.startswith("ey")
 ```
+
+真实项目不要在本地日志、Allure 附件或 CI 日志中输出完整 Token。需要排查时只输出前几位，或输出“Token 已获取”。
 
 **Fixture 作用域：**
 

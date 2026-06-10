@@ -18,6 +18,14 @@
 
 如果开启 HTTPS 解密后页面打不开，优先检查证书是否安装正确、代理是否恢复默认。
 
+### 版本与维护说明
+
+| 项目 | 说明 |
+|------|------|
+| 适用工具 | Fiddler Classic、Fiddler Everywhere、Charles、浏览器 DevTools |
+| 使用建议 | Windows 新手可先学 Fiddler Classic，跨平台或移动端团队可对照 Charles |
+| 更新提醒 | 抓 HTTPS、安装证书、移动端代理步骤会随系统版本变化，实操前先确认当前系统权限和证书状态 |
+
 ---
 ## 一、Fiddler 简介
 
