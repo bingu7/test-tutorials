@@ -28,6 +28,49 @@ Selenium 学习重点不是背 API，而是理解“定位元素、操作元素�
 | 更新提醒 | 浏览器版本、驱动下载方式和 BiDi 能力变化较快，落地前先跑最小登录脚本验证环境 |
 
 ---
+
+## 最佳实践速查：推荐写法 vs 新手写法
+
+| 场景 | 新手常见写法 | 推荐写法 | 原因 |
+|------|--------------|----------|------|
+| 等待 | `time.sleep(5)` | `WebDriverWait` + expected conditions | 页面加载时间不固定 |
+| 定位 | 绝对 XPath | ID、name、CSS、稳定属性、测试专用属性 | 结构变化时更稳定 |
+| 浏览器驱动 | 手工随便下载一个驱动 | Selenium Manager 或团队统一驱动版本 | 避免版本不匹配 |
+| 页面逻辑 | 用例里堆所有定位器 | Page Object 分离页面和用例 | 维护成本低 |
+| 断言 | 只判断不报错 | 断言页面可见结果和业务状态 | 脚本跑完不等于业务成功 |
+| 失败排查 | 只看异常栈 | 保存截图、HTML、浏览器日志 | 方便定位前端或环境问题 |
+
+不推荐：
+
+```python
+driver.get("https://test.example.com/login")
+driver.find_element(By.XPATH, "/html/body/div/form/input[1]").send_keys("test")
+driver.find_element(By.XPATH, "/html/body/div/form/input[2]").send_keys("123456")
+driver.find_element(By.XPATH, "/html/body/div/form/button").click()
+time.sleep(5)
+assert "home" in driver.current_url
+```
+
+推荐：
+
+```python
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
+
+
+driver.get("https://test.example.com/login")
+driver.find_element(By.NAME, "username").send_keys("test")
+driver.find_element(By.NAME, "password").send_keys("123456")
+driver.find_element(By.CSS_SELECTOR, "[data-testid='login-submit']").click()
+
+logout = WebDriverWait(driver, 10).until(
+    EC.visibility_of_element_located((By.CSS_SELECTOR, "[data-testid='logout']"))
+)
+assert logout.is_displayed()
+```
+
+Selenium 用例稳定性的关键是：定位器稳定、等待合理、失败证据完整。
+
 ## 一、Web 自动化基础
 
 ### 1.1 Selenium 简介

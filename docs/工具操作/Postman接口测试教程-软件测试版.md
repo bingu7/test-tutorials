@@ -25,8 +25,41 @@ Postman 是接口测试入门最重要的工具之一。新手第一遍不要急
 | 适用工具 | Postman 桌面版 / Web 版、Newman 命令行 |
 | 使用建议 | 菜单名称可能随版本变化，核心学习目标是请求、环境变量、断言和集合运行 |
 | 更新提醒 | 使用前建议核对 Postman 官方文档，尤其是团队协作、云同步和 Newman 参数 |
+| 术语提醒 | 新版界面可能把 `Tests` 归在 `Scripts / Post-response` 下；本文仍用“Tests”指请求返回后执行的断言脚本 |
 
 ---
+
+## 最佳实践速查：推荐写法 vs 新手写法
+
+| 场景 | 新手常见写法 | 推荐写法 | 原因 |
+|------|--------------|----------|------|
+| 环境地址 | 每个请求都写完整 URL | 使用 `{{base_url}}` 环境变量 | 切换环境方便，减少重复修改 |
+| 登录 token | 手工复制 token 到 Header | 登录接口 Tests 自动保存 token | 避免 token 过期后整套接口失败 |
+| 断言 | 只看 Status 200 | 同时断言 HTTP 状态码、业务码、关键字段 | 很多业务失败也会返回 200 |
+| 密码和 token | 写在请求或脚本里并截图分享 | 使用 secret 变量，日志脱敏 | 避免敏感信息泄露 |
+| Collection | 所有接口放在一个平铺列表 | 按模块建文件夹，命名清楚 | 便于维护和团队协作 |
+| 数据驱动 | 手工改参数重复发送 | Runner / Newman + CSV / JSON | 提高覆盖率和可重复性 |
+| 调试输出 | `console.log` 打完整响应和 token | 只打印必要字段并脱敏 | 日志更清晰，也更安全 |
+
+示例：推荐的登录后保存 token 写法：
+
+```javascript
+const body = pm.response.json();
+
+pm.test("登录成功并返回 token", function () {
+    pm.expect(pm.response.code).to.be.oneOf([200, 201]);
+    pm.expect(body.code).to.eql(0);
+    pm.expect(body.data.token).to.be.a("string").that.is.not.empty;
+});
+
+if (body.code === 0 && body.data.token) {
+    pm.environment.set("token", body.data.token);
+    console.log("token 已保存：" + body.data.token.slice(0, 8) + "...");
+}
+```
+
+新手记住一句话：Postman 不是“点 Send 的工具”，而是“组织接口、管理环境、自动断言、沉淀回归资产”的工具。
+
 ## 一、Postman 简介
 
 ### 1.1 什么是 Postman

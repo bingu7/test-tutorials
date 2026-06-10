@@ -26,6 +26,47 @@
 | 更新提醒 | Pytest 插件、Allure 命令行和 CI Action 版本可能变化，落地前先用最小用例验证 |
 
 ---
+
+## 最佳实践速查：推荐写法 vs 新手写法
+
+| 场景 | 新手常见写法 | 推荐写法 | 原因 |
+|------|--------------|----------|------|
+| 请求地址 | 用例里硬编码完整 URL | 配置 `base_url`，请求封装拼接 path | 环境切换更安全 |
+| 超时 | 不设置 timeout | 每个请求设置统一 timeout | 避免接口卡死导致用例挂住 |
+| token | 写死 token | Fixture 动态登录获取 token | 避免 token 过期 |
+| 断言 | 只断言 `status_code == 200` | 断言状态码、业务码、字段、数据变化 | 提高缺陷发现能力 |
+| 测试数据 | 所有用例共用同一数据 | 独立数据或执行前准备数据 | 降低互相影响 |
+| 日志 | 打印完整请求、响应、token | 脱敏输出关键字段 | 安全且易排查 |
+| 用例依赖 | 用例按固定顺序执行 | 单接口用例独立，流程用例单独管理 | 减少连锁失败 |
+
+不推荐：
+
+```python
+def test_login():
+    r = requests.post(
+        "https://api-test.example.com/api/login",
+        json={"username": "test", "password": "123456"}
+    )
+    assert r.status_code == 200
+```
+
+推荐：
+
+```python
+def test_login_success(api_client):
+    response = api_client.post(
+        "/api/login",
+        json={"username": "test", "password": "123456"},
+    )
+    body = response.json()
+
+    assert response.status_code == 200
+    assert body["code"] == 0
+    assert body["data"]["token"]
+```
+
+接口自动化的价值不是“能发请求”，而是能稳定判断业务是否被破坏。
+
 ## 一、技术栈介绍
 
 ### 1.1 为什么选这个组合

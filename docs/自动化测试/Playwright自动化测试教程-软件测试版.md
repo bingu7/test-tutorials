@@ -27,6 +27,46 @@ Playwright 比 Selenium 更现代，但新手仍然要按基础流程学：打�
 | 更新提醒 | 官方镜像标签、浏览器依赖和 Action 版本会变化，CI 前先本地执行最小用例 |
 
 ---
+
+## 最佳实践速查：推荐写法 vs 新手写法
+
+| 场景 | 新手常见写法 | 推荐写法 | 原因 |
+|------|--------------|----------|------|
+| 等待 | `page.wait_for_timeout(5000)` | `expect(locator).to_be_visible()` | 自动等待更稳定，减少误报 |
+| 定位 | XPath 或复杂 CSS | `get_by_role`、`get_by_label`、`get_by_test_id` | 更接近用户行为，维护成本低 |
+| 断言 | 只断言 URL 包含某字符串 | 断言用户可见结果和关键业务状态 | URL 变化不一定代表业务成功 |
+| 登录前置 | 每条 UI 用例都从登录页开始 | 用接口登录或 storage state 复用登录态 | 降低用例耗时和失败点 |
+| 失败排查 | 只看命令行报错 | 保存截图、视频或 Trace | 能回放失败现场 |
+| 用例范围 | 一个用例跑完整业务长链路 | UI 只覆盖核心路径，复杂校验下沉接口层 | 降低维护成本 |
+
+不推荐：
+
+```python
+page.goto("https://test.example.com/login")
+page.locator("#username").fill("test")
+page.locator("#password").fill("123456")
+page.locator(".btn").click()
+page.wait_for_timeout(5000)
+assert "home" in page.url
+```
+
+推荐：
+
+```python
+from playwright.sync_api import expect
+
+
+def test_login_success(page):
+    page.goto("https://test.example.com/login")
+    page.get_by_label("用户名").fill("test")
+    page.get_by_label("密码").fill("123456")
+    page.get_by_role("button", name="登录").click()
+
+    expect(page.get_by_text("退出登录")).to_be_visible()
+```
+
+稳定的 Playwright 用例通常有三个特点：定位可读、等待可靠、失败可追踪。
+
 ## 一、Playwright 简介
 
 ### 1.1 什么是 Playwright
