@@ -4,6 +4,14 @@
 
 ---
 
+## 前置要求
+
+| 项目 | 要求 | 获取方式 |
+|------|------|----------|
+| HTTP 协议基础 | 了解 GET/POST 请求方法、状态码、JSON 响应格式 | [网络知识教程-软件测试版](../工具操作/网络知识教程-软件测试版.md) |
+
+---
+
 ## 新手导读
 
 Postman 是接口测试入门最重要的工具之一。新手第一遍不要急着写复杂脚本，先能手工调通接口。
@@ -89,7 +97,8 @@ Postman 是一款功能强大的 **API 开发与测试平台**，最初是 Chrom
 | 脚本能力 | 强（JavaScript） | 中（FiddlerScript） |
 | 团队协作 | 强（云同步） | 弱（本地） |
 
-> **测试人员建议：** 两者搭配使用。Fiddler 用于抓取已有请求 → 导出/复制 → 在 Postman 中重构、参数化、写断言。
+!!! tip "测试人员建议"
+    两者搭配使用。Fiddler 用于抓取已有请求 → 导出/复制 → 在 Postman 中重构、参数化、写断言。
 
 ---
 
@@ -101,7 +110,8 @@ Postman 是一款功能强大的 **API 开发与测试平台**，最初是 Chrom
 2. 选择对应操作系统的版本下载
 3. 双击安装包，全程默认即可
 
-> Postman 也提供 Web 版（`https://web.postman.co`），但功能受限，桌面版功能更全。
+!!! info "版本说明"
+    Postman 也提供 Web 版（`https://web.postman.co`），但功能受限，桌面版功能更全。
 
 ### 2.2 注册登录
 
@@ -262,7 +272,8 @@ URL 中 `?` 后面的部分，如 `?page=1&size=10`。
 | `Accept` | 接受的响应类型 | `application/json` |
 | `Cookie` | 会话 Cookie | `sessionId=abc123` |
 
-> Postman 会自动添加一些 Header（如 `Postman-Token`、`Host`），可点击 `hidden` 查看。
+!!! tip "提示"
+    Postman 会自动添加一些 Header（如 `Postman-Token`、`Host`），可点击 `hidden` 查看。
 
 ### 5.3 Body（请求体）
 
@@ -354,10 +365,10 @@ Global（全局） < Collection（集合） < Environment（环境） < Data（�
 
 层级越高优先级越高，同名变量高层级覆盖低层级。
 
-> **Data vs Local 说明：**
-> - **Data（数据变量）**：从外部 CSV/JSON 文件加载，在 Collection Runner 数据驱动迭代期间有效
-> - **Local（本地变量）**：通过 `pm.variables.set("key", "val")` 在脚本中设置，仅当前请求生效
-> - 优先级 Local > Data，但 Data 在整个迭代周期内持久，Local 仅单次请求。两者都高于 Environment。
+!!! info "Data vs Local 说明"
+    - **Data（数据变量）**：从外部 CSV/JSON 文件加载，在 Collection Runner 数据驱动迭代期间有效
+    - **Local（本地变量）**：通过 `pm.variables.set("key", "val")` 在脚本中设置，仅当前请求生效
+    - 优先级 Local > Data，但 Data 在整个迭代周期内持久，Local 仅单次请求。两者都高于 Environment。
 
 ### 6.3 创建环境变量
 
@@ -373,9 +384,11 @@ Global（全局） < Collection（集合） < Environment（环境） < Data（�
 | password | secret | 123456 | 123456 |
 | token | default | (空) | (空) |
 
-> **Type 选择 secret** 可隐藏敏感字段（密码、Token），团队共享时不暴露明文。
-> 
-> **Initial Value 与 Current Value 区别：** Initial 是分享时的默认值；Current 是本地实际生效值。
+!!! tip "Type 选择 secret"
+    可隐藏敏感字段（密码、Token），团队共享时不暴露明文。
+
+!!! info "Initial Value 与 Current Value 区别"
+    Initial 是分享时的默认值；Current 是本地实际生效值。
 
 3. 点击 `Save` 保存
 
@@ -492,7 +505,8 @@ Collection 是接口的逻辑分组容器，类似文件夹。一个项目通常
 
 ## 八、Tests 断言脚本
 
-> **Tests 是接口自动化测试的核心**。每个请求执行后，Tests 中的脚本会自动运行，验证响应是否符合预期。
+!!! abstract "核心概念"
+    Tests 是接口自动化测试的核心。每个请求执行后，Tests 中的脚本会自动运行，验证响应是否符合预期。
 
 ### 8.1 编写位置
 
@@ -1082,7 +1096,8 @@ Postman 提供 fork/merge 功能：
 - `Current Value` 是否有值（不是只填了 `Initial Value`）
 - 变量作用域是否被覆盖（同名变量高层级优先）
 
-> **诊断方法：** 在 Tests 中打印脱敏后的 token，例如 `token.slice(0, 8) + "..."`，从 Console 判断是否成功提取。不要打印完整 token。
+!!! tip "诊断方法"
+    在 Tests 中打印脱敏后的 token，例如 `token.slice(0, 8) + "..."`，从 Console 判断是否成功提取。不要打印完整 token。
 
 ### 15.4 SSL 证书错误
 
@@ -1154,6 +1169,8 @@ Postman 提供 fork/merge 功能：
 
 ---
 
-> **文档说明：** 本教程基于 Postman 桌面版 10.x 编写，适用于 Windows/Mac/Linux。
-> 
-> **测试纪律：** 接口测试请在测试环境进行，禁止用真实用户数据测试，禁止在生产环境执行批量请求。涉及第三方接口需注意调用频率限制。
+!!! info "文档说明"
+    本教程基于 Postman 桌面版 10.x 编写，适用于 Windows/Mac/Linux。
+
+!!! warning "测试纪律"
+    接口测试请在测试环境进行，禁止用真实用户数据测试，禁止在生产环境执行批量请求。涉及第三方接口需注意调用频率限制。

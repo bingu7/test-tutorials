@@ -159,21 +159,21 @@
     height: 3.4rem;
     border-radius: 0.4rem;
     background: var(--md-code-bg-color);
-    color: var(--md-primary-fg-color);
+    color: var(--home-step-color, var(--md-primary-fg-color));
     font-size: 0.9rem;
     font-weight: 700;
 }
 
 .home-timeline-item:nth-child(2) .home-step {
-    color: #0f8f5f;
+    --home-step-color: #0f8f5f;
 }
 
 .home-timeline-item:nth-child(3) .home-step {
-    color: #b7791f;
+    --home-step-color: #b7791f;
 }
 
 .home-timeline-item:nth-child(4) .home-step {
-    color: #7453c8;
+    --home-step-color: #7453c8;
 }
 
 .home-timeline-item h3 {
@@ -263,8 +263,9 @@
 }
 
 .md-typeset table:not([class]) th {
-    background-color: var(--md-primary-fg-color);
-    color: var(--md-primary-bg-color);
+    border-bottom: 0.05rem solid var(--md-default-fg-color--lighter);
+    background-color: var(--md-code-bg-color);
+    color: var(--md-default-fg-color);
     font-weight: 600;
 }
 
@@ -274,6 +275,24 @@
 
 .md-typeset .admonition.warning {
     border-left-color: #d97706;
+}
+
+[data-md-color-scheme="slate"] .home-timeline-item:nth-child(2) .home-step {
+    --home-step-color: #5ee0ad;
+}
+
+[data-md-color-scheme="slate"] .home-timeline-item:nth-child(3) .home-step {
+    --home-step-color: #f0b45a;
+}
+
+[data-md-color-scheme="slate"] .home-timeline-item:nth-child(4) .home-step {
+    --home-step-color: #b8a4ff;
+}
+
+/* ==================== TOC 侧边栏滚动修复 ==================== */
+.md-sidebar--secondary .md-sidebar__scrollwrap {
+    overflow-y: auto;
+    max-height: calc(100vh - 8rem);
 }
 
 /* ==================== 响应式 ==================== */

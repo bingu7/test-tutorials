@@ -4,6 +4,15 @@
 
 ---
 
+## 前置要求
+
+| 项目 | 要求 | 获取方式 |
+|------|------|----------|
+| HTTP 协议 | 了解请求方法、状态码、请求头与响应体 | [网络知识教程-软件测试版](../工具操作/网络知识教程-软件测试版.md) |
+| 接口测试基础 | 了解接口测试流程、用例设计方法 | [接口测试完整教程-软件测试版](../专项测试/接口测试完整教程-软件测试版.md) |
+
+---
+
 ## 新手导读
 
 性能测试对新手最难的地方不是 JMeter 按钮，而是理解指标和场景。第一遍不要直接上大并发，先用小并发跑通一个接口。
@@ -144,7 +153,8 @@ JMeter 默认英文，临时切换：
 language=zh_CN
 ```
 
-> **建议：** 用英文界面，因为多数教程、错误信息是英文，方便排错。
+!!! tip "建议"
+    用英文界面，因为多数教程、错误信息是英文，方便排错。
 
 ### 2.4 安装插件
 
@@ -482,7 +492,8 @@ ${__counter(TRUE,)}    每线程独立计数（第 2 参为变量名，可省略
 ${__counter(FALSE,)}   全局计数
 ```
 
-> 规范写法：`${__counter(TRUE)}` 或 `${__counter(TRUE,myVar)}`，尾随逗号虽可工作但不推荐。
+!!! tip "建议"
+    规范写法：`${__counter(TRUE)}` 或 `${__counter(TRUE,myVar)}`，尾随逗号虽可工作但不推荐。
 
 **__RandomString：**
 
@@ -606,7 +617,8 @@ ${__RandomString(10,abcdefghijklmn)}    10 位随机字符
 |------|------|
 | Duration in milliseconds | 1000 |
 
-> 接口耗时 > 1 秒算失败。
+!!! tip "建议"
+    接口耗时 > 1 秒算失败。
 
 ### 9.4 大小断言
 
@@ -629,7 +641,8 @@ Size in bytes: > 100
 | **Backend Listener** | 推送到 InfluxDB → Grafana | 低 |
 | **Graph Results** | 图表展示 | 中 |
 
-> **重要：** 正式压测时关闭 `View Results Tree`，否则严重影响性能。
+!!! warning "重要"
+    正式压测时关闭 `View Results Tree`，否则严重影响性能。
 
 ### 10.2 聚合报告字段
 
@@ -695,9 +708,9 @@ JMeter → Backend Listener → InfluxDB → Grafana 仪表盘
 | influxdbUrl | http://192.168.1.100:8086/write?db=jmeter |
 | application | my_test |
 
-> **InfluxDB 版本差异：**
-> - InfluxDB 1.x：`http://host:8086/write?db=jmeter`
-> - InfluxDB 2.x：API 路径改为 `/api/v2/write?org=xxx&bucket=jmeter`，需用支持 2.x 的 Backend Listener 实现（或社区插件），并配置 Token。
+!!! info "InfluxDB 版本差异"
+    - InfluxDB 1.x：`http://host:8086/write?db=jmeter`
+    - InfluxDB 2.x：API 路径改为 `/api/v2/write?org=xxx&bucket=jmeter`，需用支持 2.x 的 Backend Listener 实现（或社区插件），并配置 Token。
 
 ---
 
@@ -1199,4 +1212,5 @@ sampleresult.default.encoding=UTF-8
 
 ---
 
-> **测试纪律：** 性能测试是高风险测试，必须在独立测试环境进行，禁止未授权对生产系统压测。压测前通知运维、开发，准备应急预案。测试后及时清理数据，恢复环境。
+!!! info "测试纪律"
+    性能测试是高风险测试，必须在独立测试环境进行，禁止未授权对生产系统压测。压测前通知运维、开发，准备应急预案。测试后及时清理数据，恢复环境。

@@ -4,6 +4,12 @@
 
 ---
 
+## 前置要求
+
+无前置要求，零基础可直接学习。
+
+---
+
 ## 新手导读
 
 测试人员学 SQL，第一目标是会查数据、校验数据、定位问题，不是成为 DBA。
@@ -153,18 +159,40 @@ mysql -h 192.168.1.100 -u testuser -p123456 testdb
 ```sql
 -- 显示所有数据库
 SHOW DATABASES;
+-- 结果：
+-- +--------------------+
+-- | Database           |
+-- +--------------------+
+-- | information_schema |
+-- | mysql              |
+-- | performance_schema |
+-- | testdb             |
+-- +--------------------+
 
 -- 切换数据库
 USE testdb;
 
 -- 显示当前数据库
 SELECT DATABASE();
+-- 结果：testdb
 
 -- 显示所有表
 SHOW TABLES;
 
 -- 查看表结构
 DESC users;
+-- 结果：
+-- +------------+--------------+------+-----+---------+----------------+
+-- | Field      | Type         | Null | Key | Default | Extra          |
+-- +------------+--------------+------+-----+---------+----------------+
+-- | id         | int          | NO   | PRI | NULL    | auto_increment |
+-- | name       | varchar(50)  | NO   |     | NULL    |                |
+-- | age        | int          | YES  |     | NULL    |                |
+-- | email      | varchar(100) | YES  | UNI | NULL    |                |
+-- | city       | varchar(20)  | YES  | MUL | NULL    |                |
+-- | created_at | datetime     | YES  |     | NULL    |                |
+-- +------------+--------------+------+-----+---------+----------------+
+
 SHOW CREATE TABLE users;
 
 -- 查看当前用户
@@ -232,6 +260,14 @@ SELECT * FROM users;
 
 -- 查指定列
 SELECT id, name, email FROM users;
+-- 结果：
+-- +----+------+------------------+
+-- | id | name | email            |
+-- +----+------+------------------+
+-- |  1 | 张三 | zhang@test.com   |
+-- |  2 | 李四 | li@test.com      |
+-- |  3 | 王五 | wang@test.com    |
+-- +----+------+------------------+
 
 -- 列起别名
 SELECT name AS 姓名, age AS 年龄 FROM users;
@@ -302,6 +338,15 @@ SELECT * FROM users WHERE email = NULL;  -- 永远查不到
 ```sql
 -- % 任意字符串，_ 单个字符
 SELECT * FROM users WHERE name LIKE '张%';      -- 张开头
+-- 结果：
+-- +----+--------+-----+------------------+------+
+-- | id | name   | age | email            | city |
+-- +----+--------+-----+------------------+------+
+-- |  1 | 张三   |  25 | zhang@test.com   | 北京 |
+-- |  7 | 张伟   |  32 | zhangw@test.com  | 上海 |
+-- | 15 | 张小花 |  22 | zhangx@test.com  | 广州 |
+-- +----+--------+-----+------------------+------+
+
 SELECT * FROM users WHERE name LIKE '%伟';      -- 伟结尾
 SELECT * FROM users WHERE name LIKE '%伟%';     -- 包含伟
 SELECT * FROM users WHERE name LIKE '张_';      -- 张+任意 1 字
@@ -346,11 +391,29 @@ SELECT * FROM users LIMIT 10 OFFSET 20;  -- 等价写法
 SELECT city, COUNT(*) AS cnt
 FROM users
 GROUP BY city;
+-- 结果：
+-- +--------+-----+
+-- | city   | cnt |
+-- +--------+-----+
+-- | 上海   | 856 |
+-- | 北京   | 743 |
+-- | 广州   | 521 |
+-- | 深圳   | 489 |
+-- +--------+-----+
 
 -- 按城市分组，统计每城市平均年龄
 SELECT city, AVG(age) AS avg_age
 FROM users
 GROUP BY city;
+-- 结果：
+-- +--------+---------+
+-- | city   | avg_age |
+-- +--------+---------+
+-- | 上海   | 28.5000 |
+-- | 北京   | 31.2000 |
+-- | 广州   | 26.8000 |
+-- | 深圳   | 27.3000 |
+-- +--------+---------+
 
 -- 多字段分组
 SELECT city, gender, COUNT(*)
@@ -366,9 +429,19 @@ SELECT city, COUNT(*) AS cnt
 FROM users
 GROUP BY city
 HAVING COUNT(*) > 100;
+-- 结果：
+-- +--------+-----+
+-- | city   | cnt |
+-- +--------+-----+
+-- | 上海   | 856 |
+-- | 北京   | 743 |
+-- | 广州   | 521 |
+-- | 深圳   | 489 |
+-- +--------+-----+
 ```
 
-> **注意：** 标准 SQL 中 HAVING 执行顺序在 SELECT 之前，不能引用 SELECT 别名。MySQL 宽松允许 `HAVING cnt > 100`（别名），但写 `HAVING COUNT(*) > 100` 更规范、跨数据库兼容。
+!!! warning "注意"
+    标准 SQL 中 HAVING 执行顺序在 SELECT 之前，不能引用 SELECT 别名。MySQL 宽松允许 `HAVING cnt > 100`（别名），但写 `HAVING COUNT(*) > 100` 更规范、跨数据库兼容。
 
 **WHERE vs HAVING：**
 
@@ -550,7 +623,8 @@ SELECT username FROM admins;
 
 ## 六、数据修改
 
-> ⚠️ **极危险！** DELETE / UPDATE 没有 WHERE 会清空整张表。测试人员操作前务必三思，最好先 SELECT 验证。
+!!! danger "危险"
+    DELETE / UPDATE 没有 WHERE 会清空整张表。测试人员操作前务必三思，最好先 SELECT 验证。
 
 ### 6.1 INSERT 插入
 
@@ -645,7 +719,8 @@ TRUNCATE TABLE users;       -- 快，不可回滚，自增 ID 重置
 | 触发器 | 触发 | 不触发 |
 | 事务 | 可回滚 | 隐式提交，不可回滚 |
 
-> **TRUNCATE 注意：** MySQL 中 TRUNCATE 会隐式提交事务，即使在 BEGIN 后执行也无法 ROLLBACK 撤销。
+!!! warning "注意"
+    MySQL 中 TRUNCATE 会隐式提交事务，即使在 BEGIN 后执行也无法 ROLLBACK 撤销。
 
 ### 6.4 安全操作建议
 
@@ -753,12 +828,25 @@ SELECT FROM_UNIXTIME(1717740000); -- 转回时间
 
 ```sql
 SELECT COUNT(*) FROM users;                 -- 行数
+-- 结果：2609
+
 SELECT COUNT(email) FROM users;             -- 非 NULL 计数
+-- 结果：2587
+
 SELECT COUNT(DISTINCT city) FROM users;     -- 去重计数
+-- 结果：32
+
 SELECT SUM(amount) FROM orders;             -- 求和
+-- 结果：1589320.50
+
 SELECT AVG(amount) FROM orders;             -- 平均
+-- 结果：256.73
+
 SELECT MAX(amount) FROM orders;             -- 最大
+-- 结果：99999.00
+
 SELECT MIN(amount) FROM orders;             -- 最小
+-- 结果：0.01
 ```
 
 ### 7.5 条件函数
@@ -775,6 +863,15 @@ SELECT name,
         ELSE '老年'
     END AS group_name
 FROM users;
+-- 结果：
+-- +------+-----------+
+-- | name | group_name|
+-- +------+-----------+
+-- | 张三 | 成年      |
+-- | 李四 | 成年      |
+-- | 王五 | 成年      |
+-- | 赵六 | 未成年    |
+-- +------+-----------+
 
 -- CASE 简洁式
 SELECT name,
@@ -844,6 +941,13 @@ DROP INDEX idx_email ON users;
 
 ```sql
 EXPLAIN SELECT * FROM users WHERE email = 'test@test.com';
+-- 结果：
+-- +----+-------------+-------+------+---------------+-----------+---------+-------+------+-------+
+-- | id | select_type | table | type | possible_keys | key       | key_len | ref   | rows | Extra |
+-- +----+-------------+-------+------+---------------+-----------+---------+-------+------+-------+
+-- |  1 | SIMPLE      | users | ref  | idx_email     | idx_email | 302     | const |    1 | NULL  |
+-- +----+-------------+-------+------+---------------+-----------+---------+-------+------+-------+
+-- type=ref 走了索引，rows=1 只扫描 1 行，性能良好
 ```
 
 **关键字段：**
@@ -953,7 +1057,8 @@ SELECT @@tx_isolation;
 SET TRANSACTION ISOLATION LEVEL READ COMMITTED;
 ```
 
-> **注意：** MySQL 8.0 移除了 `@@tx_isolation`，必须用 `@@transaction_isolation`。
+!!! warning "注意"
+    MySQL 8.0 移除了 `@@tx_isolation`，必须用 `@@transaction_isolation`。
 
 ---
 
@@ -1066,16 +1171,28 @@ SELECT * FROM risk_logs WHERE order_id = 100001;
 ```sql
 -- 今日订单数
 SELECT COUNT(*) FROM orders WHERE DATE(created_at) = CURDATE();
+-- 结果：342
 
 -- 今日新增用户
 SELECT COUNT(*) FROM users WHERE DATE(created_at) = CURDATE();
+-- 结果：89
 
 -- 各状态订单数
 SELECT status, COUNT(*) FROM orders GROUP BY status;
+-- 结果：
+-- +----------+----------+
+-- | status   | COUNT(*) |
+-- +----------+----------+
+-- | PAID     |     5832 |
+-- | UNPAID   |      421 |
+-- | CANCELED |      198 |
+-- | REFUNDED |       67 |
+-- +----------+----------+
 
 -- 今日 GMV（成交总额）
 SELECT SUM(amount) FROM orders 
 WHERE status = 'PAID' AND DATE(created_at) = CURDATE();
+-- 结果：89230.50
 
 -- TOP 10 用户消费排行
 SELECT u.name, SUM(o.amount) AS total
@@ -1102,6 +1219,13 @@ SELECT o.id, o.user_id
 FROM orders o
 LEFT JOIN users u ON o.user_id = u.id
 WHERE u.id IS NULL;
+-- 结果（正常应为空，有数据说明数据不一致）：
+-- +--------+---------+
+-- | id     | user_id |
+-- +--------+---------+
+-- | 100045 |   99876 |
+-- | 100089 |   99901 |
+-- +--------+---------+
 
 -- 检查金额异常（订单金额 ≠ 明细之和）
 SELECT o.id, o.amount, SUM(oi.price * oi.quantity) AS calc_amount
@@ -1109,6 +1233,12 @@ FROM orders o
 JOIN order_items oi ON o.id = oi.order_id
 GROUP BY o.id, o.amount
 HAVING o.amount <> SUM(oi.price * oi.quantity);
+-- 结果（正常应为空，有数据说明金额计算有 Bug）：
+-- +--------+--------+-------------+
+-- | id     | amount | calc_amount |
+-- +--------+--------+-------------+
+-- | 100234 | 299.00 |      199.00 |
+-- +--------+--------+-------------+
 
 -- 检查状态异常（已支付但无支付记录）
 SELECT o.id 
@@ -1147,7 +1277,8 @@ SHOW CREATE TABLE users;
 SET NAMES utf8mb4;
 ```
 
-> **建议：** MySQL 字符集统一用 `utf8mb4`（支持表情符）。
+!!! tip "建议"
+    MySQL 字符集统一用 `utf8mb4`（支持表情符）。
 
 ### 11.3 锁等待 / 死锁
 
@@ -1254,4 +1385,5 @@ EXPLAIN SELECT ...;
 
 ---
 
-> **测试纪律：** 严禁未授权操作生产数据库。所有 UPDATE/DELETE 操作必须：1) 提前 SELECT 验证；2) 使用 WHERE 限定范围；3) 大批量操作开事务；4) 重要操作截图保留证据。
+!!! warning "测试纪律"
+    严禁未授权操作生产数据库。所有 UPDATE/DELETE 操作必须：1) 提前 SELECT 验证；2) 使用 WHERE 限定范围；3) 大批量操作开事务；4) 重要操作截图保留证据。

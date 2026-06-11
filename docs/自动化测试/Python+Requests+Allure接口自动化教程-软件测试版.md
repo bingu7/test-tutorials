@@ -4,6 +4,15 @@
 
 ---
 
+## 前置要求
+
+| 项目 | 要求 | 获取方式 |
+|------|------|----------|
+| Python 基础 | 掌握变量、函数、类、文件读写、异常处理 | [Python基础教程-软件测试版](../基础理论/Python基础教程-软件测试版.md) |
+| 接口测试基础 | 了解接口测试流程、用例设计方法 | [接口测试完整教程-软件测试版](../专项测试/接口测试完整教程-软件测试版.md) |
+
+---
+
 ## 新手导读
 
 这篇教程内容较长，新手不要一次性追完整框架。先完成“一个接口用例能运行、能断言、能出报告”这个小目标。
@@ -55,17 +64,22 @@ def test_login():
 ```python
 def test_login_success(api_client):
     response = api_client.post(
-        "/api/login",
-        json={"username": "test", "password": "123456"},
+        “/api/login”,
+        json={“username”: “test”, “password”: “123456”},  # (1)
     )
     body = response.json()
 
-    assert response.status_code == 200
-    assert body["code"] == 0
-    assert body["data"]["token"]
+    assert response.status_code == 200                     # (2)
+    assert body[“code”] == 0                               # (3)
+    assert body[“data”][“token”]                           # (4)
 ```
 
-接口自动化的价值不是“能发请求”，而是能稳定判断业务是否被破坏。
+1. `json=` 会自动将字典序列化为 JSON 并设置 `Content-Type: application/json`，而 `data=` 发送的是表单编码
+2. 断言 HTTP 状态码，确认请求本身没有网络层错误
+3. 断言业务状态码，区分”请求成功但业务失败”（如密码错误返回 code=1001）
+4. 断言关键字段存在，确保登录后确实返回了 token，否则后续接口调用会全部失败
+
+接口自动化的价值不是”能发请求”，而是能稳定判断业务是否被破坏。
 
 ## 一、技术栈介绍
 
@@ -209,7 +223,8 @@ ln -sf /opt/allure-${ALLURE_VERSION}/bin/allure /usr/local/bin/allure
 allure --version
 ```
 
-> **注意：** Allure 依赖 Java 8+，需先安装 JDK。
+!!! warning "注意"
+    Allure 依赖 Java 8+，需先安装 JDK。
 
 ### 2.5 安装 IDE
 
@@ -233,11 +248,13 @@ import requests
 response = requests.get("https://httpbin.org/get")
 print(response.status_code)        # 状态码
 print(response.text)               # 文本响应
-print(response.json())             # JSON 解析
+print(response.json())             # JSON 解析  # (1)
 
 # POST 请求
 response = requests.post("https://httpbin.org/post", data={"key": "value"})
 ```
+
+1. `.json()` 将响应体自动反序列化为 Python 字典，若响应非 JSON 格式会抛出 `JSONDecodeError`，调用前建议先检查 `Content-Type`
 
 ### 3.2 GET 请求传参
 
@@ -258,14 +275,14 @@ response = requests.get("https://api.example.com/users", params=params)
 data = {"username": "test", "password": "123456"}
 response = requests.post(
     "https://api.example.com/login",
-    json=data       # 自动序列化 + 设置 Content-Type: application/json
+    json=data       # (1)
 )
 
 # 2. 表单格式（form-data）
 data = {"username": "test", "password": "123456"}
 response = requests.post(
     "https://api.example.com/login",
-    data=data       # Content-Type: application/x-www-form-urlencoded
+    data=data       # (2)
 )
 
 # 3. 上传文件（multipart/form-data）
@@ -277,6 +294,9 @@ response = requests.post(
     data=data
 )
 ```
+
+1. `json=` 自动将字典序列化为 JSON 字符串，并设置 `Content-Type: application/json`，适用于绝大多数 REST API
+2. `data=` 将字典编码为表单格式 `key=value&key=value`，`Content-Type` 为 `application/x-www-form-urlencoded`，适用于传统表单提交
 
 ### 3.4 请求头与认证
 
@@ -309,7 +329,7 @@ response = requests.get("https://api.example.com/user/1")
 # 状态码
 response.status_code              # 200
 response.ok                       # True（< 400 即 True）
-response.raise_for_status()       # 状态码 >= 400 时抛异常
+response.raise_for_status()       # 状态码 >= 400 时抛异常  # (1)
 
 # 响应内容
 response.text                     # 字符串形式
@@ -331,6 +351,8 @@ response.encoding                 # 编码
 response.encoding = "utf-8"       # 设置编码（解决中文乱码）
 ```
 
+1. 比手动检查 `status_code` 更高效，配合 `try/except HTTPError` 可统一处理 4xx 和 5xx 错误
+
 ### 3.6 Session 会话保持
 
 测试需要"登录后调其他接口"的场景，Session 自动保持 Cookie：
@@ -345,7 +367,7 @@ session.post("https://api.example.com/login", json={
 })
 
 # 后续：自动携带登录态
-response = session.get("https://api.example.com/user/info")
+response = session.get("https://api.example.com/user/info")  # (1)
 response = session.get("https://api.example.com/order/list")
 
 # 关闭
@@ -357,12 +379,16 @@ with requests.Session() as s:
     r = s.get("https://api.example.com/user/info")
 ```
 
+1. Session 对象会自动管理 Cookie，登录后服务器返回的 Cookie 会被保存，后续请求自动携带，无需手动处理
+
+### 3.7 高级选项
+
 ### 3.7 高级选项
 
 ```python
 # 超时（强烈推荐设置！）
-requests.get("https://api.example.com", timeout=10)              # 总超时 10s
-requests.get("https://api.example.com", timeout=(3, 10))         # 连接 3s，读取 10s
+requests.get("https://api.example.com", timeout=10)              # 总超时 10s  # (1)
+requests.get("https://api.example.com", timeout=(3, 10))         # 连接 3s，读取 10s  # (2)
 
 # 跳过 SSL 校验（自签名证书）
 requests.get("https://192.168.1.100", verify=False)
@@ -386,6 +412,9 @@ with requests.get("https://example.com/big.zip", stream=True) as r:
         for chunk in r.iter_content(chunk_size=8192):
             f.write(chunk)
 ```
+
+1. 单值超时同时限制连接和读取，接口测试建议统一设 10-30 秒，避免服务端无响应时用例永久挂起
+2. 元组超时分别控制连接建立和响应读取，适用于慢接口需要更长读取时间但连接应快速失败的场景
 
 ### 3.8 异常处理
 
@@ -506,8 +535,8 @@ def login_token():
     """登录获取 token"""
     print("\n→ 执行登录")
     token = "eyJhbGc..."     # 实际为登录接口返回
-    yield token              # 把 token 给用例
-    print("\n→ 清理工作（用例执行后）")
+    yield token              # 把 token 给用例  # (1)
+    print("\n→ 清理工作（用例执行后）")           # (2)
 
 def test_get_user_info(login_token):
     print(f"使用 token：{login_token[:8]}...")
@@ -517,6 +546,9 @@ def test_get_order_list(login_token):
     print(f"使用 token：{login_token[:8]}...")
     assert login_token.startswith("ey")
 ```
+
+1. `yield` 之前的代码在用例执行前运行（setup），`yield` 的值作为参数注入用例函数
+2. `yield` 之后的代码在用例执行后运行（teardown），无论用例成功或失败都会执行，适合做资源清理
 
 真实项目不要在本地日志、Allure 附件或 CI 日志中输出完整 Token。需要排查时只输出前几位，或输出“Token 已获取”。
 
@@ -551,9 +583,12 @@ def login_session(base_url):
         "username": "testuser",
         "password": "123456"
     })
-    yield session
-    session.close()
+    yield session     # (1)
+    session.close()   # (2)
 ```
+
+1. `scope="session"` 让登录只执行一次，所有用例共享同一个 Session 对象和 Cookie，大幅减少重复登录开销
+2. `yield` 后关闭 Session 释放连接资源，确保测试结束后不会残留未关闭的 HTTP 连接
 
 任意用例文件直接使用：
 
@@ -570,7 +605,7 @@ def test_user_info(login_session, base_url):
 ```python
 import pytest
 
-@pytest.mark.parametrize("a, b, expected", [
+@pytest.mark.parametrize("a, b, expected", [   # (1)
     (1, 2, 3),
     (5, 5, 10),
     (-1, 1, 0),
@@ -579,6 +614,8 @@ import pytest
 def test_add(a, b, expected):
     assert a + b == expected
 ```
+
+1. 每组数据自动生成一个独立用例，失败时可精确定位是哪组数据出了问题，比循环测试更易于排查
 
 执行后会产生 4 个独立用例。
 
@@ -788,18 +825,24 @@ class TestLogin:
     def test_login_success(self):
         """正常登录"""
         response = LoginApi.login("testuser", "123456")
-        assert response.status_code == 200
+        assert response.status_code == 200            # (1)
         result = response.json()
-        assert result["code"] == 0
-        assert "token" in result["data"]
-    
+        assert result["code"] == 0                    # (2)
+        assert "token" in result["data"]              # (3)
+
     def test_login_wrong_password(self):
         """密码错误"""
         response = LoginApi.login("testuser", "wrong")
         result = response.json()
-        assert result["code"] == 1001
-        assert "密码" in result["msg"]
+        assert result["code"] == 1001                 # (4)
+        assert "密码" in result["msg"]                # (5)
 ```
+
+1. HTTP 状态码 200 只表示请求到达了服务器，不代表业务逻辑正确
+2. 业务状态码 `code == 0` 表示登录成功，这是接口约定的业务含义
+3. 验证返回数据中包含 token，后续接口依赖此 token 做鉴权
+4. 密码错误时业务码应为 1001，与接口文档约定一致
+5. 验证错误消息包含"密码"关键词，确认用户看到的提示是准确的
 
 ### 5.5 分层的好处
 
@@ -1074,21 +1117,27 @@ allure open ./reports/allure-report
 import allure
 import pytest
 
-@allure.epic("电商系统")                       # 项目级别
-@allure.feature("用户模块")                    # 功能模块
-@allure.story("登录功能")                      # 故事/场景
+@allure.epic("电商系统")                       # (1)
+@allure.feature("用户模块")                    # (2)
+@allure.story("登录功能")                      # (3)
 class TestLogin:
-    
-    @allure.title("正常账号密码登录成功")        # 用例标题
-    @allure.description("使用正确的账号密码登录，预期返回 token") # 描述
-    @allure.severity(allure.severity_level.CRITICAL)  # 优先级
-    @allure.tag("smoke", "P0")                # 标签
+
+    @allure.title("正常账号密码登录成功")        # (4)
+    @allure.description("使用正确的账号密码登录，预期返回 token")
+    @allure.severity(allure.severity_level.CRITICAL)  # (5)
+    @allure.tag("smoke", "P0")
     @allure.link("https://jira.example.com/TEST-100", name="需求链接")
     @allure.issue("BUG-200", name="关联缺陷")
     @allure.testcase("TC-300", name="测试用例")
     def test_login_success(self):
         ...
 ```
+
+1. `epic` 是最高层级分类，通常对应整个项目或系统，在报告左侧导航中作为一级分组
+2. `feature` 对应功能模块，报告中按模块聚合用例，便于按模块查看通过率
+3. `story` 对应具体场景，三层结构（epic > feature > story）让报告层级清晰
+4. `title` 设置用例在报告中显示的标题，不设置则默认用函数名
+5. `severity` 标记用例优先级，报告中可按严重级别筛选和统计
 
 **严重级别（severity）：**
 
@@ -1110,7 +1159,7 @@ class TestOrder:
     
     @allure.title("完整下单流程")
     def test_order_flow(self):
-        with allure.step("1. 用户登录"):
+        with allure.step("1. 用户登录"):                # (1)
             response = LoginApi.login("testuser", "123456")
             assert response.json()["code"] == 0
             token = response.json()["data"]["token"]
@@ -1127,6 +1176,8 @@ class TestOrder:
         with allure.step("5. 校验订单状态"):
             ...
 ```
+
+1. `with allure.step()` 将代码块标记为报告中的一个步骤，失败时能精确定位到哪一步出问题，而不是只看到整个用例失败
 
 ### 8.4 用装饰器封装步骤
 
@@ -1855,7 +1906,8 @@ def test_login(): ...
 def test_create_order(): ...
 ```
 
-> **更好的实践：** 不要依赖用例执行顺序，每个用例独立。需要数据依赖时用 Fixture。
+!!! tip "更好的实践"
+    不要依赖用例执行顺序，每个用例独立。需要数据依赖时用 Fixture。
 
 ### 13.7 并发执行
 
@@ -1865,7 +1917,8 @@ pytest -n 4    # 4 进程并发
 pytest -n auto # 自动检测 CPU 数
 ```
 
-> **注意：** 并发执行时共享数据可能出问题（如同一账号被多用例同时操作），需要每个用例使用独立数据。
+!!! warning "注意"
+    并发执行时共享数据可能出问题（如同一账号被多用例同时操作），需要每个用例使用独立数据。
 
 ### 13.8 Fixture 不生效
 
@@ -1930,6 +1983,8 @@ pytest -n auto # 自动检测 CPU 数
 
 ---
 
-> **文档说明：** 本教程基于 Python 3.10、Requests 2.31、Pytest 7.4、Allure 2.24 编写。
-> 
-> **测试纪律：** 自动化测试请在专门的测试环境执行，禁止使用生产账号、生产数据。涉及第三方接口注意调用频率限制，避免被封禁。账号密码、Token 等敏感信息使用环境变量或加密存储，不要硬编码在代码中。
+!!! info "文档说明"
+    本教程基于 Python 3.10、Requests 2.31、Pytest 7.4、Allure 2.24 编写。
+
+!!! info "测试纪律"
+    自动化测试请在专门的测试环境执行，禁止使用生产账号、生产数据。涉及第三方接口注意调用频率限制，避免被封禁。账号密码、Token 等敏感信息使用环境变量或加密存储，不要硬编码在代码中。

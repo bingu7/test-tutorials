@@ -3,6 +3,8 @@ __pycache__/
 *.pyc
 .DS_Store
 .claude/
+CLAUDE.md
+mkdocs-local*.log
 
 # Root draft tutorial markdown files
 /*.md

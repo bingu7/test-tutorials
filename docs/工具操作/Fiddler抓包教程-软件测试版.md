@@ -4,6 +4,14 @@
 
 ---
 
+## 前置要求
+
+| 项目 | 要求 | 获取方式 |
+|------|------|----------|
+| 网络基础（HTTP 协议） | 了解请求方法、状态码、请求头与响应体 | [网络知识教程-软件测试版](../工具操作/网络知识教程-软件测试版.md) |
+
+---
+
 ## 新手导读
 
 抓包的核心不是“看到很多请求”，而是从请求里找到业务动作对应的接口。新手第一遍只需要学会看请求方法、URL、请求参数、响应结果和状态码。
@@ -33,7 +41,8 @@
 
 Fiddler 是一款免费 Web 调试代理工具，由 Eric Lawrence 创作（2003 年），2012 年被 Telerik 收购（Telerik 后并入 Progress Software）。它工作在 **HTTP/HTTPS 协议层**，通过本地代理（默认端口 8888）拦截客户端与服务器之间的所有通信。
 
-> **版本说明：** 本文档介绍的是 Fiddler Classic（Windows 免费版，维护节奏放缓但仍有大量用户）。Telerik 同时提供 Fiddler Everywhere（跨平台付费版）和 FiddlerCap（抓包录制工具）。
+!!! info "版本说明"
+    本文档介绍的是 Fiddler Classic（Windows 免费版，维护节奏放缓但仍有大量用户）。Telerik 同时提供 Fiddler Everywhere（跨平台付费版）和 FiddlerCap（抓包录制工具）。
 
 ### 1.2 工作原理
 
@@ -70,7 +79,8 @@ Fiddler 本质是一个 **中间人代理（Man-in-the-Middle Proxy）**，所�
 3. 填写表单（邮箱可以是真实邮箱）后下载安装包
 4. 双击安装，全部默认配置即可
 
-> **版本选择建议：** Fiddler Classic 免费且功能完整，Fiddler Everywhere 是付费跨平台版本。普通测试工作 Classic 版完全够用。
+!!! tip "版本选择建议"
+    Fiddler Classic 免费且功能完整，Fiddler Everywhere 是付费跨平台版本。普通测试工作 Classic 版完全够用。
 
 ### 2.2 首次启动配置
 
@@ -159,11 +169,13 @@ Fiddler 本质是一个 **中间人代理（Man-in-the-Middle Proxy）**，所�
 
 ## 四、HTTPS 抓包配置
 
-> **重要：** 默认情况下 Fiddler 只能抓 HTTP 请求，对 HTTPS 显示为 `Tunnel to xxx:443`，看不到具体内容。需要安装证书才能解密 HTTPS。
->
-> **HTTP/3（QUIC）注意：** Chrome 等浏览器默认启用 HTTP/3 over QUIC（基于 UDP），Fiddler Classic 作为 TCP 代理完全无法抓到这类请求。排查时需在浏览器中禁用 QUIC：
-> - Chrome：访问 `chrome://flags/#enable-quic`，设为 `Disabled`
-> - 或启动 Chrome 时加参数 `--disable-quic`
+!!! warning "重要"
+    默认情况下 Fiddler 只能抓 HTTP 请求，对 HTTPS 显示为 `Tunnel to xxx:443`，看不到具体内容。需要安装证书才能解密 HTTPS。
+
+!!! warning "HTTP/3（QUIC）注意"
+    Chrome 等浏览器默认启用 HTTP/3 over QUIC（基于 UDP），Fiddler Classic 作为 TCP 代理完全无法抓到这类请求。排查时需在浏览器中禁用 QUIC：
+    - Chrome：访问 `chrome://flags/#enable-quic`，设为 `Disabled`
+    - 或启动 Chrome 时加参数 `--disable-quic`
 
 ### 4.1 启用 HTTPS 解密
 
@@ -234,11 +246,12 @@ ipconfig
 3. 进入 `设置` → `安全` → `从存储设备安装证书`
 4. 选中下载的证书文件，命名后安装
 
-> **Android 7.0+ 注意：** 系统默认不信任用户安装的 CA 证书。需要：
-> - 应用配置 `network_security_config.xml` 信任用户证书（开发协助），或
-> - 使用 root 设备将证书安装到系统目录，或
-> - **Magisk + MagiskTrustUserCerts 模块**：免手动复制证书，自动信任用户证书（root 用户推荐），或
-> - 使用 Android 6.0 以下设备/模拟器测试
+!!! warning "Android 7.0+ 注意"
+    系统默认不信任用户安装的 CA 证书。需要：
+    - 应用配置 `network_security_config.xml` 信任用户证书（开发协助），或
+    - 使用 root 设备将证书安装到系统目录，或
+    - **Magisk + MagiskTrustUserCerts 模块**：免手动复制证书，自动信任用户证书（root 用户推荐），或
+    - 使用 Android 6.0 以下设备/模拟器测试
 
 ### 5.4 iOS 端配置
 
@@ -262,7 +275,8 @@ ipconfig
 
 配置完成后，在手机上打开任意 App 或浏览器访问网页，Fiddler 会话列表应出现对应请求。
 
-> **测试完成后记得关闭手机代理**，否则手机断开 Fiddler 后将无法上网。
+!!! warning "注意"
+    测试完成后记得关闭手机代理，否则手机断开 Fiddler 后将无法上网。
 
 ---
 
@@ -343,7 +357,8 @@ regex:正则表达式    正则匹配
 | `Response Type and Size` | 按响应类型/大小过滤 |
 | `Breakpoints` | 自动断点设置 |
 
-> 修改 Filters 后需点击右上角 `Actions` → `Run Filterset now` 立即生效。
+!!! tip "提示"
+    修改 Filters 后需点击右上角 `Actions` → `Run Filterset now` 立即生效。
 
 ### 6.5 Breakpoints（断点）
 
@@ -436,7 +451,8 @@ bpu                                   # 清除请求断点
 5. 点击 `Run to Completion` 放行
 6. 观察服务端是否做了金额校验
 
-> **安全测试要点：** 重点验证服务端对客户端传参的二次校验，不能仅依赖前端校验。
+!!! example "安全测试要点"
+    重点验证服务端对客户端传参的二次校验，不能仅依赖前端校验。
 
 ### 7.4 场景四：弱网模拟
 
@@ -458,7 +474,8 @@ if (m_SimulateModem) {
 }
 ```
 
-> Fiddler Classic 使用 **JScript.NET**（类 C# 语法，非 JavaScript），但代码结构相似，不影响理解。`request-trickle-delay` / `response-trickle-delay` 单位是**毫秒/字节**（每传输 1 字节延迟多少毫秒），不是毫秒/KB。
+!!! info "版本说明"
+    Fiddler Classic 使用 **JScript.NET**（类 C# 语法，非 JavaScript），但代码结构相似，不影响理解。`request-trickle-delay` / `response-trickle-delay` 单位是**毫秒/字节**（每传输 1 字节延迟多少毫秒），不是毫秒/KB。
 
 5. 保存文件，立即生效
 
@@ -607,6 +624,8 @@ if (m_SimulateModem) {
 
 ---
 
-> **文档说明：** 本教程基于 Fiddler Classic 5.x 版本编写，适用于 Windows 10/11 平台。如使用 Mac 系统，建议改用 Fiddler Everywhere 或 Charles。
-> 
-> **测试纪律：** 抓包测试涉及用户数据，请严格在测试环境进行，禁止抓取生产环境用户数据，禁止用于非授权的安全测试。
+!!! info "文档说明"
+    本教程基于 Fiddler Classic 5.x 版本编写，适用于 Windows 10/11 平台。如使用 Mac 系统，建议改用 Fiddler Everywhere 或 Charles。
+
+!!! warning "测试纪律"
+    抓包测试涉及用户数据，请严格在测试环境进行，禁止抓取生产环境用户数据，禁止用于非授权的安全测试。

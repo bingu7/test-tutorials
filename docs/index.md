@@ -5,7 +5,7 @@ hide:
 ---
 
 <section class="home-hero">
-<div class="home-eyebrow">Software Testing Guide</div>
+<div class="home-eyebrow">软件测试学习指南</div>
 <h1>软件测试知识体系</h1>
 <p>55 篇系统化文档，覆盖从零基础入门到自动化进阶、项目实战、模板案例和面试准备的完整技能栈。</p>
 </section>

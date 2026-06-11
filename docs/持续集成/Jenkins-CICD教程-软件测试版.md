@@ -4,6 +4,15 @@
 
 ---
 
+## 前置要求
+
+| 项目 | 要求 | 获取方式 |
+|------|------|----------|
+| Git 基础 | 熟悉 clone、pull、push、分支管理 | [Git版本控制教程-软件测试版](../工具操作/Git版本控制教程-软件测试版.md) |
+| 自动化测试基础 | 了解至少一种自动化测试框架（Pytest/Selenium/Playwright） | [Selenium-Web自动化教程](../自动化测试/Selenium-Web自动化教程-软件测试版.md) 或 [Playwright自动化测试教程](../自动化测试/Playwright自动化测试教程-软件测试版.md) |
+
+---
+
 ## 新手导读
 
 Jenkins 对测试人员来说，核心价值是把测试脚本放到流水线里自动运行，而不是手工在本地执行。
@@ -1392,4 +1401,5 @@ withCredentials([string(credentialsId: 'api-token', variable: 'TOKEN')]) {
 
 ---
 
-> **测试纪律：** Jenkins 是高权限工具，配置好用户权限。生产环境部署 Job 要加 input 确认，避免误操作。凭据妥善管理，不出现在日志或代码中。
+!!! info "测试纪律"
+    Jenkins 是高权限工具，配置好用户权限。生产环境部署 Job 要加 input 确认，避免误操作。凭据妥善管理，不出现在日志或代码中。

@@ -4,6 +4,15 @@
 
 ---
 
+## 前置要求
+
+| 项目 | 要求 | 获取方式 |
+|------|------|----------|
+| Python 基础 | 掌握变量、函数、类、文件读写、异常处理 | [Python基础教程-软件测试版](../基础理论/Python基础教程-软件测试版.md) |
+| HTML/CSS 基础 | 了解 HTML 标签结构和 CSS 选择器 | [前端基础教程-软件测试版](../基础理论/前端基础教程-软件测试版.md) |
+
+---
+
 ## 新手导读
 
 Playwright 比 Selenium 更现代，但新手仍然要按基础流程学：打开页面、定位元素、操作元素、等待结果、断言结果。
@@ -58,12 +67,16 @@ from playwright.sync_api import expect
 
 def test_login_success(page):
     page.goto("https://test.example.com/login")
-    page.get_by_label("用户名").fill("test")
+    page.get_by_label("用户名").fill("test")          # (1)
     page.get_by_label("密码").fill("123456")
-    page.get_by_role("button", name="登录").click()
+    page.get_by_role("button", name="登录").click()   # (2)
 
-    expect(page.get_by_text("退出登录")).to_be_visible()
+    expect(page.get_by_text("退出登录")).to_be_visible()  # (3)
 ```
+
+1. `get_by_label` 通过 `<label>` 标签的文本定位输入框，比 CSS 选择器更接近用户视角，表单结构变化时不易断裂
+2. `get_by_role` 基于 ARIA 语义角色定位，不依赖 CSS class 或 DOM 结构，是最稳定的定位策略
+3. `expect` 内置自动等待（默认 5 秒），元素出现前会持续轮询，无需手动 `sleep`；断言失败时自动截图
 
 稳定的 Playwright 用例通常有三个特点：定位可读、等待可靠、失败可追踪。
 
@@ -163,11 +176,14 @@ playwright --version
 from playwright.sync_api import Page, expect
 
 def test_baidu_search(page: Page):
-    page.goto("https://www.baidu.com")
+    page.goto("https://www.baidu.com")          # (1)
     page.locator("#kw").fill("Playwright")
     page.locator("#su").click()
-    expect(page).to_have_title("Playwright")
+    expect(page).to_have_title("Playwright")    # (2)
 ```
+
+1. 默认 `wait_until="load"`，可选 `"domcontentloaded"`、`"networkidle"` 或 `"commit"`，单页应用推荐用 `"networkidle"` 等待接口完成
+2. `expect` 内置自动等待（默认 5 秒超时），比 `assert page.title() == ...` 更稳定，避免页面标题尚未更新时的误报
 
 运行：
 
@@ -483,7 +499,7 @@ with sync_playwright() as p:
     browser = p.chromium.launch()
     
     # 两个独立上下文 = 两个独立用户
-    context1 = browser.new_context()
+    context1 = browser.new_context()  # (1)
     context2 = browser.new_context()
     
     page1 = context1.new_page()
@@ -501,6 +517,8 @@ with sync_playwright() as p:
     browser.close()
 ```
 
+1. 每个 `new_context()` 拥有独立的 cookie、localStorage 和会话状态，天然隔离多用户场景，无需手动清理
+
 ### 7.2 上下文配置
 
 ```python
@@ -513,9 +531,11 @@ context = browser.new_context(
     geolocation={"longitude": 116.4, "latitude": 39.9},  # 地理位置
     permissions=["geolocation"],             # 权限
     color_scheme="dark",                     # 暗色模式
-    storage_state="auth.json",              # 恢复登录态
+    storage_state="auth.json",              # (1)
 )
 ```
+
+1. `storage_state` 加载之前保存的 cookie 和 localStorage，跳过登录步骤；配合 `context.storage_state(path="auth.json")` 保存，实现登录态复用
 
 ### 7.3 持久化登录态
 
@@ -1107,4 +1127,5 @@ Playwright 的 `locator` 类似 Selenium 的 `find_element`，但 API 更简洁�
 
 ---
 
-> **测试纪律：** Playwright 自动等待机制大幅减少了 flaky test，但仍需注意：不要硬编码 sleep；用 expect 断言；失败用 Trace 排查；CI 环境用官方 Docker 镜像。
+!!! info "测试纪律"
+    Playwright 自动等待机制大幅减少了 flaky test，但仍需注意：不要硬编码 sleep；用 expect 断言；失败用 Trace 排查；CI 环境用官方 Docker 镜像。

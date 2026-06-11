@@ -47,6 +47,7 @@ theme:
 plugins:
   - search:
       separator: '[\s\-\.]+'   # 中文搜索分词
+      lang: zh
   - tags
 
 # Markdown 扩展

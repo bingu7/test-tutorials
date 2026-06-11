@@ -4,6 +4,15 @@
 
 ---
 
+## 前置要求
+
+| 项目 | 要求 | 获取方式 |
+|------|------|----------|
+| Python 基础 | 掌握变量、函数、类、文件读写、异常处理 | [Python基础教程-软件测试版](../基础理论/Python基础教程-软件测试版.md) |
+| HTML/CSS 基础 | 了解 HTML 标签结构和 CSS 选择器 | [前端基础教程-软件测试版](../基础理论/前端基础教程-软件测试版.md) |
+
+---
+
 ## 新手导读
 
 Selenium 学习重点不是背 API，而是理解“定位元素、操作元素、等待页面变化、断言结果”这四步。
@@ -59,15 +68,18 @@ from selenium.webdriver.support.ui import WebDriverWait
 
 
 driver.get("https://test.example.com/login")
-driver.find_element(By.NAME, "username").send_keys("test")
+driver.find_element(By.NAME, "username").send_keys("test")   # (1)
 driver.find_element(By.NAME, "password").send_keys("123456")
 driver.find_element(By.CSS_SELECTOR, "[data-testid='login-submit']").click()
 
-logout = WebDriverWait(driver, 10).until(
+logout = WebDriverWait(driver, 10).until(                     # (2)
     EC.visibility_of_element_located((By.CSS_SELECTOR, "[data-testid='logout']"))
 )
 assert logout.is_displayed()
 ```
+
+1. `By.NAME` 通过 `name` 属性定位，比绝对 XPath 稳定；`data-testid` 是专门为测试预留的属性，前端重构时不会被改掉
+2. `WebDriverWait(driver, 10)` 最多等 10 秒，每 500ms 轮询一次条件；`visibility_of_element_located` 确保元素不仅存在而且可见
 
 Selenium 用例稳定性的关键是：定位器稳定、等待合理、失败证据完整。
 
@@ -990,7 +1002,8 @@ driver = webdriver.Chrome(options=options)
 logs = driver.get_log("performance")
 ```
 
-> **注意：** 基于 `goog:loggingPrefs` / `driver.get_log("performance")` 的方式依赖浏览器和驱动实现，兼容性会变化。新项目优先使用 BiDi 协议或 CDP（Chrome DevTools Protocol）抓取网络/性能数据。
+!!! warning "注意"
+    基于 `goog:loggingPrefs` / `driver.get_log("performance")` 的方式依赖浏览器和驱动实现，兼容性会变化。新项目优先使用 BiDi 协议或 CDP（Chrome DevTools Protocol）抓取网络/性能数据。
 
 ### 8.7 网络拦截（Selenium 4 + BiDi）
 
@@ -1046,16 +1059,16 @@ from selenium.webdriver.support import expected_conditions as EC
 class BasePage:
     def __init__(self, driver):
         self.driver = driver
-        self.wait = WebDriverWait(driver, 10)
+        self.wait = WebDriverWait(driver, 10)  # (1)
     
     def open(self, url):
         self.driver.get(url)
     
     def find(self, locator):
-        return self.wait.until(EC.presence_of_element_located(locator))
+        return self.wait.until(EC.presence_of_element_located(locator))  # (2)
     
     def click(self, locator):
-        self.wait.until(EC.element_to_be_clickable(locator)).click()
+        self.wait.until(EC.element_to_be_clickable(locator)).click()  # (3)
     
     def input(self, locator, text):
         el = self.find(locator)
@@ -1077,6 +1090,10 @@ class BasePage:
     def screenshot(self, name):
         self.driver.save_screenshot(f"reports/{name}.png")
 ```
+
+1. 所有页面方法共享同一个 10 秒默认超时，修改一处即可全局生效
+2. `presence_of_element_located` 只检查元素是否出现在 DOM 中，不保证可见；适合表单输入等只需 DOM 存在的场景
+3. `element_to_be_clickable` 额外检查元素可见且未被遮挡，适合按钮点击等交互操作
 
 ### 9.4 LoginPage 示例
 
@@ -1752,4 +1769,5 @@ driver.find_element(By.CSS_SELECTOR, "[data-test-id='login-submit']")
 
 ---
 
-> **测试纪律：** Web UI 自动化是最不稳定的一层，要做好预期管理。优先做接口自动化和单元测试，UI 自动化只覆盖核心流程。失败用例及时分析，不要无视。
+!!! info "测试纪律"
+    Web UI 自动化是最不稳定的一层，要做好预期管理。优先做接口自动化和单元测试，UI 自动化只覆盖核心流程。失败用例及时分析，不要无视。

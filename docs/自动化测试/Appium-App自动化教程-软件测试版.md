@@ -4,6 +4,15 @@
 
 ---
 
+## 前置要求
+
+| 项目 | 要求 | 获取方式 |
+|------|------|----------|
+| Python 基础 | 掌握变量、函数、类、文件读写、异常处理 | [Python基础教程-软件测试版](../基础理论/Python基础教程-软件测试版.md) |
+| Selenium 或 Playwright 基础 | 了解元素定位、操作、等待和断言 | [Selenium-Web自动化教程](../自动化测试/Selenium-Web自动化教程-软件测试版.md) 或 [Playwright自动化测试教程](../自动化测试/Playwright自动化测试教程-软件测试版.md) |
+
+---
+
 ## 新手导读
 
 App 自动化比 Web 自动化环境更复杂，新手第一遍不要急着写框架，先把环境跑通。
@@ -876,7 +885,8 @@ noReset: true
 newCommandTimeout: 600
 ```
 
-> **说明：** YAML 中如果带 `appium:` 前缀（W3C 协议要求的厂商前缀），需用 `webdriver.Remote(desired_capabilities=...)` 直接传字典；而 `UiAutomator2Options.load_capabilities()` 会自动添加前缀，所以这里 key 不要带 `appium:`。
+!!! info "说明"
+    YAML 中如果带 `appium:` 前缀（W3C 协议要求的厂商前缀），需用 `webdriver.Remote(desired_capabilities=...)` 直接传字典；而 `UiAutomator2Options.load_capabilities()` 会自动添加前缀，所以这里 key 不要带 `appium:`。
 
 ### 9.3 conftest.py
 
@@ -1402,4 +1412,5 @@ options.auto_grant_permissions = True
 
 ---
 
-> **测试纪律：** App 自动化是 UI 层最不稳定的测试，要做好预期管理。优先用 ID 定位，避免 XPath 索引。失败用例及时排查（是环境问题、Bug 还是脚本问题），不要无视失败。
+!!! info "测试纪律"
+    App 自动化是 UI 层最不稳定的测试，要做好预期管理。优先用 ID 定位，避免 XPath 索引。失败用例及时排查（是环境问题、Bug 还是脚本问题），不要无视失败。

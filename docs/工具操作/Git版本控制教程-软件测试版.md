@@ -4,6 +4,14 @@
 
 ---
 
+## 前置要求
+
+| 项目 | 要求 | 获取方式 |
+|------|------|----------|
+| Linux 基础命令 | 熟悉 cd、ls、cat、pwd 等基本目录和文件操作 | [Linux实用教程-软件测试版](../工具操作/Linux实用教程-软件测试版.md) |
+
+---
+
 ## 新手导读
 
 Git 对测试人员最重要的不是复杂命令，而是能安全地拉代码、看改动、提交自动化脚本、处理简单冲突。
@@ -19,7 +27,7 @@ Git 对测试人员最重要的不是复杂命令，而是能安全地拉代码�
 遇到冲突不要慌，先看冲突文件内容，再决定保留哪一段。不要随便执行 `reset --hard`，它会丢失本地改动。
 
 ---
-## 一、Git 基础
+## 1、Git 基础
 
 ### 1.1 测试人员为什么要学 Git
 
@@ -53,7 +61,8 @@ Git 对测试人员最重要的不是复杂命令，而是能安全地拉代码�
 | 学习曲线 | 较陡 | 平缓 |
 | 主流程度 | 绝对主流 | 衰落 |
 
-> Git 是目前事实标准，99% 的公司在用。
+!!! abstract "核心概念"
+    Git 是目前事实标准，99% 的公司在用。
 
 ### 1.4 核心概念
 
@@ -74,7 +83,7 @@ Git 对测试人员最重要的不是复杂命令，而是能安全地拉代码�
 
 ---
 
-## 二、安装与配置
+## 2、安装与配置
 
 ### 2.1 安装
 
@@ -108,7 +117,15 @@ git config --global user.email "zhangsan@company.com"
 
 # 查看配置
 git config --list
+# 输出示例：
+# user.name=张三
+# user.email=zhangsan@company.com
+# core.repositoryformatversion=0
+# core.filemode=true
+# core.quotepath=false
+
 git config user.name
+# 输出：张三
 
 # 配置编辑器（可选）
 git config --global core.editor "vim"
@@ -161,11 +178,12 @@ ssh -T git@github.com
 | **VSCode 内置** | 全平台 | 编辑器直接用 |
 | **IDEA / PyCharm 内置** | 全平台 | JetBrains 系列内置 |
 
-> **建议：** 测试人员从命令行学起，配 IDE/编辑器内置 Git 使用足够。
+!!! tip "建议"
+    测试人员从命令行学起，配 IDE/编辑器内置 Git 使用足够。
 
 ---
 
-## 三、基础命令
+## 3、基础命令
 
 ### 3.1 初始化与克隆
 
@@ -181,6 +199,17 @@ git clone https://github.com/user/repo.git
 git clone git@github.com:user/repo.git    # SSH
 git clone https://github.com/user/repo.git mydir  # 克隆到指定目录
 git clone -b dev https://github.com/user/repo.git  # 克隆指定分支
+```
+
+`git clone` 输出示例：
+
+```
+Cloning into 'repo'...
+remote: Enumerating objects: 1523, done.
+remote: Counting objects: 100% (1523/1523), done.
+remote: Compressing objects: 100% (876/876), done.
+Receiving objects: 100% (1523/1523), 3.25 MiB | 2.10 MiB/s, done.
+Resolving deltas: 100% (612/612), done.
 ```
 
 ### 3.2 查看状态
@@ -269,6 +298,11 @@ git log
 
 # 简洁单行
 git log --oneline
+# 输出示例：
+# a1b2c3d test: 添加订单创建接口的测试用例
+# e4f5g6h fix: 修复登录用例中 token 未传递的问题
+# i7j8k9l docs: 更新 README 安装说明
+# m0n1o2p feat: 初始项目结构
 
 # 图形化
 git log --graph --oneline --all --decorate
@@ -296,6 +330,16 @@ git log -p file.py     # 含每次差异
 ```bash
 # 工作区 vs 暂存区
 git diff
+# 输出示例：
+# diff --git a/testcases/test_login.py b/testcases/test_login.py
+# index 1a2b3c4..5d6e7f8 100644
+# --- a/testcases/test_login.py
+# +++ b/testcases/test_login.py
+# @@ -10,6 +10,8 @@ def test_login_success():
+#      response = login_api.post("/login", data)
+#      assert response.status_code == 200
+# +    assert response.json()["token"] is not None
+# +    assert response.json()["expires_in"] > 0
 
 # 暂存区 vs 上次提交
 git diff --staged
@@ -343,7 +387,7 @@ git mv old.py new.py
 
 ---
 
-## 四、分支管理
+## 4、分支管理
 
 ### 4.1 分支是什么
 
@@ -360,7 +404,18 @@ main ────────┤                     ├──── 合并回 m
 ```bash
 # 查看分支
 git branch              # 本地分支
+# 输出示例：
+#   develop
+#   feature/login
+# * main                  ← 当前分支
+
 git branch -r           # 远程分支
+# 输出示例：
+#   origin/HEAD -> origin/main
+#   origin/develop
+#   origin/feature/login
+#   origin/main
+
 git branch -a           # 所有分支
 
 # 创建分支
@@ -388,6 +443,11 @@ git branch -m old-name new-name
 # 当前在 main，把 dev 合并进来
 git checkout main
 git merge dev
+# 输出示例（快进合并）：
+# Updating 4a5b6c7..8d9e0f1
+# Fast-forward
+#  testcases/test_order.py | 45 +++++++++++++++++++++++++++++++++++++++++++++
+#  1 file changed, 45 insertions(+)
 
 # 合并时不快进（保留分支历史）
 git merge --no-ff dev
@@ -428,7 +488,8 @@ Rebase（变成直线，更清爽）：
   A ── B ── C' ── D'
 ```
 
-> **测试人员注意：** rebase 会改写提交历史，已 push 到共享分支的提交不要 rebase。
+!!! warning "测试人员注意"
+    rebase 会改写提交历史，已 push 到共享分支的提交不要 rebase。
 
 ### 4.5 分支合并策略
 
@@ -441,13 +502,16 @@ Rebase（变成直线，更清爽）：
 
 ---
 
-## 五、远程仓库
+## 5、远程仓库
 
 ### 5.1 关联远程仓库
 
 ```bash
 # 查看已关联的远程仓库
 git remote -v
+# 输出示例：
+# origin  https://github.com/user/repo.git (fetch)
+# origin  https://github.com/user/repo.git (push)
 
 # 添加远程仓库
 git remote add origin https://github.com/user/repo.git
@@ -462,7 +526,8 @@ git remote remove origin
 git remote rename origin upstream
 ```
 
-> `origin` 是远程仓库的默认名字，可以改成任何名字。
+!!! tip "提示"
+    `origin` 是远程仓库的默认名字，可以改成任何名字。
 
 ### 5.2 推送（Push）
 
@@ -485,7 +550,8 @@ git push --force
 git push -f
 ```
 
-> ⚠️ **强制推送会覆盖远程历史**，可能让协作者代码丢失。**禁止对 main/master 强制推送**。
+!!! danger "危险"
+    强制推送会覆盖远程历史，可能让协作者代码丢失。禁止对 main/master 强制推送。
 
 ### 5.3 拉取（Pull / Fetch）
 
@@ -556,7 +622,7 @@ git push origin main
 
 ---
 
-## 六、冲突解决
+## 6、冲突解决
 
 ### 6.1 什么时候有冲突
 
@@ -649,7 +715,7 @@ VSCode、PyCharm、Sourcetree 都内置可视化冲突解决界面。
 
 ---
 
-## 七、撤销与回滚
+## 7、撤销与回滚
 
 ### 7.1 撤销工作区修改
 
@@ -663,7 +729,8 @@ git checkout -- .
 git restore .
 ```
 
-> ⚠️ **会丢失修改内容**，不可恢复。
+!!! danger "危险"
+    会丢失修改内容，不可恢复。
 
 ### 7.2 撤销暂存区
 
@@ -734,7 +801,8 @@ git reset --hard HEAD@{1}
 git reset --hard 89de56f
 ```
 
-> **救命的命令：** reset --hard 之后只要 30 天内通过 reflog 还能找回。
+!!! tip "救命的命令"
+    reset --hard 之后只要 30 天内通过 reflog 还能找回。
 
 ### 7.6 暂存修改（stash）
 
@@ -747,6 +815,9 @@ git stash save "调试登录用例"
 
 # 查看暂存列表
 git stash list
+# 输出示例：
+# stash@{0}: On feature/login: 调试登录用例
+# stash@{1}: On main: WIP on test_user.py
 
 # 应用最近的暂存
 git stash apply
@@ -765,7 +836,7 @@ git stash clear
 
 ---
 
-## 八、协作流程
+## 8、协作流程
 
 ### 8.1 Git Flow（经典分支模型）
 
@@ -883,11 +954,12 @@ config/secret.yaml
 .env.local
 ```
 
-> **测试人员常犯错误：** 把测试报告、日志、配置文件（含密码）提交了，污染仓库。
+!!! warning "常见误区"
+    测试人员常犯错误：把测试报告、日志、配置文件（含密码）提交了，污染仓库。
 
 ---
 
-## 九、常用平台使用
+## 9、常用平台使用
 
 ### 9.1 GitHub
 
@@ -949,9 +1021,9 @@ config/secret.yaml
 
 ---
 
-## 十、测试场景实战
+## 10、测试场景实战
 
-### 十.1 场景一：克隆项目并跑自动化
+### 10.1 场景一：克隆项目并跑自动化
 
 ```bash
 # 1. 克隆
@@ -1085,7 +1157,7 @@ git push
 
 ---
 
-## 十一、常见问题排查
+## 11、常见问题排查
 
 ### 11.1 push 被拒绝
 
@@ -1192,7 +1264,7 @@ git checkout main
 
 ---
 
-## 十二、最佳实践与速查
+## 12、最佳实践与速查
 
 ### 12.1 提交规范
 
@@ -1265,4 +1337,5 @@ git pull --rebase       # 拉取 + rebase
 
 ---
 
-> **测试纪律：** 提交代码前自检：1) 没有密码、Token 等敏感信息；2) 没有大文件（>10MB）；3) 没有临时文件、日志、报告；4) 提交信息清晰；5) 本地测试通过。涉及主干分支的操作三思而后行。
+!!! warning "测试纪律"
+    提交代码前自检：1) 没有密码、Token 等敏感信息；2) 没有大文件（>10MB）；3) 没有临时文件、日志、报告；4) 提交信息清晰；5) 本地测试通过。涉及主干分支的操作三思而后行。

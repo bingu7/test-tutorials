@@ -4,6 +4,14 @@
 
 ---
 
+## 前置要求
+
+| 项目 | 要求 | 获取方式 |
+|------|------|----------|
+| Linux 基础 | 熟悉命令行操作、文件系统和进程管理 | [Linux实用教程-软件测试版](../工具操作/Linux实用教程-软件测试版.md) |
+
+---
+
 ## 新手导读
 
 Docker 对新手来说可以先理解成“把环境打包起来运行”。测试人员使用 Docker，主要是为了快速启动数据库、缓存、接口服务或自动化运行环境。
@@ -106,7 +114,8 @@ Dockerfile → docker build → Image → docker push → Registry
 - 启动后状态栏出现 Docker 图标（鲸鱼）
 - 自动开机启动
 
-> Windows 需要开启 Hyper-V 或 WSL2。
+!!! warning "注意"
+    Windows 需要开启 Hyper-V 或 WSL2。
 
 ### 2.2 Linux
 
@@ -138,6 +147,19 @@ sudo usermod -aG docker $USER
 docker --version
 docker info
 docker run hello-world      # 跑测试容器
+```
+
+`docker run hello-world` 输出示例：
+
+```
+Hello from Docker!
+This message shows that your installation appears to be working correctly.
+
+To generate this message, Docker took the following steps:
+ 1. The Docker client contacted the Docker daemon.
+ 2. The Docker daemon pulled the "hello-world" image from the Docker Hub.
+ 3. The Docker daemon created a new container from that image.
+ 4. The Docker daemon streamed that output to the Docker client.
 ```
 
 ### 2.4 配置镜像加速
@@ -293,6 +315,10 @@ docker run -it ubuntu /bin/bash
 ```bash
 # 运行中的容器
 docker ps
+# 输出示例：
+# CONTAINER ID   IMAGE     COMMAND                  CREATED         STATUS         PORTS                    NAMES
+# a1b2c3d4e5f6   nginx     "/docker-entrypoint.…"   5 minutes ago   Up 5 minutes   0.0.0.0:8080->80/tcp     mynginx
+# f6e5d4c3b2a1   mysql     "docker-entrypoint.s…"   2 hours ago     Up 2 hours     0.0.0.0:3306->3306/tcp   mysql_test
 
 # 所有容器（含已停止）
 docker ps -a
@@ -343,6 +369,11 @@ docker exec -it mynginx /bin/sh    # 没 bash 时用 sh
 
 ```bash
 docker logs mynginx
+# 输出示例：
+# /docker-entrypoint.sh: /docker-entrypoint.d/ is not empty, will attempt to perform configuration
+# /docker-entrypoint.sh: Looking for shell scripts in /docker-entrypoint.d/
+# Starting nginx: nginx.
+
 docker logs -f mynginx          # 实时跟踪
 docker logs --tail 100 mynginx  # 看最后 100 行
 docker logs -t mynginx          # 显示时间戳
@@ -358,6 +389,10 @@ docker inspect --format='{{.NetworkSettings.IPAddress}}' mynginx
 # 资源使用
 docker stats                    # 实时
 docker stats --no-stream        # 一次快照
+# 输出示例：
+# CONTAINER ID   NAME       CPU %   MEM USAGE / LIMIT   MEM %   NET I/O         BLOCK I/O       PIDS
+# a1b2c3d4e5f6   mynginx    0.00%   2.5MiB / 7.7GiB     0.03%   1.2kB / 0B      0B / 0B         2
+# f6e5d4c3b2a1   mysql_test 0.12%   210MiB / 7.7GiB     2.67%   5.6kB / 3.2kB   12MB / 0B       38
 
 # 进程
 docker top mynginx
@@ -381,7 +416,8 @@ docker cp mysql_test:/var/log/mysql/error.log ./
 docker commit -m "add test data" mysql_test mysql_with_data:v1
 ```
 
-> 不推荐这种方式，应该用 Dockerfile（可重复、可追溯）。
+!!! tip "建议"
+    不推荐这种方式，应该用 Dockerfile（可重复、可追溯）。
 
 ---
 
@@ -718,6 +754,15 @@ docker run -d \
 docker network ls
 ```
 
+输出示例：
+
+```
+NETWORK ID     NAME      DRIVER    SCOPE
+8a7b6c5d4e3f   bridge    bridge    local
+1f2e3d4c5b6a   host      host      local
+9c8b7a6f5e4d   none      null      local
+```
+
 | 网络 | 用途 |
 |------|------|
 | `bridge` | 默认，单机容器互通 |
@@ -797,11 +842,13 @@ sudo yum install docker-compose-plugin
 docker compose version
 ```
 
-> **注意：** 旧的独立二进制 `docker-compose`（V1，命令带短横）已停止维护，应使用 `docker compose`（V2，作为 docker 子命令）。本教程后续示例都用 `docker compose`。
+!!! warning "注意"
+    旧的独立二进制 `docker-compose`（V1，命令带短横）已停止维护，应使用 `docker compose`（V2，作为 docker 子命令）。本教程后续示例都用 `docker compose`。
 
 ### 8.3 第一个 docker-compose.yml
 
-> Compose V2 已忽略 `version` 字段并发出弃用警告，新写的文件不要再加。本教程保留作示意，实际可删。
+!!! info "兼容性说明"
+    Compose V2 已忽略 `version` 字段并发出弃用警告，新写的文件不要再加。本教程保留作示意，实际可删。
 
 ```yaml
 # version: '3.8'    # V2 已弃用，可删除
@@ -849,6 +896,12 @@ volumes:
 ```bash
 # 启动所有服务（后台）
 docker compose up -d
+# 输出示例：
+# [+] Running 4/4
+#  ✔ Network myproject_default   Created                          0.1s
+#  ✔ Container my_mysql          Started                          2.3s
+#  ✔ Container my_redis          Started                          0.8s
+#  ✔ Container my_app            Started                          1.5s
 
 # 停止
 docker compose stop
@@ -867,6 +920,11 @@ docker compose down -v
 
 # 看状态
 docker compose ps
+# 输出示例：
+# NAME       IMAGE              COMMAND                  SERVICE    STATUS    PORTS
+# my_mysql   mysql:8.0          "docker-entrypoint.s…"   mysql      running   0.0.0.0:3306->3306/tcp
+# my_redis   redis:7            "docker-entrypoint.s…"   redis      running   0.0.0.0:6379->6379/tcp
+# my_app     myproject-app      "python app.py"          app        running   0.0.0.0:8080->8080/tcp
 
 # 看日志
 docker compose logs
@@ -1011,7 +1069,8 @@ docker run -d \
   elasticsearch:8.10.0
 ```
 
-> ES 默认堆内存较大，单机测试建议显式限制 `ES_JAVA_OPTS`，否则容易 OOM 或启动失败。
+!!! warning "注意"
+    ES 默认堆内存较大，单机测试建议显式限制 `ES_JAVA_OPTS`，否则容易 OOM 或启动失败。
 
 ### 9.6 完整测试环境
 
@@ -1410,4 +1469,5 @@ docker container prune
 
 ---
 
-> **测试纪律：** Docker 容器是测试人员的瑞士军刀，正确使用能极大提升效率。但要养成清理习惯，避免磁盘占满；密码等敏感信息不要硬编码在 Dockerfile，用环境变量或秘钥管理。
+!!! warning "测试纪律"
+    Docker 容器是测试人员的瑞士军刀，正确使用能极大提升效率。但要养成清理习惯，避免磁盘占满；密码等敏感信息不要硬编码在 Dockerfile，用环境变量或秘钥管理。

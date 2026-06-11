@@ -4,6 +4,12 @@
 
 ---
 
+## 前置要求
+
+无前置要求，零基础可直接学习。
+
+---
+
 ## 新手导读
 
 Linux 命令很多，新手不要按字典背。测试工作里先掌握“查日志、看进程、查端口、看磁盘、看服务状态”这五类就够用。
@@ -43,7 +49,8 @@ Linux 命令很多，新手不要按字典背。测试工作里先掌握“查�
 | **Alpine** | 体积小，Docker 常用 | `apk` |
 | **OpenEuler / 麒麟** | 国产化替代 | `yum` / `dnf` |
 
-> **测试人员建议：** 生产环境更常见的是 RHEL 系（Rocky Linux、AlmaLinux、CentOS Stream）与 Ubuntu LTS；老项目仍可能遇到 CentOS 7，相关命令需要结合系统版本确认。
+!!! tip "测试人员建议"
+    生产环境更常见的是 RHEL 系（Rocky Linux、AlmaLinux、CentOS Stream）与 Ubuntu LTS；老项目仍可能遇到 CentOS 7，相关命令需要结合系统版本确认。
 
 ### 1.3 Linux 目录结构
 
@@ -169,8 +176,29 @@ ssh username@192.168.1.100
 
 ```bash
 pwd                    # 显示当前路径（print working directory）
+```
+
+```
+/home/testuser
+```
+
+```bash
 whoami                 # 显示当前用户
+```
+
+```
+testuser
+```
+
+```bash
 hostname               # 显示主机名
+```
+
+```
+app-server-01
+```
+
+```bash
 date                   # 显示当前时间
 uname -a               # 显示系统信息
 uptime                 # 显示运行时长和负载
@@ -217,6 +245,20 @@ type ls                # 查看命令类型
 ls                     # 列出当前目录
 ls -l                  # 详细列表（权限/大小/时间）
 ls -la                 # 包含隐藏文件
+```
+
+```
+total 32
+drwxr-xr-x 5 testuser testuser 4096 Jun  7 10:00 .
+drwxr-xr-x 3 root     root     4096 Jun  1 09:00 ..
+-rw------- 1 testuser testuser  220 Jun  1 09:00 .bash_history
+-rw-r--r-- 1 testuser testuser  807 Jun  1 09:00 .bashrc
+drwxr-xr-x 2 testuser testuser 4096 Jun  5 14:30 Desktop
+drwxr-xr-x 2 testuser testuser 4096 Jun  6 16:00 logs
+-rw-r--r-- 1 testuser testuser  512 Jun  7 10:00 test.sh
+```
+
+```bash
 ls -lh                 # 文件大小人类可读（K/M/G）
 ls -lt                 # 按时间排序
 ls -lS                 # 按大小排序
@@ -248,7 +290,8 @@ rmdir emptydir         # 仅能删除空目录
 rm -rf mydir           # 递归强制删除（危险！）
 ```
 
-> ⚠️ **`rm -rf` 是 Linux 最危险的命令**。执行前务必确认路径，特别是不要在 `/` 下使用。`rm -rf /` 会清空整个系统。
+!!! danger "危险"
+    `rm -rf` 是 Linux 最危险的命令。执行前务必确认路径，特别是不要在 `/` 下使用。`rm -rf /` 会清空整个系统。
 
 ### 4.3 复制与移动
 
@@ -272,6 +315,17 @@ mv *.log /tmp/logs/    # 移动所有 .log
 ```bash
 # 按文件名
 find /var/log -name "*.log"
+```
+
+```
+/var/log/auth.log
+/var/log/syslog
+/var/log/nginx/access.log
+/var/log/nginx/error.log
+/var/log/mysql/error.log
+```
+
+```bash
 find / -iname "test*"           # 忽略大小写
 
 # 按类型
@@ -419,11 +473,12 @@ vim file.txt           # 打开文件，默认普通模式
 | `:set nu` | 显示行号 |
 | `:set nonu` | 不显示行号 |
 
-> **测试人员小贴士：** 如果只是修改配置文件，不熟悉 vim 时可以用 `nano` 代替，操作类似 Windows 记事本：
-> ```bash
-> nano file.txt
-> # Ctrl+O 保存，Ctrl+X 退出
-> ```
+!!! tip "测试人员小贴士"
+    如果只是修改配置文件，不熟悉 vim 时可以用 `nano` 代替，操作类似 Windows 记事本：
+    ```bash
+    nano file.txt
+    # Ctrl+O 保存，Ctrl+X 退出
+    ```
 
 ---
 
@@ -519,7 +574,8 @@ usermod -aG wheel testuser
 
 ## 七、文本处理三剑客
 
-> **测试人员核心技能**：grep、sed、awk 是 Linux 处理日志的三大利器，必须掌握。
+!!! abstract "测试人员核心技能"
+    grep、sed、awk 是 Linux 处理日志的三大利器，必须掌握。
 
 ### 7.1 grep（过滤）
 
@@ -528,7 +584,15 @@ usermod -aG wheel testuser
 ```bash
 # 在文件中搜索关键字
 grep "ERROR" app.log
+```
 
+```
+2026-06-07 10:23:15 ERROR OrderService - OrderException: 订单号100045不存在
+2026-06-07 10:25:33 ERROR PaymentService - TimeoutException: 支付网关超时
+2026-06-07 11:02:07 ERROR UserService - NullPointerException: 用户信息为空
+```
+
+```bash
 # 忽略大小写
 grep -i "error" app.log
 
@@ -648,10 +712,30 @@ awk '{sum += $1} END {print sum}' nums.txt
 ```bash
 # 统计 Nginx 访问日志中每个 IP 的访问次数
 awk '{print $1}' access.log | sort | uniq -c | sort -rn | head -10
+```
 
+```
+   2345 192.168.1.50
+   1892 192.168.1.51
+   1023 10.0.0.15
+    876 192.168.1.52
+    543 10.0.0.22
+```
+
+```bash
 # 统计 HTTP 状态码分布
 awk '{print $9}' access.log | sort | uniq -c | sort -rn
+```
 
+```
+  12583 200
+   3421 304
+    892 404
+    234 500
+     12 502
+```
+
+```bash
 # 计算接口平均响应时间（假设第 10 列是响应时间）
 awk '{sum+=$10; count++} END {print sum/count}' access.log
 
@@ -706,7 +790,8 @@ nohup ./test.sh > test.log 2>&1 &
 
 ## 八、日志分析实战
 
-> 这是测试人员的核心日常工作。下面是真实场景下的日志分析套路。
+!!! abstract "核心概念"
+    这是测试人员的核心日常工作。下面是真实场景下的日志分析套路。
 
 ### 8.1 常见日志位置
 
@@ -804,7 +889,19 @@ grep "OrderException" app.log | awk '{print $1, $2}' | head -20
 # 查看所有进程
 ps -ef
 ps aux
+```
 
+```
+USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+root         1  0.0  0.1 168216 11540 ?        Ss   Jun01   0:05 /sbin/init
+root       532  0.0  0.2 217464 18320 ?        Ss   Jun01   0:12 /usr/sbin/sshd
+nginx      891  0.2  0.5 524288 43648 ?        S    09:00   0:30 nginx: worker process
+mysql      923  1.5  8.2 1856512 671744 ?      Sl   Jun01  45:12 /usr/sbin/mysqld
+testuser  2104  0.0  0.0  15536  3420 pts/0    Ss   10:00   0:00 -bash
+testuser  2356  0.0  0.0   8816   640 pts/0    R+   14:30   0:00 ps aux
+```
+
+```bash
 # 查找特定进程
 ps -ef | grep nginx
 ps -ef | grep java | grep -v grep   # 排除 grep 自身
@@ -881,7 +978,26 @@ systemctl reload nginx          # 不中断重载配置
 
 # 查看状态
 systemctl status nginx
+```
 
+```
+● nginx.service - The nginx HTTP and reverse proxy server
+     Loaded: loaded (/usr/lib/systemd/system/nginx.service; enabled; vendor preset: disabled)
+     Active: active (running) since Sat 2026-06-07 09:00:15 CST; 5h ago
+    Process: 890 ExecStart=/usr/sbin/nginx (code=exited, status=0/SUCCESS)
+   Main PID: 891 (nginx)
+      Tasks: 3 (limit: 11064)
+     Memory: 12.5M
+        CPU: 312ms
+     CGroup: /system.slice/nginx.service
+             ├─891 "nginx: master process /usr/sbin/nginx"
+             ├─892 "nginx: worker process"
+             └─893 "nginx: worker process"
+
+Jun 07 09:00:15 app-server-01 systemd[1]: Started The nginx HTTP and reverse proxy server.
+```
+
+```bash
 # 开机启动
 systemctl enable nginx
 systemctl disable nginx
@@ -931,7 +1047,8 @@ crontab -r
 └────────── 分钟（0-59）
 ```
 
-> 不同 cron 实现对星期字段略有差异：Vixie cron / cronie 同时支持 0 和 7 表示周日；BusyBox 等精简版可能只支持 0-6。安全做法是统一用 0。
+!!! info "兼容性说明"
+    不同 cron 实现对星期字段略有差异：Vixie cron / cronie 同时支持 0 和 7 表示周日；BusyBox 等精简版可能只支持 0-6。安全做法是统一用 0。
 
 **示例：**
 
@@ -958,16 +1075,33 @@ crontab -r
 
 ## 十、性能监控
 
-> 测试人员做性能测试或排查问题时必备的监控命令。
+!!! abstract "核心概念"
+    测试人员做性能测试或排查问题时必备的监控命令。
 
 ### 10.1 CPU 监控
 
 ```bash
 # 实时监控（最常用）
 top
-# 输出示例：
-# %Cpu(s):  5.0 us,  2.0 sy,  0.0 ni, 92.0 id,  1.0 wa
-#           用户   系统       空闲    IO等待
+```
+
+```
+top - 14:30:25 up 7 days,  3:12,  2 users,  load average: 0.52, 0.38, 0.35
+Tasks: 187 total,   1 running, 186 sleeping,   0 stopped,   0 zombie
+%Cpu(s):  5.0 us,  2.0 sy,  0.0 ni, 92.0 id,  1.0 wa,  0.0 hi,  0.0 si
+MiB Mem :   7892.4 total,   3276.8 free,   2150.4 used,   2465.2 buff/cache
+MiB Swap:   2048.0 total,   2048.0 free,      0.0 used.   5432.1 avail Mem
+
+  PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND
+  923 mysql     20   0 1856512 671744  18432 S   1.5   8.3  45:12.34 mysqld
+  891 nginx     20   0  524288  43648   8192 S   0.2   0.5   0:30.17 nginx
+```
+
+```bash
+# 关键指标：
+# load average: 0.52, 0.38, 0.35  -- 1/5/15分钟平均负载
+# %Cpu(s):  92.0 id               -- 空闲CPU（越高越好）
+# %MEM 列                          -- 各进程内存占用
 
 htop                   # 升级版
 
@@ -993,11 +1127,15 @@ cat /proc/cpuinfo | grep "processor" | wc -l    # 核数
 ```bash
 # 查看内存（推荐）
 free -h
-# 输出：
-#               total  used  free  shared  buff/cache  available
-# Mem:           7.7G  2.1G  3.2G    100M        2.4G       5.3G
-# Swap:          2.0G    0B  2.0G
+```
 
+```
+               total        used        free      shared  buff/cache   available
+Mem:           7.7Gi       2.1Gi       3.2Gi       100Mi       2.4Gi       5.3Gi
+Swap:          2.0Gi          0B       2.0Gi
+```
+
+```bash
 # 详细内存信息
 cat /proc/meminfo
 
@@ -1014,11 +1152,16 @@ free -h -s 1
 ```bash
 # 磁盘使用率（最常用！）
 df -h
-# 输出：
-# Filesystem      Size  Used Avail Use% Mounted on
-# /dev/sda1        50G   30G   20G  60% /
-# /dev/sdb1       500G  100G  400G  20% /data
+```
 
+```
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/sda1        50G   30G   20G  60% /
+/dev/sdb1       500G  100G  400G  20% /data
+tmpfs           3.9G     0  3.9G   0% /dev/shm
+```
+
+```bash
 # 查看目录大小
 du -sh /var/log               # 单个目录
 du -sh /var/log/*             # 目录内每个子项
@@ -1123,7 +1266,8 @@ firewall-cmd --reload
 
 ### 11.3 接口调试（curl）
 
-> **测试人员必会的接口测试命令行工具。**
+!!! abstract "核心概念"
+    测试人员必会的接口测试命令行工具。
 
 ```bash
 # GET 请求
@@ -1131,7 +1275,18 @@ curl http://api.example.com/user/1
 
 # 显示响应头
 curl -i http://api.example.com/user/1
+```
 
+```
+HTTP/1.1 200 OK
+Content-Type: application/json; charset=utf-8
+Content-Length: 87
+Date: Sat, 07 Jun 2026 06:30:00 GMT
+
+{"id":1,"name":"张三","age":25,"email":"zhang@example.com","city":"北京"}
+```
+
+```bash
 # 仅显示响应头
 curl -I http://api.example.com/user/1
 
@@ -1813,7 +1968,8 @@ source ~/.bashrc
 # sudo update-locale LANG=zh_CN.UTF-8
 ```
 
-> bashrc 仅对交互式 shell 生效，cron 任务、systemd 服务不受影响。要全局生效用 `localectl` / `update-locale`，或修改 `/etc/locale.conf`。
+!!! info "兼容性说明"
+    bashrc 仅对交互式 shell 生效，cron 任务、systemd 服务不受影响。要全局生效用 `localectl` / `update-locale`，或修改 `/etc/locale.conf`。
 
 ### 16.7 找不到命令
 
@@ -1905,6 +2061,8 @@ systemctl   # 服务
 
 ---
 
-> **文档说明：** 本教程以 RHEL 系发行版与 Ubuntu LTS 的通用命令为主，多数命令在其他主流发行版通用；老项目中的 CentOS 7 命令需结合系统版本确认。
-> 
-> **测试纪律：** 操作生产环境务必经过申请审批，禁止在生产环境执行未经评审的 Shell 脚本，禁止使用 root 账户进行日常测试操作。`rm -rf` 命令使用前务必三思。
+!!! info "文档说明"
+    本教程以 RHEL 系发行版与 Ubuntu LTS 的通用命令为主，多数命令在其他主流发行版通用；老项目中的 CentOS 7 命令需结合系统版本确认。
+
+!!! warning "测试纪律"
+    操作生产环境务必经过申请审批，禁止在生产环境执行未经评审的 Shell 脚本，禁止使用 root 账户进行日常测试操作。`rm -rf` 命令使用前务必三思。
