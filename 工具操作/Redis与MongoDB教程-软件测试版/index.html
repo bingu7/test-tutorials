@@ -1157,6 +1157,17 @@
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
       
+        前置要求
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
         新手导读
       
     </span>
@@ -1575,7 +1586,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
+  <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
       
         八、常见问题排查
@@ -1636,7 +1647,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
+  <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
       
         附录：速查表
@@ -3295,6 +3306,17 @@
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
       
+        前置要求
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
         新手导读
       
     </span>
@@ -3713,7 +3735,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
+  <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
       
         八、常见问题排查
@@ -3774,7 +3796,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
+  <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
       
         附录：速查表
@@ -3837,7 +3859,25 @@
 <p>本教程面向软件测试工程师，讲解 Redis 和 MongoDB 在测试工作中的常用操作：连接、查询、校验数据、清理数据。</p>
 </blockquote>
 <hr />
-<h2 id="_1">新手导读<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h2 id="_1">前置要求<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>要求</th>
+<th>获取方式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>数据库 SQL 基础</td>
+<td>掌握 SELECT、WHERE、JOIN 等基本查询语法</td>
+<td><a href="../%E6%95%B0%E6%8D%AE%E5%BA%93SQL%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/">数据库SQL教程-软件测试版</a></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_2">新手导读<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <p>Redis 和 MongoDB 对新手来说容易抽象。你可以先把它们理解成“业务系统旁边的特殊数据存储”：Redis 常用来放缓存、验证码、登录态、计数器；MongoDB 常用来放文档型数据。</p>
 <p>第一遍重点掌握：</p>
 <ol>
@@ -4478,7 +4518,7 @@
 <a id="__codelineno-22-20" name="__codelineno-22-20" href="#__codelineno-22-20"></a><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">insertMany</span><span class="p">(</span><span class="nx">users</span><span class="p">);</span>
 </code></pre></div>
 <hr />
-<h2 id="_2">八、常见问题排查<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h2 id="_3">八、常见问题排查<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
 <h3 id="81-redis">8.1 Redis 连不上<a class="headerlink" href="#81-redis" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="c1"># 检查端口</span>
 <a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>telnet<span class="w"> </span><span class="m">192</span>.168.1.100<span class="w"> </span><span class="m">6379</span>
@@ -4520,7 +4560,7 @@
 <a id="__codelineno-26-6" name="__codelineno-26-6" href="#__codelineno-26-6"></a><span class="c1">// &quot;stage&quot;: &quot;IXSCAN&quot; = 索引扫描（快）</span>
 </code></pre></div>
 <hr />
-<h2 id="_3">附录：速查表<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<h2 id="_4">附录：速查表<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
 <h3 id="redis_3">Redis<a class="headerlink" href="#redis_3" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>KEYS<span class="w"> </span>pattern<span class="w">          </span><span class="c1"># 查找 key</span>
 <a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a>TYPE<span class="w"> </span>key<span class="w">              </span><span class="c1"># 类型</span>
@@ -4543,9 +4583,10 @@
 <a id="__codelineno-28-9" name="__codelineno-28-9" href="#__codelineno-28-9"></a><span class="nx">db</span><span class="p">.</span><span class="nx">col</span><span class="p">.</span><span class="nx">distinct</span><span class="p">(</span><span class="s2">&quot;field&quot;</span><span class="p">)</span><span class="w">          </span><span class="err">#</span><span class="w"> </span><span class="nx">去重</span>
 </code></pre></div>
 <hr />
-<blockquote>
-<p><strong>测试纪律：</strong> 清理 Redis/MongoDB 数据前确认是测试环境。生产环境禁止执行 FLUSHDB/FLUSHALL。重要操作前先备份。</p>
-</blockquote>
+<div class="admonition warning">
+<p class="admonition-title">测试纪律</p>
+<p>清理 Redis/MongoDB 数据前确认是测试环境。生产环境禁止执行 FLUSHDB/FLUSHALL。重要操作前先备份。</p>
+</div>
 
 
 
