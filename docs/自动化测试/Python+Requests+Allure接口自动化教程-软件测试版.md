@@ -64,22 +64,22 @@ def test_login():
 ```python
 def test_login_success(api_client):
     response = api_client.post(
-        “/api/login”,
-        json={“username”: “test”, “password”: “123456”},  # (1)
+        "/api/login",
+        json={"username": "test", "password": "123456"},  # (1)
     )
     body = response.json()
 
     assert response.status_code == 200                     # (2)
-    assert body[“code”] == 0                               # (3)
-    assert body[“data”][“token”]                           # (4)
+    assert body["code"] == 0                               # (3)
+    assert body["data"]["token"]                           # (4)
 ```
 
 1. `json=` 会自动将字典序列化为 JSON 并设置 `Content-Type: application/json`，而 `data=` 发送的是表单编码
 2. 断言 HTTP 状态码，确认请求本身没有网络层错误
-3. 断言业务状态码，区分”请求成功但业务失败”（如密码错误返回 code=1001）
+3. 断言业务状态码，区分“请求成功但业务失败”（如密码错误返回 code=1001）
 4. 断言关键字段存在，确保登录后确实返回了 token，否则后续接口调用会全部失败
 
-接口自动化的价值不是”能发请求”，而是能稳定判断业务是否被破坏。
+接口自动化的价值不是“能发请求”，而是能稳定判断业务是否被破坏。
 
 ## 一、技术栈介绍
 
