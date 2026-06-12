@@ -34,6 +34,7 @@ theme:
     - navigation.expand         # 默认展开侧边栏
     - navigation.top            # 返回顶部按钮
     - navigation.instant        # 即时加载（SPA 体验）
+    - navigation.footer         # 上/下篇导航
     - search.suggest            # 搜索建议
     - search.highlight          # 搜索高亮
     - content.code.copy         # 代码块复制按钮
