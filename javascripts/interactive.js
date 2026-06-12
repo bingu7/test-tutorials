@@ -5,11 +5,41 @@ function initAll() {
     initReadingProgress();
     initRelatedTutorials();
     initKeyboardShortcuts();
+    initScrollMemory();
 }
 
 document.addEventListener('DOMContentLoaded', initAll);
 if (typeof document$ !== 'undefined') {
     document$.subscribe(initAll);
+}
+
+// ==================== 滚动位置记忆 ====================
+function initScrollMemory() {
+    var key = 'scroll-' + window.location.pathname;
+
+    // 恢复滚动位置（页面加载时）
+    var saved = sessionStorage.getItem(key);
+    if (saved) {
+        var pos = parseInt(saved, 10);
+        if (pos > 0) {
+            // 延迟恢复，等页面完全渲染
+            setTimeout(function() {
+                window.scrollTo(0, pos);
+            }, 100);
+        }
+    }
+
+    // 保存滚动位置（页面离开前）
+    window.addEventListener('beforeunload', function() {
+        sessionStorage.setItem(key, window.scrollY);
+    });
+
+    // SPA 导航时也保存
+    if (typeof location$ !== 'undefined') {
+        location$.subscribe(function() {
+            sessionStorage.setItem(key, window.scrollY);
+        });
+    }
 }
 
 // ==================== 测验功能 ====================
