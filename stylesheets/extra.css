@@ -289,6 +289,87 @@
     --home-step-color: #b8a4ff;
 }
 
+/* ==================== 向上滚动时显示顶部主导航 ==================== */
+@media screen and (min-width: 76.25em) {
+    .scroll-tabs {
+        position: fixed;
+        top: var(--scroll-header-height, 2.4rem);
+        right: 0;
+        left: 0;
+        z-index: 2;
+        background: var(--md-primary-fg-color);
+        box-shadow: none;
+        opacity: 1;
+        pointer-events: none;
+        transform: translateY(-100%);
+        transition:
+            transform 0.24s cubic-bezier(0.4, 0, 0.2, 1),
+            visibility 0s linear 0.24s;
+        visibility: hidden;
+        will-change: transform;
+    }
+
+    .md-scroll-up:not(.md-scroll-top) .md-header,
+    .md-scroll-up:not(.md-scroll-top) .md-header--shadow {
+        box-shadow: none;
+    }
+
+    .scroll-tabs__inner {
+        display: flex;
+        align-items: center;
+        gap: 0.35rem;
+        min-height: 2.35rem;
+        overflow-x: auto;
+        scrollbar-width: none;
+    }
+
+    .scroll-tabs__inner::-webkit-scrollbar {
+        display: none;
+    }
+
+    .scroll-tabs__link {
+        display: inline-flex;
+        align-items: center;
+        min-height: 2.35rem;
+        padding: 0 0.65rem;
+        border-bottom: 2px solid transparent;
+        color: rgba(255, 255, 255, 0.72);
+        font-size: 0.72rem;
+        font-weight: 700;
+        line-height: 1;
+        text-decoration: none;
+        white-space: nowrap;
+        transition: color 0.18s ease, border-color 0.18s ease, background-color 0.18s ease;
+    }
+
+    .scroll-tabs__link:hover,
+    .scroll-tabs__link--active {
+        color: #fff;
+        border-bottom-color: currentColor;
+        background: rgba(255, 255, 255, 0.07);
+        text-decoration: none;
+    }
+
+    .md-scroll-up:not(.md-scroll-top) .scroll-tabs {
+        pointer-events: auto;
+        transform: translateY(0);
+        transition:
+            transform 0.24s cubic-bezier(0.4, 0, 0.2, 1),
+            visibility 0s;
+        visibility: visible;
+    }
+
+    .md-scroll-up:not(.md-scroll-top) .md-top {
+        top: calc(var(--scroll-header-height, 2.4rem) + 2.35rem + 0.8rem) !important;
+    }
+}
+
+@media screen and (max-width: 76.1875em) {
+    .scroll-tabs {
+        display: none;
+    }
+}
+
 /* ==================== 难度标识 ==================== */
 .tutorial-meta {
     display: flex;

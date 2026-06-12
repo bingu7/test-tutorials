@@ -1,5 +1,6 @@
 // MkDocs Material SPA 支持
 function initAll() {
+    initHeaderTabsOnScroll();
     initQuizzes();
     initProgressTracker();
     initReadingProgress();
@@ -11,6 +12,85 @@ function initAll() {
 document.addEventListener('DOMContentLoaded', initAll);
 if (typeof document$ !== 'undefined') {
     document$.subscribe(initAll);
+}
+
+// ==================== 向上滚动时显示顶部主导航 ====================
+function initHeaderTabsOnScroll() {
+    syncScrollTabs();
+
+    if (window.__headerTabsOnScrollInitialized) return;
+    window.__headerTabsOnScrollInitialized = true;
+
+    var root = document.documentElement;
+    var lastY = window.scrollY || document.documentElement.scrollTop || 0;
+    var revealThreshold = 120;
+    var ticking = false;
+
+    function syncHeaderHeight() {
+        var header = document.querySelector('.md-header');
+        if (!header) return;
+        root.style.setProperty('--scroll-header-height', header.getBoundingClientRect().height + 'px');
+    }
+
+    function applyState() {
+        syncHeaderHeight();
+
+        var currentY = window.scrollY || document.documentElement.scrollTop || 0;
+        var delta = currentY - lastY;
+        var canRevealTabs = currentY > revealThreshold;
+
+        root.classList.toggle('md-scroll-top', currentY <= 8);
+
+        if (Math.abs(delta) >= 4) {
+            root.classList.toggle('md-scroll-down', delta > 0 && currentY > 8);
+            root.classList.toggle('md-scroll-up', delta < 0 && canRevealTabs);
+            lastY = currentY;
+        }
+
+        if (!canRevealTabs) {
+            root.classList.remove('md-scroll-up');
+        }
+
+        ticking = false;
+    }
+
+    function requestUpdate() {
+        if (ticking) return;
+        ticking = true;
+        window.requestAnimationFrame(applyState);
+    }
+
+    applyState();
+    window.addEventListener('scroll', requestUpdate, { passive: true });
+    window.addEventListener('resize', syncHeaderHeight);
+}
+
+function syncScrollTabs() {
+    var source = document.querySelector('.md-tabs .md-tabs__list');
+    if (!source) return;
+
+    var nav = document.querySelector('.scroll-tabs');
+    if (!nav) {
+        nav = document.createElement('nav');
+        nav.className = 'scroll-tabs';
+        nav.setAttribute('aria-label', '主导航');
+        nav.innerHTML = '<div class="md-grid scroll-tabs__inner"></div>';
+        document.body.appendChild(nav);
+    }
+
+    var inner = nav.querySelector('.scroll-tabs__inner');
+    inner.innerHTML = '';
+
+    source.querySelectorAll('.md-tabs__link').forEach(function(link) {
+        var item = document.createElement('a');
+        item.className = 'scroll-tabs__link';
+        item.href = link.href;
+        item.textContent = link.textContent.trim();
+        if (link.classList.contains('md-tabs__link--active')) {
+            item.classList.add('scroll-tabs__link--active');
+        }
+        inner.appendChild(item);
+    });
 }
 
 // ==================== 滚动位置记忆 ====================
