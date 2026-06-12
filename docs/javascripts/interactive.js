@@ -16,20 +16,39 @@ if (typeof document$ !== 'undefined') {
 // ==================== 滚动位置记忆 ====================
 function initScrollMemory() {
     var key = 'scroll-' + window.location.pathname;
+    var tocKey = 'toc-' + window.location.pathname;
 
-    // 恢复滚动位置（页面加载时）
+    // 恢复主页面滚动位置
     var saved = sessionStorage.getItem(key);
     if (saved) {
         var pos = parseInt(saved, 10);
         if (pos > 0) {
-            // 延迟恢复，等页面完全渲染
             setTimeout(function() {
                 window.scrollTo(0, pos);
             }, 100);
         }
     }
 
-    // 保存滚动位置（页面离开前）
+    // 恢复右侧目录（TOC）滚动位置
+    var tocWrap = document.querySelector('.md-sidebar--secondary .md-sidebar__scrollwrap');
+    if (tocWrap) {
+        var savedToc = sessionStorage.getItem(tocKey);
+        if (savedToc) {
+            var tocPos = parseInt(savedToc, 10);
+            if (tocPos > 0) {
+                setTimeout(function() {
+                    tocWrap.scrollTop = tocPos;
+                }, 100);
+            }
+        }
+
+        // 保存 TOC 滚动位置
+        tocWrap.addEventListener('scroll', function() {
+            sessionStorage.setItem(tocKey, tocWrap.scrollTop);
+        });
+    }
+
+    // 保存主页面滚动位置（页面离开前）
     window.addEventListener('beforeunload', function() {
         sessionStorage.setItem(key, window.scrollY);
     });
@@ -38,6 +57,9 @@ function initScrollMemory() {
     if (typeof location$ !== 'undefined') {
         location$.subscribe(function() {
             sessionStorage.setItem(key, window.scrollY);
+            if (tocWrap) {
+                sessionStorage.setItem(tocKey, tocWrap.scrollTop);
+            }
         });
     }
 }
