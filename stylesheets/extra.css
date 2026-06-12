@@ -289,6 +289,318 @@
     --home-step-color: #b8a4ff;
 }
 
+/* ==================== 难度标识 ==================== */
+.tutorial-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 0.5rem 0 1.2rem;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid var(--md-default-fg-color--lightest);
+}
+
+.difficulty-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.2rem 0.55rem;
+    border-radius: 0.25rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+}
+
+.difficulty-beginner {
+    background: #e6f7ed;
+    color: #0d7a3e;
+    border: 1px solid #a3e0bd;
+}
+
+.difficulty-intermediate {
+    background: #fff7e6;
+    color: #b35c00;
+    border: 1px solid #ffd699;
+}
+
+.difficulty-advanced {
+    background: #fde8e8;
+    color: #b91c1c;
+    border: 1px solid #f5a3a3;
+}
+
+[data-md-color-scheme="slate"] .difficulty-beginner {
+    background: #0d2818;
+    color: #4ade80;
+    border-color: #166534;
+}
+
+[data-md-color-scheme="slate"] .difficulty-intermediate {
+    background: #2d1f0d;
+    color: #fbbf24;
+    border-color: #92400e;
+}
+
+[data-md-color-scheme="slate"] .difficulty-advanced {
+    background: #2d0d0d;
+    color: #f87171;
+    border-color: #991b1b;
+}
+
+.meta-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    color: var(--md-default-fg-color--light);
+    font-size: 0.75rem;
+}
+
+.meta-item svg {
+    width: 0.85rem;
+    height: 0.85rem;
+    fill: currentColor;
+}
+
+/* ==================== 阅读进度条 ==================== */
+.reading-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 3px;
+    background: var(--md-primary-fg-color);
+    z-index: 100;
+    transition: width 0.1s;
+}
+
+/* ==================== 相关推荐 ==================== */
+.related-tutorials {
+    margin: 2rem 0;
+    padding: 1.2rem;
+    border: 1px solid var(--md-default-fg-color--lightest);
+    border-radius: 0.4rem;
+    background: var(--md-code-bg-color);
+}
+
+.related-tutorials h4 {
+    margin: 0 0 0.8rem;
+    font-size: 0.95rem;
+    color: var(--md-default-fg-color);
+}
+
+.related-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+    gap: 0.6rem;
+}
+
+.related-item {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.5rem 0.7rem;
+    border: 1px solid var(--md-default-fg-color--lightest);
+    border-radius: 0.3rem;
+    background: var(--md-default-bg-color);
+    text-decoration: none;
+    color: var(--md-typeset-a-color);
+    font-size: 0.78rem;
+    transition: all 0.2s;
+}
+
+.related-item:hover {
+    border-color: var(--md-primary-fg-color);
+    background: var(--md-code-bg-color);
+    text-decoration: none;
+    color: var(--md-accent-fg-color);
+}
+
+.related-item-icon {
+    font-size: 1.1rem;
+    flex-shrink: 0;
+}
+
+.related-item-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* ==================== 快捷键提示 ==================== */
+.kbd {
+    display: inline-block;
+    padding: 0.1rem 0.4rem;
+    border: 1px solid var(--md-default-fg-color--lighter);
+    border-radius: 0.2rem;
+    background: var(--md-code-bg-color);
+    color: var(--md-default-fg-color--light);
+    font-family: monospace;
+    font-size: 0.72rem;
+    line-height: 1.5;
+    box-shadow: 0 1px 0 var(--md-default-fg-color--lighter);
+}
+
+/* ==================== 测验样式 ==================== */
+.quiz-container {
+    margin: 1.5rem 0;
+}
+
+.quiz-item {
+    border: 1px solid var(--md-default-fg-color--lightest);
+    border-radius: 0.4rem;
+    margin-bottom: 1rem;
+    overflow: hidden;
+}
+
+.quiz-question {
+    padding: 0.8rem 1rem;
+    background: var(--md-code-bg-color);
+    font-weight: 600;
+    font-size: 0.88rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.quiz-question::before {
+    content: "Q";
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 0.2rem;
+    background: var(--md-primary-fg-color);
+    color: white;
+    font-size: 0.72rem;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.quiz-options {
+    padding: 0.6rem 1rem 0.8rem;
+    display: grid;
+    gap: 0.4rem;
+}
+
+.quiz-option {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.45rem 0.65rem;
+    border: 1px solid var(--md-default-fg-color--lightest);
+    border-radius: 0.25rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 0.82rem;
+}
+
+.quiz-option:hover {
+    border-color: var(--md-primary-fg-color);
+    background: var(--md-code-bg-color);
+}
+
+.quiz-option input[type="radio"] {
+    margin: 0;
+    accent-color: var(--md-primary-fg-color);
+}
+
+.quiz-option.correct {
+    border-color: #0d7a3e;
+    background: #e6f7ed;
+}
+
+.quiz-option.incorrect {
+    border-color: #b91c1c;
+    background: #fde8e8;
+}
+
+[data-md-color-scheme="slate"] .quiz-option.correct {
+    background: #0d2818;
+    border-color: #4ade80;
+}
+
+[data-md-color-scheme="slate"] .quiz-option.incorrect {
+    background: #2d0d0d;
+    border-color: #f87171;
+}
+
+.quiz-explanation {
+    display: none;
+    padding: 0.6rem 1rem;
+    border-top: 1px solid var(--md-default-fg-color--lightest);
+    background: var(--md-code-bg-color);
+    font-size: 0.82rem;
+    color: var(--md-default-fg-color--light);
+}
+
+.quiz-explanation.show {
+    display: block;
+}
+
+.quiz-submit {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.4rem 1rem;
+    border: none;
+    border-radius: 0.25rem;
+    background: var(--md-primary-fg-color);
+    color: white;
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.quiz-submit:hover {
+    opacity: 0.9;
+}
+
+.quiz-score {
+    margin-top: 1rem;
+    padding: 0.8rem 1rem;
+    border-radius: 0.4rem;
+    background: var(--md-code-bg-color);
+    text-align: center;
+    font-size: 0.95rem;
+}
+
+.quiz-score strong {
+    color: var(--md-primary-fg-color);
+    font-size: 1.2rem;
+}
+
+/* ==================== 进度追踪 ==================== */
+.progress-tracker {
+    margin: 1.5rem 0;
+    padding: 1rem;
+    border: 1px solid var(--md-default-fg-color--lightest);
+    border-radius: 0.4rem;
+    background: var(--md-default-bg-color);
+}
+
+.progress-bar {
+    height: 0.5rem;
+    background: var(--md-code-bg-color);
+    border-radius: 0.25rem;
+    overflow: hidden;
+    margin-bottom: 0.5rem;
+}
+
+.progress-fill {
+    height: 100%;
+    background: var(--md-primary-fg-color);
+    border-radius: 0.25rem;
+    transition: width 0.3s;
+}
+
+.progress-text {
+    font-size: 0.78rem;
+    color: var(--md-default-fg-color--light);
+    text-align: center;
+}
+
 /* ==================== TOC 侧边栏滚动修复 ==================== */
 .md-sidebar--secondary .md-sidebar__scrollwrap {
     overflow-y: auto;
