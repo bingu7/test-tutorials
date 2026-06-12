@@ -343,11 +343,12 @@ function initKeyboardShortcuts() {
         }
 
         if (!e.target.closest('input, textarea, select')) {
-            var navLinks = document.querySelectorAll('.md-footer__link');
-            if (e.key === 'ArrowLeft' && navLinks[0]) {
-                window.location.href = navLinks[0].href;
-            } else if (e.key === 'ArrowRight' && navLinks[1]) {
-                window.location.href = navLinks[1].href;
+            var prevLink = document.querySelector('.md-footer__link--prev');
+            var nextLink = document.querySelector('.md-footer__link--next');
+            if (e.key === 'ArrowLeft' && prevLink) {
+                window.location.href = prevLink.href;
+            } else if (e.key === 'ArrowRight' && nextLink) {
+                window.location.href = nextLink.href;
             }
         }
     });
