@@ -87,16 +87,19 @@ nav:
     - 阶段学习检查清单: 阶段学习检查清单.md
     - 章节练习与参考答案: 章节练习与参考答案.md
     - 学习验收与通关路径: 学习验收与通关路径.md
+    - 在线编程练习场: 学习中心/在线编程练习场.md
   - 基础理论:
     - 软件测试理论: 基础理论/软件测试理论基础教程.md
     - ISTQB 术语速查: 基础理论/ISTQB软件测试术语速查.md
     - 测试金字塔与分层策略: 基础理论/测试金字塔与自动化分层策略.md
     - 探索式测试: 基础理论/探索式测试教程-软件测试版.md
     - Python 基础: 基础理论/Python基础教程-软件测试版.md
+    - Python 基础测验: 基础理论/Python基础测验.md
     - 前端基础: 基础理论/前端基础教程-软件测试版.md
     - 敏捷测试: 基础理论/敏捷测试教程-软件测试版.md
   - 工具操作:
     - 数据库 SQL: 工具操作/数据库SQL教程-软件测试版.md
+    - SQL 基础测验: 工具操作/SQL基础测验.md
     - Redis 与 MongoDB: 工具操作/Redis与MongoDB教程-软件测试版.md
     - Linux 实用: 工具操作/Linux实用教程-软件测试版.md
     - Git 版本控制: 工具操作/Git版本控制教程-软件测试版.md
@@ -157,3 +160,7 @@ extra:
     - icon: fontawesome/brands/github
       link: https://github.com/bingu7/test-tutorials
   generator: false
+
+# 自定义代码块复制按钮提示
+extra_javascript:
+  - javascripts/interactive.js

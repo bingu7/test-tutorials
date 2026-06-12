@@ -2,11 +2,11 @@
 
 > 本教程面向软件测试工程师，聚焦测试日常使用场景：数据查询、数据校验、造数据、问题排查。以 MySQL 为主，兼顾通用 SQL 语法。
 
----
-
-## 前置要求
-
-无前置要求，零基础可直接学习。
+<div class="tutorial-meta">
+    <span class="difficulty-badge difficulty-beginner">📗 入门难度</span>
+    <span class="meta-item">⏱ 约 3 天</span>
+    <span class="meta-item">🎯 目标：掌握 SQL 增删改查，能独立进行数据校验</span>
+</div>
 
 ---
 

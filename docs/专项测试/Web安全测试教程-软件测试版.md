@@ -2,9 +2,12 @@
 
 > 本教程面向软件测试工程师，讲解 Web 安全测试的核心知识、常见漏洞原理与实战验证方法，覆盖 Burp Suite 使用、SQL 注入、XSS、越权等高频安全测试场景。
 
----
-
-## 前置要求
+<div class="tutorial-meta">
+    <span class="difficulty-badge difficulty-intermediate">📙 进阶难度</span>
+    <span class="meta-item">⏱ 约 2 天</span>
+    <span class="meta-item">📋 前置：HTTP 协议、接口测试基础</span>
+    <span class="meta-item">🎯 目标：掌握常见 Web 漏洞的测试方法</span>
+</div>
 
 | 项目 | 要求 | 获取方式 |
 |------|------|----------|

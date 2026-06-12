@@ -2,9 +2,12 @@
 
 > 本教程面向软件测试工程师，讲解如何使用 Jenkins 搭建持续集成流水线，自动化执行测试、生成报告、通知团队。
 
----
-
-## 前置要求
+<div class="tutorial-meta">
+    <span class="difficulty-badge difficulty-advanced">📕 高级难度</span>
+    <span class="meta-item">⏱ 约 2 天</span>
+    <span class="meta-item">📋 前置：Git 基础、自动化测试基础</span>
+    <span class="meta-item">🎯 目标：搭建 CI/CD 自动化测试流水线</span>
+</div>
 
 | 项目 | 要求 | 获取方式 |
 |------|------|----------|

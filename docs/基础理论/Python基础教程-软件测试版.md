@@ -3,11 +3,11 @@
 !!! abstract "教程简介"
     本教程面向软件测试工程师，聚焦自动化测试所需的 Python 基础知识，不深入底层原理，够用即可。
 
----
-
-## 前置要求
-
-无前置要求，零基础可直接学习。
+<div class="tutorial-meta">
+    <span class="difficulty-badge difficulty-beginner">📗 入门难度</span>
+    <span class="meta-item">⏱ 约 3 天</span>
+    <span class="meta-item">🎯 目标：掌握 Python 基础语法，能编写简单测试脚本</span>
+</div>
 
 ---
 

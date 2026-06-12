@@ -2,9 +2,12 @@
 
 > 本教程面向软件测试工程师，系统讲解基于 Python 技术栈搭建接口自动化测试框架，覆盖从环境搭建、用例编写、数据驱动到 Allure 报告生成、CI/CD 集成的完整流程。
 
----
-
-## 前置要求
+<div class="tutorial-meta">
+    <span class="difficulty-badge difficulty-intermediate">📙 进阶难度</span>
+    <span class="meta-item">⏱ 约 5 天</span>
+    <span class="meta-item">📋 前置：Python 基础、接口测试基础</span>
+    <span class="meta-item">🎯 目标：搭建完整的接口自动化测试框架</span>
+</div>
 
 | 项目 | 要求 | 获取方式 |
 |------|------|----------|
