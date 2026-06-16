@@ -16,8 +16,8 @@ hide:
 <h3>零基础从这里开始</h3>
 <p>先建立测试思维，再补 Python、前端和常用工具。</p>
 <div class="home-links">
+<a href="学习中心/">学习中心 2.0</a>
 <a href="基础理论/软件测试理论基础教程/">软件测试理论</a>
-<a href="学习中心/">学习中心</a>
 <a href="阶段学习检查清单/">阶段自查</a>
 </div>
 </article>
@@ -45,21 +45,21 @@ hide:
 
 ---
 
-## 学习路线图
+## 五阶段学习路径
 
-按阶段学习，不跳过基础，也不盲目堆自动化。
+按阶段学习，不跳过基础，也不盲目堆自动化。[查看完整学习路线 →](学习路线/)
 
 <section class="home-timeline">
 <article class="home-timeline-item">
 <div class="home-step">01</div>
 <div>
-<h3>入门基础</h3>
-<p>3-5 天，建立测试思维，理解术语、测试分层和基础技术。</p>
+<h3>测试入门</h3>
+<p>2-3 周，建立测试思维，理解测试流程、术语、用例设计和缺陷管理。</p>
 <div class="home-links">
 <a href="基础理论/软件测试理论基础教程/">软件测试理论</a>
 <a href="基础理论/ISTQB软件测试术语速查/">ISTQB 术语</a>
-<a href="基础理论/Python基础教程-软件测试版/">Python 基础</a>
-<a href="基础理论/前端基础教程-软件测试版/">前端基础</a>
+<a href="基础理论/探索式测试教程-软件测试版/">探索式测试</a>
+<a href="基础理论/敏捷测试教程-软件测试版/">敏捷测试</a>
 </div>
 </div>
 </article>
@@ -67,38 +67,49 @@ hide:
 <div class="home-step">02</div>
 <div>
 <h3>工具实战</h3>
-<p>10+ 天，掌握 SQL、Linux、抓包、接口调试和网络基础。</p>
+<p>3-4 周，掌握 SQL、Linux、Git、Postman、Fiddler、网络知识等高频工具。</p>
 <div class="home-links">
 <a href="工具操作/数据库SQL教程-软件测试版/">SQL</a>
 <a href="工具操作/Linux实用教程-软件测试版/">Linux</a>
-<a href="工具操作/Fiddler抓包教程-软件测试版/">Fiddler</a>
 <a href="工具操作/Postman接口测试教程-软件测试版/">Postman</a>
+<a href="工具操作/Fiddler抓包教程-软件测试版/">Fiddler</a>
 </div>
 </div>
 </article>
 <article class="home-timeline-item">
 <div class="home-step">03</div>
 <div>
-<h3>自动化进阶</h3>
-<p>14+ 天，从接口自动化开始，再进入 Web、App、性能和安全。</p>
+<h3>专项测试</h3>
+<p>2-3 周，掌握接口测试、性能测试、安全测试等专项能力。</p>
 <div class="home-links">
-<a href="自动化测试/Python+Requests+Allure接口自动化教程-软件测试版/">Pytest</a>
-<a href="自动化测试/Playwright自动化测试教程-软件测试版/">Playwright</a>
-<a href="自动化测试/Selenium-Web自动化教程-软件测试版/">Selenium</a>
+<a href="专项测试/接口测试完整教程-软件测试版/">接口测试</a>
 <a href="专项测试/JMeter性能测试教程-软件测试版/">JMeter</a>
+<a href="专项测试/Web安全测试教程-软件测试版/">安全测试</a>
 </div>
 </div>
 </article>
 <article class="home-timeline-item">
 <div class="home-step">04</div>
 <div>
-<h3>体系能力</h3>
-<p>4+ 天，把自动化、容器、CI/CD、模板和项目经验串起来。</p>
+<h3>自动化测试</h3>
+<p>4-6 周，掌握 Python 接口自动化、Selenium、Playwright、Appium。</p>
 <div class="home-links">
-<a href="持续集成/Jenkins-CICD教程-软件测试版/">Jenkins</a>
-<a href="工具操作/Docker容器教程-软件测试版/">Docker</a>
+<a href="自动化测试/Python+Requests+Allure接口自动化教程-软件测试版/">接口自动化</a>
+<a href="自动化测试/Playwright自动化测试教程-软件测试版/">Playwright</a>
+<a href="自动化测试/Selenium-Web自动化教程-软件测试版/">Selenium</a>
+<a href="自动化测试/Appium-App自动化教程-软件测试版/">Appium</a>
+</div>
+</div>
+</article>
+<article class="home-timeline-item">
+<div class="home-step">05</div>
+<div>
+<h3>项目与面试</h3>
+<p>3-4 周，完成项目实战，输出作品集材料，并能进行面试表达。</p>
+<div class="home-links">
 <a href="项目实战/">项目实战</a>
 <a href="面试专题/">面试专题</a>
+<a href="模板库/">模板库</a>
 </div>
 </div>
 </article>
@@ -113,7 +124,7 @@ hide:
 <div class="home-stat"><strong>6</strong><span>个项目实战</span></div>
 <div class="home-stat"><strong>7</strong><span>份常用模板</span></div>
 <div class="home-stat"><strong>6</strong><span>组功能案例</span></div>
-<div class="home-stat"><strong>4</strong><span>阶段学习路径</span></div>
+<div class="home-stat"><strong>5</strong><span>阶段学习路径</span></div>
 </section>
 
 ??? info "完整分类统计"
@@ -137,7 +148,7 @@ hide:
 
 ## 按学习阶段选择
 
-=== "第一阶段：入门基础"
+=== "第 1 阶段：测试入门"
 
     > 零基础入门，建立测试思维。**必读**。
 
@@ -147,11 +158,11 @@ hide:
     | [ISTQB 术语速查](基础理论/ISTQB软件测试术语速查.md) | 测试标准术语、缺陷管理、敏捷 DevOps 表达 | 1天 | ★★★★ |
     | [测试金字塔与分层策略](基础理论/测试金字塔与自动化分层策略.md) | 单元、接口、UI、手工探索如何分层 | 1天 | ★★★★ |
     | [探索式测试](基础理论/探索式测试教程-软件测试版.md) | Charter、Session、启发法和探索记录 | 1天 | ★★★★ |
-    | [Python 基础](基础理论/Python基础教程-软件测试版.md) | 语法、数据类型、函数、文件操作 | 3天 | ★★★★★ |
-    | [前端基础](基础理论/前端基础教程-软件测试版.md) | HTML/CSS/JS、浏览器调试工具 | 2天 | ★★★★ |
     | [敏捷测试](基础理论/敏捷测试教程-软件测试版.md) | Scrum、用户故事、验收标准、测试策略 | 1天 | ★★★★ |
 
-=== "第二阶段：工具实战"
+    → [第1阶段通关检查](学习中心/第1阶段-测试入门通关/)
+
+=== "第 2 阶段：工具实战"
 
     > 掌握测试日常工具，能独立执行测试任务。**必读**。
 
@@ -161,40 +172,72 @@ hide:
     | [Redis 与 MongoDB](工具操作/Redis与MongoDB教程-软件测试版.md) | 缓存/NoSQL 查询、数据校验、清理 | 2天 | ★★★★ |
     | [Linux 实用](工具操作/Linux实用教程-软件测试版.md) | 命令行、日志排查、进程管理 | 3天 | ★★★★★ |
     | [Git 版本控制](工具操作/Git版本控制教程-软件测试版.md) | 分支管理、协作流程 | 1天 | ★★★★ |
+    | [Docker 容器](工具操作/Docker容器教程-软件测试版.md) | 测试环境搭建、Compose | 2天 | ★★★★ |
     | [Fiddler 抓包](工具操作/Fiddler抓包教程-软件测试版.md) | HTTP 抓包分析、Mock | 1天 | ★★★★ |
     | [Postman 接口](工具操作/Postman接口测试教程-软件测试版.md) | 接口调试、断言脚本 | 2天 | ★★★★ |
-    | [接口联调实战](工具操作/接口抓包联调实战教程-软件测试版.md) | 抓包到调试再到自动化的完整工作流 | 1天 | ★★★★ |
     | [正则表达式](工具操作/正则表达式教程-软件测试版.md) | 日志分析、数据提取、接口断言 | 1天 | ★★★★ |
     | [网络知识](工具操作/网络知识教程-软件测试版.md) | TCP/IP、HTTP、DNS、代理、WebSocket、CDN、负载均衡 | 3天 | ★★★★ |
-    | [接口测试方法论](专项测试/接口测试完整教程-软件测试版.md) | 用例设计、安全测试、性能测试 | 2天 | ★★★★ |
 
-=== "第三阶段：自动化进阶"
+    → [第2阶段通关检查](学习中心/第2阶段-工具实战通关/)
+
+=== "第 3 阶段：专项测试"
+
+    > 掌握接口测试、性能测试、安全测试等专项能力。**推荐**。
+
+    | 教程 | 内容 | 学时 | 优先级 |
+    |------|------|------|--------|
+    | [接口测试方法论](专项测试/接口测试完整教程-软件测试版.md) | 用例设计、安全测试、性能测试 | 2天 | ★★★★★ |
+    | [JMeter 性能测试](专项测试/JMeter性能测试教程-软件测试版.md) | 压测脚本、结果分析 | 3天 | ★★★★ |
+    | [Web 安全测试](专项测试/Web安全测试教程-软件测试版.md) | Burp Suite、SQL 注入、XSS、越权 | 2天 | ★★★★ |
+    | [接口抓包联调实战](工具操作/接口抓包联调实战教程-软件测试版.md) | 抓包到调试再到自动化的完整工作流 | 1天 | ★★★★ |
+
+    → [第3阶段通关检查](学习中心/第3阶段-专项测试通关/)
+
+=== "第 4 阶段：自动化测试"
 
     > 提升效率，从手工测试转向自动化。**推荐**。
 
     | 教程 | 内容 | 学时 | 优先级 |
     |------|------|------|--------|
+    | [Python 基础](基础理论/Python基础教程-软件测试版.md) | 语法、数据类型、函数、文件操作 | 3天 | ★★★★★ |
+    | [前端基础](基础理论/前端基础教程-软件测试版.md) | HTML/CSS/JS、浏览器调试工具 | 2天 | ★★★★ |
     | [Python 接口自动化](自动化测试/Python+Requests+Allure接口自动化教程-软件测试版.md) | Requests + Pytest + Allure 框架 | 5天 | ★★★★★ |
     | [Selenium Web 自动化](自动化测试/Selenium-Web自动化教程-软件测试版.md) | Web UI 自动化、Page Object | 3天 | ★★★★ |
     | [Playwright Web 自动化](自动化测试/Playwright自动化测试教程-软件测试版.md) | 现代 Web 自动化、自动等待、网络拦截 | 3天 | ★★★★ |
     | [Appium App 自动化](自动化测试/Appium-App自动化教程-软件测试版.md) | 移动端自动化测试 | 3天 | ★★★ |
-    | [Web 安全测试](专项测试/Web安全测试教程-软件测试版.md) | Burp Suite、SQL 注入、XSS、越权 | 2天 | ★★★★ |
-    | [JMeter 性能测试](专项测试/JMeter性能测试教程-软件测试版.md) | 压测脚本、结果分析 | 3天 | ★★★★ |
 
-=== "第四阶段：体系能力"
+    → [第4阶段通关检查](学习中心/第4阶段-自动化测试通关/)
 
-    > 构建完整测试体系，提升工程化能力。**进阶**。
+=== "第 5 阶段：项目与面试"
+
+    > 完成项目实战，输出作品集材料，并能进行面试表达。**进阶**。
 
     | 教程 | 内容 | 学时 | 优先级 |
     |------|------|------|--------|
+    | [电商系统测试实战](项目实战/电商系统测试实战.md) | 完整测试流程 | 5天 | ★★★★★ |
+    | [接口自动化项目实战](项目实战/接口自动化项目实战.md) | Requests + Pytest + Allure | 3天 | ★★★★ |
+    | [Web 自动化项目实战](项目实战/Web自动化项目实战.md) | Page Object、等待、截图、报告 | 3天 | ★★★★ |
+    | [性能测试项目实战](项目实战/性能测试项目实战.md) | JMeter 压测、结果分析 | 3天 | ★★★★ |
+    | [CI/CD 自动化回归实战](项目实战/CICD自动化回归实战.md) | Jenkins 流水线集成 | 2天 | ★★★★ |
     | [Jenkins CI/CD](持续集成/Jenkins-CICD教程-软件测试版.md) | 流水线搭建、自动化集成 | 2天 | ★★★★ |
-    | [Docker 容器](工具操作/Docker容器教程-软件测试版.md) | 测试环境搭建、Compose | 2天 | ★★★★ |
+
+    → [第5阶段通关检查](学习中心/第5阶段-项目面试通关/)
 
 ---
 
 ## 常用入口
 
 <section class="home-tag-grid">
+<article class="home-card home-tag-card">
+<h3>学习中心 2.0</h3>
+<p>五阶段学习路径、进度追踪、通关检查。</p>
+<div class="home-links">
+<a href="学习中心/">学习中心</a>
+<a href="学习路线/">学习路线</a>
+<a href="阶段学习检查清单/">阶段自查</a>
+<a href="学习中心/学习进度说明/">进度说明</a>
+</div>
+</article>
 <article class="home-card home-tag-card">
 <h3>快速入门</h3>
 <p>适合零基础，1-3 天上手。</p>
@@ -203,7 +246,6 @@ hide:
 <a href="基础理论/Python基础教程-软件测试版/">Python</a>
 <a href="基础理论/前端基础教程-软件测试版/">前端基础</a>
 <a href="工具操作/Postman接口测试教程-软件测试版/">Postman</a>
-<a href="学习中心/">学习中心</a>
 </div>
 </article>
 <article class="home-card home-tag-card">
@@ -226,17 +268,6 @@ hide:
 <a href="自动化测试/Playwright自动化测试教程-软件测试版/">Playwright</a>
 <a href="自动化测试/Selenium-Web自动化教程-软件测试版/">Selenium</a>
 <a href="自动化测试/Appium-App自动化教程-软件测试版/">Appium</a>
-</div>
-</article>
-<article class="home-card home-tag-card">
-<h3>工程化</h3>
-<p>CI/CD、容器化、性能测试。</p>
-<div class="home-links">
-<a href="持续集成/Jenkins-CICD教程-软件测试版/">Jenkins</a>
-<a href="工具操作/Docker容器教程-软件测试版/">Docker</a>
-<a href="专项测试/JMeter性能测试教程-软件测试版/">JMeter</a>
-<a href="项目实战/CICD自动化回归实战/">CI/CD 实战</a>
-<a href="项目实战/性能测试项目实战/">性能项目</a>
 </div>
 </article>
 </section>

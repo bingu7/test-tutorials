@@ -7,6 +7,11 @@ function initAll() {
     initRelatedTutorials();
     initKeyboardShortcuts();
     initScrollMemory();
+
+    // 初始化学习进度系统
+    if (typeof initTutorialPage === 'function') {
+        initTutorialPage();
+    }
 }
 
 document.addEventListener('DOMContentLoaded', initAll);
@@ -181,12 +186,14 @@ function checkQuizAnswers(quiz) {
     var items = quiz.querySelectorAll('.quiz-item');
     var correct = 0;
     var total = items.length;
+    var wrongQuestions = [];
 
-    items.forEach(function(item) {
+    items.forEach(function(item, index) {
         var options = item.querySelectorAll('.quiz-option');
         var correctIndex = parseInt(item.dataset.correct);
         var selected = item.querySelector('input[type="radio"]:checked');
         var explanation = item.querySelector('.quiz-explanation');
+        var questionText = item.querySelector('.quiz-question').textContent;
 
         options.forEach(function(opt, i) {
             opt.classList.remove('correct', 'incorrect');
@@ -197,6 +204,11 @@ function checkQuizAnswers(quiz) {
             var selectedIndex = Array.from(options).indexOf(selected.parentElement);
             if (selectedIndex !== correctIndex) {
                 selected.parentElement.classList.add('incorrect');
+                wrongQuestions.push({
+                    index: index + 1,
+                    question: questionText,
+                    correctAnswer: options[correctIndex].textContent.trim()
+                });
             } else {
                 correct++;
             }
@@ -212,6 +224,11 @@ function checkQuizAnswers(quiz) {
     });
     localStorage.setItem('quiz-' + quizId, JSON.stringify(answers));
 
+    // 保存测验结果到学习进度系统
+    if (typeof saveQuizResult === 'function') {
+        saveQuizResult(quizId, correct, total);
+    }
+
     var scoreDiv = quiz.querySelector('.quiz-score');
     if (!scoreDiv) {
         scoreDiv = document.createElement('div');
@@ -221,7 +238,82 @@ function checkQuizAnswers(quiz) {
 
     var percentage = Math.round((correct / total) * 100);
     var emoji = percentage >= 80 ? '🎉' : percentage >= 60 ? '👍' : '💪';
-    scoreDiv.innerHTML = emoji + ' 得分：<strong>' + correct + '/' + total + '</strong> (' + percentage + '%)';
+
+    // 构建反馈内容
+    var feedbackHtml = '<div class="quiz-feedback">';
+    feedbackHtml += '<div class="quiz-score-main">' + emoji + ' 得分：<strong>' + correct + '/' + total + '</strong> (' + percentage + '%)</div>';
+
+    // 根据分数给出建议
+    feedbackHtml += '<div class="quiz-advice">';
+    if (percentage >= 80) {
+        feedbackHtml += '<p class="advice-good">✅ 恭喜！你已经掌握了这部分知识，可以继续学习下一阶段。</p>';
+    } else if (percentage >= 60) {
+        feedbackHtml += '<p class="advice-ok">👍 基础掌握不错，但还有提升空间。建议复习错题相关知识点。</p>';
+    } else {
+        feedbackHtml += '<p class="advice-need-work">💪 建议回看基础教程，巩固薄弱知识点后再继续。</p>';
+    }
+    feedbackHtml += '</div>';
+
+    // 显示错题分析
+    if (wrongQuestions.length > 0) {
+        feedbackHtml += '<div class="quiz-wrong-analysis">';
+        feedbackHtml += '<h4>📝 错题分析</h4>';
+        feedbackHtml += '<p>你答错了 ' + wrongQuestions.length + ' 道题：</p>';
+        feedbackHtml += '<ul>';
+        wrongQuestions.forEach(function(q) {
+            feedbackHtml += '<li><strong>第 ' + q.index + ' 题：</strong>' + q.question + '</li>';
+        });
+        feedbackHtml += '</ul>';
+
+        // 根据测验类型给出复习建议
+        feedbackHtml += '<div class="quiz-review-suggestion">';
+        feedbackHtml += '<h4>📚 复习建议</h4>';
+        if (quizId === 'python-basics') {
+            feedbackHtml += '<p>建议回看以下内容：</p>';
+            feedbackHtml += '<ul>';
+            feedbackHtml += '<li><a href="/基础理论/Python基础教程-软件测试版/">Python 基础教程</a></li>';
+            feedbackHtml += '<li>重点关注：函数定义、数据类型、异常处理、模块导入</li>';
+            feedbackHtml += '</ul>';
+        } else if (quizId === 'sql-basics') {
+            feedbackHtml += '<p>建议回看以下内容：</p>';
+            feedbackHtml += '<ul>';
+            feedbackHtml += '<li><a href="/工具操作/数据库SQL教程-软件测试版/">数据库 SQL 教程</a></li>';
+            feedbackHtml += '<li>重点关注：JOIN 多表查询、GROUP BY 分组、NULL 值处理、LIMIT 分页</li>';
+            feedbackHtml += '</ul>';
+        }
+        feedbackHtml += '</div>';
+        feedbackHtml += '</div>';
+    }
+
+    // 下一步建议
+    feedbackHtml += '<div class="quiz-next-step">';
+    feedbackHtml += '<h4>🎯 下一步建议</h4>';
+    if (quizId === 'python-basics') {
+        if (percentage >= 80) {
+            feedbackHtml += '<p>Python 基础已掌握，建议继续学习：</p>';
+            feedbackHtml += '<ul>';
+            feedbackHtml += '<li><a href="/工具操作/数据库SQL教程-软件测试版/">数据库 SQL 教程</a></li>';
+            feedbackHtml += '<li><a href="/工具操作/Linux实用教程-软件测试版/">Linux 实用教程</a></li>';
+            feedbackHtml += '</ul>';
+        } else {
+            feedbackHtml += '<p>建议先巩固 Python 基础，再继续学习其他内容。</p>';
+        }
+    } else if (quizId === 'sql-basics') {
+        if (percentage >= 80) {
+            feedbackHtml += '<p>SQL 基础已掌握，建议继续学习：</p>';
+            feedbackHtml += '<ul>';
+            feedbackHtml += '<li><a href="/工具操作/Postman接口测试教程-软件测试版/">Postman 接口测试</a></li>';
+            feedbackHtml += '<li><a href="/工具操作/Fiddler抓包教程-软件测试版/">Fiddler 抓包教程</a></li>';
+            feedbackHtml += '</ul>';
+        } else {
+            feedbackHtml += '<p>建议先巩固 SQL 基础，再继续学习其他内容。</p>';
+        }
+    }
+    feedbackHtml += '</div>';
+
+    feedbackHtml += '</div>';
+
+    scoreDiv.innerHTML = feedbackHtml;
     scoreDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 

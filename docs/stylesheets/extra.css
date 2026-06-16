@@ -688,6 +688,519 @@
     max-height: calc(100vh - 8rem);
 }
 
+/* ==================== 学习中心 2.0 ==================== */
+.learning-center-2 {
+    margin: 1.5rem 0;
+}
+
+.learning-summary {
+    margin-bottom: 1.5rem;
+}
+
+.summary-card {
+    border: 1px solid var(--md-default-fg-color--lightest);
+    border-radius: 0.45rem;
+    padding: 1.2rem;
+    background: var(--md-default-bg-color);
+}
+
+.summary-card h3 {
+    margin: 0 0 1rem;
+    font-size: 1.1rem;
+}
+
+.recommendation-box {
+    margin-top: 1rem;
+    padding: 0.8rem;
+    border-radius: 0.3rem;
+    background: var(--md-code-bg-color);
+    border-left: 3px solid var(--md-primary-fg-color);
+}
+
+.recommendation-box strong {
+    display: block;
+    margin-bottom: 0.3rem;
+    color: var(--md-primary-fg-color);
+}
+
+.recommendation-box p {
+    margin: 0 0 0.5rem;
+    font-size: 0.88rem;
+}
+
+.recommendation-link {
+    display: inline-block;
+    padding: 0.3rem 0.8rem;
+    border-radius: 0.25rem;
+    background: var(--md-primary-fg-color);
+    color: white;
+    font-size: 0.82rem;
+    text-decoration: none;
+    transition: opacity 0.2s;
+}
+
+.recommendation-link:hover {
+    opacity: 0.9;
+    text-decoration: none;
+    color: white;
+}
+
+.phases-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.phase-card {
+    border: 1px solid var(--md-default-fg-color--lightest);
+    border-radius: 0.45rem;
+    padding: 1rem;
+    background: var(--md-default-bg-color);
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.phase-card:hover {
+    border-color: var(--md-primary-fg-color);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.phase-card.phase-current {
+    border-color: var(--md-primary-fg-color);
+    border-width: 2px;
+}
+
+.phase-card.phase-completed {
+    border-color: #0d7a3e;
+    background: #f0fdf4;
+}
+
+[data-md-color-scheme="slate"] .phase-card.phase-completed {
+    background: #0d2818;
+    border-color: #4ade80;
+}
+
+.phase-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.phase-number {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--md-primary-fg-color);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.phase-status {
+    font-size: 0.72rem;
+    color: var(--md-default-fg-color--light);
+}
+
+.phase-name {
+    margin: 0 0 0.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.phase-desc {
+    margin: 0 0 0.8rem;
+    font-size: 0.82rem;
+    color: var(--md-default-fg-color--light);
+    line-height: 1.6;
+}
+
+.phase-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0.8rem;
+}
+
+.phase-link {
+    display: inline-block;
+    padding: 0.25rem 0.6rem;
+    border: 1px solid var(--md-default-fg-color--lightest);
+    border-radius: 0.2rem;
+    font-size: 0.78rem;
+    text-decoration: none;
+    color: var(--md-typeset-a-color);
+    transition: all 0.2s;
+}
+
+.phase-link:hover {
+    border-color: var(--md-primary-fg-color);
+    background: var(--md-code-bg-color);
+    text-decoration: none;
+}
+
+.phase-percentage {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--md-primary-fg-color);
+}
+
+.phases-details {
+    margin-top: 2rem;
+}
+
+.phase-detail {
+    border: 1px solid var(--md-default-fg-color--lightest);
+    border-radius: 0.45rem;
+    padding: 1.2rem;
+    margin-bottom: 1.5rem;
+    background: var(--md-default-bg-color);
+}
+
+.phase-detail h3 {
+    margin: 0 0 0.5rem;
+    font-size: 1rem;
+}
+
+.phase-detail-desc {
+    margin: 0 0 1rem;
+    font-size: 0.88rem;
+    color: var(--md-default-fg-color--light);
+}
+
+.tutorial-checklist {
+    display: grid;
+    gap: 0.4rem;
+}
+
+.tutorial-item {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.5rem 0.7rem;
+    border: 1px solid var(--md-default-fg-color--lightest);
+    border-radius: 0.3rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.tutorial-item:hover {
+    border-color: var(--md-primary-fg-color);
+    background: var(--md-code-bg-color);
+}
+
+.tutorial-item.learned {
+    border-color: #0d7a3e;
+    background: #f0fdf4;
+}
+
+[data-md-color-scheme="slate"] .tutorial-item.learned {
+    background: #0d2818;
+    border-color: #4ade80;
+}
+
+.tutorial-item input[type="checkbox"] {
+    margin: 0;
+    accent-color: var(--md-primary-fg-color);
+    cursor: pointer;
+}
+
+.tutorial-item a {
+    color: var(--md-typeset-a-color);
+    text-decoration: none;
+    font-size: 0.88rem;
+    transition: color 0.2s;
+}
+
+.tutorial-item a:hover {
+    color: var(--md-accent-fg-color);
+}
+
+.tutorial-item.learned a {
+    color: var(--md-default-fg-color--light);
+}
+
+.quiz-links {
+    margin-top: 1rem;
+    padding-top: 0.8rem;
+    border-top: 1px solid var(--md-default-fg-color--lightest);
+}
+
+.quiz-links strong {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.88rem;
+}
+
+.quiz-link {
+    display: inline-block;
+    padding: 0.3rem 0.6rem;
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+    border: 1px solid var(--md-default-fg-color--lightest);
+    border-radius: 0.25rem;
+    font-size: 0.82rem;
+    text-decoration: none;
+    color: var(--md-typeset-a-color);
+    transition: all 0.2s;
+}
+
+.quiz-link:hover {
+    border-color: var(--md-primary-fg-color);
+    background: var(--md-code-bg-color);
+    text-decoration: none;
+}
+
+.learning-tip {
+    margin: 1.5rem 0;
+    padding: 0.8rem 1rem;
+    border-radius: 0.3rem;
+    background: #fff7e6;
+    border-left: 3px solid #d97706;
+    font-size: 0.88rem;
+}
+
+[data-md-color-scheme="slate"] .learning-tip {
+    background: #2d1f0d;
+    border-color: #fbbf24;
+}
+
+.learning-tip p {
+    margin: 0;
+}
+
+/* ==================== 教程完成按钮 ==================== */
+.tutorial-complete-btn {
+    margin: 2rem 0;
+    text-align: center;
+}
+
+.complete-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1.5rem;
+    border: 2px solid var(--md-default-fg-color--lightest);
+    border-radius: 0.4rem;
+    background: var(--md-default-bg-color);
+    color: var(--md-default-fg-color);
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.complete-toggle:hover {
+    border-color: var(--md-primary-fg-color);
+    background: var(--md-code-bg-color);
+}
+
+.complete-toggle.completed {
+    border-color: #0d7a3e;
+    background: #f0fdf4;
+    color: #0d7a3e;
+}
+
+[data-md-color-scheme="slate"] .complete-toggle.completed {
+    background: #0d2818;
+    border-color: #4ade80;
+    color: #4ade80;
+}
+
+/* ==================== 测验反馈增强 ==================== */
+.quiz-feedback {
+    text-align: left;
+}
+
+.quiz-score-main {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.quiz-advice {
+    margin: 1rem 0;
+    padding: 0.8rem;
+    border-radius: 0.3rem;
+    background: var(--md-code-bg-color);
+}
+
+.advice-good {
+    color: #0d7a3e;
+    margin: 0;
+}
+
+.advice-ok {
+    color: #b35c00;
+    margin: 0;
+}
+
+.advice-need-work {
+    color: #b91c1c;
+    margin: 0;
+}
+
+[data-md-color-scheme="slate"] .advice-good {
+    color: #4ade80;
+}
+
+[data-md-color-scheme="slate"] .advice-ok {
+    color: #fbbf24;
+}
+
+[data-md-color-scheme="slate"] .advice-need-work {
+    color: #f87171;
+}
+
+.quiz-wrong-analysis {
+    margin: 1rem 0;
+    padding: 1rem;
+    border: 1px solid var(--md-default-fg-color--lightest);
+    border-radius: 0.3rem;
+    background: var(--md-default-bg-color);
+}
+
+.quiz-wrong-analysis h4 {
+    margin: 0 0 0.5rem;
+    font-size: 0.95rem;
+}
+
+.quiz-wrong-analysis ul {
+    margin: 0.5rem 0;
+    padding-left: 1.5rem;
+}
+
+.quiz-wrong-analysis li {
+    margin-bottom: 0.3rem;
+    font-size: 0.88rem;
+}
+
+.quiz-review-suggestion {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--md-default-fg-color--lightest);
+}
+
+.quiz-review-suggestion h4 {
+    margin: 0 0 0.5rem;
+    font-size: 0.95rem;
+}
+
+.quiz-review-suggestion ul {
+    margin: 0.5rem 0;
+    padding-left: 1.5rem;
+}
+
+.quiz-review-suggestion li {
+    margin-bottom: 0.3rem;
+    font-size: 0.88rem;
+}
+
+.quiz-review-suggestion a {
+    color: var(--md-typeset-a-color);
+    text-decoration: none;
+}
+
+.quiz-review-suggestion a:hover {
+    color: var(--md-accent-fg-color);
+    text-decoration: underline;
+}
+
+.quiz-next-step {
+    margin: 1rem 0;
+    padding: 1rem;
+    border: 1px solid #0d7a3e;
+    border-radius: 0.3rem;
+    background: #f0fdf4;
+}
+
+[data-md-color-scheme="slate"] .quiz-next-step {
+    border-color: #4ade80;
+    background: #0d2818;
+}
+
+.quiz-next-step h4 {
+    margin: 0 0 0.5rem;
+    font-size: 0.95rem;
+    color: #0d7a3e;
+}
+
+[data-md-color-scheme="slate"] .quiz-next-step h4 {
+    color: #4ade80;
+}
+
+.quiz-next-step ul {
+    margin: 0.5rem 0;
+    padding-left: 1.5rem;
+}
+
+.quiz-next-step li {
+    margin-bottom: 0.3rem;
+    font-size: 0.88rem;
+}
+
+.quiz-next-step a {
+    color: #0d7a3e;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+[data-md-color-scheme="slate"] .quiz-next-step a {
+    color: #4ade80;
+}
+
+.quiz-next-step a:hover {
+    text-decoration: underline;
+}
+
+/* ==================== 教程下一步建议 ==================== */
+.tutorial-next-steps {
+    margin: 2rem 0;
+    padding: 1.5rem;
+    border: 1px solid var(--md-default-fg-color--lightest);
+    border-radius: 0.45rem;
+    background: var(--md-default-bg-color);
+}
+
+.tutorial-next-steps h3 {
+    margin: 0 0 0.8rem;
+    font-size: 1rem;
+    color: var(--md-primary-fg-color);
+}
+
+.tutorial-next-steps ul {
+    margin: 0.5rem 0;
+    padding-left: 1.5rem;
+}
+
+.tutorial-next-steps li {
+    margin-bottom: 0.4rem;
+    font-size: 0.88rem;
+}
+
+.tutorial-next-steps ol {
+    margin: 0.5rem 0;
+    padding-left: 1.5rem;
+}
+
+.tutorial-next-steps ol li {
+    margin-bottom: 0.5rem;
+}
+
+.tutorial-next-steps a {
+    color: var(--md-typeset-a-color);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.tutorial-next-steps a:hover {
+    color: var(--md-accent-fg-color);
+    text-decoration: underline;
+}
+
+.tutorial-next-steps input[type="checkbox"] {
+    margin-right: 0.5rem;
+    accent-color: var(--md-primary-fg-color);
+}
+
 /* ==================== 响应式 ==================== */
 @media (max-width: 76.1875em) {
     .home-quick-grid,
@@ -712,5 +1225,9 @@
 
     .home-tag-card {
         min-height: auto;
+    }
+
+    .phases-grid {
+        grid-template-columns: 1fr;
     }
 }

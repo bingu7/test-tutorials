@@ -9,6 +9,13 @@
     <span class="meta-item">📝 10 道选择题</span>
 </div>
 
+!!! tip "测验反馈"
+    提交答案后，系统会显示：
+    - 得分和正确率
+    - 错题分析和薄弱知识点
+    - 复习建议和推荐教程
+    - 下一步学习建议
+
 ---
 
 <div class="quiz-container" data-quiz-id="python-basics">
