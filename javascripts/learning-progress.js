@@ -7,6 +7,12 @@
     // 学习进度存储键
     var STORAGE_KEY = 'learning-progress-2.0';
 
+    // 测验 ID → URL 映射
+    var QUIZ_URLS = {
+        'python-basics': '/基础理论/Python基础测验/',
+        'sql-basics': '/工具操作/SQL基础测验/'
+    };
+
     // 五阶段学习路径配置
     var LEARNING_PHASES = {
         phase1: {
@@ -81,6 +87,31 @@
         }
     };
 
+    // ==================== 基础路径解析 ====================
+    // 从 canonical URL 推导站点子路径，兼容 GitHub Pages 子目录部署
+    function getBasePath() {
+        try {
+            var canonical = document.querySelector('link[rel="canonical"]');
+            if (canonical && canonical.href) {
+                var pathname = new URL(canonical.href).pathname;
+                if (pathname.length > 1 && pathname.endsWith('/')) {
+                    return pathname.replace(/\/+$/, '');
+                }
+            }
+        } catch(e) {}
+        return '';
+    }
+
+    function resolveUrl(url) {
+        if (url && url.charAt(0) === '/') {
+            return getBasePath() + url;
+        }
+        return url;
+    }
+
+    // 暴露给 interactive.js 使用
+    window.__lpResolveUrl = resolveUrl;
+
     // 初始化学习进度数据
     function getProgressData() {
         var saved = localStorage.getItem(STORAGE_KEY);
@@ -145,12 +176,33 @@
         return data.quiz[quizId] || null;
     };
 
-    // 获取阶段完成度
+    // 获取阶段完成度（带缓存，避免循环中重复读 localStorage）
+    var _progressCache = null;
+    var _progressCacheTime = 0;
+    function getCachedProgressData() {
+        var now = Date.now();
+        if (!_progressCache || now - _progressCacheTime > 200) {
+            _progressCache = getProgressData();
+            _progressCacheTime = now;
+        }
+        return _progressCache;
+    }
+    function invalidateProgressCache() {
+        _progressCache = null;
+    }
+
+    // 重写 saveProgressData 以清除缓存
+    var _origSaveProgressData = saveProgressData;
+    saveProgressData = function(data) {
+        _origSaveProgressData(data);
+        invalidateProgressCache();
+    };
+
     window.getPhaseProgress = function(phaseId) {
         var phase = LEARNING_PHASES[phaseId];
         if (!phase) return { completed: 0, total: 0, percentage: 0 };
 
-        var data = getProgressData();
+        var data = getCachedProgressData();
         var completed = 0;
         var total = phase.tutorials.length;
 
@@ -183,7 +235,7 @@
     window.getNextRecommendation = function() {
         var currentPhaseId = getCurrentPhase();
         var phase = LEARNING_PHASES[currentPhaseId];
-        var data = getProgressData();
+        var data = getCachedProgressData();
 
         // 找到当前阶段第一个未学习的教程
         for (var i = 0; i < phase.tutorials.length; i++) {
@@ -302,7 +354,7 @@
             '<div class="recommendation-box">' +
             '<strong>💡 下一步建议：</strong>' +
             '<p>' + recommendation.message + '</p>' +
-            (recommendation.tutorial ? '<a href="' + recommendation.tutorial.url + '" class="recommendation-link">开始学习 →</a>' : '') +
+            (recommendation.tutorial ? '<a href="' + resolveUrl(recommendation.tutorial.url) + '" class="recommendation-link">开始学习 →</a>' : '') +
             '</div>' +
             '</div>' +
             '</div>';
@@ -339,9 +391,9 @@
 
         // 创建各阶段详情
         var detailsHtml = '<div class="phases-details">';
+        var data = getCachedProgressData();
         phases.forEach(function(phaseId, index) {
             var phase = LEARNING_PHASES[phaseId];
-            var data = getProgressData();
 
             detailsHtml += '<div class="phase-detail" id="phase-' + phaseId + '">' +
                 '<h3>第 ' + (index + 1) + ' 阶段：' + phase.name + '</h3>' +
@@ -352,7 +404,7 @@
                 var isLearned = data.learned[tutorial.id];
                 detailsHtml += '<label class="tutorial-item' + (isLearned ? ' learned' : '') + '">' +
                     '<input type="checkbox" data-tutorial-id="' + tutorial.id + '" ' + (isLearned ? 'checked' : '') + '>' +
-                    '<a href="' + tutorial.url + '">' + tutorial.name + '</a>' +
+                    '<a href="' + resolveUrl(tutorial.url) + '">' + tutorial.name + '</a>' +
                     '</label>';
             });
 
@@ -362,8 +414,10 @@
                 detailsHtml += '<div class="quiz-links"><strong>📝 阶段测验：</strong>';
                 phase.quizzes.forEach(function(quizId) {
                     var quizResult = getQuizResult(quizId);
-                    detailsHtml += '<a href="/基础理论/Python基础测验/" class="quiz-link">' +
-                        (quizId === 'python-basics' ? 'Python 基础测验' : 'SQL 基础测验') +
+                    var quizName = quizId === 'python-basics' ? 'Python 基础测验' : quizId === 'sql-basics' ? 'SQL 基础测验' : quizId;
+                    var quizUrl = QUIZ_URLS[quizId] || '#';
+                    detailsHtml += '<a href="' + resolveUrl(quizUrl) + '" class="quiz-link">' +
+                        quizName +
                         (quizResult ? ' (' + quizResult.percentage + '分)' : '') +
                         '</a>';
                 });
@@ -399,12 +453,14 @@
 
         // 获取当前教程ID
         var path = window.location.pathname;
+        var basePath = getBasePath();
+        var relativePath = basePath && path.indexOf(basePath) === 0 ? path.substring(basePath.length) : path;
         var tutorialId = null;
 
         // 从路径中提取教程ID
         Object.keys(LEARNING_PHASES).forEach(function(phaseId) {
             LEARNING_PHASES[phaseId].tutorials.forEach(function(tutorial) {
-                if (path.indexOf(tutorial.url) !== -1) {
+                if (relativePath.indexOf(tutorial.url) !== -1) {
                     tutorialId = tutorial.id;
                 }
             });

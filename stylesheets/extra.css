@@ -364,7 +364,7 @@
     }
 }
 
-@media screen and (max-width: 76.1875em) {
+@media screen and (max-width: 76.19em) {
     .scroll-tabs {
         display: none;
     }
@@ -493,6 +493,11 @@
     background: var(--md-code-bg-color);
     text-decoration: none;
     color: var(--md-accent-fg-color);
+}
+
+.related-item:focus-visible {
+    outline: 2px solid var(--md-primary-fg-color);
+    outline-offset: 2px;
 }
 
 .related-item-icon {
@@ -638,6 +643,11 @@
     opacity: 0.9;
 }
 
+.quiz-submit:focus-visible {
+    outline: 2px solid var(--md-primary-fg-color);
+    outline-offset: 2px;
+}
+
 .quiz-score {
     margin-top: 1rem;
     padding: 0.8rem 1rem;
@@ -745,6 +755,11 @@
     color: white;
 }
 
+.recommendation-link:focus-visible {
+    outline: 2px solid white;
+    outline-offset: 2px;
+}
+
 .phases-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
@@ -835,6 +850,11 @@
     border-color: var(--md-primary-fg-color);
     background: var(--md-code-bg-color);
     text-decoration: none;
+}
+
+.phase-link:focus-visible {
+    outline: 2px solid var(--md-primary-fg-color);
+    outline-offset: 2px;
 }
 
 .phase-percentage {
@@ -949,6 +969,11 @@
     text-decoration: none;
 }
 
+.quiz-link:focus-visible {
+    outline: 2px solid var(--md-primary-fg-color);
+    outline-offset: 2px;
+}
+
 .learning-tip {
     margin: 1.5rem 0;
     padding: 0.8rem 1rem;
@@ -991,6 +1016,11 @@
 .complete-toggle:hover {
     border-color: var(--md-primary-fg-color);
     background: var(--md-code-bg-color);
+}
+
+.complete-toggle:focus-visible {
+    outline: 2px solid var(--md-primary-fg-color);
+    outline-offset: 2px;
 }
 
 .complete-toggle.completed {
@@ -1202,7 +1232,7 @@
 }
 
 /* ==================== 响应式 ==================== */
-@media (max-width: 76.1875em) {
+@media (max-width: 76.19em) {
     .home-quick-grid,
     .home-tag-grid,
     .home-resource-grid,
@@ -1302,29 +1332,12 @@
         padding: 0.5rem;
     }
 
-    .progress-card {
-        padding: 0.8rem;
-    }
-
-    .progress-header h3 {
-        font-size: 0.95rem;
-    }
-
     .tutorial-item {
         padding: 0.4rem 0.6rem;
     }
 
     .tutorial-item a {
         font-size: 0.82rem;
-    }
-
-    /* 模板库优化 */
-    .template-card {
-        padding: 0.8rem;
-    }
-
-    .template-card h3 {
-        font-size: 0.95rem;
     }
 
     /* 表格优化 */
