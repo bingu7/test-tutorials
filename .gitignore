@@ -5,6 +5,7 @@ __pycache__/
 .claude/
 CLAUDE.md
 mkdocs-local*.log
+启动命令.txt
 
 # Root draft tutorial markdown files
 /*.md
