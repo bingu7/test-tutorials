@@ -1231,3 +1231,188 @@
         grid-template-columns: 1fr;
     }
 }
+
+/* ==================== 移动端优化 ==================== */
+@media (max-width: 44.9375em) {
+    /* 首页优化 */
+    .home-hero {
+        padding: 0.6rem 0 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .home-hero h1 {
+        font-size: 1.8rem;
+    }
+
+    .home-hero p {
+        font-size: 0.82rem;
+    }
+
+    /* 卡片优化 */
+    .home-card {
+        padding: 0.8rem;
+    }
+
+    .home-quick-card {
+        min-height: auto;
+    }
+
+    .home-quick-card h3 {
+        font-size: 0.95rem;
+    }
+
+    .home-quick-card p {
+        font-size: 0.78rem;
+    }
+
+    /* 时间线优化 */
+    .home-timeline-item {
+        grid-template-columns: 2.5rem minmax(0, 1fr);
+        gap: 0.5rem;
+        padding: 0.6rem;
+    }
+
+    .home-step {
+        width: 2.5rem;
+        height: 2.5rem;
+        font-size: 0.72rem;
+    }
+
+    /* 测验优化 */
+    .quiz-container {
+        padding: 0.5rem;
+    }
+
+    .quiz-item {
+        padding: 0.8rem;
+        margin-bottom: 0.8rem;
+    }
+
+    .quiz-question {
+        font-size: 0.95rem;
+    }
+
+    .quiz-option {
+        padding: 0.5rem 0.6rem;
+        font-size: 0.88rem;
+    }
+
+    /* 学习进度优化 */
+    .learning-center-2 {
+        padding: 0.5rem;
+    }
+
+    .progress-card {
+        padding: 0.8rem;
+    }
+
+    .progress-header h3 {
+        font-size: 0.95rem;
+    }
+
+    .tutorial-item {
+        padding: 0.4rem 0.6rem;
+    }
+
+    .tutorial-item a {
+        font-size: 0.82rem;
+    }
+
+    /* 模板库优化 */
+    .template-card {
+        padding: 0.8rem;
+    }
+
+    .template-card h3 {
+        font-size: 0.95rem;
+    }
+
+    /* 表格优化 */
+    .md-typeset table {
+        font-size: 0.82rem;
+    }
+
+    .md-typeset table th,
+    .md-typeset table td {
+        padding: 0.5rem 0.6rem;
+    }
+
+    /* 代码块优化 */
+    .md-typeset pre {
+        padding: 0.6rem;
+        font-size: 0.78rem;
+    }
+
+    /* 导航优化 */
+    .md-nav__link {
+        font-size: 0.82rem;
+    }
+
+    /* 按钮优化 */
+    .md-button {
+        padding: 0.5rem 1rem;
+        font-size: 0.82rem;
+    }
+}
+
+/* ==================== 触摸优化 ==================== */
+@media (hover: none) and (pointer: coarse) {
+    /* 增大触摸目标 */
+    .md-nav__link,
+    .md-tabs__link,
+    .md-header__button {
+        min-height: 44px;
+        min-width: 44px;
+        display: flex;
+        align-items: center;
+    }
+
+    /* 优化按钮触摸 */
+    .md-button {
+        min-height: 44px;
+        padding: 0.6rem 1.2rem;
+    }
+
+    /* 优化卡片触摸 */
+    .home-card {
+        padding: 1rem;
+    }
+
+    /* 优化测验选项触摸 */
+    .quiz-option {
+        padding: 0.6rem 0.8rem;
+    }
+
+    /* 优化教程项触摸 */
+    .tutorial-item {
+        padding: 0.6rem 0.8rem;
+    }
+}
+
+/* ==================== 打印样式 ==================== */
+@media print {
+    /* 隐藏导航 */
+    .md-header,
+    .md-sidebar,
+    .md-footer {
+        display: none !important;
+    }
+
+    /* 隐藏交互元素 */
+    .tutorial-complete-btn,
+    .quiz-container {
+        display: none !important;
+    }
+
+    /* 优化内容区域 */
+    .md-content {
+        margin: 0;
+        padding: 0;
+    }
+
+    /* 优化代码块 */
+    .md-typeset pre {
+        white-space: pre-wrap;
+        word-wrap: break-word;
+    }
+}
