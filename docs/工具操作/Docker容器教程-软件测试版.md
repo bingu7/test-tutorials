@@ -1307,12 +1307,13 @@ docker logs <container>
 ### 11.2 端口占用
 
 ```bash
-# 报错：port is already allocated
-# 找占用进程
-netstat -anp | grep 8080
-lsof -i:8080
+# 报错：port is already allocated（端口被占用）
+# 找出是谁占了 8080 端口
+netstat -anp | grep 8080        # Linux / Mac（显示进程 PID）
+netstat -ano | findstr :8080    # Windows（显示 PID，再用 tasklist 查进程名）
+lsof -i:8080                    # Linux / Mac（直接显示进程名，更直观）
 
-# 改端口或停止占用程序
+# 找到后：改端口映射（如 -p 8081:80）或停止占用的程序
 ```
 
 ### 11.3 磁盘空间不足

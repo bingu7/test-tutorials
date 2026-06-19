@@ -528,7 +528,7 @@ def test_examples():
 
 ### 4.4 Fixture（前置/后置）
 
-Fixture 替代了传统的 setUp / tearDown，更灵活。
+Fixture 替代了传统的 setUp / tearDown，更灵活。`yield` 之前的代码是前置（setup），`yield` 的值传给测试用例，`yield` 之后的代码是后置（teardown）。
 
 ```python
 import pytest
@@ -538,7 +538,7 @@ def login_token():
     """登录获取 token"""
     print("\n→ 执行登录")
     token = "eyJhbGc..."     # 实际为登录接口返回
-    yield token              # 把 token 给用例  # (1)
+    yield token              # 把 token 给用例，用例执行完后继续往下  # (1)
     print("\n→ 清理工作（用例执行后）")           # (2)
 
 def test_get_user_info(login_token):
@@ -753,9 +753,9 @@ class RequestUtil:
         self.timeout = 30
     
     def send_request(self, method, url, **kwargs):
-        """统一发送请求入口"""
-        kwargs.setdefault("timeout", self.timeout)
-        kwargs.setdefault("verify", False)
+        """统一发送请求入口（**kwargs 允许传入任意额外参数）"""
+        kwargs.setdefault("timeout", self.timeout)   # 如果没传 timeout 就用默认 30 秒
+        kwargs.setdefault("verify", False)            # 跳过 SSL 证书校验（仅测试环境用）
         
         # 打印请求日志
         logger.info(f"请求方法：{method}")
@@ -1120,9 +1120,9 @@ allure open ./reports/allure-report
 import allure
 import pytest
 
-@allure.epic("电商系统")                       # (1)
-@allure.feature("用户模块")                    # (2)
-@allure.story("登录功能")                      # (3)
+@allure.epic("电商系统")                       # (1) 项目级，报告侧边栏第一层
+@allure.feature("用户模块")                    # (2) 模块级，报告侧边栏第二层
+@allure.story("登录功能")                      # (3) 功能级，报告侧边栏第三层
 class TestLogin:
 
     @allure.title("正常账号密码登录成功")        # (4)
@@ -1498,7 +1498,9 @@ from loguru import logger
 
 @pytest.hookimpl(hookwrapper=True, tryfirst=True)
 def pytest_runtest_makereport(item, call):
-    """用例失败时自动处理"""
+    """Pytest 钩子：每个用例执行后自动调用。失败时截图并记录日志。
+    hookwrapper=True 表示包裹用例执行，tryfirst 确保先于其他钩子运行。
+    可以直接复制使用，不需要完全理解内部机制。"""
     outcome = yield
     report = outcome.get_result()
     

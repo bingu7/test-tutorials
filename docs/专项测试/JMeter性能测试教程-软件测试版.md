@@ -69,11 +69,13 @@
 **指标关系：**
 
 ```
-TPS = 并发数 / 平均 RT
+TPS = 并发数 / 平均 RT（注意单位：RT 要换算成秒）
 
-例：100 并发，平均 RT 200ms（0.2s）
-TPS = 100 / 0.2 = 500
+例：100 并发，平均 RT 200ms = 0.2s
+TPS = 100 / 0.2 = 500（每秒处理 500 个请求）
 ```
+
+> TPS（Transactions Per Second）= 每秒完成的请求数。QPS（Queries Per Second）含义类似，一般可通用。
 
 ### 1.4 性能要求确认
 
@@ -135,11 +137,21 @@ java -version
 
 **环境变量（推荐）：**
 
-```bash
-# 添加到 PATH，方便命令行使用
-export JMETER_HOME=/opt/apache-jmeter-5.6.3
-export PATH=$JMETER_HOME/bin:$PATH
-```
+=== "Linux / Mac"
+
+    ```bash
+    export JMETER_HOME=/opt/apache-jmeter-5.6.3
+    export PATH=$JMETER_HOME/bin:$PATH
+    ```
+
+=== "Windows"
+
+    ```cmd
+    set JMETER_HOME=D:\tools\apache-jmeter-5.6.3
+    set PATH=%JMETER_HOME%\bin;%PATH%
+    ```
+
+    > 永久生效需在"系统属性 → 环境变量"中添加。
 
 ### 2.3 中文界面
 
@@ -313,7 +325,7 @@ Test Plan
 
 需要插件支持。
 
-**Stepping Thread Group（阶梯加压）：**
+**Stepping Thread Group（阶梯加压）：** 逐步增加并发数，帮你找到系统的"拐点"——在哪个压力下响应时间开始变长或出错。比直接拉满并发更科学。
 
 ```
 0~30 秒：启动 100 线程
@@ -463,6 +475,8 @@ HTTP Request Body：
 - `Current thread`：每个线程独立读（每线程从头开始）
 
 ### 7.3 函数生成参数
+
+JMeter 用 `${...}` 语法引用变量和函数，放在请求的任意字段（URL、Header、Body）中，运行时自动替换为实际值。函数以双下划线开头：`${__函数名(参数)}`。
 
 **__Random 随机数：**
 
@@ -690,10 +704,16 @@ jmeter -n -t test.jmx -l result.jtl -e -o report/
 
 ### 10.4 实时监控（InfluxDB + Grafana）
 
+JMeter 内置报告只能测试结束后看。如果想在压测过程中**实时**看 TPS、响应时间曲线，需要 InfluxDB + Grafana。
+
+- **InfluxDB**：时序数据库，专门存时间序列指标数据
+- **Grafana**：可视化仪表盘，从 InfluxDB 读数据画实时图表
+
 **架构：**
 
 ```
 JMeter → Backend Listener → InfluxDB → Grafana 仪表盘
+                                    （实时展示 TPS、RT 曲线）
 ```
 
 实时看 TPS、RT 曲线、错误率，是企业级标配。
@@ -745,11 +765,21 @@ JMeter → Backend Listener → InfluxDB → Grafana 仪表盘
 
 **Slave 配置：**
 
-```bash
-# Linux Slave
-cd $JMETER_HOME/bin
-./jmeter-server -Djava.rmi.server.hostname=192.168.1.101
-```
+=== "Linux / Mac"
+
+    ```bash
+    cd $JMETER_HOME/bin
+    ./jmeter-server -Djava.rmi.server.hostname=192.168.1.101
+    ```
+
+=== "Windows"
+
+    ```cmd
+    cd %JMETER_HOME%\bin
+    jmeter-server.bat -Djava.rmi.server.hostname=192.168.1.101
+    ```
+
+    > `$JMETER_HOME`（Linux）和 `%JMETER_HOME%`（Windows）都是引用前面配置的 JMeter 安装路径环境变量。
 
 **Master 配置：**
 
@@ -1006,21 +1036,26 @@ Test Plan
 
 ### 14.4 Java 应用性能分析工具
 
+> `<pid>` 是进程 ID。用 `jps`（Java 自带）或 `ps -ef | grep java`（Linux）找到 Java 进程的 PID。
+
 ```bash
-# 看 GC
+# 看 GC（每秒刷新，共 10 次）
 jstat -gc <pid> 1000 10
 
 # 看堆内存
 jmap -heap <pid>
-jmap -histo:live <pid> | head -20
 
-# 看线程
+# 查看对象占用排名（前 20 条）
+jmap -histo:live <pid> | head -20    # Linux / Mac（head 只取前 N 行）
+jmap -histo:live <pid> | more        # Windows（more 逐页查看，按空格翻页）
+
+# 看线程栈
 jstack <pid>
 
 # 推荐工具
-# - Arthas（阿里开源，强大）
-# - JProfiler（商业）
-# - VisualVM（免费）
+# - Arthas（阿里开源，功能最全，推荐）
+# - JProfiler（商业，图形化）
+# - VisualVM（免费，JDK 自带）
 ```
 
 ### 14.5 优化建议

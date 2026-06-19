@@ -593,11 +593,11 @@ input:not([disabled])
 "(//input)[last()]"                    # 最后一个
 "//div[@class='item'][2]"              # 第 2 个 class=item
 
-# 父/兄弟轴
-"//input/parent::div"                  # 父元素
-"//input/ancestor::form"               # 祖先
-"//label/following-sibling::input"     # 后兄弟
-"//input/preceding-sibling::label"     # 前兄弟
+# 父/兄弟轴（XPath 专属功能，CSS 选择器做不到）
+"//input/parent::div"                  # parent:: 往上一层找父元素
+"//input/ancestor::form"               # ancestor:: 往上找任意祖先
+"//label/following-sibling::input"     # following-sibling:: 找同级后面的元素
+"//input/preceding-sibling::label"     # preceding-sibling:: 找同级前面的元素
 
 # 文本提取
 "//input[@id='username']/@value"       # 属性值
@@ -863,12 +863,12 @@ el = WebDriverWait(driver, 10).until(
     EC.visibility_of_element_located((By.ID, "username"))
 )
 
-# 等元素可点
+# 等元素可点（可见且未禁用，适合点击按钮前用）
 el = WebDriverWait(driver, 10).until(
     EC.element_to_be_clickable((By.ID, "btn"))
 )
 
-# 等元素消失
+# 等元素消失（如 loading 动画消失后再操作）
 WebDriverWait(driver, 10).until(
     EC.invisibility_of_element_located((By.ID, "loading"))
 )
@@ -1059,12 +1059,13 @@ from selenium.webdriver.support import expected_conditions as EC
 class BasePage:
     def __init__(self, driver):
         self.driver = driver
-        self.wait = WebDriverWait(driver, 10)  # (1)
-    
+        self.wait = WebDriverWait(driver, 10)  # (1) 显式等待，最多等 10 秒
+
     def open(self, url):
         self.driver.get(url)
-    
+
     def find(self, locator):
+        # locator 是元组，如 (By.ID, "username") 或 (By.CSS_SELECTOR, ".btn")
         return self.wait.until(EC.presence_of_element_located(locator))  # (2)
     
     def click(self, locator):
@@ -1262,6 +1263,7 @@ def driver(request):
 
 @pytest.hookimpl(hookwrapper=True)
 def pytest_runtest_makereport(item, call):
+    """Pytest 钩子：用例失败时自动截图并附加到 Allure 报告。直接复制使用即可。"""
     outcome = yield
     report = outcome.get_result()
     if report.when == "call" and report.failed:

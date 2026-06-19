@@ -134,13 +134,25 @@ java -version
 
 **方式 2：装命令行工具**
 
-下载 Command Line Tools，配置：
+下载 Command Line Tools，配置环境变量（让系统能找到 `adb`、`sdkmanager` 等命令）：
 
-```bash
-# 设置 ANDROID_HOME
-export ANDROID_HOME=$HOME/Android/sdk
-export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$ANDROID_HOME/build-tools/版本号
-```
+=== "Linux / Mac"
+
+    ```bash
+    export ANDROID_HOME=$HOME/Android/sdk
+    export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$ANDROID_HOME/build-tools/版本号
+    ```
+
+    > 写入 `~/.bashrc` 或 `~/.zshrc` 可永久生效。
+
+=== "Windows"
+
+    ```cmd
+    set ANDROID_HOME=%LOCALAPPDATA%\Android\Sdk
+    set PATH=%PATH%;%ANDROID_HOME%\tools;%ANDROID_HOME%\platform-tools;%ANDROID_HOME%\build-tools\版本号
+    ```
+
+    > 命令行设置仅当前窗口有效。永久生效：右键"此电脑 → 属性 → 高级系统设置 → 环境变量"，添加 `ANDROID_HOME` 和 PATH。
 
 **验证：**
 

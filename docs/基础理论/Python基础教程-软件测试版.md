@@ -95,10 +95,10 @@ pip uninstall requests
 # 查看已安装
 pip list
 
-# 导出依赖
+# 导出依赖（把当前所有包及版本写入文件，方便团队共享或环境复现）
 pip freeze > requirements.txt
 
-# 从文件安装
+# 从文件安装（一键安装文件中列出的所有包）
 pip install -r requirements.txt
 
 # 国内镜像加速
@@ -190,11 +190,11 @@ s.lower()             # 'hello, world!'
 s.upper()             # 'HELLO, WORLD!'
 s.strip()             # 去首尾空格
 s.replace("Hello", "Hi")  # 'Hi, World!'
-s.split(", ")         # ['Hello', 'World!']
+s.split(", ")         # ['Hello', 'World!']（按分隔符拆成列表）
 s.find("World")       # 7（找不到返回 -1）
 s.startswith("Hello") # True
 s.endswith("!")       # True
-",".join(["a","b"])   # 'a,b'
+",".join(["a","b"])   # 'a,b'（用逗号把列表元素拼成字符串，前面的字符串是分隔符）
 
 # 格式化
 f"名字: {name}, 年龄: {age}"          # f-string（推荐）
@@ -352,8 +352,9 @@ squares = [x**2 for x in range(1, 11)]
 even = [x for x in range(10) if x % 2 == 0]
 # [0, 2, 4, 6, 8]
 
-# 字典推导式
+# 字典推导式（假设 users = [{"id": 1, "name": "Alice"}, {"id": 2, "name": "Bob"}]）
 user_map = {u["id"]: u["name"] for u in users}
+# 结果：{1: "Alice", 2: "Bob"}（把列表转成 id → name 的映射字典）
 ```
 
 ---
@@ -444,19 +445,21 @@ print(admin.show_role())   # 自己的方法
 
 ### 7.3 Page Object 中的类（测试常用）
 
+> 下面是 Playwright 自动化框架中的写法（详见 Playwright 教程）。这里重点理解类的用法：把页面操作封装成方法，测试代码更简洁。
+
 ```python
 class LoginPage:
-    def __init__(self, page):
+    def __init__(self, page):       # page 是浏览器页面对象
         self.page = page
-    
+
     def login(self, username, password):
-        self.page.fill("#username", username)
+        self.page.fill("#username", username)   # fill = 填写输入框
         self.page.fill("#password", password)
-        self.page.click("#login-btn")
+        self.page.click("#login-btn")           # click = 点击按钮
         return self
-    
+
     def get_error(self):
-        return self.page.text_content(".error-msg")
+        return self.page.text_content(".error-msg")  # 获取错误提示文字
 ```
 
 ---
@@ -471,7 +474,7 @@ import json
 from datetime import datetime
 from pathlib import Path as P
 
-# 导入自己的模块
+# 导入自己的模块（自动化框架中会自己写的工具文件，后面项目实战会用到）
 from common.yaml_util import read_yaml
 ```
 
@@ -641,10 +644,12 @@ with open("data.json", encoding="utf-8") as f:
 
 ### 11.3 re（正则表达式）
 
+正则表达式用特殊符号匹配文本模式。字符串前面加 `r` 表示原始字符串（反斜杠不转义）。常用模式：`\d` 匹配数字，`\w` 匹配字母/数字/下划线，`+` 表示一个或多个。
+
 ```python
 import re
 
-# 查找
+# 查找所有匹配（返回列表）
 re.findall(r"\d+", "订单号12345，金额100元")  # ['12345', '100']
 
 # 匹配
@@ -691,8 +696,9 @@ from_timestamp = datetime.fromtimestamp(1717836000)
 ```python
 import hashlib
 
-# MD5
+# MD5（.encode() 把字符串转为字节，.hexdigest() 返回可读的十六进制字符串）
 md5 = hashlib.md5("hello".encode()).hexdigest()
+# 结果：'5d41402abc4b2a76b9719d911017c592'
 
 # SHA256
 sha = hashlib.sha256("hello".encode()).hexdigest()
@@ -756,9 +762,13 @@ ModuleNotFoundError: No module named 'xxx'
 # 安装模块
 pip install xxx
 
-# 检查是否在正确的 Python 环境
-which python
-pip list | grep xxx
+# 检查是否在正确的 Python 环境（查看 Python 路径）
+which python                    # Linux / Mac（which 查找命令位置）
+where python                   # Windows CMD（where 功能相同）
+
+# 确认包是否安装成功
+pip list | grep xxx             # Linux / Mac（grep 过滤含关键字的行）
+pip list | findstr xxx          # Windows（findstr 是 Windows 版 grep）
 ```
 
 ### 13.4 缩进与代码块

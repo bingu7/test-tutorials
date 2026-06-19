@@ -171,6 +171,8 @@ playwright --version
 
 ### 3.1 Pytest 风格（推荐）
 
+> `page` 参数由 pytest-playwright 插件自动注入，不需要手动创建浏览器或页面——写上 `page: Page` 就能直接用。
+
 ```python
 # test_demo.py
 from playwright.sync_api import Page, expect
@@ -470,7 +472,7 @@ page.locator("#loading").wait_for(state="hidden", timeout=10000)
 # 等待页面导航
 page.wait_for_url("**/dashboard")
 
-# 等待网络空闲
+# 等待网络空闲（500ms 内无新请求，适合 SPA 单页应用等 API 加载完再操作）
 page.wait_for_load_state("networkidle")
 
 # 等待特定请求完成
@@ -521,15 +523,17 @@ with sync_playwright() as p:
 
 ### 7.2 上下文配置
 
+配置项按需选用，不用全部写上。常用的：`base_url` 省得每次写完整 URL，`viewport` 测试不同屏幕尺寸，`ignore_https_errors` 跳过测试环境证书。
+
 ```python
 context = browser.new_context(
-    base_url="https://test.example.com",
-    viewport={"width": 1920, "height": 1080},
-    ignore_https_errors=True,               # 忽略证书错误
+    base_url="https://test.example.com",     # 基础 URL，之后 goto 可以写相对路径
+    viewport={"width": 1920, "height": 1080},  # 浏览器窗口大小（测试响应式布局用）
+    ignore_https_errors=True,               # 忽略证书错误（测试环境常用）
     locale="zh-CN",                          # 语言
-    timezone_id="Asia/Shanghai",             # 时区
-    geolocation={"longitude": 116.4, "latitude": 39.9},  # 地理位置
-    permissions=["geolocation"],             # 权限
+    timezone_id="Asia/Shanghai",             # 时区（影响页面时间显示）
+    geolocation={"longitude": 116.4, "latitude": 39.9},  # GPS 坐标（测定位功能）
+    permissions=["geolocation"],             # 授权地理位置权限
     color_scheme="dark",                     # 暗色模式
     storage_state="auth.json",              # (1)
 )
@@ -582,6 +586,7 @@ print(new_page.title())
 # 阻止图片加载（加速测试）— 用正则代替 glob 大括号
 import re
 page.route(re.compile(r"\.(png|jpg|jpeg|gif)$"), lambda route: route.abort())
+# lambda 是简写函数，等价于 def block(route): route.abort()
 
 # 修改请求头
 def add_auth(route):
@@ -920,13 +925,13 @@ testpaths = tests
 python_files = test_*.py
 python_classes = Test*
 python_functions = test_*
-addopts = 
-    -v
-    --browser chromium
-    --screenshot on
-    --video on
-    --tracing on
-    --output test-results
+addopts =
+    -v                                  # 详细输出
+    --browser chromium                  # 默认浏览器
+    --screenshot on                     # 失败时自动截图
+    --video on                          # 录制测试视频
+    --tracing on                        # 记录执行轨迹（用 playwright show-trace 查看）
+    --output test-results               # 截图/视频/轨迹保存目录
 ```
 
 ### 11.4 playwright.config.py（可选，非 pytest 插件用）

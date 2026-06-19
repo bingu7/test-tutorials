@@ -143,10 +143,10 @@ git config --global alias.ci commit
 
 ### 2.3 SSH 密钥配置（推荐）
 
-避免每次推送都输密码：
+避免每次推送都输密码。SSH 密钥是一对文件：私钥（留给自己，不能泄露）和公钥（上传到 GitHub/GitLab）。推送代码时用私钥证明身份，不需要输密码。
 
 ```bash
-# 1. 生成密钥（一路回车，推荐 ed25519，安全且短小）
+# 1. 生成密钥（一路回车即可。-t 指定算法，-C 是备注通常写邮箱）
 ssh-keygen -t ed25519 -C "zhangsan@company.com"
 # 老系统不支持 ed25519 时再回退到 rsa：
 # ssh-keygen -t rsa -b 4096 -C "zhangsan@company.com"
@@ -469,7 +469,7 @@ git merge --no-ff dev
 
 ### 4.4 Rebase（变基）
 
-把当前分支的提交"嫁接"到目标分支末端。
+把当前分支的提交"重放"到目标分支末端，让提交历史变成一条直线。适合功能分支落后于主干时追赶进度，但**不要对已推送到共享分支的提交 rebase**（会改写历史）。
 
 ```bash
 git checkout feature
@@ -806,7 +806,7 @@ git reset --hard 89de56f
 
 ### 7.6 暂存修改（stash）
 
-工作未完成但要切分支时使用。
+工作未完成但要切分支时使用。`git stash` 把未提交的修改临时"藏起来"，工作区恢复干净。之后用 `git stash pop` 取回。就像把桌上的草稿放进抽屉，腾出空间做别的事。
 
 ```bash
 # 暂存当前修改

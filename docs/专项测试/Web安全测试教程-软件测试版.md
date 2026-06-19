@@ -52,7 +52,7 @@
 
 | 排名 | 风险 | 说明 |
 |------|------|------|
-| A01 | 失效的访问控制 | 越权、IDOR |
+| A01 | 失效的访问控制 | 越权、IDOR（通过改 URL 中的 ID 访问他人数据） |
 | A02 | 加密失败（Cryptographic Failures） | 敏感数据明文传输/存储 |
 | A03 | 注入 | SQL、XSS、命令注入 |
 | A04 | 不安全设计 | 架构层面缺陷 |
@@ -200,8 +200,10 @@ Burp Suite 是 Web 安全测试的 **核心工具**，功能：
 
 **Intruder（入侵器）：**
 - 标记攻击位置（如密码字段）
-- 加载字典（如常见密码列表）
-- 自动批量发送，分析结果
+- 加载字典（一个包含成千上万常用密码的文件，如 "123456"、"password"、"admin"）
+- 自动逐个尝试，分析结果
+
+> ⚠️ 字典爆破只能用于你有权限测试的系统，未经授权的暴力破解是违法的。
 
 ---
 
@@ -219,6 +221,8 @@ sql = f"SELECT * FROM users WHERE name = '{username}' AND pwd = '{password}'"
 # 拼接后：SELECT * FROM users WHERE name = 'admin' OR '1'='1' AND pwd = ''
 # 结果：绕过登录
 ```
+
+> 为什么能绕过？正常 SQL 要 `name='admin' AND pwd='xxx'` 两个条件都成立。攻击者输入的 `'1'='1'` 永远为真，加上 `OR` 后整个条件变成"只要 name 是 admin 或 1=1 就行"——1=1 永远成立，所以不需要密码就能查出数据。
 
 ### 3.2 测试方法
 
@@ -344,7 +348,7 @@ javascript:alert(1)
 
 ### 5.1 原理
 
-诱导已登录用户访问恶意页面，利用用户的登录态发起请求。
+诱导已登录用户访问恶意页面，利用用户的登录态发起请求。浏览器会自动把目标网站的 Cookie 带上——不管你从哪个页面发起请求，只要是发往 bank.com，浏览器就会带上 bank.com 的 Cookie。CSRF 就是利用了这个机制。
 
 ```
 用户已登录 bank.com
@@ -455,8 +459,8 @@ Body: {"userId": 1001}
 | 修改文件类型 | 改 Content-Type（如 image/jpeg） |
 | 双扩展名 | test.php.jpg |
 | 大小写绕过 | test.pHp |
-| 00 截断 | test.php%00.jpg（旧系统） |
-| 图片马 | 图片文件中嵌入 PHP 代码 |
+| 00 截断 | test.php%00.jpg（旧系统中 %00 会截断文件名，实际存为 test.php） |
+| 图片马 | 合法图片中嵌入恶意代码，如果服务器执行了这个"图片"就会中招 |
 | 超大文件 | 上传 GB 级文件测试 DoS |
 
 ### 8.2 测试步骤
@@ -490,19 +494,29 @@ Body: {"userId": 1001}
 3. 标记密码字段为攻击位置 `$password$`
 4. 加载密码字典（如 rockyou.txt）
 5. 开始攻击
-6. 按响应长度/状态码筛选正确密码
+6. 按响应长度/状态码筛选正确密码——登录失败通常返回短错误提示，成功则返回用户数据和 Token（响应更长），按长度排序就能找到密码
 
 ### 9.3 验证限流
 
-```bash
-# 用 curl 快速重放 100 次
-for i in $(seq 1 100); do
-  curl -s -o /dev/null -w "%{http_code}\n" \
-    -X POST http://api.example.com/send-sms \
-    -d '{"phone":"13800138000"}'
-done
-# 如果全部返回 200 → 无限流，存在短信轰炸风险
-```
+=== "Linux / Mac"
+
+    ```bash
+    for i in $(seq 1 100); do
+      curl -s -o /dev/null -w "%{http_code}\n" \
+        -X POST http://api.example.com/send-sms \
+        -d '{"phone":"13800138000"}'
+    done
+    # 如果全部返回 200 → 无限流，存在短信轰炸风险
+    ```
+
+=== "Windows PowerShell"
+
+    ```powershell
+    1..100 | ForEach-Object {
+      $r = Invoke-WebRequest -Uri "http://api.example.com/send-sms" -Method POST -Body '{"phone":"13800138000"}' -ContentType "application/json"
+      Write-Output $r.StatusCode
+    }
+    ```
 
 ---
 

@@ -510,7 +510,7 @@ Collection 是接口的逻辑分组容器，类似文件夹。一个项目通常
 
 ### 8.1 编写位置
 
-请求 Tab → `Tests` 标签下，使用 JavaScript 编写。
+请求 Tab → `Tests` 标签下，使用 JavaScript 编写。不需要精通 JavaScript，Postman 提供了 `pm.test()`、`pm.expect()`、`pm.response` 等辅助对象，照着模板写就行。
 
 ### 8.2 常用断言模板
 
@@ -569,10 +569,12 @@ pm.test("Content-Type 为 JSON", function () {
 
 #### 8.2.6 JSON Schema 校验
 
+JSON Schema 定义响应的"结构模板"——必须有哪些字段、每个字段是什么类型。这样不仅能验证单个值，还能验证整个响应结构是否正确。
+
 ```javascript
 const schema = {
     "type": "object",
-    "required": ["code", "msg", "data"],
+    "required": ["code", "msg", "data"],    // 必须包含这三个字段
     "properties": {
         "code": {"type": "number"},
         "msg": {"type": "string"},
@@ -827,7 +829,7 @@ Newman 是 Postman 官方提供的命令行工具，用于在 **终端 / CI/CD �
 
 ### 12.2 安装 Newman
 
-需先安装 Node.js（Newman 当前版本要求 Node.js 16+；CI 中建议使用 Node 20 LTS 或更新的 LTS 版本），然后：
+需先安装 Node.js（JavaScript 运行环境，下载地址：`https://nodejs.org/`，选 LTS 版本）。安装后自带 npm（包管理器，类似 pip）。Newman 当前版本要求 Node.js 16+。
 
 ```bash
 npm install -g newman
