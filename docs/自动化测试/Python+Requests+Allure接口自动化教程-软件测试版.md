@@ -1,3 +1,6 @@
+---
+description: Python 接口自动化教程，Requests + Pytest + Allure 框架搭建。
+---
 # Python + Requests + Allure 接口自动化教程（软件测试人员专用）
 
 > 本教程面向软件测试工程师，系统讲解基于 Python 技术栈搭建接口自动化测试框架，覆盖从环境搭建、用例编写、数据驱动到 Allure 报告生成、CI/CD 集成的完整流程。

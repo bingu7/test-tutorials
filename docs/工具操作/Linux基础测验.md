@@ -1,3 +1,6 @@
+---
+description: Linux 基础测验，检验命令行和系统管理掌握程度。
+---
 # Linux 基础测验
 
 !!! abstract "测验说明"

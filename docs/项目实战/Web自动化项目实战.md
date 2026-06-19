@@ -1,3 +1,6 @@
+---
+description: Web 自动化项目实战，Page Object、失败截图和 CI 运行。
+---
 # Web 自动化项目实战
 
 !!! info "概述"

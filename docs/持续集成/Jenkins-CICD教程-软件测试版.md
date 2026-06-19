@@ -1,3 +1,6 @@
+---
+description: Jenkins CI/CD 教程，Pipeline 流水线和自动化测试集成。
+---
 # Jenkins CI/CD 教程（软件测试人员专用）
 
 > 本教程面向软件测试工程师，讲解如何使用 Jenkins 搭建持续集成流水线，自动化执行测试、生成报告、通知团队。

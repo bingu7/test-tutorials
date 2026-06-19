@@ -1,3 +1,6 @@
+---
+description: JavaScript 基础教程，JS 语法、DOM、异步和 Postman 脚本。
+---
 # JavaScript 基础教程（软件测试人员专用）
 
 !!! abstract "教程简介"

@@ -1,3 +1,6 @@
+---
+description: Redis 与 MongoDB 教程，缓存查询、数据校验和测试数据清理。
+---
 # Redis 与 MongoDB 教程（软件测试人员专用）
 
 > 本教程面向软件测试工程师，讲解 Redis 和 MongoDB 在测试工作中的常用操作：连接、查询、校验数据、清理数据。

@@ -1,3 +1,6 @@
+---
+description: Python 基础测验，检验语法、数据类型和函数掌握程度。
+---
 # Python 基础测验
 
 !!! abstract "测验说明"

@@ -1,3 +1,6 @@
+---
+description: GitHub Actions 教程，矩阵测试、缓存和 Artifacts 管理。
+---
 # GitHub Actions CI/CD 教程（软件测试人员专用）
 
 > 本教程面向软件测试工程师，讲解如何使用 GitHub Actions 搭建持续集成流水线，自动化执行测试、生成报告、通知团队。

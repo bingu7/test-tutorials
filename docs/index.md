@@ -1,4 +1,6 @@
 ---
+description: 70+ 篇系统化软件测试教程，覆盖入门到面试的完整技能栈。
+
 hide:
   - navigation
   - toc
@@ -7,7 +9,7 @@ hide:
 <section class="home-hero">
 <div class="home-eyebrow">软件测试学习指南</div>
 <h1>软件测试知识体系</h1>
-<p>70+ 篇系统化文档，覆盖从零基础入门到自动化进阶、项目实战、模板案例和面试准备的完整技能栈。</p>
+<p>73+ 篇系统化文档，覆盖从零基础入门到自动化进阶、项目实战、模板案例和面试准备的完整技能栈。</p>
 </section>
 
 <section class="home-quick-grid">
@@ -36,9 +38,9 @@ hide:
 <h3>准备面试看这里</h3>
 <p>用模板、案例和项目表达，把知识讲成能落地的经验。</p>
 <div class="home-links">
-<a href="面试专题/">面试专题</a>
+<a href="案例库/index.md">案例库</a>
 <a href="项目实战/">项目实战</a>
-<a href="模板库/">模板库</a>
+<a href="面试专题/">面试专题</a>
 </div>
 </article>
 </section>
@@ -120,10 +122,10 @@ hide:
 ## 教程概览
 
 <section class="home-stats">
-<div class="home-stat"><strong>70+</strong><span>篇系统教程</span></div>
+<div class="home-stat"><strong>73+</strong><span>篇系统教程</span></div>
 <div class="home-stat"><strong>6</strong><span>个项目实战</span></div>
 <div class="home-stat"><strong>7</strong><span>份常用模板</span></div>
-<div class="home-stat"><strong>6</strong><span>组功能案例</span></div>
+<div class="home-stat"><strong>8</strong><span>组功能案例</span></div>
 <div class="home-stat"><strong>5</strong><span>阶段学习路径</span></div>
 </section>
 
@@ -136,13 +138,13 @@ hide:
     | 基础理论 | 10 | 测试思维、ISTQB 术语、测试金字塔、探索式测试、Python 基础、前端基础、JavaScript 基础、TypeScript 基础、敏捷测试、测试理论测验 |
     | 工具操作 | 11 | SQL、Redis/MongoDB、Linux、Git、Docker、Fiddler、Postman、接口联调、正则表达式、网络知识、Linux 测验 |
     | 专项测试 | 4 | 接口测试方法论、接口测试测验、JMeter 性能、Web 安全 |
-    | 自动化测试 | 4 | Python+Selenium+Playwright+Appium |
+    | 自动化测试 | 5 | Python+Selenium+Playwright+Playwright测验+Appium |
     | 项目实战 | 6 | 项目总览、电商、接口自动化、Web 自动化、性能测试、CI/CD 回归实战 |
     | 模板库 | 7 | 测试计划、测试用例、接口用例、缺陷报告、测试报告、上线检查 |
-    | 案例库 | 6 | 登录、购物车、下单支付、权限控制、文件上传案例 |
+    | 案例库 | 8 | 登录、购物车、下单支付、权限控制、文件上传、搜索、通知、国际化案例 |
     | 面试专题 | 6 | 软件测试、接口测试、自动化测试、项目经验表达、面试复盘 |
     | 持续集成 | 3 | Jenkins CI/CD、GitHub Actions、GitLab CI/CD |
-    | **合计** | **70+** | **测试工程师全栈技能** |
+    | **合计** | **73+** | **测试工程师全栈技能** |
 
 ---
 
@@ -206,6 +208,7 @@ hide:
     | [Python 接口自动化](自动化测试/Python+Requests+Allure接口自动化教程-软件测试版.md) | Requests + Pytest + Allure 框架 | 5天 | ★★★★★ |
     | [Selenium Web 自动化](自动化测试/Selenium-Web自动化教程-软件测试版.md) | Web UI 自动化、Page Object | 3天 | ★★★★ |
     | [Playwright Web 自动化](自动化测试/Playwright自动化测试教程-软件测试版.md) | 现代 Web 自动化、自动等待、网络拦截 | 3天 | ★★★★ |
+    | [Playwright 基础测验](自动化测试/Playwright基础测验.md) | 检验定位、等待、Page Object 掌握程度 | 0.5天 | ★★★★ |
     | [Appium App 自动化](自动化测试/Appium-App自动化教程-软件测试版.md) | 移动端自动化测试 | 3天 | ★★★ |
 
     → [第4阶段通关检查](学习中心/第4阶段-自动化测试通关.md)
@@ -224,6 +227,7 @@ hide:
     | [Jenkins CI/CD](持续集成/Jenkins-CICD教程-软件测试版.md) | 流水线搭建、自动化集成 | 2天 | ★★★★ |
     | [GitHub Actions](持续集成/GitHub-Actions教程-软件测试版.md) | GitHub 内置 CI/CD、矩阵测试 | 1.5天 | ★★★★ |
     | [GitLab CI/CD](持续集成/GitLab-CICD教程-软件测试版.md) | GitLab 内置 CI/CD、DAG 流水线 | 1.5天 | ★★★★ |
+    | [模板库](模板库/index.md) / [案例库](案例库/index.md) / [面试专题](面试专题/index.md) | 模板 + 案例 + 面试题 | 按需 | ★★★★ |
 
     → [第5阶段通关检查](学习中心/第5阶段-项目面试通关.md)
 

@@ -1,3 +1,6 @@
+---
+description: SQL 基础测验，检验增删改查和多表查询掌握程度。
+---
 # SQL 基础测验
 
 !!! abstract "测验说明"

@@ -1,3 +1,6 @@
+---
+description: Playwright 自动化教程，自动等待、网络拦截和 Trace 回放。
+---
 # Playwright 自动化测试教程（软件测试人员专用）
 
 > 本教程面向软件测试工程师，系统讲解 Microsoft Playwright 进行 Web UI 自动化测试，覆盖环境搭建、元素定位、用例编写、Page Object 模式、API 测试、CI 集成。

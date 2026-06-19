@@ -1,3 +1,6 @@
+---
+description: TypeScript 基础教程，类型系统、接口、泛型和 Playwright TS。
+---
 # TypeScript 基础教程（软件测试人员专用）
 
 !!! abstract "教程简介"

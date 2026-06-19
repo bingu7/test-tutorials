@@ -1,3 +1,6 @@
+---
+description: ISTQB 标准术语速查，覆盖测试级别、缺陷管理和敏捷术语。
+---
 # ISTQB 软件测试术语速查
 
 !!! abstract "教程简介"

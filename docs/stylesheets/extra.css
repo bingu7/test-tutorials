@@ -1429,3 +1429,40 @@
         word-wrap: break-word;
     }
 }
+
+/* ==================== 移动端导航优化 ==================== */
+
+/* 标签栏在移动端可横向滚动，防止溢出截断 */
+@media (max-width: 76.1875em) {
+    .md-tabs {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;          /* Firefox */
+    }
+
+    .md-tabs::-webkit-scrollbar {
+        display: none;                  /* Chrome/Safari */
+    }
+
+    .md-tabs .md-tabs__list {
+        white-space: nowrap;
+        flex-wrap: nowrap;
+    }
+
+    .md-tabs .md-tabs__item {
+        flex-shrink: 0;
+    }
+}
+
+/* 手机端（< 48em）：收起标签栏，减少横向空间占用 */
+@media (max-width: 48em) {
+    .md-tabs {
+        padding: 0 0.4rem;
+        gap: 0;
+    }
+
+    .md-tabs .md-tabs__link {
+        font-size: 0.65rem;
+        padding: 0.5rem 0.45rem;
+    }
+}
