@@ -4128,25 +4128,30 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>测试环境登录接口返回 500，开发让你先看一下服务器日志。
 </code></pre></div>
 <p>请写出排查步骤。</p>
-<p>参考答案：</p>
+<p>参考答案（服务器通常是 Linux，但本地调试可能用 Windows，两种命令都列出）：</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1"># 1. 进入日志目录</span>
-<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="nb">cd</span><span class="w"> </span>/var/log/app
-<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>
-<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="c1"># 2. 查看最新日志</span>
-<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>tail<span class="w"> </span>-n<span class="w"> </span><span class="m">200</span><span class="w"> </span>app.log
-<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>
-<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="c1"># 3. 实时观察错误</span>
-<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>tail<span class="w"> </span>-f<span class="w"> </span>app.log
-<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>
-<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="c1"># 4. 搜索错误关键字</span>
-<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>grep<span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;ERROR&quot;</span><span class="w"> </span>app.log
-<a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>grep<span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;/api/login&quot;</span><span class="w"> </span>app.log
-<a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a>
-<a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a><span class="c1"># 5. 查看服务是否存在</span>
-<a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a>ps<span class="w"> </span>-ef<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>java
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="nb">cd</span><span class="w"> </span>/var/log/app<span class="w">                          </span><span class="c1"># Linux / Mac 日志通常在这</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="nb">cd</span><span class="w"> </span>C:<span class="se">\a</span>pp<span class="se">\l</span>ogs<span class="w">                           </span><span class="c1"># Windows 根据项目实际路径调整</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="c1"># 2. 查看最新日志</span>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>tail<span class="w"> </span>-n<span class="w"> </span><span class="m">200</span><span class="w"> </span>app.log<span class="w">                      </span><span class="c1"># Linux / Mac</span>
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>Get-Content<span class="w"> </span>app.log<span class="w"> </span>-Tail<span class="w"> </span><span class="m">200</span><span class="w">            </span><span class="c1"># PowerShell</span>
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="c1"># 3. 实时观察错误</span>
+<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>tail<span class="w"> </span>-f<span class="w"> </span>app.log<span class="w">                          </span><span class="c1"># Linux / Mac</span>
+<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>Get-Content<span class="w"> </span>app.log<span class="w"> </span>-Wait<span class="w">                </span><span class="c1"># PowerShell</span>
+<a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>
+<a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a><span class="c1"># 4. 搜索错误关键字</span>
+<a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a>grep<span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;ERROR&quot;</span><span class="w"> </span>app.log<span class="w">                  </span><span class="c1"># Linux / Mac</span>
+<a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a>Select-String<span class="w"> </span>-Path<span class="w"> </span>app.log<span class="w"> </span>-Pattern<span class="w"> </span><span class="s2">&quot;ERROR&quot;</span><span class="w">    </span><span class="c1"># PowerShell</span>
 <a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a>
-<a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a><span class="c1"># 6. 查看端口是否监听</span>
-<a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a>ss<span class="w"> </span>-tlnp<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="m">8080</span>
+<a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a><span class="c1"># 5. 查看服务是否存在</span>
+<a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a>ps<span class="w"> </span>-ef<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>java<span class="w">                       </span><span class="c1"># Linux / Mac</span>
+<a id="__codelineno-8-19" name="__codelineno-8-19" href="#__codelineno-8-19"></a>Get-Process<span class="w"> </span>java<span class="w">                         </span><span class="c1"># PowerShell</span>
+<a id="__codelineno-8-20" name="__codelineno-8-20" href="#__codelineno-8-20"></a>
+<a id="__codelineno-8-21" name="__codelineno-8-21" href="#__codelineno-8-21"></a><span class="c1"># 6. 查看端口是否监听</span>
+<a id="__codelineno-8-22" name="__codelineno-8-22" href="#__codelineno-8-22"></a>ss<span class="w"> </span>-tlnp<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="m">8080</span><span class="w">                     </span><span class="c1"># Linux / Mac</span>
+<a id="__codelineno-8-23" name="__codelineno-8-23" href="#__codelineno-8-23"></a>netstat<span class="w"> </span>-ano<span class="w"> </span><span class="p">|</span><span class="w"> </span>findstr<span class="w"> </span>:8080<span class="w">             </span><span class="c1"># Windows</span>
 </code></pre></div>
 <p>输出结论时不要只说“日志报错”，要写清：</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>时间：

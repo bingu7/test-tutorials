@@ -5383,8 +5383,8 @@
 <a id="__codelineno-4-28" name="__codelineno-4-28" href="#__codelineno-4-28"></a><span class="c1"># 之后可用 git st 代替 git status</span>
 </code></pre></div>
 <h3 id="23-ssh">2.3 SSH 密钥配置（推荐）<a class="headerlink" href="#23-ssh" title="Permanent link">&para;</a></h3>
-<p>避免每次推送都输密码：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># 1. 生成密钥（一路回车，推荐 ed25519，安全且短小）</span>
+<p>避免每次推送都输密码。SSH 密钥是一对文件：私钥（留给自己，不能泄露）和公钥（上传到 GitHub/GitLab）。推送代码时用私钥证明身份，不需要输密码。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># 1. 生成密钥（一路回车即可。-t 指定算法，-C 是备注通常写邮箱）</span>
 <a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>ssh-keygen<span class="w"> </span>-t<span class="w"> </span>ed25519<span class="w"> </span>-C<span class="w"> </span><span class="s2">&quot;zhangsan@company.com&quot;</span>
 <a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="c1"># 老系统不支持 ed25519 时再回退到 rsa：</span>
 <a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="c1"># ssh-keygen -t rsa -b 4096 -C &quot;zhangsan@company.com&quot;</span>
@@ -5687,7 +5687,7 @@
 <a id="__codelineno-20-9" name="__codelineno-20-9" href="#__codelineno-20-9"></a>               C ── D ──────
 </code></pre></div>
 <h3 id="44-rebase">4.4 Rebase（变基）<a class="headerlink" href="#44-rebase" title="Permanent link">&para;</a></h3>
-<p>把当前分支的提交"嫁接"到目标分支末端。</p>
+<p>把当前分支的提交"重放"到目标分支末端，让提交历史变成一条直线。适合功能分支落后于主干时追赶进度，但<strong>不要对已推送到共享分支的提交 rebase</strong>（会改写历史）。</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>git<span class="w"> </span>checkout<span class="w"> </span>feature
 <a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>git<span class="w"> </span>rebase<span class="w"> </span>main
 </code></pre></div>
@@ -5973,7 +5973,7 @@
 <p>reset --hard 之后只要 30 天内通过 reflog 还能找回。</p>
 </div>
 <h3 id="76-stash">7.6 暂存修改（stash）<a class="headerlink" href="#76-stash" title="Permanent link">&para;</a></h3>
-<p>工作未完成但要切分支时使用。</p>
+<p>工作未完成但要切分支时使用。<code>git stash</code> 把未提交的修改临时"藏起来"，工作区恢复干净。之后用 <code>git stash pop</code> 取回。就像把桌上的草稿放进抽屉，腾出空间做别的事。</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a><span class="c1"># 暂存当前修改</span>
 <a id="__codelineno-42-2" name="__codelineno-42-2" href="#__codelineno-42-2"></a>git<span class="w"> </span>stash
 <a id="__codelineno-42-3" name="__codelineno-42-3" href="#__codelineno-42-3"></a>git<span class="w"> </span>stash<span class="w"> </span>save<span class="w"> </span><span class="s2">&quot;调试登录用例&quot;</span>

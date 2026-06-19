@@ -5351,22 +5351,36 @@
 </tbody>
 </table>
 <p><strong>查看端口占用：</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>netstat<span class="w"> </span>-anp<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="m">8080</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>lsof<span class="w"> </span>-i:8080
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>ss<span class="w"> </span>-tlnp<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="m">8080</span>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Linux / Mac</label><label for="__tabbed_1_2">Windows</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>netstat<span class="w"> </span>-anp<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="m">8080</span><span class="w">    </span><span class="c1"># 查看谁占了 8080</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>lsof<span class="w"> </span>-i:8080<span class="w">                </span><span class="c1"># 精准查端口（显示进程名）</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>ss<span class="w"> </span>-tlnp<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="m">8080</span><span class="w">        </span><span class="c1"># 查看监听状态</span>
 </code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>netstat -ano | findstr :8080          # 查看谁占了 8080（只显示 PID）
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>tasklist | findstr &lt;PID&gt;              # 根据 PID 查进程名（需两步）
+</code></pre></div>
+<blockquote>
+<p>Windows 没有 <code>lsof</code> 和 <code>ss</code>，<code>netstat -ano</code> + <code>tasklist</code> 是标准做法。</p>
+</blockquote>
+</div>
+</div>
+</div>
 <h3 id="14-tcp">1.4 TCP 三次握手<a class="headerlink" href="#14-tcp" title="Permanent link">&para;</a></h3>
-<p>建立 TCP 连接的过程：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>客户端                    服务器
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>  │                        │
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>  │── SYN (seq=x) ───────→│  第 1 次：客户端发起连接
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>  │                        │
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>  │←─ SYN+ACK (seq=y,     │  第 2 次：服务器确认并发起
-<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>  │    ack=x+1) ──────────│
-<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>  │                        │
-<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>  │── ACK (ack=y+1) ─────→│  第 3 次：客户端确认
-<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>  │                        │
-<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>  │    连接建立             │
+<p>建立 TCP 连接的过程（SYN/ACK 是 TCP 协议的控制标志位，seq/ack 是序列号，用于确认数据顺序）：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>客户端                    服务器
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>  │                        │
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>  │── SYN (seq=x) ───────→│  第 1 次：客户端发起连接（SYN = 我想连你）
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>  │                        │
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>  │←─ SYN+ACK (seq=y,     │  第 2 次：服务器确认并发起
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>  │    ack=x+1) ──────────│
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>  │                        │
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>  │── ACK (ack=y+1) ─────→│  第 3 次：客户端确认
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>  │                        │
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>  │    连接建立             │
 </code></pre></div>
 <p><strong>测试关注：</strong>
 - 三次握手失败 → 连接超时
@@ -5374,17 +5388,17 @@
 - 网络抖动导致丢包 → 重传延迟</p>
 <h3 id="15-tcp">1.5 TCP 四次挥手<a class="headerlink" href="#15-tcp" title="Permanent link">&para;</a></h3>
 <p>断开 TCP 连接的过程：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>客户端                    服务器
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>  │                        │
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>  │── FIN ────────────────→│  第 1 次：客户端请求关闭
-<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>  │                        │
-<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>  │←─ ACK ─────────────────│  第 2 次：服务器确认
-<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>  │                        │
-<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>  │←─ FIN ─────────────────│  第 3 次：服务器也请求关闭
-<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>  │                        │
-<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>  │── ACK ────────────────→│  第 4 次：客户端确认
-<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>  │                        │
-<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>  │    连接关闭             │
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>客户端                    服务器
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>  │                        │
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>  │── FIN ────────────────→│  第 1 次：客户端请求关闭
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>  │                        │
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>  │←─ ACK ─────────────────│  第 2 次：服务器确认
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>  │                        │
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>  │←─ FIN ─────────────────│  第 3 次：服务器也请求关闭
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>  │                        │
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>  │── ACK ────────────────→│  第 4 次：客户端确认
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>  │                        │
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>  │    连接关闭             │
 </code></pre></div>
 <p><strong>测试关注：</strong>
 - 服务器大量 CLOSE_WAIT → 应用未正确关闭连接（Bug）
@@ -5491,21 +5505,21 @@
 <hr />
 <h2 id="httphttps">二、HTTP/HTTPS 协议<a class="headerlink" href="#httphttps" title="Permanent link">&para;</a></h2>
 <h3 id="21-http">2.1 HTTP 请求结构<a class="headerlink" href="#21-http" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>POST /api/login HTTP/1.1           ← 请求行
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>Host: api.example.com              ← 请求头
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>Content-Type: application/json
-<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>Authorization: Bearer eyJhbGc...
-<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>User-Agent: Mozilla/5.0
-<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>                                   ← 空行（分隔头和体）
-<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>{&quot;username&quot;:&quot;test&quot;,&quot;password&quot;:&quot;123&quot;} ← 请求体
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>POST /api/login HTTP/1.1           ← 请求行
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>Host: api.example.com              ← 请求头
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>Content-Type: application/json
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>Authorization: Bearer eyJhbGc...
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>User-Agent: Mozilla/5.0
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>                                   ← 空行（分隔头和体）
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>{&quot;username&quot;:&quot;test&quot;,&quot;password&quot;:&quot;123&quot;} ← 请求体
 </code></pre></div>
 <h3 id="22-http">2.2 HTTP 响应结构<a class="headerlink" href="#22-http" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>HTTP/1.1 200 OK                    ← 状态行
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>Content-Type: application/json     ← 响应头
-<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>Content-Length: 156
-<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>Set-Cookie: sessionId=abc123
-<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>                                   ← 空行
-<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>{&quot;code&quot;:0,&quot;data&quot;:{&quot;token&quot;:&quot;...&quot;}}  ← 响应体
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>HTTP/1.1 200 OK                    ← 状态行
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>Content-Type: application/json     ← 响应头
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>Content-Length: 156
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>Set-Cookie: sessionId=abc123
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>                                   ← 空行
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>{&quot;code&quot;:0,&quot;data&quot;:{&quot;token&quot;:&quot;...&quot;}}  ← 响应体
 </code></pre></div>
 <h3 id="23">2.3 请求方法<a class="headerlink" href="#23" title="Permanent link">&para;</a></h3>
 <table>
@@ -5562,6 +5576,9 @@
 </tr>
 </tbody>
 </table>
+<blockquote>
+<p><strong>幂等</strong>：同一个请求调用多次，结果和调用一次一样（如 GET 查询、PUT 更新）。<strong>安全</strong>：请求不会修改服务器数据（只有 GET、HEAD、OPTIONS 是安全的）。</p>
+</blockquote>
 <h3 id="24">2.4 状态码<a class="headerlink" href="#24" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -5683,24 +5700,24 @@
 <h3 id="27-cookie-session-token">2.7 Cookie / Session / Token<a class="headerlink" href="#27-cookie-session-token" title="Permanent link">&para;</a></h3>
 <p><strong>Cookie：</strong> 服务器写入客户端的小段数据，每次请求自动携带。</p>
 <p><strong>Session：</strong> 服务端存储会话数据，通过 Cookie 中 sessionId 关联。</p>
-<p><strong>Token（JWT）：</strong> 无状态认证，用户信息+签名编码在 Token 中。</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>登录 → 服务端生成 Token → 返回客户端
-<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>后续请求 → Header 携带 Authorization: Bearer &lt;token&gt;
-<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>服务端 → 验证签名 → 读取用户信息
+<p><strong>Token（JWT）：</strong> 无状态认证，用户信息+签名编码在 Token 中。JWT 格式为 <code>Header.Payload.Signature</code>，服务端不需要存储会话（"无状态"），只需验证签名即可确认用户身份。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>登录 → 服务端生成 Token → 返回客户端
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>后续请求 → Header 携带 Authorization: Bearer &lt;token&gt;
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>服务端 → 验证签名 → 读取用户信息
 </code></pre></div>
 <h3 id="28-https">2.8 HTTPS 加密原理<a class="headerlink" href="#28-https" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>客户端                          服务器
-<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>  │                              │
-<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>  │── ClientHello ──────────────→│  支持的加密套件
-<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>  │←─ ServerHello + 证书 ────────│  选定套件 + 公钥证书
-<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>  │                              │
-<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>  │  验证证书（CA 机构签名）        │
-<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>  │  生成随机密钥                  │
-<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>  │  用服务器公钥加密发送           │
-<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>  │── 密钥交换 ──────────────────→│
-<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>  │                              │
-<a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>  │  双方用协商的密钥加密通信       │
-<a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a>  │←───────── 加密数据 ─────────→│
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>客户端                          服务器
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>  │                              │
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>  │── ClientHello ──────────────→│  支持的加密套件
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>  │←─ ServerHello + 证书 ────────│  选定套件 + 公钥证书
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>  │                              │
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>  │  验证证书（CA 机构签名）        │
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>  │  生成随机密钥                  │
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>  │  用服务器公钥加密发送           │
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>  │── 密钥交换 ──────────────────→│
+<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>  │                              │
+<a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a>  │  双方用协商的密钥加密通信       │
+<a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a>  │←───────── 加密数据 ─────────→│
 </code></pre></div>
 <p><strong>测试关注：</strong>
 - 证书过期 → 浏览器报不安全
@@ -5739,19 +5756,19 @@
 <h2 id="dns">三、DNS 域名解析<a class="headerlink" href="#dns" title="Permanent link">&para;</a></h2>
 <h3 id="31-dns">3.1 DNS 是什么<a class="headerlink" href="#31-dns" title="Permanent link">&para;</a></h3>
 <p>DNS（Domain Name System）将域名转换为 IP 地址。</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>www.example.com → DNS 查询 → 93.184.216.34
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>www.example.com → DNS 查询 → 93.184.216.34
 </code></pre></div>
 <h3 id="32">3.2 解析流程<a class="headerlink" href="#32" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>浏览器缓存 → 系统缓存 → hosts 文件 → 本地 DNS 服务器 → 根 DNS → 顶级域 DNS → 权威 DNS
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>浏览器缓存 → 系统缓存 → hosts 文件 → 本地 DNS 服务器 → 根 DNS → 顶级域 DNS → 权威 DNS
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>1. 浏览器查自身缓存
-<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>2. 操作系统缓存（包括 hosts 文件）
-<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>3. 本地 DNS 服务器（ISP 提供）
-<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>4. 本地 DNS 没有 → 递归查询：
-<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>   → 根 DNS（.）→ 返回 .com 地址
-<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>   → .com DNS → 返回 example.com 地址
-<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>   → example.com DNS → 返回 www 的 IP
-<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>5. 本地 DNS 缓存结果，返回给客户端
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>1. 浏览器查自身缓存
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>2. 操作系统缓存（包括 hosts 文件）
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>3. 本地 DNS 服务器（ISP 提供）
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>4. 本地 DNS 没有 → 递归查询：
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>   → 根 DNS（.）→ 返回 .com 地址
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>   → .com DNS → 返回 example.com 地址
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>   → example.com DNS → 返回 www 的 IP
+<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>5. 本地 DNS 缓存结果，返回给客户端
 </code></pre></div>
 <h3 id="33-dns">3.3 常见 DNS 记录类型<a class="headerlink" href="#33-dns" title="Permanent link">&para;</a></h3>
 <table>
@@ -5834,35 +5851,35 @@
 </table>
 <h3 id="35-dns">3.5 测试中操控 DNS<a class="headerlink" href="#35-dns" title="Permanent link">&para;</a></h3>
 <p><strong>修改 hosts 文件（本地测试）：</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a># Windows: C:\Windows\System32\drivers\etc\hosts
-<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a># Linux/Mac: /etc/hosts
-<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>
-<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>192.168.1.100  api.example.com    # 强制解析到测试服务器
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a># Windows: C:\Windows\System32\drivers\etc\hosts
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a># Linux/Mac: /etc/hosts
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>192.168.1.100  api.example.com    # 强制解析到测试服务器
 </code></pre></div>
 <p><strong>用 curl 指定 DNS：</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="c1"># 不经过 DNS，直接用 IP 访问</span>
-<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>curl<span class="w"> </span>-H<span class="w"> </span><span class="s2">&quot;Host: api.example.com&quot;</span><span class="w"> </span>http://192.168.1.100/api/test
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="c1"># 不经过 DNS，直接用 IP 访问</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>curl<span class="w"> </span>-H<span class="w"> </span><span class="s2">&quot;Host: api.example.com&quot;</span><span class="w"> </span>http://192.168.1.100/api/test
 </code></pre></div>
 <hr />
 <h2 id="_4">四、代理与抓包原理<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
 <h3 id="41">4.1 正向代理<a class="headerlink" href="#41" title="Permanent link">&para;</a></h3>
 <p>客户端通过代理访问服务器，服务器不知道真实客户端。</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>客户端 → 代理服务器 → 目标服务器
-<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>         ↑
-<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>     Fiddler/Charles 就是正向代理
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>客户端 → 代理服务器 → 目标服务器
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>         ↑
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>     Fiddler/Charles 就是正向代理
 </code></pre></div>
 <p><strong>用途：</strong> 抓包、出口代理、缓存、访问控制</p>
 <h3 id="42">4.2 反向代理<a class="headerlink" href="#42" title="Permanent link">&para;</a></h3>
 <p>客户端不知道真实服务器，请求被代理转发到后端。</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>客户端 → 反向代理（Nginx） → 后端服务器 A
-<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>                            → 后端服务器 B
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>客户端 → 反向代理（Nginx） → 后端服务器 A
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>                            → 后端服务器 B
 </code></pre></div>
 <p><strong>用途：</strong> 负载均衡、SSL 卸载、安全防护</p>
 <h3 id="43-mitm">4.3 中间人代理（MITM）<a class="headerlink" href="#43-mitm" title="Permanent link">&para;</a></h3>
 <p>Fiddler/Charles 的工作原理：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>客户端 ←──→ Fiddler ←──→ 服务器
-<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>          ↑
-<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>     拦截、查看、修改
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>客户端 ←──→ Fiddler ←──→ 服务器
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>          ↑
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>     拦截、查看、修改
 </code></pre></div>
 <p><strong>HTTPS 抓包原理：</strong></p>
 <ol>
@@ -5873,17 +5890,17 @@
 </ol>
 <h3 id="44">4.4 代理配置方式<a class="headerlink" href="#44" title="Permanent link">&para;</a></h3>
 <p><strong>系统代理：</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>Windows: 设置 → 网络 → 代理 → 手动设置
-<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>Mac: 系统偏好设置 → 网络 → 高级 → 代理
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>Windows: 设置 → 网络 → 代理 → 手动设置
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>Mac: 系统偏好设置 → 网络 → 高级 → 代理
 </code></pre></div>
 <p><strong>浏览器代理：</strong> FoxyProxy 扩展快速切换</p>
 <p><strong>代码代理：</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
-<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="n">proxies</span> <span class="o">=</span> <span class="p">{</span>
-<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>    <span class="s2">&quot;http&quot;</span><span class="p">:</span> <span class="s2">&quot;http://127.0.0.1:8888&quot;</span><span class="p">,</span>
-<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>    <span class="s2">&quot;https&quot;</span><span class="p">:</span> <span class="s2">&quot;http://127.0.0.1:8888&quot;</span>
-<a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a><span class="p">}</span>
-<a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a><span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;https://example.com&quot;</span><span class="p">,</span> <span class="n">proxies</span><span class="o">=</span><span class="n">proxies</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="n">proxies</span> <span class="o">=</span> <span class="p">{</span>
+<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>    <span class="s2">&quot;http&quot;</span><span class="p">:</span> <span class="s2">&quot;http://127.0.0.1:8888&quot;</span><span class="p">,</span>
+<a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>    <span class="s2">&quot;https&quot;</span><span class="p">:</span> <span class="s2">&quot;http://127.0.0.1:8888&quot;</span>
+<a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a><span class="p">}</span>
+<a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a><span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;https://example.com&quot;</span><span class="p">,</span> <span class="n">proxies</span><span class="o">=</span><span class="n">proxies</span><span class="p">)</span>
 </code></pre></div>
 <h3 id="45">4.5 抓包工具对比<a class="headerlink" href="#45" title="Permanent link">&para;</a></h3>
 <table>
@@ -5926,15 +5943,15 @@
 <h2 id="_5">五、网络排障命令<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
 <h3 id="51-ping">5.1 ping<a class="headerlink" href="#51-ping" title="Permanent link">&para;</a></h3>
 <p>测试网络连通性：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>ping<span class="w"> </span>baidu.com<span class="w">             </span><span class="c1"># 发送 ICMP 包</span>
-<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>ping<span class="w"> </span>-c<span class="w"> </span><span class="m">4</span><span class="w"> </span>baidu.com<span class="w">        </span><span class="c1"># Linux 发 4 个包</span>
-<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>ping<span class="w"> </span>-n<span class="w"> </span><span class="m">4</span><span class="w"> </span>baidu.com<span class="w">        </span><span class="c1"># Windows 发 4 个包</span>
-<a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>ping<span class="w"> </span>-t<span class="w"> </span>baidu.com<span class="w">          </span><span class="c1"># Windows 持续 ping</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>ping<span class="w"> </span>baidu.com<span class="w">             </span><span class="c1"># 发送 ICMP 包</span>
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>ping<span class="w"> </span>-c<span class="w"> </span><span class="m">4</span><span class="w"> </span>baidu.com<span class="w">        </span><span class="c1"># Linux 发 4 个包</span>
+<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>ping<span class="w"> </span>-n<span class="w"> </span><span class="m">4</span><span class="w"> </span>baidu.com<span class="w">        </span><span class="c1"># Windows 发 4 个包</span>
+<a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>ping<span class="w"> </span>-t<span class="w"> </span>baidu.com<span class="w">          </span><span class="c1"># Windows 持续 ping</span>
 </code></pre></div>
 <p><strong>结果解读：</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>Reply from 93.184.216.34: bytes=32 time=15ms TTL=52
-<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>                              ↑              ↑
-<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>                           数据量          延迟
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>Reply from 93.184.216.34: bytes=32 time=15ms TTL=52
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>                              ↑              ↑
+<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>                           数据量          延迟
 </code></pre></div>
 <ul>
 <li><code>time</code> 越小越好（&lt; 100ms 正常）</li>
@@ -5943,104 +5960,146 @@
 </ul>
 <h3 id="52-traceroute-tracert">5.2 traceroute / tracert<a class="headerlink" href="#52-traceroute-tracert" title="Permanent link">&para;</a></h3>
 <p>追踪路由路径：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="c1"># Linux/Mac</span>
-<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>traceroute<span class="w"> </span>baidu.com
-<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>
-<a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a><span class="c1"># Windows</span>
-<a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a>tracert<span class="w"> </span>baidu.com
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="c1"># Linux/Mac</span>
+<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>traceroute<span class="w"> </span>baidu.com
+<a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>
+<a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a><span class="c1"># Windows</span>
+<a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a>tracert<span class="w"> </span>baidu.com
 </code></pre></div>
 <p>可看到每个跳的延迟和经过的路由器。</p>
 <h3 id="53-telnet-nc">5.3 telnet / nc<a class="headerlink" href="#53-telnet-nc" title="Permanent link">&para;</a></h3>
 <p>测试端口连通性：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="c1"># telnet</span>
-<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>telnet<span class="w"> </span><span class="m">192</span>.168.1.100<span class="w"> </span><span class="m">8080</span><span class="w">    </span><span class="c1"># 测试 8080 端口</span>
-<a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>
-<a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a><span class="c1"># nc（更现代）</span>
-<a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a>nc<span class="w"> </span>-zv<span class="w"> </span><span class="m">192</span>.168.1.100<span class="w"> </span><span class="m">8080</span><span class="w">    </span><span class="c1"># 测试端口</span>
-<a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a>nc<span class="w"> </span>-zv<span class="w"> </span><span class="m">192</span>.168.1.100<span class="w"> </span><span class="m">8000</span>-9000<span class="w">  </span><span class="c1"># 扫描端口范围</span>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Linux / Mac</label><label for="__tabbed_2_2">Windows</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>telnet<span class="w"> </span><span class="m">192</span>.168.1.100<span class="w"> </span><span class="m">8080</span><span class="w">         </span><span class="c1"># 测试 8080 端口</span>
+<a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>nc<span class="w"> </span>-zv<span class="w"> </span><span class="m">192</span>.168.1.100<span class="w"> </span><span class="m">8080</span><span class="w">         </span><span class="c1"># nc 更现代，推荐</span>
+<a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>nc<span class="w"> </span>-zv<span class="w"> </span><span class="m">192</span>.168.1.100<span class="w"> </span><span class="m">8000</span>-9000<span class="w">    </span><span class="c1"># 扫描端口范围</span>
 </code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>telnet 192.168.1.100 8080         # 需先启用：控制面板 → 启用 Windows 功能 → Telnet 客户端
+<a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>Test-NetConnection 192.168.1.100 -Port 8080    # PowerShell，推荐
+</code></pre></div>
+<blockquote>
+<p>Windows 没有 <code>nc</code>，PowerShell 的 <code>Test-NetConnection</code> 功能更强，还显示端口是否开放。</p>
+</blockquote>
+</div>
+</div>
+</div>
 <h3 id="54-nslookup-dig">5.4 nslookup / dig<a class="headerlink" href="#54-nslookup-dig" title="Permanent link">&para;</a></h3>
 <p>DNS 查询：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="c1"># nslookup</span>
-<a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>nslookup<span class="w"> </span>baidu.com
-<a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>nslookup<span class="w"> </span>baidu.com<span class="w"> </span><span class="m">8</span>.8.8.8<span class="w">    </span><span class="c1"># 指定 DNS 服务器</span>
-<a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a>
-<a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a><span class="c1"># dig（更详细）</span>
-<a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a>dig<span class="w"> </span>baidu.com
-<a id="__codelineno-24-7" name="__codelineno-24-7" href="#__codelineno-24-7"></a>dig<span class="w"> </span>baidu.com<span class="w"> </span>+short<span class="w">          </span><span class="c1"># 简洁输出</span>
-<a id="__codelineno-24-8" name="__codelineno-24-8" href="#__codelineno-24-8"></a>dig<span class="w"> </span>baidu.com<span class="w"> </span>A<span class="w">               </span><span class="c1"># 查 A 记录</span>
-<a id="__codelineno-24-9" name="__codelineno-24-9" href="#__codelineno-24-9"></a>dig<span class="w"> </span>baidu.com<span class="w"> </span>MX<span class="w">              </span><span class="c1"># 查邮件记录</span>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">Linux / Mac</label><label for="__tabbed_3_2">Windows</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>nslookup<span class="w"> </span>baidu.com
+<a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>nslookup<span class="w"> </span>baidu.com<span class="w"> </span><span class="m">8</span>.8.8.8<span class="w">    </span><span class="c1"># 指定 DNS 服务器</span>
+<a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a>dig<span class="w"> </span>baidu.com<span class="w">                  </span><span class="c1"># 更详细，推荐</span>
+<a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a>dig<span class="w"> </span>baidu.com<span class="w"> </span>+short<span class="w">           </span><span class="c1"># 简洁输出</span>
+<a id="__codelineno-26-5" name="__codelineno-26-5" href="#__codelineno-26-5"></a>dig<span class="w"> </span>baidu.com<span class="w"> </span>A<span class="w">                </span><span class="c1"># 查 A 记录</span>
+<a id="__codelineno-26-6" name="__codelineno-26-6" href="#__codelineno-26-6"></a>dig<span class="w"> </span>baidu.com<span class="w"> </span>MX<span class="w">               </span><span class="c1"># 查邮件记录</span>
 </code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>nslookup baidu.com
+<a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a>nslookup baidu.com 8.8.8.8    # 指定 DNS 服务器
+<a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a>Resolve-DnsName baidu.com     # PowerShell，输出更丰富
+</code></pre></div>
+<blockquote>
+<p>Windows 没有 <code>dig</code>，<code>nslookup</code> 够用；PowerShell 的 <code>Resolve-DnsName</code> 功能更全。</p>
+</blockquote>
+</div>
+</div>
+</div>
 <h3 id="55-curl">5.5 curl<a class="headerlink" href="#55-curl" title="Permanent link">&para;</a></h3>
-<p>HTTP 请求测试：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="c1"># GET 请求</span>
-<a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>curl<span class="w"> </span>https://api.example.com/user/1
-<a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>
-<a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a><span class="c1"># 显示响应头</span>
-<a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a>curl<span class="w"> </span>-i<span class="w"> </span>https://api.example.com/user/1
-<a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a>
-<a id="__codelineno-25-7" name="__codelineno-25-7" href="#__codelineno-25-7"></a><span class="c1"># 详细输出（调试）</span>
-<a id="__codelineno-25-8" name="__codelineno-25-8" href="#__codelineno-25-8"></a>curl<span class="w"> </span>-v<span class="w"> </span>https://api.example.com/user/1
-<a id="__codelineno-25-9" name="__codelineno-25-9" href="#__codelineno-25-9"></a>
-<a id="__codelineno-25-10" name="__codelineno-25-10" href="#__codelineno-25-10"></a><span class="c1"># POST JSON</span>
-<a id="__codelineno-25-11" name="__codelineno-25-11" href="#__codelineno-25-11"></a>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>https://api.example.com/login<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-25-12" name="__codelineno-25-12" href="#__codelineno-25-12"></a><span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-25-13" name="__codelineno-25-13" href="#__codelineno-25-13"></a><span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;username&quot;:&quot;test&quot;,&quot;password&quot;:&quot;123&quot;}&#39;</span>
-<a id="__codelineno-25-14" name="__codelineno-25-14" href="#__codelineno-25-14"></a>
-<a id="__codelineno-25-15" name="__codelineno-25-15" href="#__codelineno-25-15"></a><span class="c1"># 带 Token</span>
-<a id="__codelineno-25-16" name="__codelineno-25-16" href="#__codelineno-25-16"></a>curl<span class="w"> </span>-H<span class="w"> </span><span class="s2">&quot;Authorization: Bearer eyJhbGc...&quot;</span><span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-25-17" name="__codelineno-25-17" href="#__codelineno-25-17"></a><span class="w">     </span>https://api.example.com/user
-<a id="__codelineno-25-18" name="__codelineno-25-18" href="#__codelineno-25-18"></a>
-<a id="__codelineno-25-19" name="__codelineno-25-19" href="#__codelineno-25-19"></a><span class="c1"># 跳过 SSL 校验</span>
-<a id="__codelineno-25-20" name="__codelineno-25-20" href="#__codelineno-25-20"></a>curl<span class="w"> </span>-k<span class="w"> </span>https://192.168.1.100/api
-<a id="__codelineno-25-21" name="__codelineno-25-21" href="#__codelineno-25-21"></a>
-<a id="__codelineno-25-22" name="__codelineno-25-22" href="#__codelineno-25-22"></a><span class="c1"># 测量响应时间</span>
-<a id="__codelineno-25-23" name="__codelineno-25-23" href="#__codelineno-25-23"></a>curl<span class="w"> </span>-o<span class="w"> </span>/dev/null<span class="w"> </span>-s<span class="w"> </span>-w<span class="w"> </span><span class="s2">&quot;Total: %{time_total}s\nDNS: %{time_namelookup}s\nConnect: %{time_connect}s\n&quot;</span><span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-25-24" name="__codelineno-25-24" href="#__codelineno-25-24"></a><span class="w">  </span>https://api.example.com/test
-<a id="__codelineno-25-25" name="__codelineno-25-25" href="#__codelineno-25-25"></a>
-<a id="__codelineno-25-26" name="__codelineno-25-26" href="#__codelineno-25-26"></a><span class="c1"># 下载文件</span>
-<a id="__codelineno-25-27" name="__codelineno-25-27" href="#__codelineno-25-27"></a>curl<span class="w"> </span>-O<span class="w"> </span>https://example.com/file.zip
+<p>HTTP 请求测试（Linux / Mac / Windows 命令相同，但 Windows CMD 用 <code>^</code> 换行，PowerShell 用反引号 <code>`</code>）：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="c1"># GET 请求</span>
+<a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>curl<span class="w"> </span>https://api.example.com/user/1
+<a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a>
+<a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a><span class="c1"># 显示响应头</span>
+<a id="__codelineno-28-5" name="__codelineno-28-5" href="#__codelineno-28-5"></a>curl<span class="w"> </span>-i<span class="w"> </span>https://api.example.com/user/1
+<a id="__codelineno-28-6" name="__codelineno-28-6" href="#__codelineno-28-6"></a>
+<a id="__codelineno-28-7" name="__codelineno-28-7" href="#__codelineno-28-7"></a><span class="c1"># 详细输出（调试）</span>
+<a id="__codelineno-28-8" name="__codelineno-28-8" href="#__codelineno-28-8"></a>curl<span class="w"> </span>-v<span class="w"> </span>https://api.example.com/user/1
+<a id="__codelineno-28-9" name="__codelineno-28-9" href="#__codelineno-28-9"></a>
+<a id="__codelineno-28-10" name="__codelineno-28-10" href="#__codelineno-28-10"></a><span class="c1"># POST JSON（Linux/Mac 用 \ 换行）</span>
+<a id="__codelineno-28-11" name="__codelineno-28-11" href="#__codelineno-28-11"></a>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>https://api.example.com/login<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-28-12" name="__codelineno-28-12" href="#__codelineno-28-12"></a><span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-28-13" name="__codelineno-28-13" href="#__codelineno-28-13"></a><span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;username&quot;:&quot;test&quot;,&quot;password&quot;:&quot;123&quot;}&#39;</span>
+<a id="__codelineno-28-14" name="__codelineno-28-14" href="#__codelineno-28-14"></a>
+<a id="__codelineno-28-15" name="__codelineno-28-15" href="#__codelineno-28-15"></a><span class="c1"># 带 Token</span>
+<a id="__codelineno-28-16" name="__codelineno-28-16" href="#__codelineno-28-16"></a>curl<span class="w"> </span>-H<span class="w"> </span><span class="s2">&quot;Authorization: Bearer eyJhbGc...&quot;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-28-17" name="__codelineno-28-17" href="#__codelineno-28-17"></a><span class="w">     </span>https://api.example.com/user
+<a id="__codelineno-28-18" name="__codelineno-28-18" href="#__codelineno-28-18"></a>
+<a id="__codelineno-28-19" name="__codelineno-28-19" href="#__codelineno-28-19"></a><span class="c1"># 跳过 SSL 校验</span>
+<a id="__codelineno-28-20" name="__codelineno-28-20" href="#__codelineno-28-20"></a>curl<span class="w"> </span>-k<span class="w"> </span>https://192.168.1.100/api
+<a id="__codelineno-28-21" name="__codelineno-28-21" href="#__codelineno-28-21"></a>
+<a id="__codelineno-28-22" name="__codelineno-28-22" href="#__codelineno-28-22"></a><span class="c1"># 测量响应时间</span>
+<a id="__codelineno-28-23" name="__codelineno-28-23" href="#__codelineno-28-23"></a>curl<span class="w"> </span>-o<span class="w"> </span>/dev/null<span class="w"> </span>-s<span class="w"> </span>-w<span class="w"> </span><span class="s2">&quot;Total: %{time_total}s\nDNS: %{time_namelookup}s\nConnect: %{time_connect}s\n&quot;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-28-24" name="__codelineno-28-24" href="#__codelineno-28-24"></a><span class="w">  </span><span class="c1"># -o /dev/null 丢弃响应体（只关心耗时），-s 隐藏进度条，-w 自定义输出格式</span>
+<a id="__codelineno-28-25" name="__codelineno-28-25" href="#__codelineno-28-25"></a><span class="w">  </span><span class="c1"># /dev/null 在 Windows CMD 改为 NUL</span>
+<a id="__codelineno-28-26" name="__codelineno-28-26" href="#__codelineno-28-26"></a><span class="w">  </span>https://api.example.com/test
+<a id="__codelineno-28-27" name="__codelineno-28-27" href="#__codelineno-28-27"></a>
+<a id="__codelineno-28-28" name="__codelineno-28-28" href="#__codelineno-28-28"></a><span class="c1"># 下载文件</span>
+<a id="__codelineno-28-29" name="__codelineno-28-29" href="#__codelineno-28-29"></a>curl<span class="w"> </span>-O<span class="w"> </span>https://example.com/file.zip
 </code></pre></div>
+<blockquote>
+<p>Windows 10+ 自带 curl，语法基本一致。注意：Windows CMD 用 <code>^</code> 换行（不是 <code>\</code>），<code>/dev/null</code> 改为 <code>NUL</code>。</p>
+</blockquote>
 <h3 id="56-netstat-ss">5.6 netstat / ss<a class="headerlink" href="#56-netstat-ss" title="Permanent link">&para;</a></h3>
 <p>查看网络连接：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="c1"># 查看所有连接</span>
-<a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>netstat<span class="w"> </span>-an
-<a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a>
-<a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a><span class="c1"># 查看监听端口</span>
-<a id="__codelineno-26-5" name="__codelineno-26-5" href="#__codelineno-26-5"></a>netstat<span class="w"> </span>-tlnp
-<a id="__codelineno-26-6" name="__codelineno-26-6" href="#__codelineno-26-6"></a>ss<span class="w"> </span>-tlnp
-<a id="__codelineno-26-7" name="__codelineno-26-7" href="#__codelineno-26-7"></a>
-<a id="__codelineno-26-8" name="__codelineno-26-8" href="#__codelineno-26-8"></a><span class="c1"># 查看特定端口</span>
-<a id="__codelineno-26-9" name="__codelineno-26-9" href="#__codelineno-26-9"></a>netstat<span class="w"> </span>-an<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="m">8080</span>
-<a id="__codelineno-26-10" name="__codelineno-26-10" href="#__codelineno-26-10"></a>
-<a id="__codelineno-26-11" name="__codelineno-26-11" href="#__codelineno-26-11"></a><span class="c1"># 统计连接数</span>
-<a id="__codelineno-26-12" name="__codelineno-26-12" href="#__codelineno-26-12"></a>netstat<span class="w"> </span>-ant<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>ESTABLISHED<span class="w"> </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-l
-<a id="__codelineno-26-13" name="__codelineno-26-13" href="#__codelineno-26-13"></a>
-<a id="__codelineno-26-14" name="__codelineno-26-14" href="#__codelineno-26-14"></a><span class="c1"># 查看连接状态分布</span>
-<a id="__codelineno-26-15" name="__codelineno-26-15" href="#__codelineno-26-15"></a>netstat<span class="w"> </span>-ant<span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;{print $6}&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span><span class="p">|</span><span class="w"> </span>uniq<span class="w"> </span>-c<span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span>-rn
+<div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">Linux / Mac</label><label for="__tabbed_4_2">Windows</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>netstat<span class="w"> </span>-an<span class="w">                           </span><span class="c1"># 查看所有连接</span>
+<a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a>netstat<span class="w"> </span>-tlnp<span class="w">                         </span><span class="c1"># 查看监听端口</span>
+<a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a>ss<span class="w"> </span>-tlnp<span class="w">                              </span><span class="c1"># ss 更现代，推荐</span>
+<a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a>netstat<span class="w"> </span>-an<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="m">8080</span><span class="w">               </span><span class="c1"># 查看特定端口</span>
+<a id="__codelineno-29-5" name="__codelineno-29-5" href="#__codelineno-29-5"></a>netstat<span class="w"> </span>-ant<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>ESTABLISHED<span class="w"> </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-l<span class="w">    </span><span class="c1"># 统计连接数</span>
+<a id="__codelineno-29-6" name="__codelineno-29-6" href="#__codelineno-29-6"></a>netstat<span class="w"> </span>-ant<span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;{print $6}&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span><span class="p">|</span><span class="w"> </span>uniq<span class="w"> </span>-c<span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span>-rn<span class="w">    </span><span class="c1"># 连接状态分布（awk 取第6列，sort 排序，uniq -c 计数，sort -rn 倒序）</span>
 </code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>netstat -an                           # 查看所有连接
+<a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a>netstat -ano                          # 带 PID，推荐
+<a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a>netstat -ano | findstr :8080          # 查看特定端口
+<a id="__codelineno-30-4" name="__codelineno-30-4" href="#__codelineno-30-4"></a>netstat -ano | findstr ESTABLISHED    # 查看已建立连接
+<a id="__codelineno-30-5" name="__codelineno-30-5" href="#__codelineno-30-5"></a>netstat -an | find /c &quot;ESTABLISHED&quot;   # 统计连接数
+</code></pre></div>
+<blockquote>
+<p>Windows 没有 <code>ss</code>，<code>netstat -ano</code> 是标配。<code>findstr</code> 替代 <code>grep</code>，<code>find /c</code> 替代 <code>wc -l</code>。</p>
+</blockquote>
+</div>
+</div>
+</div>
 <h3 id="57-ipconfig-ifconfig">5.7 ipconfig / ifconfig<a class="headerlink" href="#57-ipconfig-ifconfig" title="Permanent link">&para;</a></h3>
 <p>查看网络配置：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="c1"># Windows</span>
-<a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a>ipconfig
-<a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a>ipconfig<span class="w"> </span>/all
-<a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a>ipconfig<span class="w"> </span>/flushdns<span class="w">    </span><span class="c1"># 清 DNS 缓存</span>
-<a id="__codelineno-27-5" name="__codelineno-27-5" href="#__codelineno-27-5"></a>
-<a id="__codelineno-27-6" name="__codelineno-27-6" href="#__codelineno-27-6"></a><span class="c1"># Linux/Mac</span>
-<a id="__codelineno-27-7" name="__codelineno-27-7" href="#__codelineno-27-7"></a>ifconfig
-<a id="__codelineno-27-8" name="__codelineno-27-8" href="#__codelineno-27-8"></a>ip<span class="w"> </span>addr<span class="w"> </span>show
+<div class="tabbed-set tabbed-alternate" data-tabs="5:2"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">Linux / Mac</label><label for="__tabbed_5_2">Windows</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>ifconfig<span class="w">                    </span><span class="c1"># 传统命令（部分系统需安装 net-tools）</span>
+<a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a>ip<span class="w"> </span>addr<span class="w"> </span>show<span class="w">                </span><span class="c1"># 推荐，现代写法</span>
 </code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>ipconfig
+<a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a>ipconfig /all               # 详细信息（含 MAC、DNS）
+<a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a>ipconfig /flushdns          # 清 DNS 缓存
+</code></pre></div>
+</div>
+</div>
+</div>
 <h3 id="58">5.8 综合排障流程<a class="headerlink" href="#58" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>1. ping 目标 → 通？→ 网络层正常
-<a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>   不通？→ 检查 IP、路由、防火墙
-<a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a>
-<a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a>2. telnet 端口 → 通？→ 端口正常
-<a id="__codelineno-28-5" name="__codelineno-28-5" href="#__codelineno-28-5"></a>   不通？→ 检查服务是否启动、防火墙
-<a id="__codelineno-28-6" name="__codelineno-28-6" href="#__codelineno-28-6"></a>
-<a id="__codelineno-28-7" name="__codelineno-28-7" href="#__codelineno-28-7"></a>3. curl 接口 → 正常？→ 应用层正常
-<a id="__codelineno-28-8" name="__codelineno-28-8" href="#__codelineno-28-8"></a>   异常？→ 检查请求参数、服务日志
-<a id="__codelineno-28-9" name="__codelineno-28-9" href="#__codelineno-28-9"></a>
-<a id="__codelineno-28-10" name="__codelineno-28-10" href="#__codelineno-28-10"></a>4. 用抓包工具 → 看具体请求/响应
+<div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a>1. ping 目标 → 通？→ 网络层正常
+<a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a>   不通？→ 检查 IP、路由、防火墙
+<a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a>
+<a id="__codelineno-33-4" name="__codelineno-33-4" href="#__codelineno-33-4"></a>2. telnet 端口 → 通？→ 端口正常
+<a id="__codelineno-33-5" name="__codelineno-33-5" href="#__codelineno-33-5"></a>   不通？→ 检查服务是否启动、防火墙
+<a id="__codelineno-33-6" name="__codelineno-33-6" href="#__codelineno-33-6"></a>
+<a id="__codelineno-33-7" name="__codelineno-33-7" href="#__codelineno-33-7"></a>3. curl 接口 → 正常？→ 应用层正常
+<a id="__codelineno-33-8" name="__codelineno-33-8" href="#__codelineno-33-8"></a>   异常？→ 检查请求参数、服务日志
+<a id="__codelineno-33-9" name="__codelineno-33-9" href="#__codelineno-33-9"></a>
+<a id="__codelineno-33-10" name="__codelineno-33-10" href="#__codelineno-33-10"></a>4. 用抓包工具 → 看具体请求/响应
 </code></pre></div>
 <hr />
 <h2 id="_6">六、常见网络问题<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
@@ -6052,9 +6111,9 @@
 - 端口未开放
 - 网络抖动</p>
 <p><strong>排查：</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>ping<span class="w"> </span>目标IP<span class="w">              </span><span class="c1"># 网络可达？</span>
-<a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a>telnet<span class="w"> </span>目标IP<span class="w"> </span>端口<span class="w">        </span><span class="c1"># 端口通？</span>
-<a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a>traceroute<span class="w"> </span>目标IP<span class="w">         </span><span class="c1"># 路径正常？</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>ping<span class="w"> </span>目标IP<span class="w">              </span><span class="c1"># 网络可达？</span>
+<a id="__codelineno-34-2" name="__codelineno-34-2" href="#__codelineno-34-2"></a>telnet<span class="w"> </span>目标IP<span class="w"> </span>端口<span class="w">        </span><span class="c1"># 端口通？</span>
+<a id="__codelineno-34-3" name="__codelineno-34-3" href="#__codelineno-34-3"></a>traceroute<span class="w"> </span>目标IP<span class="w">         </span><span class="c1"># 路径正常？</span>
 </code></pre></div>
 <h3 id="62">6.2 连接拒绝<a class="headerlink" href="#62" title="Permanent link">&para;</a></h3>
 <p><strong>表现：</strong> <code>Connection refused</code></p>
@@ -6063,16 +6122,24 @@
 - 端口未监听
 - 防火墙拒绝</p>
 <p><strong>排查：</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="c1"># 在服务器上检查</span>
-<a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a>netstat<span class="w"> </span>-tlnp<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="m">8080</span><span class="w">    </span><span class="c1"># 端口是否监听</span>
-<a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a>systemctl<span class="w"> </span>status<span class="w"> </span>nginx<span class="w">        </span><span class="c1"># 服务是否运行</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a><span class="c1"># 在服务器上检查端口是否监听</span>
+<a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a>netstat<span class="w"> </span>-an<span class="w"> </span><span class="p">|</span><span class="w"> </span>findstr<span class="w"> </span>:8080<span class="w">           </span><span class="c1"># Windows</span>
+<a id="__codelineno-35-3" name="__codelineno-35-3" href="#__codelineno-35-3"></a>netstat<span class="w"> </span>-tlnp<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="m">8080</span><span class="w">             </span><span class="c1"># Linux</span>
+<a id="__codelineno-35-4" name="__codelineno-35-4" href="#__codelineno-35-4"></a>
+<a id="__codelineno-35-5" name="__codelineno-35-5" href="#__codelineno-35-5"></a><span class="c1"># 检查服务是否运行</span>
+<a id="__codelineno-35-6" name="__codelineno-35-6" href="#__codelineno-35-6"></a>sc<span class="w"> </span>query<span class="w"> </span>nginx<span class="w">                         </span><span class="c1"># Windows</span>
+<a id="__codelineno-35-7" name="__codelineno-35-7" href="#__codelineno-35-7"></a>systemctl<span class="w"> </span>status<span class="w"> </span>nginx<span class="w">                 </span><span class="c1"># Linux</span>
 </code></pre></div>
 <h3 id="63-dns">6.3 DNS 解析失败<a class="headerlink" href="#63-dns" title="Permanent link">&para;</a></h3>
 <p><strong>表现：</strong> <code>UnknownHostException</code>、<code>Name or service not known</code></p>
 <p><strong>排查：</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>nslookup<span class="w"> </span>域名<span class="w">                </span><span class="c1"># 能解析？</span>
-<a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a>cat<span class="w"> </span>/etc/hosts<span class="w">               </span><span class="c1"># hosts 文件有无干扰</span>
-<a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a>ping<span class="w"> </span><span class="m">8</span>.8.8.8<span class="w">                 </span><span class="c1"># DNS 服务器可达？</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>nslookup<span class="w"> </span>域名<span class="w">                    </span><span class="c1"># 能解析？</span>
+<a id="__codelineno-36-2" name="__codelineno-36-2" href="#__codelineno-36-2"></a>ping<span class="w"> </span><span class="m">8</span>.8.8.8<span class="w">                     </span><span class="c1"># DNS 服务器可达？</span>
+<a id="__codelineno-36-3" name="__codelineno-36-3" href="#__codelineno-36-3"></a>
+<a id="__codelineno-36-4" name="__codelineno-36-4" href="#__codelineno-36-4"></a><span class="c1"># 检查 hosts 文件有无干扰</span>
+<a id="__codelineno-36-5" name="__codelineno-36-5" href="#__codelineno-36-5"></a>cat<span class="w"> </span>/etc/hosts<span class="w">                                 </span><span class="c1"># Linux / Mac</span>
+<a id="__codelineno-36-6" name="__codelineno-36-6" href="#__codelineno-36-6"></a><span class="nb">type</span><span class="w"> </span>C:<span class="se">\W</span>indows<span class="se">\S</span>ystem32<span class="se">\d</span>rivers<span class="se">\e</span>tc<span class="se">\h</span>osts<span class="w">      </span><span class="c1"># Windows CMD</span>
+<a id="__codelineno-36-7" name="__codelineno-36-7" href="#__codelineno-36-7"></a>Get-Content<span class="w"> </span>C:<span class="se">\W</span>indows<span class="se">\S</span>ystem32<span class="se">\d</span>rivers<span class="se">\e</span>tc<span class="se">\h</span>osts<span class="w">   </span><span class="c1"># PowerShell</span>
 </code></pre></div>
 <h3 id="64-ssl">6.4 SSL 证书错误<a class="headerlink" href="#64-ssl" title="Permanent link">&para;</a></h3>
 <p><strong>表现：</strong> <code>SSL certificate problem</code></p>
@@ -6081,21 +6148,21 @@
 - 自签名证书未信任
 - 域名不匹配</p>
 <p><strong>排查：</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="c1"># 查看证书信息</span>
-<a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a>openssl<span class="w"> </span>s_client<span class="w"> </span>-connect<span class="w"> </span>api.example.com:443
-<a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a>
-<a id="__codelineno-32-4" name="__codelineno-32-4" href="#__codelineno-32-4"></a><span class="c1"># 跳过校验（仅测试）</span>
-<a id="__codelineno-32-5" name="__codelineno-32-5" href="#__codelineno-32-5"></a>curl<span class="w"> </span>-k<span class="w"> </span>https://api.example.com
+<div class="highlight"><pre><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a><span class="c1"># 查看证书信息</span>
+<a id="__codelineno-37-2" name="__codelineno-37-2" href="#__codelineno-37-2"></a>openssl<span class="w"> </span>s_client<span class="w"> </span>-connect<span class="w"> </span>api.example.com:443
+<a id="__codelineno-37-3" name="__codelineno-37-3" href="#__codelineno-37-3"></a>
+<a id="__codelineno-37-4" name="__codelineno-37-4" href="#__codelineno-37-4"></a><span class="c1"># 跳过校验（仅测试）</span>
+<a id="__codelineno-37-5" name="__codelineno-37-5" href="#__codelineno-37-5"></a>curl<span class="w"> </span>-k<span class="w"> </span>https://api.example.com
 </code></pre></div>
 <h3 id="65-cors">6.5 跨域问题（CORS）<a class="headerlink" href="#65-cors" title="Permanent link">&para;</a></h3>
 <p><strong>表现：</strong> 浏览器控制台报 <code>No 'Access-Control-Allow-Origin' header</code></p>
 <p><strong>原因：</strong> 前端域名与接口域名不同，浏览器安全策略阻止。</p>
 <p><strong>排查：</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="c1"># 检查响应头</span>
-<a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a>curl<span class="w"> </span>-I<span class="w"> </span>https://api.example.com/data
-<a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a><span class="c1"># 看是否有：</span>
-<a id="__codelineno-33-4" name="__codelineno-33-4" href="#__codelineno-33-4"></a><span class="c1"># Access-Control-Allow-Origin: *</span>
-<a id="__codelineno-33-5" name="__codelineno-33-5" href="#__codelineno-33-5"></a><span class="c1"># Access-Control-Allow-Methods: GET,POST</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a><span class="c1"># 检查响应头</span>
+<a id="__codelineno-38-2" name="__codelineno-38-2" href="#__codelineno-38-2"></a>curl<span class="w"> </span>-I<span class="w"> </span>https://api.example.com/data
+<a id="__codelineno-38-3" name="__codelineno-38-3" href="#__codelineno-38-3"></a><span class="c1"># 看是否有：</span>
+<a id="__codelineno-38-4" name="__codelineno-38-4" href="#__codelineno-38-4"></a><span class="c1"># Access-Control-Allow-Origin: *</span>
+<a id="__codelineno-38-5" name="__codelineno-38-5" href="#__codelineno-38-5"></a><span class="c1"># Access-Control-Allow-Methods: GET,POST</span>
 </code></pre></div>
 <p><strong>测试关注：</strong>
 - 接口是否返回正确的 CORS 头
@@ -6108,8 +6175,8 @@
 <h2 id="websocket">七、WebSocket<a class="headerlink" href="#websocket" title="Permanent link">&para;</a></h2>
 <h3 id="71-websocket">7.1 WebSocket 是什么<a class="headerlink" href="#71-websocket" title="Permanent link">&para;</a></h3>
 <p>WebSocket 是全双工通信协议，基于 TCP，允许服务器主动推送数据。</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>HTTP：  客户端请求 → 服务器响应（单向）
-<a id="__codelineno-34-2" name="__codelineno-34-2" href="#__codelineno-34-2"></a>WebSocket：客户端 ←→ 服务器（双向）
+<div class="highlight"><pre><span></span><code><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a>HTTP：  客户端请求 → 服务器响应（单向）
+<a id="__codelineno-39-2" name="__codelineno-39-2" href="#__codelineno-39-2"></a>WebSocket：客户端 ←→ 服务器（双向）
 </code></pre></div>
 <h3 id="72-websocket-vs-http">7.2 WebSocket vs HTTP<a class="headerlink" href="#72-websocket-vs-http" title="Permanent link">&para;</a></h3>
 <table>
@@ -6150,24 +6217,24 @@
 </table>
 <h3 id="73-websocket">7.3 WebSocket 握手<a class="headerlink" href="#73-websocket" title="Permanent link">&para;</a></h3>
 <p>WebSocket 通过 HTTP 升级：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a>GET /chat HTTP/1.1
-<a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a>Upgrade: websocket
-<a id="__codelineno-35-3" name="__codelineno-35-3" href="#__codelineno-35-3"></a>Connection: Upgrade
-<a id="__codelineno-35-4" name="__codelineno-35-4" href="#__codelineno-35-4"></a>Sec-WebSocket-Key: dGhlIHNhbXBsZSBub25jZQ==
-<a id="__codelineno-35-5" name="__codelineno-35-5" href="#__codelineno-35-5"></a>Sec-WebSocket-Version: 13
-<a id="__codelineno-35-6" name="__codelineno-35-6" href="#__codelineno-35-6"></a>
-<a id="__codelineno-35-7" name="__codelineno-35-7" href="#__codelineno-35-7"></a>HTTP/1.1 101 Switching Protocols
-<a id="__codelineno-35-8" name="__codelineno-35-8" href="#__codelineno-35-8"></a>Upgrade: websocket
-<a id="__codelineno-35-9" name="__codelineno-35-9" href="#__codelineno-35-9"></a>Connection: Upgrade
-<a id="__codelineno-35-10" name="__codelineno-35-10" href="#__codelineno-35-10"></a>Sec-WebSocket-Accept: s3pPLMBiTxaQ9kYGzzhZRbK+xOo=
+<div class="highlight"><pre><span></span><code><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a>GET /chat HTTP/1.1
+<a id="__codelineno-40-2" name="__codelineno-40-2" href="#__codelineno-40-2"></a>Upgrade: websocket
+<a id="__codelineno-40-3" name="__codelineno-40-3" href="#__codelineno-40-3"></a>Connection: Upgrade
+<a id="__codelineno-40-4" name="__codelineno-40-4" href="#__codelineno-40-4"></a>Sec-WebSocket-Key: dGhlIHNhbXBsZSBub25jZQ==
+<a id="__codelineno-40-5" name="__codelineno-40-5" href="#__codelineno-40-5"></a>Sec-WebSocket-Version: 13
+<a id="__codelineno-40-6" name="__codelineno-40-6" href="#__codelineno-40-6"></a>
+<a id="__codelineno-40-7" name="__codelineno-40-7" href="#__codelineno-40-7"></a>HTTP/1.1 101 Switching Protocols
+<a id="__codelineno-40-8" name="__codelineno-40-8" href="#__codelineno-40-8"></a>Upgrade: websocket
+<a id="__codelineno-40-9" name="__codelineno-40-9" href="#__codelineno-40-9"></a>Connection: Upgrade
+<a id="__codelineno-40-10" name="__codelineno-40-10" href="#__codelineno-40-10"></a>Sec-WebSocket-Accept: s3pPLMBiTxaQ9kYGzzhZRbK+xOo=
 </code></pre></div>
 <h3 id="74-websocket">7.4 测试 WebSocket<a class="headerlink" href="#74-websocket" title="Permanent link">&para;</a></h3>
 <p><strong>Postman：</strong> 支持 WebSocket 请求（New → WebSocket Request）</p>
 <p><strong>命令行工具 wscat：</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>npm<span class="w"> </span>install<span class="w"> </span>-g<span class="w"> </span>wscat
-<a id="__codelineno-36-2" name="__codelineno-36-2" href="#__codelineno-36-2"></a>wscat<span class="w"> </span>-c<span class="w"> </span>wss://ws.postman-echo.com/raw
-<a id="__codelineno-36-3" name="__codelineno-36-3" href="#__codelineno-36-3"></a>&gt;<span class="w"> </span>hello
-<a id="__codelineno-36-4" name="__codelineno-36-4" href="#__codelineno-36-4"></a>&lt;<span class="w"> </span>hello
+<div class="highlight"><pre><span></span><code><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a>npm<span class="w"> </span>install<span class="w"> </span>-g<span class="w"> </span>wscat
+<a id="__codelineno-41-2" name="__codelineno-41-2" href="#__codelineno-41-2"></a>wscat<span class="w"> </span>-c<span class="w"> </span>wss://ws.postman-echo.com/raw
+<a id="__codelineno-41-3" name="__codelineno-41-3" href="#__codelineno-41-3"></a>&gt;<span class="w"> </span>hello
+<a id="__codelineno-41-4" name="__codelineno-41-4" href="#__codelineno-41-4"></a>&lt;<span class="w"> </span>hello
 </code></pre></div>
 <p><strong>浏览器 F12：</strong> Network → WS 标签查看 WebSocket 消息。</p>
 <p><strong>测试要点：</strong>
@@ -6180,14 +6247,14 @@
 <h2 id="cdn">八、CDN 基础<a class="headerlink" href="#cdn" title="Permanent link">&para;</a></h2>
 <h3 id="81-cdn">8.1 CDN 是什么<a class="headerlink" href="#81-cdn" title="Permanent link">&para;</a></h3>
 <p>CDN（Content Delivery Network）将内容缓存到全球边缘节点，用户就近获取。</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a>无 CDN：用户 → 源站（北京）→ 响应（慢）
-<a id="__codelineno-37-2" name="__codelineno-37-2" href="#__codelineno-37-2"></a>有 CDN：用户 → 边缘节点（本地）→ 响应（快）
+<div class="highlight"><pre><span></span><code><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a>无 CDN：用户 → 源站（北京）→ 响应（慢）
+<a id="__codelineno-42-2" name="__codelineno-42-2" href="#__codelineno-42-2"></a>有 CDN：用户 → 边缘节点（本地）→ 响应（快）
 </code></pre></div>
 <h3 id="82-cdn">8.2 CDN 工作原理<a class="headerlink" href="#82-cdn" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a>1. 用户请求 static.example.com/logo.png
-<a id="__codelineno-38-2" name="__codelineno-38-2" href="#__codelineno-38-2"></a>2. DNS 解析到最近的 CDN 边缘节点
-<a id="__codelineno-38-3" name="__codelineno-38-3" href="#__codelineno-38-3"></a>3. 边缘节点有缓存 → 直接返回
-<a id="__codelineno-38-4" name="__codelineno-38-4" href="#__codelineno-38-4"></a>4. 边缘节点无缓存 → 回源站获取 → 缓存 → 返回
+<div class="highlight"><pre><span></span><code><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a>1. 用户请求 static.example.com/logo.png
+<a id="__codelineno-43-2" name="__codelineno-43-2" href="#__codelineno-43-2"></a>2. DNS 解析到最近的 CDN 边缘节点
+<a id="__codelineno-43-3" name="__codelineno-43-3" href="#__codelineno-43-3"></a>3. 边缘节点有缓存 → 直接返回
+<a id="__codelineno-43-4" name="__codelineno-43-4" href="#__codelineno-43-4"></a>4. 边缘节点无缓存 → 回源站获取 → 缓存 → 返回
 </code></pre></div>
 <h3 id="83">8.3 测试关注点<a class="headerlink" href="#83" title="Permanent link">&para;</a></h3>
 <table>
@@ -6225,11 +6292,11 @@
 </tbody>
 </table>
 <h3 id="84-cdn">8.4 常见 CDN 响应头<a class="headerlink" href="#84-cdn" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a>X-Cache: HIT               # 命中缓存
-<a id="__codelineno-39-2" name="__codelineno-39-2" href="#__codelineno-39-2"></a>X-Cache: MISS              # 未命中（回源）
-<a id="__codelineno-39-3" name="__codelineno-39-3" href="#__codelineno-39-3"></a>X-Cache-Lookup: HIT        # CDN 节点有缓存
-<a id="__codelineno-39-4" name="__codelineno-39-4" href="#__codelineno-39-4"></a>Age: 1234                  # 缓存已存在秒数
-<a id="__codelineno-39-5" name="__codelineno-39-5" href="#__codelineno-39-5"></a>Cache-Control: max-age=3600 # 缓存有效期
+<div class="highlight"><pre><span></span><code><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a>X-Cache: HIT               # 命中缓存
+<a id="__codelineno-44-2" name="__codelineno-44-2" href="#__codelineno-44-2"></a>X-Cache: MISS              # 未命中（回源）
+<a id="__codelineno-44-3" name="__codelineno-44-3" href="#__codelineno-44-3"></a>X-Cache-Lookup: HIT        # CDN 节点有缓存
+<a id="__codelineno-44-4" name="__codelineno-44-4" href="#__codelineno-44-4"></a>Age: 1234                  # 缓存已存在秒数
+<a id="__codelineno-44-5" name="__codelineno-44-5" href="#__codelineno-44-5"></a>Cache-Control: max-age=3600 # 缓存有效期
 </code></pre></div>
 <hr />
 <h2 id="http2-http3">九、HTTP/2 与 HTTP/3<a class="headerlink" href="#http2-http3" title="Permanent link">&para;</a></h2>
@@ -6261,8 +6328,8 @@
 </tbody>
 </table>
 <p><strong>对比 HTTP/1.1：</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a>HTTP/1.1：每个请求一个连接（或排队等待）
-<a id="__codelineno-40-2" name="__codelineno-40-2" href="#__codelineno-40-2"></a>HTTP/2：一个 TCP 连接并行多个请求，缓解 HTTP/1.1 队头阻塞，但 TCP 层仍可能阻塞
+<div class="highlight"><pre><span></span><code><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a>HTTP/1.1：每个请求一个连接（或排队等待）
+<a id="__codelineno-45-2" name="__codelineno-45-2" href="#__codelineno-45-2"></a>HTTP/2：一个 TCP 连接并行多个请求，缓解 HTTP/1.1 队头阻塞，但 TCP 层仍可能阻塞
 </code></pre></div>
 <h3 id="92-http3quic">9.2 HTTP/3（QUIC）<a class="headerlink" href="#92-http3quic" title="Permanent link">&para;</a></h3>
 <p>HTTP/3 基于 QUIC 协议（UDP），解决 TCP 队头阻塞。</p>
@@ -6302,20 +6369,20 @@
 - Fiddler Classic 不支持 HTTP/3（QUIC 基于 UDP）
 - 需禁用 QUIC 才能用 Fiddler 抓包</p>
 <h3 id="93">9.3 检测协议版本<a class="headerlink" href="#93" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a><span class="c1"># curl 查看协议</span>
-<a id="__codelineno-41-2" name="__codelineno-41-2" href="#__codelineno-41-2"></a>curl<span class="w"> </span>-sI<span class="w"> </span>--http2<span class="w"> </span>https://example.com
-<a id="__codelineno-41-3" name="__codelineno-41-3" href="#__codelineno-41-3"></a>curl<span class="w"> </span>-sI<span class="w"> </span>--http3<span class="w"> </span>https://example.com<span class="w">   </span><span class="c1"># 需 curl 版本和编译特性都支持 HTTP/3</span>
-<a id="__codelineno-41-4" name="__codelineno-41-4" href="#__codelineno-41-4"></a>
-<a id="__codelineno-41-5" name="__codelineno-41-5" href="#__codelineno-41-5"></a><span class="c1"># Chrome DevTools</span>
-<a id="__codelineno-41-6" name="__codelineno-41-6" href="#__codelineno-41-6"></a><span class="c1"># Network → 右键列头 → 勾选 Protocol</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a><span class="c1"># curl 查看协议</span>
+<a id="__codelineno-46-2" name="__codelineno-46-2" href="#__codelineno-46-2"></a>curl<span class="w"> </span>-sI<span class="w"> </span>--http2<span class="w"> </span>https://example.com
+<a id="__codelineno-46-3" name="__codelineno-46-3" href="#__codelineno-46-3"></a>curl<span class="w"> </span>-sI<span class="w"> </span>--http3<span class="w"> </span>https://example.com<span class="w">   </span><span class="c1"># 需 curl 版本和编译特性都支持 HTTP/3</span>
+<a id="__codelineno-46-4" name="__codelineno-46-4" href="#__codelineno-46-4"></a>
+<a id="__codelineno-46-5" name="__codelineno-46-5" href="#__codelineno-46-5"></a><span class="c1"># Chrome DevTools</span>
+<a id="__codelineno-46-6" name="__codelineno-46-6" href="#__codelineno-46-6"></a><span class="c1"># Network → 右键列头 → 勾选 Protocol</span>
 </code></pre></div>
 <hr />
 <h2 id="_7">十、负载均衡<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
 <h3 id="101">10.1 负载均衡是什么<a class="headerlink" href="#101" title="Permanent link">&para;</a></h3>
 <p>将请求分发到多台服务器，提高可用性和性能。</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a>客户端 → 负载均衡器 → 服务器 A
-<a id="__codelineno-42-2" name="__codelineno-42-2" href="#__codelineno-42-2"></a>                    → 服务器 B
-<a id="__codelineno-42-3" name="__codelineno-42-3" href="#__codelineno-42-3"></a>                    → 服务器 C
+<div class="highlight"><pre><span></span><code><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a>客户端 → 负载均衡器 → 服务器 A
+<a id="__codelineno-47-2" name="__codelineno-47-2" href="#__codelineno-47-2"></a>                    → 服务器 B
+<a id="__codelineno-47-3" name="__codelineno-47-3" href="#__codelineno-47-3"></a>                    → 服务器 C
 </code></pre></div>
 <h3 id="102">10.2 常见算法<a class="headerlink" href="#102" title="Permanent link">&para;</a></h3>
 <table>
@@ -6360,16 +6427,19 @@
 <tbody>
 <tr>
 <td>四层（L4）</td>
-<td>TCP/UDP</td>
-<td>LVS、F5</td>
+<td>TCP/UDP 传输层</td>
+<td>LVS（Linux 内置）、F5（商业硬件）</td>
 </tr>
 <tr>
 <td>七层（L7）</td>
-<td>HTTP</td>
+<td>HTTP 应用层</td>
 <td>Nginx、HAProxy</td>
 </tr>
 </tbody>
 </table>
+<blockquote>
+<p><strong>四层</strong>只看 IP 和端口转发，速度快；<strong>七层</strong>能根据 URL 路径、Cookie 等内容智能分发，功能更强。</p>
+</blockquote>
 <h3 id="104">10.4 测试关注点<a class="headerlink" href="#104" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -6410,16 +6480,17 @@
 - 应用层防火墙：基于协议内容
 - WAF（Web Application Firewall）：专门防护 Web 攻击</p>
 <p><strong>测试关注：</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a><span class="c1"># 检查端口是否被防火墙拦截</span>
-<a id="__codelineno-43-2" name="__codelineno-43-2" href="#__codelineno-43-2"></a>telnet<span class="w"> </span><span class="m">192</span>.168.1.100<span class="w"> </span><span class="m">8080</span>
-<a id="__codelineno-43-3" name="__codelineno-43-3" href="#__codelineno-43-3"></a>
-<a id="__codelineno-43-4" name="__codelineno-43-4" href="#__codelineno-43-4"></a><span class="c1"># 查看防火墙规则（Linux）</span>
-<a id="__codelineno-43-5" name="__codelineno-43-5" href="#__codelineno-43-5"></a>iptables<span class="w"> </span>-L<span class="w"> </span>-n
-<a id="__codelineno-43-6" name="__codelineno-43-6" href="#__codelineno-43-6"></a>firewall-cmd<span class="w"> </span>--list-all
-<a id="__codelineno-43-7" name="__codelineno-43-7" href="#__codelineno-43-7"></a>
-<a id="__codelineno-43-8" name="__codelineno-43-8" href="#__codelineno-43-8"></a><span class="c1"># 开放端口（需管理员）</span>
-<a id="__codelineno-43-9" name="__codelineno-43-9" href="#__codelineno-43-9"></a>firewall-cmd<span class="w"> </span>--permanent<span class="w"> </span>--add-port<span class="o">=</span><span class="m">8080</span>/tcp
-<a id="__codelineno-43-10" name="__codelineno-43-10" href="#__codelineno-43-10"></a>firewall-cmd<span class="w"> </span>--reload
+<div class="highlight"><pre><span></span><code><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a><span class="c1"># 检查端口是否被防火墙拦截</span>
+<a id="__codelineno-48-2" name="__codelineno-48-2" href="#__codelineno-48-2"></a>telnet<span class="w"> </span><span class="m">192</span>.168.1.100<span class="w"> </span><span class="m">8080</span>
+<a id="__codelineno-48-3" name="__codelineno-48-3" href="#__codelineno-48-3"></a>
+<a id="__codelineno-48-4" name="__codelineno-48-4" href="#__codelineno-48-4"></a><span class="c1"># 查看防火墙规则</span>
+<a id="__codelineno-48-5" name="__codelineno-48-5" href="#__codelineno-48-5"></a>iptables<span class="w"> </span>-L<span class="w"> </span>-n<span class="w">                              </span><span class="c1"># Linux（传统）</span>
+<a id="__codelineno-48-6" name="__codelineno-48-6" href="#__codelineno-48-6"></a>firewall-cmd<span class="w"> </span>--list-all<span class="w">                     </span><span class="c1"># Linux（CentOS/RHEL）</span>
+<a id="__codelineno-48-7" name="__codelineno-48-7" href="#__codelineno-48-7"></a>netsh<span class="w"> </span>advfirewall<span class="w"> </span>show<span class="w"> </span>allprofiles<span class="w">          </span><span class="c1"># Windows</span>
+<a id="__codelineno-48-8" name="__codelineno-48-8" href="#__codelineno-48-8"></a>
+<a id="__codelineno-48-9" name="__codelineno-48-9" href="#__codelineno-48-9"></a><span class="c1"># 开放端口（需管理员）</span>
+<a id="__codelineno-48-10" name="__codelineno-48-10" href="#__codelineno-48-10"></a>firewall-cmd<span class="w"> </span>--permanent<span class="w"> </span>--add-port<span class="o">=</span><span class="m">8080</span>/tcp<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>firewall-cmd<span class="w"> </span>--reload<span class="w">    </span><span class="c1"># Linux</span>
+<a id="__codelineno-48-11" name="__codelineno-48-11" href="#__codelineno-48-11"></a>netsh<span class="w"> </span>advfirewall<span class="w"> </span>firewall<span class="w"> </span>add<span class="w"> </span>rule<span class="w"> </span><span class="nv">name</span><span class="o">=</span><span class="s2">&quot;Open 8080&quot;</span><span class="w"> </span><span class="nv">protocol</span><span class="o">=</span>TCP<span class="w"> </span><span class="nv">localport</span><span class="o">=</span><span class="m">8080</span><span class="w"> </span><span class="nv">action</span><span class="o">=</span>allow<span class="w">    </span><span class="c1"># Windows</span>
 </code></pre></div>
 <h3 id="112-wafweb">11.2 WAF（Web 应用防火墙）<a class="headerlink" href="#112-wafweb" title="Permanent link">&para;</a></h3>
 <p>WAF 防护 Web 攻击：SQL 注入、XSS、CC 攻击等。</p>
@@ -6435,8 +6506,8 @@
 - VPN 对网络延迟的影响</p>
 <h3 id="114-acl">11.4 ACL（访问控制列表）<a class="headerlink" href="#114-acl" title="Permanent link">&para;</a></h3>
 <p>ACL 定义谁能访问什么资源。</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a>允许：192.168.1.0/24 访问 80 端口
-<a id="__codelineno-44-2" name="__codelineno-44-2" href="#__codelineno-44-2"></a>拒绝：0.0.0.0/0 访问 22 端口
+<div class="highlight"><pre><span></span><code><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a>允许：192.168.1.0/24 访问 80 端口
+<a id="__codelineno-49-2" name="__codelineno-49-2" href="#__codelineno-49-2"></a>拒绝：0.0.0.0/0 访问 22 端口
 </code></pre></div>
 <p><strong>测试关注：</strong>
 - 是否按规则正确放行/拒绝
@@ -6446,9 +6517,9 @@
 <h2 id="_9">十二、微服务网络<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
 <h3 id="121-api">12.1 API 网关<a class="headerlink" href="#121-api" title="Permanent link">&para;</a></h3>
 <p>API 网关是微服务的统一入口。</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a>客户端 → API 网关 → 用户服务
-<a id="__codelineno-45-2" name="__codelineno-45-2" href="#__codelineno-45-2"></a>                  → 订单服务
-<a id="__codelineno-45-3" name="__codelineno-45-3" href="#__codelineno-45-3"></a>                  → 支付服务
+<div class="highlight"><pre><span></span><code><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a>客户端 → API 网关 → 用户服务
+<a id="__codelineno-50-2" name="__codelineno-50-2" href="#__codelineno-50-2"></a>                  → 订单服务
+<a id="__codelineno-50-3" name="__codelineno-50-3" href="#__codelineno-50-3"></a>                  → 支付服务
 </code></pre></div>
 <p><strong>网关功能：</strong>
 - 路由转发
@@ -6463,8 +6534,8 @@
 - 超时配置是否合理</p>
 <h3 id="122">12.2 服务发现<a class="headerlink" href="#122" title="Permanent link">&para;</a></h3>
 <p>微服务动态注册/发现，不硬编码 IP。</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a>服务 A 启动 → 注册到注册中心（Nacos/Eureka/Consul）
-<a id="__codelineno-46-2" name="__codelineno-46-2" href="#__codelineno-46-2"></a>服务 B → 从注册中心获取服务 A 的地址 → 调用
+<div class="highlight"><pre><span></span><code><a id="__codelineno-51-1" name="__codelineno-51-1" href="#__codelineno-51-1"></a>服务 A 启动 → 注册到注册中心（Nacos/Eureka/Consul）
+<a id="__codelineno-51-2" name="__codelineno-51-2" href="#__codelineno-51-2"></a>服务 B → 从注册中心获取服务 A 的地址 → 调用
 </code></pre></div>
 <p><strong>测试关注：</strong>
 - 服务注册/注销是否正常
@@ -6472,9 +6543,9 @@
 - 服务发现延迟</p>
 <h3 id="123-service-mesh">12.3 服务网格（Service Mesh）<a class="headerlink" href="#123-service-mesh" title="Permanent link">&para;</a></h3>
 <p>服务网格在每个服务旁边部署代理（Sidecar），处理服务间通信。</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a>服务 A ←→ Sidecar A ←→ Sidecar B ←→ 服务 B
-<a id="__codelineno-47-2" name="__codelineno-47-2" href="#__codelineno-47-2"></a>                  ↑
-<a id="__codelineno-47-3" name="__codelineno-47-3" href="#__codelineno-47-3"></a>            流量管理、熔断、监控
+<div class="highlight"><pre><span></span><code><a id="__codelineno-52-1" name="__codelineno-52-1" href="#__codelineno-52-1"></a>服务 A ←→ Sidecar A ←→ Sidecar B ←→ 服务 B
+<a id="__codelineno-52-2" name="__codelineno-52-2" href="#__codelineno-52-2"></a>                  ↑
+<a id="__codelineno-52-3" name="__codelineno-52-3" href="#__codelineno-52-3"></a>            流量管理、熔断、监控
 </code></pre></div>
 <p><strong>常见实现：</strong> Istio、Linkerd</p>
 <p><strong>测试关注：</strong>
@@ -6484,7 +6555,7 @@
 - 分布式追踪</p>
 <h3 id="124">12.4 消息队列<a class="headerlink" href="#124" title="Permanent link">&para;</a></h3>
 <p>服务间异步通信。</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a>生产者 → 消息队列（RabbitMQ/Kafka） → 消费者
+<div class="highlight"><pre><span></span><code><a id="__codelineno-53-1" name="__codelineno-53-1" href="#__codelineno-53-1"></a>生产者 → 消息队列（RabbitMQ/Kafka） → 消费者
 </code></pre></div>
 <p><strong>测试关注：</strong>
 - 消息发送/接收正确性
@@ -6495,36 +6566,54 @@
 <hr />
 <h2 id="_10">附录：速查表<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
 <h3 id="_11">网络排障流程<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a>ping → telnet → curl → 抓包
-<a id="__codelineno-49-2" name="__codelineno-49-2" href="#__codelineno-49-2"></a>网络层   端口层   应用层   详情
+<div class="highlight"><pre><span></span><code><a id="__codelineno-54-1" name="__codelineno-54-1" href="#__codelineno-54-1"></a>ping → telnet → curl → 抓包
+<a id="__codelineno-54-2" name="__codelineno-54-2" href="#__codelineno-54-2"></a>网络层   端口层   应用层   详情
 </code></pre></div>
 <h3 id="_12">常用端口<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a>80/443    HTTP/HTTPS
-<a id="__codelineno-50-2" name="__codelineno-50-2" href="#__codelineno-50-2"></a>22        SSH
-<a id="__codelineno-50-3" name="__codelineno-50-3" href="#__codelineno-50-3"></a>3306      MySQL
-<a id="__codelineno-50-4" name="__codelineno-50-4" href="#__codelineno-50-4"></a>6379      Redis
-<a id="__codelineno-50-5" name="__codelineno-50-5" href="#__codelineno-50-5"></a>8080      HTTP 备用
-<a id="__codelineno-50-6" name="__codelineno-50-6" href="#__codelineno-50-6"></a>27017     MongoDB
-<a id="__codelineno-50-7" name="__codelineno-50-7" href="#__codelineno-50-7"></a>5672      RabbitMQ
-<a id="__codelineno-50-8" name="__codelineno-50-8" href="#__codelineno-50-8"></a>9200      Elasticsearch
+<div class="highlight"><pre><span></span><code><a id="__codelineno-55-1" name="__codelineno-55-1" href="#__codelineno-55-1"></a>80/443    HTTP/HTTPS
+<a id="__codelineno-55-2" name="__codelineno-55-2" href="#__codelineno-55-2"></a>22        SSH
+<a id="__codelineno-55-3" name="__codelineno-55-3" href="#__codelineno-55-3"></a>3306      MySQL
+<a id="__codelineno-55-4" name="__codelineno-55-4" href="#__codelineno-55-4"></a>6379      Redis
+<a id="__codelineno-55-5" name="__codelineno-55-5" href="#__codelineno-55-5"></a>8080      HTTP 备用
+<a id="__codelineno-55-6" name="__codelineno-55-6" href="#__codelineno-55-6"></a>27017     MongoDB
+<a id="__codelineno-55-7" name="__codelineno-55-7" href="#__codelineno-55-7"></a>5672      RabbitMQ
+<a id="__codelineno-55-8" name="__codelineno-55-8" href="#__codelineno-55-8"></a>9200      Elasticsearch
 </code></pre></div>
 <h3 id="http">HTTP 状态码速查<a class="headerlink" href="#http" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-51-1" name="__codelineno-51-1" href="#__codelineno-51-1"></a>200 OK          201 Created
-<a id="__codelineno-51-2" name="__codelineno-51-2" href="#__codelineno-51-2"></a>301 永久重定向   302 临时重定向   304 未修改
-<a id="__codelineno-51-3" name="__codelineno-51-3" href="#__codelineno-51-3"></a>400 参数错误     401 未认证       403 无权限
-<a id="__codelineno-51-4" name="__codelineno-51-4" href="#__codelineno-51-4"></a>404 未找到       405 方法不允许   408 超时
-<a id="__codelineno-51-5" name="__codelineno-51-5" href="#__codelineno-51-5"></a>429 请求过多     500 内部错误     502 网关错误
-<a id="__codelineno-51-6" name="__codelineno-51-6" href="#__codelineno-51-6"></a>503 不可用       504 网关超时
+<div class="highlight"><pre><span></span><code><a id="__codelineno-56-1" name="__codelineno-56-1" href="#__codelineno-56-1"></a>200 OK          201 Created
+<a id="__codelineno-56-2" name="__codelineno-56-2" href="#__codelineno-56-2"></a>301 永久重定向   302 临时重定向   304 未修改
+<a id="__codelineno-56-3" name="__codelineno-56-3" href="#__codelineno-56-3"></a>400 参数错误     401 未认证       403 无权限
+<a id="__codelineno-56-4" name="__codelineno-56-4" href="#__codelineno-56-4"></a>404 未找到       405 方法不允许   408 超时
+<a id="__codelineno-56-5" name="__codelineno-56-5" href="#__codelineno-56-5"></a>429 请求过多     500 内部错误     502 网关错误
+<a id="__codelineno-56-6" name="__codelineno-56-6" href="#__codelineno-56-6"></a>503 不可用       504 网关超时
 </code></pre></div>
 <h3 id="_13">常用命令<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-52-1" name="__codelineno-52-1" href="#__codelineno-52-1"></a>ping<span class="w"> </span>-c<span class="w"> </span><span class="m">4</span><span class="w"> </span>host<span class="w">              </span><span class="c1"># 测试连通性</span>
-<a id="__codelineno-52-2" name="__codelineno-52-2" href="#__codelineno-52-2"></a>traceroute<span class="w"> </span>host<span class="w">              </span><span class="c1"># 追踪路由</span>
-<a id="__codelineno-52-3" name="__codelineno-52-3" href="#__codelineno-52-3"></a>telnet<span class="w"> </span>host<span class="w"> </span>port<span class="w">             </span><span class="c1"># 测试端口</span>
-<a id="__codelineno-52-4" name="__codelineno-52-4" href="#__codelineno-52-4"></a>nslookup<span class="w"> </span>domain<span class="w">              </span><span class="c1"># DNS 查询</span>
-<a id="__codelineno-52-5" name="__codelineno-52-5" href="#__codelineno-52-5"></a>curl<span class="w"> </span>-v<span class="w"> </span>url<span class="w">                  </span><span class="c1"># HTTP 调试</span>
-<a id="__codelineno-52-6" name="__codelineno-52-6" href="#__codelineno-52-6"></a>netstat<span class="w"> </span>-tlnp<span class="w">                </span><span class="c1"># 查看监听端口</span>
-<a id="__codelineno-52-7" name="__codelineno-52-7" href="#__codelineno-52-7"></a>tcpdump<span class="w"> </span>-i<span class="w"> </span>any<span class="w"> </span>port<span class="w"> </span><span class="m">8080</span><span class="w">     </span><span class="c1"># 抓包</span>
+<div class="tabbed-set tabbed-alternate" data-tabs="6:2"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio" /><input id="__tabbed_6_2" name="__tabbed_6" type="radio" /><div class="tabbed-labels"><label for="__tabbed_6_1">Linux / Mac</label><label for="__tabbed_6_2">Windows</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-57-1" name="__codelineno-57-1" href="#__codelineno-57-1"></a>ping<span class="w"> </span>-c<span class="w"> </span><span class="m">4</span><span class="w"> </span>host<span class="w">              </span><span class="c1"># 测试连通性</span>
+<a id="__codelineno-57-2" name="__codelineno-57-2" href="#__codelineno-57-2"></a>traceroute<span class="w"> </span>host<span class="w">              </span><span class="c1"># 追踪路由</span>
+<a id="__codelineno-57-3" name="__codelineno-57-3" href="#__codelineno-57-3"></a>telnet<span class="w"> </span>host<span class="w"> </span>port<span class="w">             </span><span class="c1"># 测试端口</span>
+<a id="__codelineno-57-4" name="__codelineno-57-4" href="#__codelineno-57-4"></a>nc<span class="w"> </span>-zv<span class="w"> </span>host<span class="w"> </span>port<span class="w">             </span><span class="c1"># 测试端口（更推荐）</span>
+<a id="__codelineno-57-5" name="__codelineno-57-5" href="#__codelineno-57-5"></a>nslookup<span class="w"> </span>domain<span class="w">              </span><span class="c1"># DNS 查询</span>
+<a id="__codelineno-57-6" name="__codelineno-57-6" href="#__codelineno-57-6"></a>dig<span class="w"> </span>domain<span class="w">                   </span><span class="c1"># DNS 查询（更详细）</span>
+<a id="__codelineno-57-7" name="__codelineno-57-7" href="#__codelineno-57-7"></a>curl<span class="w"> </span>-v<span class="w"> </span>url<span class="w">                  </span><span class="c1"># HTTP 调试</span>
+<a id="__codelineno-57-8" name="__codelineno-57-8" href="#__codelineno-57-8"></a>ss<span class="w"> </span>-tlnp<span class="w">                     </span><span class="c1"># 查看监听端口</span>
+<a id="__codelineno-57-9" name="__codelineno-57-9" href="#__codelineno-57-9"></a>tcpdump<span class="w"> </span>-i<span class="w"> </span>any<span class="w"> </span>port<span class="w"> </span><span class="m">8080</span><span class="w">     </span><span class="c1"># 抓包</span>
 </code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-58-1" name="__codelineno-58-1" href="#__codelineno-58-1"></a>ping -n 4 host              # 测试连通性
+<a id="__codelineno-58-2" name="__codelineno-58-2" href="#__codelineno-58-2"></a>tracert host                 # 追踪路由
+<a id="__codelineno-58-3" name="__codelineno-58-3" href="#__codelineno-58-3"></a>telnet host port             # 测试端口（需先启用）
+<a id="__codelineno-58-4" name="__codelineno-58-4" href="#__codelineno-58-4"></a>Test-NetConnection host -Port port    # PowerShell 测试端口
+<a id="__codelineno-58-5" name="__codelineno-58-5" href="#__codelineno-58-5"></a>nslookup domain              # DNS 查询
+<a id="__codelineno-58-6" name="__codelineno-58-6" href="#__codelineno-58-6"></a>curl -v url                  # HTTP 调试（Win10+ 自带）
+<a id="__codelineno-58-7" name="__codelineno-58-7" href="#__codelineno-58-7"></a>netstat -ano                 # 查看连接和端口
+</code></pre></div>
+</div>
+</div>
+</div>
 <hr />
 <div class="admonition tip">
 <p class="admonition-title">学习建议</p>

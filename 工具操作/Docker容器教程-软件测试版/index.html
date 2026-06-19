@@ -6509,12 +6509,13 @@
 <a id="__codelineno-77-7" name="__codelineno-77-7" href="#__codelineno-77-7"></a><span class="c1"># 3. 依赖未启动</span>
 </code></pre></div>
 <h3 id="112">11.2 端口占用<a class="headerlink" href="#112" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-78-1" name="__codelineno-78-1" href="#__codelineno-78-1"></a><span class="c1"># 报错：port is already allocated</span>
-<a id="__codelineno-78-2" name="__codelineno-78-2" href="#__codelineno-78-2"></a><span class="c1"># 找占用进程</span>
-<a id="__codelineno-78-3" name="__codelineno-78-3" href="#__codelineno-78-3"></a>netstat<span class="w"> </span>-anp<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="m">8080</span>
-<a id="__codelineno-78-4" name="__codelineno-78-4" href="#__codelineno-78-4"></a>lsof<span class="w"> </span>-i:8080
-<a id="__codelineno-78-5" name="__codelineno-78-5" href="#__codelineno-78-5"></a>
-<a id="__codelineno-78-6" name="__codelineno-78-6" href="#__codelineno-78-6"></a><span class="c1"># 改端口或停止占用程序</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-78-1" name="__codelineno-78-1" href="#__codelineno-78-1"></a><span class="c1"># 报错：port is already allocated（端口被占用）</span>
+<a id="__codelineno-78-2" name="__codelineno-78-2" href="#__codelineno-78-2"></a><span class="c1"># 找出是谁占了 8080 端口</span>
+<a id="__codelineno-78-3" name="__codelineno-78-3" href="#__codelineno-78-3"></a>netstat<span class="w"> </span>-anp<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="m">8080</span><span class="w">        </span><span class="c1"># Linux / Mac（显示进程 PID）</span>
+<a id="__codelineno-78-4" name="__codelineno-78-4" href="#__codelineno-78-4"></a>netstat<span class="w"> </span>-ano<span class="w"> </span><span class="p">|</span><span class="w"> </span>findstr<span class="w"> </span>:8080<span class="w">    </span><span class="c1"># Windows（显示 PID，再用 tasklist 查进程名）</span>
+<a id="__codelineno-78-5" name="__codelineno-78-5" href="#__codelineno-78-5"></a>lsof<span class="w"> </span>-i:8080<span class="w">                    </span><span class="c1"># Linux / Mac（直接显示进程名，更直观）</span>
+<a id="__codelineno-78-6" name="__codelineno-78-6" href="#__codelineno-78-6"></a>
+<a id="__codelineno-78-7" name="__codelineno-78-7" href="#__codelineno-78-7"></a><span class="c1"># 找到后：改端口映射（如 -p 8081:80）或停止占用的程序</span>
 </code></pre></div>
 <h3 id="113">11.3 磁盘空间不足<a class="headerlink" href="#113" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-79-1" name="__codelineno-79-1" href="#__codelineno-79-1"></a><span class="c1"># 看 Docker 占用</span>

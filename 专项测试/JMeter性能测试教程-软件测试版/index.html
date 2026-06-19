@@ -5595,11 +5595,14 @@
 </tbody>
 </table>
 <p><strong>指标关系：</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>TPS = 并发数 / 平均 RT
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>TPS = 并发数 / 平均 RT（注意单位：RT 要换算成秒）
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>例：100 并发，平均 RT 200ms（0.2s）
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>TPS = 100 / 0.2 = 500
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>例：100 并发，平均 RT 200ms = 0.2s
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>TPS = 100 / 0.2 = 500（每秒处理 500 个请求）
 </code></pre></div>
+<blockquote>
+<p>TPS（Transactions Per Second）= 每秒完成的请求数。QPS（Queries Per Second）含义类似，一般可通用。</p>
+</blockquote>
 <h3 id="14">1.4 性能要求确认<a class="headerlink" href="#14" title="Permanent link">&para;</a></h3>
 <p>性能测试前必须明确：</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>1. 业务场景：登录？下单？查询？
@@ -5675,15 +5678,28 @@
 <li><strong>Mac/Linux：</strong> <code>./bin/jmeter</code></li>
 </ul>
 <p><strong>环境变量（推荐）：</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># 添加到 PATH，方便命令行使用</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">JMETER_HOME</span><span class="o">=</span>/opt/apache-jmeter-5.6.3
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$JMETER_HOME</span>/bin:<span class="nv">$PATH</span>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Linux / Mac</label><label for="__tabbed_1_2">Windows</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">JMETER_HOME</span><span class="o">=</span>/opt/apache-jmeter-5.6.3
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$JMETER_HOME</span>/bin:<span class="nv">$PATH</span>
 </code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>set JMETER_HOME=D:\tools\apache-jmeter-5.6.3
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>set PATH=%JMETER_HOME%\bin;%PATH%
+</code></pre></div>
+<blockquote>
+<p>永久生效需在"系统属性 → 环境变量"中添加。</p>
+</blockquote>
+</div>
+</div>
+</div>
 <h3 id="23">2.3 中文界面<a class="headerlink" href="#23" title="Permanent link">&para;</a></h3>
 <p>JMeter 默认英文，临时切换：</p>
 <p><code>Options</code> → <code>Choose Language</code> → <code>Chinese (Simplified)</code></p>
 <p><strong>永久切换：</strong> 修改 <code>bin/jmeter.properties</code>：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="na">language</span><span class="o">=</span><span class="s">zh_CN</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="na">language</span><span class="o">=</span><span class="s">zh_CN</span>
 </code></pre></div>
 <div class="admonition tip">
 <p class="admonition-title">建议</p>
@@ -5706,18 +5722,18 @@
 <hr />
 <h2 id="_5">三、界面与核心组件<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
 <h3 id="31">3.1 主界面结构<a class="headerlink" href="#31" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>┌──────────────────────────────────────────┐
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>│ 菜单 / 工具栏                              │
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>├────────────┬─────────────────────────────┤
-<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>│            │                             │
-<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>│ 左侧测试树  │  右侧组件配置面板             │
-<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>│            │                             │
-<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>│ Test Plan  │                             │
-<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>│ └ ThreadGr │                             │
-<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>│   └ HTTP   │                             │
-<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>│   └ Listen │                             │
-<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>│            │                             │
-<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>└────────────┴─────────────────────────────┘
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>┌──────────────────────────────────────────┐
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>│ 菜单 / 工具栏                              │
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>├────────────┬─────────────────────────────┤
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>│            │                             │
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>│ 左侧测试树  │  右侧组件配置面板             │
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>│            │                             │
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>│ Test Plan  │                             │
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>│ └ ThreadGr │                             │
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>│   └ HTTP   │                             │
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>│   └ Listen │                             │
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>│            │                             │
+<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>└────────────┴─────────────────────────────┘
 </code></pre></div>
 <h3 id="32">3.2 核心组件<a class="headerlink" href="#32" title="Permanent link">&para;</a></h3>
 <p><strong>测试计划（Test Plan）：</strong> 根节点，整个测试的容器</p>
@@ -5732,14 +5748,14 @@
 <p><strong>监听器（Listener）：</strong> 收集结果</p>
 <h3 id="33">3.3 组件作用域<a class="headerlink" href="#33" title="Permanent link">&para;</a></h3>
 <p>JMeter 组件按 <strong>树形结构</strong> 生效：父节点对所有子节点有效。</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>Test Plan
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>├── HTTP Default Config（对整个测试有效）
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>├── Thread Group A
-<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>│   ├── HTTP Sampler 1
-<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>│   ├── HTTP Sampler 2
-<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>│   └── Listener（只对 A 有效）
-<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>└── Thread Group B
-<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>    └── HTTP Sampler 3
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>Test Plan
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>├── HTTP Default Config（对整个测试有效）
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>├── Thread Group A
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>│   ├── HTTP Sampler 1
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>│   ├── HTTP Sampler 2
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>│   └── Listener（只对 A 有效）
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>└── Thread Group B
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>    └── HTTP Sampler 3
 </code></pre></div>
 <hr />
 <h2 id="_6">四、第一个性能测试<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
@@ -5869,11 +5885,11 @@
 </ul>
 <h3 id="53">5.3 自定义线程组（插件）<a class="headerlink" href="#53" title="Permanent link">&para;</a></h3>
 <p>需要插件支持。</p>
-<p><strong>Stepping Thread Group（阶梯加压）：</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>0~30 秒：启动 100 线程
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>30~60 秒：每 10 秒加 50 线程，直到 500
-<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>500 线程持续 5 分钟
-<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>然后每 10 秒减 50，直到全部停止
+<p><strong>Stepping Thread Group（阶梯加压）：</strong> 逐步增加并发数，帮你找到系统的"拐点"——在哪个压力下响应时间开始变长或出错。比直接拉满并发更科学。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>0~30 秒：启动 100 线程
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>30~60 秒：每 10 秒加 50 线程，直到 500
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>500 线程持续 5 分钟
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>然后每 10 秒减 50，直到全部停止
 </code></pre></div>
 <p><strong>Ultimate Thread Group（终极版）：</strong></p>
 <p>更灵活，可设置多段加压、保压、减压时间。</p>
@@ -6032,12 +6048,12 @@
 <p>引用：<code>${base_url}</code></p>
 <h3 id="72-csv">7.2 CSV 数据文件（大量数据，最常用）<a class="headerlink" href="#72-csv" title="Permanent link">&para;</a></h3>
 <p><strong>数据文件 <code>users.csv</code>：</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>username,password
-<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>user001,123456
-<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>user002,123456
-<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>user003,123456
-<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>...
-<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>user100,123456
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>username,password
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>user001,123456
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>user002,123456
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>user003,123456
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>...
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>user100,123456
 </code></pre></div>
 <p><strong>配置 CSV Data Set Config：</strong></p>
 <p><code>Add</code> → <code>Config Element</code> → <code>CSV Data Set Config</code></p>
@@ -6077,10 +6093,10 @@
 </table>
 <p><strong>引用：</strong></p>
 <p>HTTP Request Body：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="p">{</span>
-<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">  </span><span class="nt">&quot;username&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;${username}&quot;</span><span class="p">,</span>
-<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">  </span><span class="nt">&quot;password&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;${password}&quot;</span>
-<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="p">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="p">{</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">  </span><span class="nt">&quot;username&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;${username}&quot;</span><span class="p">,</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">  </span><span class="nt">&quot;password&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;${password}&quot;</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="p">}</span>
 </code></pre></div>
 <p><strong>Sharing mode 详解：</strong></p>
 <ul>
@@ -6089,28 +6105,29 @@
 <li><code>Current thread</code>：每个线程独立读（每线程从头开始）</li>
 </ul>
 <h3 id="73">7.3 函数生成参数<a class="headerlink" href="#73" title="Permanent link">&para;</a></h3>
+<p>JMeter 用 <code>${...}</code> 语法引用变量和函数，放在请求的任意字段（URL、Header、Body）中，运行时自动替换为实际值。函数以双下划线开头：<code>${__函数名(参数)}</code>。</p>
 <p><strong>__Random 随机数：</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>${__Random(1,100)}        随机 1~100
-<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>${__Random(1000,9999)}    4 位随机
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>${__Random(1,100)}        随机 1~100
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>${__Random(1000,9999)}    4 位随机
 </code></pre></div>
 <p><strong>__time 时间戳：</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>${__time(yyyy-MM-dd HH:mm:ss)}
-<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>${__time()}                毫秒时间戳
-<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>${__time(/1000)}           秒级时间戳
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>${__time(yyyy-MM-dd HH:mm:ss)}
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>${__time()}                毫秒时间戳
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>${__time(/1000)}           秒级时间戳
 </code></pre></div>
 <p><strong>__UUID：</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>${__UUID()}    生成 UUID
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>${__UUID()}    生成 UUID
 </code></pre></div>
 <p><strong>__counter 计数器：</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>${__counter(TRUE,)}    每线程独立计数（第 2 参为变量名，可省略）
-<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>${__counter(FALSE,)}   全局计数
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>${__counter(TRUE,)}    每线程独立计数（第 2 参为变量名，可省略）
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>${__counter(FALSE,)}   全局计数
 </code></pre></div>
 <div class="admonition tip">
 <p class="admonition-title">建议</p>
 <p>规范写法：<code>${__counter(TRUE)}</code> 或 <code>${__counter(TRUE,myVar)}</code>，尾随逗号虽可工作但不推荐。</p>
 </div>
 <p><strong>__RandomString：</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>${__RandomString(10,abcdefghijklmn)}    10 位随机字符
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>${__RandomString(10,abcdefghijklmn)}    10 位随机字符
 </code></pre></div>
 <h3 id="74-counter">7.4 计数器（Counter）<a class="headerlink" href="#74-counter" title="Permanent link">&para;</a></h3>
 <p><code>Add</code> → <code>Config Element</code> → <code>Counter</code></p>
@@ -6146,13 +6163,13 @@
 <p>性能测试中常见场景：登录返回 Token，后续请求要带 Token。需从响应中提取数据传给下一请求。</p>
 <h3 id="81-json-extractorjson">8.1 JSON Extractor（JSON 提取，最常用）<a class="headerlink" href="#81-json-extractorjson" title="Permanent link">&para;</a></h3>
 <p>接口返回 JSON：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="p">{</span>
-<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="w">  </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
-<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="w">  </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="w">    </span><span class="nt">&quot;token&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;eyJhbGciOi...&quot;</span><span class="p">,</span>
-<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="w">    </span><span class="nt">&quot;userId&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">12345</span>
-<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a><span class="w">  </span><span class="p">}</span>
-<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="p">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="p">{</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="w">  </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="w">  </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="w">    </span><span class="nt">&quot;token&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;eyJhbGciOi...&quot;</span><span class="p">,</span>
+<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="w">    </span><span class="nt">&quot;userId&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">12345</span>
+<a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a><span class="p">}</span>
 </code></pre></div>
 <p>在登录请求下 <code>Add</code> → <code>Post Processors</code> → <code>JSON Extractor</code>：</p>
 <table>
@@ -6324,8 +6341,8 @@
 <p>接口耗时 &gt; 1 秒算失败。</p>
 </div>
 <h3 id="94">9.4 大小断言<a class="headerlink" href="#94" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>Add → Assertions → Size Assertion
-<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>Size in bytes: &gt; 100
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>Add → Assertions → Size Assertion
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>Size in bytes: &gt; 100
 </code></pre></div>
 <hr />
 <h2 id="_11">十、监听器与结果分析<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
@@ -6429,7 +6446,7 @@
 </ul>
 <h3 id="103-html">10.3 HTML 报告（命令行模式生成）<a class="headerlink" href="#103-html" title="Permanent link">&para;</a></h3>
 <p>JMeter 自带 HTML 报告生成：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>jmeter<span class="w"> </span>-n<span class="w"> </span>-t<span class="w"> </span>test.jmx<span class="w"> </span>-l<span class="w"> </span>result.jtl<span class="w"> </span>-e<span class="w"> </span>-o<span class="w"> </span>report/
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>jmeter<span class="w"> </span>-n<span class="w"> </span>-t<span class="w"> </span>test.jmx<span class="w"> </span>-l<span class="w"> </span>result.jtl<span class="w"> </span>-e<span class="w"> </span>-o<span class="w"> </span>report/
 </code></pre></div>
 <ul>
 <li><code>-n</code> 非 GUI 模式</li>
@@ -6448,8 +6465,14 @@
 <li>各 Percentile 分布图</li>
 </ul>
 <h3 id="104-influxdb-grafana">10.4 实时监控（InfluxDB + Grafana）<a class="headerlink" href="#104-influxdb-grafana" title="Permanent link">&para;</a></h3>
+<p>JMeter 内置报告只能测试结束后看。如果想在压测过程中<strong>实时</strong>看 TPS、响应时间曲线，需要 InfluxDB + Grafana。</p>
+<ul>
+<li><strong>InfluxDB</strong>：时序数据库，专门存时间序列指标数据</li>
+<li><strong>Grafana</strong>：可视化仪表盘，从 InfluxDB 读数据画实时图表</li>
+</ul>
 <p><strong>架构：</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>JMeter → Backend Listener → InfluxDB → Grafana 仪表盘
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>JMeter → Backend Listener → InfluxDB → Grafana 仪表盘
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>                                    （实时展示 TPS、RT 曲线）
 </code></pre></div>
 <p>实时看 TPS、RT 曲线、错误率，是企业级标配。</p>
 <p><strong>配置 Backend Listener：</strong></p>
@@ -6488,15 +6511,15 @@
 <h3 id="111">11.1 为什么需要分布式<a class="headerlink" href="#111" title="Permanent link">&para;</a></h3>
 <p>单台 JMeter 机器有性能上限（通常 500~1000 并发），更大压力需多机配合。</p>
 <h3 id="112">11.2 架构<a class="headerlink" href="#112" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>        Master（控制机）
-<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>            │
-<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>    ┌───────┼───────┐
-<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>    │       │       │
-<a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>  Slave1  Slave2  Slave3   （压力机）
-<a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a>    │       │       │
-<a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a>    └───────┼───────┘
-<a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a>            ↓
-<a id="__codelineno-19-9" name="__codelineno-19-9" href="#__codelineno-19-9"></a>       被测系统
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>        Master（控制机）
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>            │
+<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>    ┌───────┼───────┐
+<a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>    │       │       │
+<a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a>  Slave1  Slave2  Slave3   （压力机）
+<a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a>    │       │       │
+<a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a>    └───────┼───────┘
+<a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a>            ↓
+<a id="__codelineno-20-9" name="__codelineno-20-9" href="#__codelineno-20-9"></a>       被测系统
 </code></pre></div>
 <h3 id="113">11.3 配置步骤<a class="headerlink" href="#113" title="Permanent link">&para;</a></h3>
 <p><strong>前置条件：</strong></p>
@@ -6507,20 +6530,33 @@
 <li>时间同步</li>
 </ul>
 <p><strong>Slave 配置：</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="c1"># Linux Slave</span>
-<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="nb">cd</span><span class="w"> </span><span class="nv">$JMETER_HOME</span>/bin
-<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>./jmeter-server<span class="w"> </span>-Djava.rmi.server.hostname<span class="o">=</span><span class="m">192</span>.168.1.101
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Linux / Mac</label><label for="__tabbed_2_2">Windows</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="nb">cd</span><span class="w"> </span><span class="nv">$JMETER_HOME</span>/bin
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>./jmeter-server<span class="w"> </span>-Djava.rmi.server.hostname<span class="o">=</span><span class="m">192</span>.168.1.101
 </code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>cd %JMETER_HOME%\bin
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>jmeter-server.bat -Djava.rmi.server.hostname=192.168.1.101
+</code></pre></div>
+<blockquote>
+<p><code>$JMETER_HOME</code>（Linux）和 <code>%JMETER_HOME%</code>（Windows）都是引用前面配置的 JMeter 安装路径环境变量。</p>
+</blockquote>
+</div>
+</div>
+</div>
 <p><strong>Master 配置：</strong></p>
 <p>修改 <code>bin/jmeter.properties</code>：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="na">remote_hosts</span><span class="o">=</span><span class="s">192.168.1.101:1099,192.168.1.102:1099</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="na">remote_hosts</span><span class="o">=</span><span class="s">192.168.1.101:1099,192.168.1.102:1099</span>
 </code></pre></div>
 <p><strong>启动分布式压测：</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="c1"># GUI 模式</span>
-<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>菜单：Run<span class="w"> </span>→<span class="w"> </span>Remote<span class="w"> </span>Start<span class="w"> </span>All
-<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>
-<a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a><span class="c1"># 命令行模式</span>
-<a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a>jmeter<span class="w"> </span>-n<span class="w"> </span>-t<span class="w"> </span>test.jmx<span class="w"> </span>-R<span class="w"> </span><span class="m">192</span>.168.1.101,192.168.1.102<span class="w"> </span>-l<span class="w"> </span>result.jtl
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="c1"># GUI 模式</span>
+<a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>菜单：Run<span class="w"> </span>→<span class="w"> </span>Remote<span class="w"> </span>Start<span class="w"> </span>All
+<a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>
+<a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a><span class="c1"># 命令行模式</span>
+<a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a>jmeter<span class="w"> </span>-n<span class="w"> </span>-t<span class="w"> </span>test.jmx<span class="w"> </span>-R<span class="w"> </span><span class="m">192</span>.168.1.101,192.168.1.102<span class="w"> </span>-l<span class="w"> </span>result.jtl
 </code></pre></div>
 <p><code>-R</code> 指定远程压力机。</p>
 <h3 id="114">11.4 数据文件分发<a class="headerlink" href="#114" title="Permanent link">&para;</a></h3>
@@ -6534,7 +6570,7 @@
 <li>服务器上跑（无图形界面）</li>
 </ul>
 <h3 id="122">12.2 基础命令<a class="headerlink" href="#122" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>jmeter<span class="w"> </span>-n<span class="w"> </span>-t<span class="w"> </span>test.jmx<span class="w"> </span>-l<span class="w"> </span>result.jtl
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>jmeter<span class="w"> </span>-n<span class="w"> </span>-t<span class="w"> </span>test.jmx<span class="w"> </span>-l<span class="w"> </span>result.jtl
 </code></pre></div>
 <table>
 <thead>
@@ -6579,43 +6615,43 @@
 </tbody>
 </table>
 <h3 id="123">12.3 完整命令示例<a class="headerlink" href="#123" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>jmeter<span class="w"> </span>-n<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a><span class="w">  </span>-t<span class="w"> </span>login_test.jmx<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a><span class="w">  </span>-l<span class="w"> </span>result/login_<span class="k">$(</span>date<span class="w"> </span>+%Y%m%d_%H%M%S<span class="k">)</span>.jtl<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a><span class="w">  </span>-e<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a><span class="w">  </span>-o<span class="w"> </span>report/login_<span class="k">$(</span>date<span class="w"> </span>+%Y%m%d_%H%M%S<span class="k">)</span><span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a><span class="w">  </span>-Jthreads<span class="o">=</span><span class="m">500</span><span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-24-7" name="__codelineno-24-7" href="#__codelineno-24-7"></a><span class="w">  </span>-Jduration<span class="o">=</span><span class="m">300</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>jmeter<span class="w"> </span>-n<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a><span class="w">  </span>-t<span class="w"> </span>login_test.jmx<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a><span class="w">  </span>-l<span class="w"> </span>result/login_<span class="k">$(</span>date<span class="w"> </span>+%Y%m%d_%H%M%S<span class="k">)</span>.jtl<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a><span class="w">  </span>-e<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-26-5" name="__codelineno-26-5" href="#__codelineno-26-5"></a><span class="w">  </span>-o<span class="w"> </span>report/login_<span class="k">$(</span>date<span class="w"> </span>+%Y%m%d_%H%M%S<span class="k">)</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-26-6" name="__codelineno-26-6" href="#__codelineno-26-6"></a><span class="w">  </span>-Jthreads<span class="o">=</span><span class="m">500</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-26-7" name="__codelineno-26-7" href="#__codelineno-26-7"></a><span class="w">  </span>-Jduration<span class="o">=</span><span class="m">300</span>
 </code></pre></div>
 <p>脚本中可用 <code>${__P(threads,100)}</code> 引用参数（100 是默认值）。</p>
 <h3 id="124">12.4 后台执行<a class="headerlink" href="#124" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="c1"># Linux 后台执行</span>
-<a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>nohup<span class="w"> </span>jmeter<span class="w"> </span>-n<span class="w"> </span>-t<span class="w"> </span>test.jmx<span class="w"> </span>-l<span class="w"> </span>result.jtl<span class="w"> </span>&gt;<span class="w"> </span>jmeter.log<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span><span class="w"> </span><span class="p">&amp;</span>
-<a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>
-<a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a><span class="c1"># 看进度</span>
-<a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a>tail<span class="w"> </span>-f<span class="w"> </span>jmeter.log
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="c1"># Linux 后台执行</span>
+<a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a>nohup<span class="w"> </span>jmeter<span class="w"> </span>-n<span class="w"> </span>-t<span class="w"> </span>test.jmx<span class="w"> </span>-l<span class="w"> </span>result.jtl<span class="w"> </span>&gt;<span class="w"> </span>jmeter.log<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span><span class="w"> </span><span class="p">&amp;</span>
+<a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a>
+<a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a><span class="c1"># 看进度</span>
+<a id="__codelineno-27-5" name="__codelineno-27-5" href="#__codelineno-27-5"></a>tail<span class="w"> </span>-f<span class="w"> </span>jmeter.log
 </code></pre></div>
 <hr />
 <h2 id="_14">十三、性能测试实战<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h2>
 <h3 id="131">13.1 案例一：登录接口压测<a class="headerlink" href="#131" title="Permanent link">&para;</a></h3>
 <p><strong>目标：</strong> 验证登录接口在 500 并发下 RT &lt; 500ms。</p>
 <p><strong>脚本结构：</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>Test Plan
-<a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>├── HTTP Request Defaults（默认配置 base_url）
-<a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a>├── HTTP Header Manager（Content-Type: application/json）
-<a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a>├── CSV Data Set Config（users.csv）
-<a id="__codelineno-26-5" name="__codelineno-26-5" href="#__codelineno-26-5"></a>├── Thread Group（500 线程，Ramp-up 60s，Duration 300s）
-<a id="__codelineno-26-6" name="__codelineno-26-6" href="#__codelineno-26-6"></a>│   ├── HTTP Request: POST /api/login
-<a id="__codelineno-26-7" name="__codelineno-26-7" href="#__codelineno-26-7"></a>│   │   ├── Body: {&quot;username&quot;:&quot;${username}&quot;,&quot;password&quot;:&quot;${password}&quot;}
-<a id="__codelineno-26-8" name="__codelineno-26-8" href="#__codelineno-26-8"></a>│   │   └── JSON Assertion: $.code = 0
-<a id="__codelineno-26-9" name="__codelineno-26-9" href="#__codelineno-26-9"></a>│   └── Constant Throughput Timer（限制 TPS 上限，避免压垮）
-<a id="__codelineno-26-10" name="__codelineno-26-10" href="#__codelineno-26-10"></a>└── Listeners
-<a id="__codelineno-26-11" name="__codelineno-26-11" href="#__codelineno-26-11"></a>    ├── Summary Report
-<a id="__codelineno-26-12" name="__codelineno-26-12" href="#__codelineno-26-12"></a>    └── Backend Listener（InfluxDB）
+<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>Test Plan
+<a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>├── HTTP Request Defaults（默认配置 base_url）
+<a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a>├── HTTP Header Manager（Content-Type: application/json）
+<a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a>├── CSV Data Set Config（users.csv）
+<a id="__codelineno-28-5" name="__codelineno-28-5" href="#__codelineno-28-5"></a>├── Thread Group（500 线程，Ramp-up 60s，Duration 300s）
+<a id="__codelineno-28-6" name="__codelineno-28-6" href="#__codelineno-28-6"></a>│   ├── HTTP Request: POST /api/login
+<a id="__codelineno-28-7" name="__codelineno-28-7" href="#__codelineno-28-7"></a>│   │   ├── Body: {&quot;username&quot;:&quot;${username}&quot;,&quot;password&quot;:&quot;${password}&quot;}
+<a id="__codelineno-28-8" name="__codelineno-28-8" href="#__codelineno-28-8"></a>│   │   └── JSON Assertion: $.code = 0
+<a id="__codelineno-28-9" name="__codelineno-28-9" href="#__codelineno-28-9"></a>│   └── Constant Throughput Timer（限制 TPS 上限，避免压垮）
+<a id="__codelineno-28-10" name="__codelineno-28-10" href="#__codelineno-28-10"></a>└── Listeners
+<a id="__codelineno-28-11" name="__codelineno-28-11" href="#__codelineno-28-11"></a>    ├── Summary Report
+<a id="__codelineno-28-12" name="__codelineno-28-12" href="#__codelineno-28-12"></a>    └── Backend Listener（InfluxDB）
 </code></pre></div>
 <p><strong>用例数据：</strong> 准备 500 个测试账号</p>
 <p><strong>执行：</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>jmeter<span class="w"> </span>-n<span class="w"> </span>-t<span class="w"> </span>login_perf.jmx<span class="w"> </span>-l<span class="w"> </span>result.jtl<span class="w"> </span>-e<span class="w"> </span>-o<span class="w"> </span>report/
+<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>jmeter<span class="w"> </span>-n<span class="w"> </span>-t<span class="w"> </span>login_perf.jmx<span class="w"> </span>-l<span class="w"> </span>result.jtl<span class="w"> </span>-e<span class="w"> </span>-o<span class="w"> </span>report/
 </code></pre></div>
 <p><strong>结果分析：</strong></p>
 <ul>
@@ -6627,22 +6663,22 @@
 <h3 id="132">13.2 案例二：完整下单链路压测<a class="headerlink" href="#132" title="Permanent link">&para;</a></h3>
 <p><strong>链路：</strong> 登录 → 查商品 → 加购物车 → 创建订单 → 支付</p>
 <p><strong>脚本：</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>Test Plan
-<a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>├── HTTP Defaults
-<a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a>├── CSV Data（users.csv）
-<a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a>├── Thread Group（200 线程）
-<a id="__codelineno-28-5" name="__codelineno-28-5" href="#__codelineno-28-5"></a>│   ├── HTTP: POST /api/login
-<a id="__codelineno-28-6" name="__codelineno-28-6" href="#__codelineno-28-6"></a>│   │   └── JSON Extractor: $.data.token → token
-<a id="__codelineno-28-7" name="__codelineno-28-7" href="#__codelineno-28-7"></a>│   ├── HTTP Header: Authorization: Bearer ${token}
-<a id="__codelineno-28-8" name="__codelineno-28-8" href="#__codelineno-28-8"></a>│   ├── HTTP: GET /api/products?page=1
-<a id="__codelineno-28-9" name="__codelineno-28-9" href="#__codelineno-28-9"></a>│   │   └── JSON Extractor: $.data[0].id → productId
-<a id="__codelineno-28-10" name="__codelineno-28-10" href="#__codelineno-28-10"></a>│   ├── HTTP: POST /api/cart/add
-<a id="__codelineno-28-11" name="__codelineno-28-11" href="#__codelineno-28-11"></a>│   │   └── Body: {&quot;productId&quot;:${productId},&quot;quantity&quot;:1}
-<a id="__codelineno-28-12" name="__codelineno-28-12" href="#__codelineno-28-12"></a>│   ├── HTTP: POST /api/order/create
-<a id="__codelineno-28-13" name="__codelineno-28-13" href="#__codelineno-28-13"></a>│   │   └── JSON Extractor: $.data.orderId → orderId
-<a id="__codelineno-28-14" name="__codelineno-28-14" href="#__codelineno-28-14"></a>│   └── HTTP: POST /api/order/pay
-<a id="__codelineno-28-15" name="__codelineno-28-15" href="#__codelineno-28-15"></a>│       └── Body: {&quot;orderId&quot;:${orderId}}
-<a id="__codelineno-28-16" name="__codelineno-28-16" href="#__codelineno-28-16"></a>└── Listeners
+<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>Test Plan
+<a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a>├── HTTP Defaults
+<a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a>├── CSV Data（users.csv）
+<a id="__codelineno-30-4" name="__codelineno-30-4" href="#__codelineno-30-4"></a>├── Thread Group（200 线程）
+<a id="__codelineno-30-5" name="__codelineno-30-5" href="#__codelineno-30-5"></a>│   ├── HTTP: POST /api/login
+<a id="__codelineno-30-6" name="__codelineno-30-6" href="#__codelineno-30-6"></a>│   │   └── JSON Extractor: $.data.token → token
+<a id="__codelineno-30-7" name="__codelineno-30-7" href="#__codelineno-30-7"></a>│   ├── HTTP Header: Authorization: Bearer ${token}
+<a id="__codelineno-30-8" name="__codelineno-30-8" href="#__codelineno-30-8"></a>│   ├── HTTP: GET /api/products?page=1
+<a id="__codelineno-30-9" name="__codelineno-30-9" href="#__codelineno-30-9"></a>│   │   └── JSON Extractor: $.data[0].id → productId
+<a id="__codelineno-30-10" name="__codelineno-30-10" href="#__codelineno-30-10"></a>│   ├── HTTP: POST /api/cart/add
+<a id="__codelineno-30-11" name="__codelineno-30-11" href="#__codelineno-30-11"></a>│   │   └── Body: {&quot;productId&quot;:${productId},&quot;quantity&quot;:1}
+<a id="__codelineno-30-12" name="__codelineno-30-12" href="#__codelineno-30-12"></a>│   ├── HTTP: POST /api/order/create
+<a id="__codelineno-30-13" name="__codelineno-30-13" href="#__codelineno-30-13"></a>│   │   └── JSON Extractor: $.data.orderId → orderId
+<a id="__codelineno-30-14" name="__codelineno-30-14" href="#__codelineno-30-14"></a>│   └── HTTP: POST /api/order/pay
+<a id="__codelineno-30-15" name="__codelineno-30-15" href="#__codelineno-30-15"></a>│       └── Body: {&quot;orderId&quot;:${orderId}}
+<a id="__codelineno-30-16" name="__codelineno-30-16" href="#__codelineno-30-16"></a>└── Listeners
 </code></pre></div>
 <p><strong>注意事项：</strong></p>
 <ul>
@@ -6653,11 +6689,11 @@
 <h3 id="133">13.3 案例三：阶梯加压找拐点<a class="headerlink" href="#133" title="Permanent link">&para;</a></h3>
 <p><strong>目标：</strong> 找系统最大承载，定位拐点。</p>
 <p><strong>用 Stepping Thread Group：</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>0~60 秒：100 线程
-<a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a>60~120 秒：再加 100，达 200
-<a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a>120~180 秒：再加 100，达 300
-<a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a>...
-<a id="__codelineno-29-5" name="__codelineno-29-5" href="#__codelineno-29-5"></a>依次加压到 1000
+<div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>0~60 秒：100 线程
+<a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a>60~120 秒：再加 100，达 200
+<a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a>120~180 秒：再加 100，达 300
+<a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a>...
+<a id="__codelineno-31-5" name="__codelineno-31-5" href="#__codelineno-31-5"></a>依次加压到 1000
 </code></pre></div>
 <p><strong>观察：</strong></p>
 <ul>
@@ -6740,7 +6776,7 @@
 <hr />
 <h2 id="_15">十四、性能瓶颈分析<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h2>
 <h3 id="141">14.1 分析思路<a class="headerlink" href="#141" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>现象 → 监控 → 定位 → 验证
+<div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>现象 → 监控 → 定位 → 验证
 </code></pre></div>
 <h3 id="142">14.2 服务器监控指标<a class="headerlink" href="#142" title="Permanent link">&para;</a></h3>
 <table>
@@ -6823,20 +6859,26 @@
 <li>内存满（jstat 看 GC）</li>
 </ul>
 <h3 id="144-java">14.4 Java 应用性能分析工具<a class="headerlink" href="#144-java" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="c1"># 看 GC</span>
-<a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a>jstat<span class="w"> </span>-gc<span class="w"> </span>&lt;pid&gt;<span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="m">10</span>
-<a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a>
-<a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a><span class="c1"># 看堆内存</span>
-<a id="__codelineno-31-5" name="__codelineno-31-5" href="#__codelineno-31-5"></a>jmap<span class="w"> </span>-heap<span class="w"> </span>&lt;pid&gt;
-<a id="__codelineno-31-6" name="__codelineno-31-6" href="#__codelineno-31-6"></a>jmap<span class="w"> </span>-histo:live<span class="w"> </span>&lt;pid&gt;<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-20
-<a id="__codelineno-31-7" name="__codelineno-31-7" href="#__codelineno-31-7"></a>
-<a id="__codelineno-31-8" name="__codelineno-31-8" href="#__codelineno-31-8"></a><span class="c1"># 看线程</span>
-<a id="__codelineno-31-9" name="__codelineno-31-9" href="#__codelineno-31-9"></a>jstack<span class="w"> </span>&lt;pid&gt;
-<a id="__codelineno-31-10" name="__codelineno-31-10" href="#__codelineno-31-10"></a>
-<a id="__codelineno-31-11" name="__codelineno-31-11" href="#__codelineno-31-11"></a><span class="c1"># 推荐工具</span>
-<a id="__codelineno-31-12" name="__codelineno-31-12" href="#__codelineno-31-12"></a><span class="c1"># - Arthas（阿里开源，强大）</span>
-<a id="__codelineno-31-13" name="__codelineno-31-13" href="#__codelineno-31-13"></a><span class="c1"># - JProfiler（商业）</span>
-<a id="__codelineno-31-14" name="__codelineno-31-14" href="#__codelineno-31-14"></a><span class="c1"># - VisualVM（免费）</span>
+<blockquote>
+<p><code>&lt;pid&gt;</code> 是进程 ID。用 <code>jps</code>（Java 自带）或 <code>ps -ef | grep java</code>（Linux）找到 Java 进程的 PID。</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="c1"># 看 GC（每秒刷新，共 10 次）</span>
+<a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a>jstat<span class="w"> </span>-gc<span class="w"> </span>&lt;pid&gt;<span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="m">10</span>
+<a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a>
+<a id="__codelineno-33-4" name="__codelineno-33-4" href="#__codelineno-33-4"></a><span class="c1"># 看堆内存</span>
+<a id="__codelineno-33-5" name="__codelineno-33-5" href="#__codelineno-33-5"></a>jmap<span class="w"> </span>-heap<span class="w"> </span>&lt;pid&gt;
+<a id="__codelineno-33-6" name="__codelineno-33-6" href="#__codelineno-33-6"></a>
+<a id="__codelineno-33-7" name="__codelineno-33-7" href="#__codelineno-33-7"></a><span class="c1"># 查看对象占用排名（前 20 条）</span>
+<a id="__codelineno-33-8" name="__codelineno-33-8" href="#__codelineno-33-8"></a>jmap<span class="w"> </span>-histo:live<span class="w"> </span>&lt;pid&gt;<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-20<span class="w">    </span><span class="c1"># Linux / Mac（head 只取前 N 行）</span>
+<a id="__codelineno-33-9" name="__codelineno-33-9" href="#__codelineno-33-9"></a>jmap<span class="w"> </span>-histo:live<span class="w"> </span>&lt;pid&gt;<span class="w"> </span><span class="p">|</span><span class="w"> </span>more<span class="w">        </span><span class="c1"># Windows（more 逐页查看，按空格翻页）</span>
+<a id="__codelineno-33-10" name="__codelineno-33-10" href="#__codelineno-33-10"></a>
+<a id="__codelineno-33-11" name="__codelineno-33-11" href="#__codelineno-33-11"></a><span class="c1"># 看线程栈</span>
+<a id="__codelineno-33-12" name="__codelineno-33-12" href="#__codelineno-33-12"></a>jstack<span class="w"> </span>&lt;pid&gt;
+<a id="__codelineno-33-13" name="__codelineno-33-13" href="#__codelineno-33-13"></a>
+<a id="__codelineno-33-14" name="__codelineno-33-14" href="#__codelineno-33-14"></a><span class="c1"># 推荐工具</span>
+<a id="__codelineno-33-15" name="__codelineno-33-15" href="#__codelineno-33-15"></a><span class="c1"># - Arthas（阿里开源，功能最全，推荐）</span>
+<a id="__codelineno-33-16" name="__codelineno-33-16" href="#__codelineno-33-16"></a><span class="c1"># - JProfiler（商业，图形化）</span>
+<a id="__codelineno-33-17" name="__codelineno-33-17" href="#__codelineno-33-17"></a><span class="c1"># - VisualVM（免费，JDK 自带）</span>
 </code></pre></div>
 <h3 id="145">14.5 优化建议<a class="headerlink" href="#145" title="Permanent link">&para;</a></h3>
 <table>
@@ -6878,7 +6920,7 @@
 <h3 id="151-outofmemoryerror">15.1 OutOfMemoryError<a class="headerlink" href="#151-outofmemoryerror" title="Permanent link">&para;</a></h3>
 <p>JMeter 自身内存不够：</p>
 <p>修改 <code>bin/jmeter.bat</code>（Windows）或 <code>bin/jmeter</code>（Linux/Mac）：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="nv">HEAP</span><span class="o">=</span><span class="s2">&quot;-Xms1g -Xmx4g&quot;</span><span class="w">     </span><span class="c1"># 改大</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a><span class="nv">HEAP</span><span class="o">=</span><span class="s2">&quot;-Xms1g -Xmx4g&quot;</span><span class="w">     </span><span class="c1"># 改大</span>
 </code></pre></div>
 <h3 id="152-gui">15.2 GUI 模式压测变形<a class="headerlink" href="#152-gui" title="Permanent link">&para;</a></h3>
 <p>GUI 占用资源大，导致结果不准。<strong>正式压测必须用命令行</strong>。</p>
@@ -6889,16 +6931,16 @@
 - Graph Results</p>
 <p>只保留 Summary Report 或 Backend Listener。</p>
 <h3 id="154-csv">15.4 CSV 数据用完<a class="headerlink" href="#154-csv" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a>报错：CSV exhausted...
+<div class="highlight"><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a>报错：CSV exhausted...
 </code></pre></div>
 <p>设置 <code>Recycle on EOF? = True</code> 或准备足够数据。</p>
 <h3 id="155-ssl">15.5 SSL 握手失败<a class="headerlink" href="#155-ssl" title="Permanent link">&para;</a></h3>
 <p>HTTPS 接口：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>Add → Config → HTTP Request Defaults
-<a id="__codelineno-34-2" name="__codelineno-34-2" href="#__codelineno-34-2"></a>Implementation: Java
+<div class="highlight"><pre><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>Add → Config → HTTP Request Defaults
+<a id="__codelineno-36-2" name="__codelineno-36-2" href="#__codelineno-36-2"></a>Implementation: Java
 </code></pre></div>
 <p>或忽略证书：在 <code>bin/jmeter.properties</code>：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a><span class="na">https.use.cached.ssl.context</span><span class="o">=</span><span class="s">false</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a><span class="na">https.use.cached.ssl.context</span><span class="o">=</span><span class="s">false</span>
 </code></pre></div>
 <h3 id="156">15.6 压力机本身成瓶颈<a class="headerlink" href="#156" title="Permanent link">&para;</a></h3>
 <p><strong>判断：</strong></p>
@@ -6924,21 +6966,21 @@
 <h3 id="158">15.8 中文乱码<a class="headerlink" href="#158" title="Permanent link">&para;</a></h3>
 <p>请求 Body 中文乱码：HTTP Request 的 Content encoding 填 <code>UTF-8</code>。</p>
 <p>响应中文乱码：在 <code>bin/jmeter.properties</code>：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a><span class="na">sampleresult.default.encoding</span><span class="o">=</span><span class="s">UTF-8</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a><span class="na">sampleresult.default.encoding</span><span class="o">=</span><span class="s">UTF-8</span>
 </code></pre></div>
 <hr />
 <h2 id="_17">十六、最佳实践<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h2>
 <h3 id="161">16.1 性能测试流程<a class="headerlink" href="#161" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a>1. 需求分析（明确目标）
-<a id="__codelineno-37-2" name="__codelineno-37-2" href="#__codelineno-37-2"></a>2. 环境准备（独立环境、监控）
-<a id="__codelineno-37-3" name="__codelineno-37-3" href="#__codelineno-37-3"></a>3. 脚本设计（参数化、关联）
-<a id="__codelineno-37-4" name="__codelineno-37-4" href="#__codelineno-37-4"></a>4. 脚本调试（少量并发先跑通）
-<a id="__codelineno-37-5" name="__codelineno-37-5" href="#__codelineno-37-5"></a>5. 基准测试（单用户基线）
-<a id="__codelineno-37-6" name="__codelineno-37-6" href="#__codelineno-37-6"></a>6. 正式压测（按计划加压）
-<a id="__codelineno-37-7" name="__codelineno-37-7" href="#__codelineno-37-7"></a>7. 监控分析（服务器+应用+数据库）
-<a id="__codelineno-37-8" name="__codelineno-37-8" href="#__codelineno-37-8"></a>8. 报告输出（结果+瓶颈+建议）
-<a id="__codelineno-37-9" name="__codelineno-37-9" href="#__codelineno-37-9"></a>9. 性能调优（开发协作）
-<a id="__codelineno-37-10" name="__codelineno-37-10" href="#__codelineno-37-10"></a>10. 回归验证
+<div class="highlight"><pre><span></span><code><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a>1. 需求分析（明确目标）
+<a id="__codelineno-39-2" name="__codelineno-39-2" href="#__codelineno-39-2"></a>2. 环境准备（独立环境、监控）
+<a id="__codelineno-39-3" name="__codelineno-39-3" href="#__codelineno-39-3"></a>3. 脚本设计（参数化、关联）
+<a id="__codelineno-39-4" name="__codelineno-39-4" href="#__codelineno-39-4"></a>4. 脚本调试（少量并发先跑通）
+<a id="__codelineno-39-5" name="__codelineno-39-5" href="#__codelineno-39-5"></a>5. 基准测试（单用户基线）
+<a id="__codelineno-39-6" name="__codelineno-39-6" href="#__codelineno-39-6"></a>6. 正式压测（按计划加压）
+<a id="__codelineno-39-7" name="__codelineno-39-7" href="#__codelineno-39-7"></a>7. 监控分析（服务器+应用+数据库）
+<a id="__codelineno-39-8" name="__codelineno-39-8" href="#__codelineno-39-8"></a>8. 报告输出（结果+瓶颈+建议）
+<a id="__codelineno-39-9" name="__codelineno-39-9" href="#__codelineno-39-9"></a>9. 性能调优（开发协作）
+<a id="__codelineno-39-10" name="__codelineno-39-10" href="#__codelineno-39-10"></a>10. 回归验证
 </code></pre></div>
 <h3 id="162">16.2 测试脚本规范<a class="headerlink" href="#162" title="Permanent link">&para;</a></h3>
 <ul>
@@ -6957,50 +6999,50 @@
 <li>⚠️ <strong>报告必须含瓶颈分析</strong>（光给数据不解读 = 无价值）</li>
 </ul>
 <h3 id="164">16.4 性能测试报告模板<a class="headerlink" href="#164" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a><span class="gh"># 登录接口性能测试报告</span>
-<a id="__codelineno-38-2" name="__codelineno-38-2" href="#__codelineno-38-2"></a>
-<a id="__codelineno-38-3" name="__codelineno-38-3" href="#__codelineno-38-3"></a><span class="gu">## 1. 测试目的</span>
-<a id="__codelineno-38-4" name="__codelineno-38-4" href="#__codelineno-38-4"></a>验证登录接口在 500 并发下 RT、TPS 是否满足业务要求。
-<a id="__codelineno-38-5" name="__codelineno-38-5" href="#__codelineno-38-5"></a>
-<a id="__codelineno-38-6" name="__codelineno-38-6" href="#__codelineno-38-6"></a><span class="gu">## 2. 测试环境</span>
-<a id="__codelineno-38-7" name="__codelineno-38-7" href="#__codelineno-38-7"></a><span class="k">-</span><span class="w"> </span>应用服务器：4C8G * 2 台
-<a id="__codelineno-38-8" name="__codelineno-38-8" href="#__codelineno-38-8"></a><span class="k">-</span><span class="w"> </span>数据库：MySQL 8.0，4C16G
-<a id="__codelineno-38-9" name="__codelineno-38-9" href="#__codelineno-38-9"></a><span class="k">-</span><span class="w"> </span>JMeter：5.6.3
-<a id="__codelineno-38-10" name="__codelineno-38-10" href="#__codelineno-38-10"></a><span class="k">-</span><span class="w"> </span>压力机：4C8G * 2
-<a id="__codelineno-38-11" name="__codelineno-38-11" href="#__codelineno-38-11"></a>
-<a id="__codelineno-38-12" name="__codelineno-38-12" href="#__codelineno-38-12"></a><span class="gu">## 3. 测试场景</span>
-<a id="__codelineno-38-13" name="__codelineno-38-13" href="#__codelineno-38-13"></a><span class="k">-</span><span class="w"> </span>接口：POST /api/login
-<a id="__codelineno-38-14" name="__codelineno-38-14" href="#__codelineno-38-14"></a><span class="k">-</span><span class="w"> </span>并发：500
-<a id="__codelineno-38-15" name="__codelineno-38-15" href="#__codelineno-38-15"></a><span class="k">-</span><span class="w"> </span>Ramp-up：60s
-<a id="__codelineno-38-16" name="__codelineno-38-16" href="#__codelineno-38-16"></a><span class="k">-</span><span class="w"> </span>持续时间：10 分钟
-<a id="__codelineno-38-17" name="__codelineno-38-17" href="#__codelineno-38-17"></a><span class="k">-</span><span class="w"> </span>测试数据：500 个真实账号
-<a id="__codelineno-38-18" name="__codelineno-38-18" href="#__codelineno-38-18"></a>
-<a id="__codelineno-38-19" name="__codelineno-38-19" href="#__codelineno-38-19"></a><span class="gu">## 4. 测试结果</span>
-<a id="__codelineno-38-20" name="__codelineno-38-20" href="#__codelineno-38-20"></a>| 指标 | 实际 | 期望 | 是否达标 |
-<a id="__codelineno-38-21" name="__codelineno-38-21" href="#__codelineno-38-21"></a>|------|------|------|---------|
-<a id="__codelineno-38-22" name="__codelineno-38-22" href="#__codelineno-38-22"></a>| 平均 RT | 280ms | &lt;500ms | ✓ |
-<a id="__codelineno-38-23" name="__codelineno-38-23" href="#__codelineno-38-23"></a>| 95% RT | 450ms | &lt;800ms | ✓ |
-<a id="__codelineno-38-24" name="__codelineno-38-24" href="#__codelineno-38-24"></a>| TPS | 1620 | &gt;1500 | ✓ |
-<a id="__codelineno-38-25" name="__codelineno-38-25" href="#__codelineno-38-25"></a>| 错误率 | 0.05% | &lt;0.5% | ✓ |
-<a id="__codelineno-38-26" name="__codelineno-38-26" href="#__codelineno-38-26"></a>
-<a id="__codelineno-38-27" name="__codelineno-38-27" href="#__codelineno-38-27"></a><span class="gu">## 5. 资源监控</span>
-<a id="__codelineno-38-28" name="__codelineno-38-28" href="#__codelineno-38-28"></a><span class="k">-</span><span class="w"> </span>CPU：65%（应用），50%（DB）
-<a id="__codelineno-38-29" name="__codelineno-38-29" href="#__codelineno-38-29"></a><span class="k">-</span><span class="w"> </span>内存：72%（应用），60%（DB）
-<a id="__codelineno-38-30" name="__codelineno-38-30" href="#__codelineno-38-30"></a><span class="k">-</span><span class="w"> </span>磁盘 IO：%util 35%
-<a id="__codelineno-38-31" name="__codelineno-38-31" href="#__codelineno-38-31"></a><span class="k">-</span><span class="w"> </span>数据库连接池：80/100 使用
-<a id="__codelineno-38-32" name="__codelineno-38-32" href="#__codelineno-38-32"></a>
-<a id="__codelineno-38-33" name="__codelineno-38-33" href="#__codelineno-38-33"></a><span class="gu">## 6. 瓶颈分析</span>
-<a id="__codelineno-38-34" name="__codelineno-38-34" href="#__codelineno-38-34"></a><span class="k">-</span><span class="w"> </span>数据库连接池接近上限，建议扩容到 200
-<a id="__codelineno-38-35" name="__codelineno-38-35" href="#__codelineno-38-35"></a><span class="k">-</span><span class="w"> </span>应用 GC 频率偏高，建议调整 JVM 参数
-<a id="__codelineno-38-36" name="__codelineno-38-36" href="#__codelineno-38-36"></a>
-<a id="__codelineno-38-37" name="__codelineno-38-37" href="#__codelineno-38-37"></a><span class="gu">## 7. 结论与建议</span>
-<a id="__codelineno-38-38" name="__codelineno-38-38" href="#__codelineno-38-38"></a>满足业务要求。建议下次发布前回归一次。
-<a id="__codelineno-38-39" name="__codelineno-38-39" href="#__codelineno-38-39"></a>
-<a id="__codelineno-38-40" name="__codelineno-38-40" href="#__codelineno-38-40"></a><span class="gu">## 8. 附件</span>
-<a id="__codelineno-38-41" name="__codelineno-38-41" href="#__codelineno-38-41"></a><span class="k">-</span><span class="w"> </span>jmx 脚本
-<a id="__codelineno-38-42" name="__codelineno-38-42" href="#__codelineno-38-42"></a><span class="k">-</span><span class="w"> </span>jtl 结果
-<a id="__codelineno-38-43" name="__codelineno-38-43" href="#__codelineno-38-43"></a><span class="k">-</span><span class="w"> </span>HTML 报告
-<a id="__codelineno-38-44" name="__codelineno-38-44" href="#__codelineno-38-44"></a><span class="k">-</span><span class="w"> </span>服务器监控截图
+<div class="highlight"><pre><span></span><code><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a><span class="gh"># 登录接口性能测试报告</span>
+<a id="__codelineno-40-2" name="__codelineno-40-2" href="#__codelineno-40-2"></a>
+<a id="__codelineno-40-3" name="__codelineno-40-3" href="#__codelineno-40-3"></a><span class="gu">## 1. 测试目的</span>
+<a id="__codelineno-40-4" name="__codelineno-40-4" href="#__codelineno-40-4"></a>验证登录接口在 500 并发下 RT、TPS 是否满足业务要求。
+<a id="__codelineno-40-5" name="__codelineno-40-5" href="#__codelineno-40-5"></a>
+<a id="__codelineno-40-6" name="__codelineno-40-6" href="#__codelineno-40-6"></a><span class="gu">## 2. 测试环境</span>
+<a id="__codelineno-40-7" name="__codelineno-40-7" href="#__codelineno-40-7"></a><span class="k">-</span><span class="w"> </span>应用服务器：4C8G * 2 台
+<a id="__codelineno-40-8" name="__codelineno-40-8" href="#__codelineno-40-8"></a><span class="k">-</span><span class="w"> </span>数据库：MySQL 8.0，4C16G
+<a id="__codelineno-40-9" name="__codelineno-40-9" href="#__codelineno-40-9"></a><span class="k">-</span><span class="w"> </span>JMeter：5.6.3
+<a id="__codelineno-40-10" name="__codelineno-40-10" href="#__codelineno-40-10"></a><span class="k">-</span><span class="w"> </span>压力机：4C8G * 2
+<a id="__codelineno-40-11" name="__codelineno-40-11" href="#__codelineno-40-11"></a>
+<a id="__codelineno-40-12" name="__codelineno-40-12" href="#__codelineno-40-12"></a><span class="gu">## 3. 测试场景</span>
+<a id="__codelineno-40-13" name="__codelineno-40-13" href="#__codelineno-40-13"></a><span class="k">-</span><span class="w"> </span>接口：POST /api/login
+<a id="__codelineno-40-14" name="__codelineno-40-14" href="#__codelineno-40-14"></a><span class="k">-</span><span class="w"> </span>并发：500
+<a id="__codelineno-40-15" name="__codelineno-40-15" href="#__codelineno-40-15"></a><span class="k">-</span><span class="w"> </span>Ramp-up：60s
+<a id="__codelineno-40-16" name="__codelineno-40-16" href="#__codelineno-40-16"></a><span class="k">-</span><span class="w"> </span>持续时间：10 分钟
+<a id="__codelineno-40-17" name="__codelineno-40-17" href="#__codelineno-40-17"></a><span class="k">-</span><span class="w"> </span>测试数据：500 个真实账号
+<a id="__codelineno-40-18" name="__codelineno-40-18" href="#__codelineno-40-18"></a>
+<a id="__codelineno-40-19" name="__codelineno-40-19" href="#__codelineno-40-19"></a><span class="gu">## 4. 测试结果</span>
+<a id="__codelineno-40-20" name="__codelineno-40-20" href="#__codelineno-40-20"></a>| 指标 | 实际 | 期望 | 是否达标 |
+<a id="__codelineno-40-21" name="__codelineno-40-21" href="#__codelineno-40-21"></a>|------|------|------|---------|
+<a id="__codelineno-40-22" name="__codelineno-40-22" href="#__codelineno-40-22"></a>| 平均 RT | 280ms | &lt;500ms | ✓ |
+<a id="__codelineno-40-23" name="__codelineno-40-23" href="#__codelineno-40-23"></a>| 95% RT | 450ms | &lt;800ms | ✓ |
+<a id="__codelineno-40-24" name="__codelineno-40-24" href="#__codelineno-40-24"></a>| TPS | 1620 | &gt;1500 | ✓ |
+<a id="__codelineno-40-25" name="__codelineno-40-25" href="#__codelineno-40-25"></a>| 错误率 | 0.05% | &lt;0.5% | ✓ |
+<a id="__codelineno-40-26" name="__codelineno-40-26" href="#__codelineno-40-26"></a>
+<a id="__codelineno-40-27" name="__codelineno-40-27" href="#__codelineno-40-27"></a><span class="gu">## 5. 资源监控</span>
+<a id="__codelineno-40-28" name="__codelineno-40-28" href="#__codelineno-40-28"></a><span class="k">-</span><span class="w"> </span>CPU：65%（应用），50%（DB）
+<a id="__codelineno-40-29" name="__codelineno-40-29" href="#__codelineno-40-29"></a><span class="k">-</span><span class="w"> </span>内存：72%（应用），60%（DB）
+<a id="__codelineno-40-30" name="__codelineno-40-30" href="#__codelineno-40-30"></a><span class="k">-</span><span class="w"> </span>磁盘 IO：%util 35%
+<a id="__codelineno-40-31" name="__codelineno-40-31" href="#__codelineno-40-31"></a><span class="k">-</span><span class="w"> </span>数据库连接池：80/100 使用
+<a id="__codelineno-40-32" name="__codelineno-40-32" href="#__codelineno-40-32"></a>
+<a id="__codelineno-40-33" name="__codelineno-40-33" href="#__codelineno-40-33"></a><span class="gu">## 6. 瓶颈分析</span>
+<a id="__codelineno-40-34" name="__codelineno-40-34" href="#__codelineno-40-34"></a><span class="k">-</span><span class="w"> </span>数据库连接池接近上限，建议扩容到 200
+<a id="__codelineno-40-35" name="__codelineno-40-35" href="#__codelineno-40-35"></a><span class="k">-</span><span class="w"> </span>应用 GC 频率偏高，建议调整 JVM 参数
+<a id="__codelineno-40-36" name="__codelineno-40-36" href="#__codelineno-40-36"></a>
+<a id="__codelineno-40-37" name="__codelineno-40-37" href="#__codelineno-40-37"></a><span class="gu">## 7. 结论与建议</span>
+<a id="__codelineno-40-38" name="__codelineno-40-38" href="#__codelineno-40-38"></a>满足业务要求。建议下次发布前回归一次。
+<a id="__codelineno-40-39" name="__codelineno-40-39" href="#__codelineno-40-39"></a>
+<a id="__codelineno-40-40" name="__codelineno-40-40" href="#__codelineno-40-40"></a><span class="gu">## 8. 附件</span>
+<a id="__codelineno-40-41" name="__codelineno-40-41" href="#__codelineno-40-41"></a><span class="k">-</span><span class="w"> </span>jmx 脚本
+<a id="__codelineno-40-42" name="__codelineno-40-42" href="#__codelineno-40-42"></a><span class="k">-</span><span class="w"> </span>jtl 结果
+<a id="__codelineno-40-43" name="__codelineno-40-43" href="#__codelineno-40-43"></a><span class="k">-</span><span class="w"> </span>HTML 报告
+<a id="__codelineno-40-44" name="__codelineno-40-44" href="#__codelineno-40-44"></a><span class="k">-</span><span class="w"> </span>服务器监控截图
 </code></pre></div>
 <hr />
 <h2 id="_18">附录：推荐学习资源<a class="headerlink" href="#_18" title="Permanent link">&para;</a></h2>

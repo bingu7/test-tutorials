@@ -6503,7 +6503,7 @@
 <p>Tests 是接口自动化测试的核心。每个请求执行后，Tests 中的脚本会自动运行，验证响应是否符合预期。</p>
 </div>
 <h3 id="81">8.1 编写位置<a class="headerlink" href="#81" title="Permanent link">&para;</a></h3>
-<p>请求 Tab → <code>Tests</code> 标签下，使用 JavaScript 编写。</p>
+<p>请求 Tab → <code>Tests</code> 标签下，使用 JavaScript 编写。不需要精通 JavaScript，Postman 提供了 <code>pm.test()</code>、<code>pm.expect()</code>、<code>pm.response</code> 等辅助对象，照着模板写就行。</p>
 <h3 id="82">8.2 常用断言模板<a class="headerlink" href="#82" title="Permanent link">&para;</a></h3>
 <p>Postman 右侧提供 <code>Snippets</code> 代码片段，点击即可插入。</p>
 <h4 id="821">8.2.1 状态码断言<a class="headerlink" href="#821" title="Permanent link">&para;</a></h4>
@@ -6543,9 +6543,10 @@
 <a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="p">});</span>
 </code></pre></div>
 <h4 id="826-json-schema">8.2.6 JSON Schema 校验<a class="headerlink" href="#826-json-schema" title="Permanent link">&para;</a></h4>
+<p>JSON Schema 定义响应的"结构模板"——必须有哪些字段、每个字段是什么类型。这样不仅能验证单个值，还能验证整个响应结构是否正确。</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="kd">const</span><span class="w"> </span><span class="nx">schema</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
 <a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="w">    </span><span class="s2">&quot;type&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;object&quot;</span><span class="p">,</span>
-<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="w">    </span><span class="s2">&quot;required&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;code&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;msg&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;data&quot;</span><span class="p">],</span>
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="w">    </span><span class="s2">&quot;required&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;code&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;msg&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;data&quot;</span><span class="p">],</span><span class="w">    </span><span class="c1">// 必须包含这三个字段</span>
 <a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="w">    </span><span class="s2">&quot;properties&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
 <a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="w">        </span><span class="s2">&quot;code&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;number&quot;</span><span class="p">},</span>
 <a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a><span class="w">        </span><span class="s2">&quot;msg&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span><span class="p">},</span>
@@ -6729,7 +6730,7 @@
 <h3 id="121-newman">12.1 Newman 是什么<a class="headerlink" href="#121-newman" title="Permanent link">&para;</a></h3>
 <p>Newman 是 Postman 官方提供的命令行工具，用于在 <strong>终端 / CI/CD 流水线</strong> 中执行 Postman Collection。</p>
 <h3 id="122-newman">12.2 安装 Newman<a class="headerlink" href="#122-newman" title="Permanent link">&para;</a></h3>
-<p>需先安装 Node.js（Newman 当前版本要求 Node.js 16+；CI 中建议使用 Node 20 LTS 或更新的 LTS 版本），然后：</p>
+<p>需先安装 Node.js（JavaScript 运行环境，下载地址：<code>https://nodejs.org/</code>，选 LTS 版本）。安装后自带 npm（包管理器，类似 pip）。Newman 当前版本要求 Node.js 16+。</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>npm<span class="w"> </span>install<span class="w"> </span>-g<span class="w"> </span>newman
 <a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a>
 <a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a><span class="c1"># 验证安装</span>

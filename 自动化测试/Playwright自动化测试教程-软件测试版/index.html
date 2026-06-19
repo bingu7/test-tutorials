@@ -5425,6 +5425,9 @@
 <hr />
 <h2 id="_5">三、第一个测试<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
 <h3 id="31-pytest">3.1 Pytest 风格（推荐）<a class="headerlink" href="#31-pytest" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><code>page</code> 参数由 pytest-playwright 插件自动注入，不需要手动创建浏览器或页面——写上 <code>page: Page</code> 就能直接用。</p>
+</blockquote>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># test_demo.py</span>
 <a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">playwright.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">Page</span><span class="p">,</span> <span class="n">expect</span>
 <a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
@@ -5691,7 +5694,7 @@
 <a id="__codelineno-23-7" name="__codelineno-23-7" href="#__codelineno-23-7"></a><span class="c1"># 等待页面导航</span>
 <a id="__codelineno-23-8" name="__codelineno-23-8" href="#__codelineno-23-8"></a><span class="n">page</span><span class="o">.</span><span class="n">wait_for_url</span><span class="p">(</span><span class="s2">&quot;**/dashboard&quot;</span><span class="p">)</span>
 <a id="__codelineno-23-9" name="__codelineno-23-9" href="#__codelineno-23-9"></a>
-<a id="__codelineno-23-10" name="__codelineno-23-10" href="#__codelineno-23-10"></a><span class="c1"># 等待网络空闲</span>
+<a id="__codelineno-23-10" name="__codelineno-23-10" href="#__codelineno-23-10"></a><span class="c1"># 等待网络空闲（500ms 内无新请求，适合 SPA 单页应用等 API 加载完再操作）</span>
 <a id="__codelineno-23-11" name="__codelineno-23-11" href="#__codelineno-23-11"></a><span class="n">page</span><span class="o">.</span><span class="n">wait_for_load_state</span><span class="p">(</span><span class="s2">&quot;networkidle&quot;</span><span class="p">)</span>
 <a id="__codelineno-23-12" name="__codelineno-23-12" href="#__codelineno-23-12"></a>
 <a id="__codelineno-23-13" name="__codelineno-23-13" href="#__codelineno-23-13"></a><span class="c1"># 等待特定请求完成</span>
@@ -5732,14 +5735,15 @@
 <li>每个 <code>new_context()</code> 拥有独立的 cookie、localStorage 和会话状态，天然隔离多用户场景，无需手动清理</li>
 </ol>
 <h3 id="72">7.2 上下文配置<a class="headerlink" href="#72" title="Permanent link">&para;</a></h3>
+<p>配置项按需选用，不用全部写上。常用的：<code>base_url</code> 省得每次写完整 URL，<code>viewport</code> 测试不同屏幕尺寸，<code>ignore_https_errors</code> 跳过测试环境证书。</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="n">context</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_context</span><span class="p">(</span>
-<a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>    <span class="n">base_url</span><span class="o">=</span><span class="s2">&quot;https://test.example.com&quot;</span><span class="p">,</span>
-<a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a>    <span class="n">viewport</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="mi">1920</span><span class="p">,</span> <span class="s2">&quot;height&quot;</span><span class="p">:</span> <span class="mi">1080</span><span class="p">},</span>
-<a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a>    <span class="n">ignore_https_errors</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>               <span class="c1"># 忽略证书错误</span>
+<a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>    <span class="n">base_url</span><span class="o">=</span><span class="s2">&quot;https://test.example.com&quot;</span><span class="p">,</span>     <span class="c1"># 基础 URL，之后 goto 可以写相对路径</span>
+<a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a>    <span class="n">viewport</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="mi">1920</span><span class="p">,</span> <span class="s2">&quot;height&quot;</span><span class="p">:</span> <span class="mi">1080</span><span class="p">},</span>  <span class="c1"># 浏览器窗口大小（测试响应式布局用）</span>
+<a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a>    <span class="n">ignore_https_errors</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>               <span class="c1"># 忽略证书错误（测试环境常用）</span>
 <a id="__codelineno-26-5" name="__codelineno-26-5" href="#__codelineno-26-5"></a>    <span class="n">locale</span><span class="o">=</span><span class="s2">&quot;zh-CN&quot;</span><span class="p">,</span>                          <span class="c1"># 语言</span>
-<a id="__codelineno-26-6" name="__codelineno-26-6" href="#__codelineno-26-6"></a>    <span class="n">timezone_id</span><span class="o">=</span><span class="s2">&quot;Asia/Shanghai&quot;</span><span class="p">,</span>             <span class="c1"># 时区</span>
-<a id="__codelineno-26-7" name="__codelineno-26-7" href="#__codelineno-26-7"></a>    <span class="n">geolocation</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;longitude&quot;</span><span class="p">:</span> <span class="mf">116.4</span><span class="p">,</span> <span class="s2">&quot;latitude&quot;</span><span class="p">:</span> <span class="mf">39.9</span><span class="p">},</span>  <span class="c1"># 地理位置</span>
-<a id="__codelineno-26-8" name="__codelineno-26-8" href="#__codelineno-26-8"></a>    <span class="n">permissions</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;geolocation&quot;</span><span class="p">],</span>             <span class="c1"># 权限</span>
+<a id="__codelineno-26-6" name="__codelineno-26-6" href="#__codelineno-26-6"></a>    <span class="n">timezone_id</span><span class="o">=</span><span class="s2">&quot;Asia/Shanghai&quot;</span><span class="p">,</span>             <span class="c1"># 时区（影响页面时间显示）</span>
+<a id="__codelineno-26-7" name="__codelineno-26-7" href="#__codelineno-26-7"></a>    <span class="n">geolocation</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;longitude&quot;</span><span class="p">:</span> <span class="mf">116.4</span><span class="p">,</span> <span class="s2">&quot;latitude&quot;</span><span class="p">:</span> <span class="mf">39.9</span><span class="p">},</span>  <span class="c1"># GPS 坐标（测定位功能）</span>
+<a id="__codelineno-26-8" name="__codelineno-26-8" href="#__codelineno-26-8"></a>    <span class="n">permissions</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;geolocation&quot;</span><span class="p">],</span>             <span class="c1"># 授权地理位置权限</span>
 <a id="__codelineno-26-9" name="__codelineno-26-9" href="#__codelineno-26-9"></a>    <span class="n">color_scheme</span><span class="o">=</span><span class="s2">&quot;dark&quot;</span><span class="p">,</span>                     <span class="c1"># 暗色模式</span>
 <a id="__codelineno-26-10" name="__codelineno-26-10" href="#__codelineno-26-10"></a>    <span class="n">storage_state</span><span class="o">=</span><span class="s2">&quot;auth.json&quot;</span><span class="p">,</span>              <span class="c1"># (1)</span>
 <a id="__codelineno-26-11" name="__codelineno-26-11" href="#__codelineno-26-11"></a><span class="p">)</span>
@@ -5781,11 +5785,12 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="c1"># 阻止图片加载（加速测试）— 用正则代替 glob 大括号</span>
 <a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
 <a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a><span class="n">page</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\.(png|jpg|jpeg|gif)$&quot;</span><span class="p">),</span> <span class="k">lambda</span> <span class="n">route</span><span class="p">:</span> <span class="n">route</span><span class="o">.</span><span class="n">abort</span><span class="p">())</span>
-<a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a>
-<a id="__codelineno-29-5" name="__codelineno-29-5" href="#__codelineno-29-5"></a><span class="c1"># 修改请求头</span>
-<a id="__codelineno-29-6" name="__codelineno-29-6" href="#__codelineno-29-6"></a><span class="k">def</span><span class="w"> </span><span class="nf">add_auth</span><span class="p">(</span><span class="n">route</span><span class="p">):</span>
-<a id="__codelineno-29-7" name="__codelineno-29-7" href="#__codelineno-29-7"></a>    <span class="n">route</span><span class="o">.</span><span class="n">continue_</span><span class="p">(</span><span class="n">headers</span><span class="o">=</span><span class="p">{</span><span class="o">**</span><span class="n">route</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">headers</span><span class="p">,</span> <span class="s2">&quot;Authorization&quot;</span><span class="p">:</span> <span class="s2">&quot;Bearer test&quot;</span><span class="p">})</span>
-<a id="__codelineno-29-8" name="__codelineno-29-8" href="#__codelineno-29-8"></a><span class="n">page</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;**/api/**&quot;</span><span class="p">,</span> <span class="n">add_auth</span><span class="p">)</span>
+<a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a><span class="c1"># lambda 是简写函数，等价于 def block(route): route.abort()</span>
+<a id="__codelineno-29-5" name="__codelineno-29-5" href="#__codelineno-29-5"></a>
+<a id="__codelineno-29-6" name="__codelineno-29-6" href="#__codelineno-29-6"></a><span class="c1"># 修改请求头</span>
+<a id="__codelineno-29-7" name="__codelineno-29-7" href="#__codelineno-29-7"></a><span class="k">def</span><span class="w"> </span><span class="nf">add_auth</span><span class="p">(</span><span class="n">route</span><span class="p">):</span>
+<a id="__codelineno-29-8" name="__codelineno-29-8" href="#__codelineno-29-8"></a>    <span class="n">route</span><span class="o">.</span><span class="n">continue_</span><span class="p">(</span><span class="n">headers</span><span class="o">=</span><span class="p">{</span><span class="o">**</span><span class="n">route</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">headers</span><span class="p">,</span> <span class="s2">&quot;Authorization&quot;</span><span class="p">:</span> <span class="s2">&quot;Bearer test&quot;</span><span class="p">})</span>
+<a id="__codelineno-29-9" name="__codelineno-29-9" href="#__codelineno-29-9"></a><span class="n">page</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;**/api/**&quot;</span><span class="p">,</span> <span class="n">add_auth</span><span class="p">)</span>
 </code></pre></div>
 <p><strong>Mock 接口响应：</strong></p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="c1"># Mock 一个 API</span>
@@ -6059,13 +6064,13 @@
 <a id="__codelineno-46-3" name="__codelineno-46-3" href="#__codelineno-46-3"></a><span class="na">python_files</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">test_*.py</span>
 <a id="__codelineno-46-4" name="__codelineno-46-4" href="#__codelineno-46-4"></a><span class="na">python_classes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">Test*</span>
 <a id="__codelineno-46-5" name="__codelineno-46-5" href="#__codelineno-46-5"></a><span class="na">python_functions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">test_*</span>
-<a id="__codelineno-46-6" name="__codelineno-46-6" href="#__codelineno-46-6"></a><span class="na">addopts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
-<a id="__codelineno-46-7" name="__codelineno-46-7" href="#__codelineno-46-7"></a><span class="w">    </span><span class="na">-v</span>
-<a id="__codelineno-46-8" name="__codelineno-46-8" href="#__codelineno-46-8"></a><span class="w">    </span><span class="na">--browser chromium</span>
-<a id="__codelineno-46-9" name="__codelineno-46-9" href="#__codelineno-46-9"></a><span class="w">    </span><span class="na">--screenshot on</span>
-<a id="__codelineno-46-10" name="__codelineno-46-10" href="#__codelineno-46-10"></a><span class="w">    </span><span class="na">--video on</span>
-<a id="__codelineno-46-11" name="__codelineno-46-11" href="#__codelineno-46-11"></a><span class="w">    </span><span class="na">--tracing on</span>
-<a id="__codelineno-46-12" name="__codelineno-46-12" href="#__codelineno-46-12"></a><span class="w">    </span><span class="na">--output test-results</span>
+<a id="__codelineno-46-6" name="__codelineno-46-6" href="#__codelineno-46-6"></a><span class="na">addopts</span><span class="w"> </span><span class="o">=</span>
+<a id="__codelineno-46-7" name="__codelineno-46-7" href="#__codelineno-46-7"></a><span class="w">    </span><span class="na">-v                                  # 详细输出</span>
+<a id="__codelineno-46-8" name="__codelineno-46-8" href="#__codelineno-46-8"></a><span class="w">    </span><span class="na">--browser chromium                  # 默认浏览器</span>
+<a id="__codelineno-46-9" name="__codelineno-46-9" href="#__codelineno-46-9"></a><span class="w">    </span><span class="na">--screenshot on                     # 失败时自动截图</span>
+<a id="__codelineno-46-10" name="__codelineno-46-10" href="#__codelineno-46-10"></a><span class="w">    </span><span class="na">--video on                          # 录制测试视频</span>
+<a id="__codelineno-46-11" name="__codelineno-46-11" href="#__codelineno-46-11"></a><span class="w">    </span><span class="na">--tracing on                        # 记录执行轨迹（用 playwright show-trace 查看）</span>
+<a id="__codelineno-46-12" name="__codelineno-46-12" href="#__codelineno-46-12"></a><span class="w">    </span><span class="na">--output test-results               # 截图/视频/轨迹保存目录</span>
 </code></pre></div>
 <h3 id="114-playwrightconfigpy-pytest">11.4 playwright.config.py（可选，非 pytest 插件用）<a class="headerlink" href="#114-playwrightconfigpy-pytest" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a><span class="c1"># Playwright Test 原生配置（Node.js 版），Python 通常用 pytest.ini</span>

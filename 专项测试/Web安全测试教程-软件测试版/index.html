@@ -4693,7 +4693,7 @@
 <tr>
 <td>A01</td>
 <td>失效的访问控制</td>
-<td>越权、IDOR</td>
+<td>越权、IDOR（通过改 URL 中的 ID 访问他人数据）</td>
 </tr>
 <tr>
 <td>A02</td>
@@ -4968,8 +4968,11 @@
 - 观察响应变化</p>
 <p><strong>Intruder（入侵器）：</strong>
 - 标记攻击位置（如密码字段）
-- 加载字典（如常见密码列表）
-- 自动批量发送，分析结果</p>
+- 加载字典（一个包含成千上万常用密码的文件，如 "123456"、"password"、"admin"）
+- 自动逐个尝试，分析结果</p>
+<blockquote>
+<p>⚠️ 字典爆破只能用于你有权限测试的系统，未经授权的暴力破解是违法的。</p>
+</blockquote>
 <hr />
 <h2 id="sql">三、SQL 注入<a class="headerlink" href="#sql" title="Permanent link">&para;</a></h2>
 <h3 id="31">3.1 原理<a class="headerlink" href="#31" title="Permanent link">&para;</a></h3>
@@ -4981,6 +4984,9 @@
 <a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="c1"># 拼接后：SELECT * FROM users WHERE name = &#39;admin&#39; OR &#39;1&#39;=&#39;1&#39; AND pwd = &#39;&#39;</span>
 <a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="c1"># 结果：绕过登录</span>
 </code></pre></div>
+<blockquote>
+<p>为什么能绕过？正常 SQL 要 <code>name='admin' AND pwd='xxx'</code> 两个条件都成立。攻击者输入的 <code>'1'='1'</code> 永远为真，加上 <code>OR</code> 后整个条件变成"只要 name 是 admin 或 1=1 就行"——1=1 永远成立，所以不需要密码就能查出数据。</p>
+</blockquote>
 <h3 id="32">3.2 测试方法<a class="headerlink" href="#32" title="Permanent link">&para;</a></h3>
 <p><strong>手动验证：</strong></p>
 <p>在输入框或接口参数中输入：</p>
@@ -5072,7 +5078,7 @@
 <hr />
 <h2 id="csrf">五、CSRF 跨站请求伪造<a class="headerlink" href="#csrf" title="Permanent link">&para;</a></h2>
 <h3 id="51">5.1 原理<a class="headerlink" href="#51" title="Permanent link">&para;</a></h3>
-<p>诱导已登录用户访问恶意页面，利用用户的登录态发起请求。</p>
+<p>诱导已登录用户访问恶意页面，利用用户的登录态发起请求。浏览器会自动把目标网站的 Cookie 带上——不管你从哪个页面发起请求，只要是发往 bank.com，浏览器就会带上 bank.com 的 Cookie。CSRF 就是利用了这个机制。</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>用户已登录 bank.com
 <a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>→ 访问恶意页面 evil.com
 <a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>→ evil.com 页面自动发起请求 bank.com/transfer?to=hacker&amp;amount=10000
@@ -5225,11 +5231,11 @@
 </tr>
 <tr>
 <td>00 截断</td>
-<td>test.php%00.jpg（旧系统）</td>
+<td>test.php%00.jpg（旧系统中 %00 会截断文件名，实际存为 test.php）</td>
 </tr>
 <tr>
 <td>图片马</td>
-<td>图片文件中嵌入 PHP 代码</td>
+<td>合法图片中嵌入恶意代码，如果服务器执行了这个"图片"就会中招</td>
 </tr>
 <tr>
 <td>超大文件</td>
@@ -5296,17 +5302,29 @@
 <li>标记密码字段为攻击位置 <code>$password$</code></li>
 <li>加载密码字典（如 rockyou.txt）</li>
 <li>开始攻击</li>
-<li>按响应长度/状态码筛选正确密码</li>
+<li>按响应长度/状态码筛选正确密码——登录失败通常返回短错误提示，成功则返回用户数据和 Token（响应更长），按长度排序就能找到密码</li>
 </ol>
 <h3 id="93">9.3 验证限流<a class="headerlink" href="#93" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="c1"># 用 curl 快速重放 100 次</span>
-<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>seq<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">100</span><span class="k">)</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
-<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="w">  </span>curl<span class="w"> </span>-s<span class="w"> </span>-o<span class="w"> </span>/dev/null<span class="w"> </span>-w<span class="w"> </span><span class="s2">&quot;%{http_code}\n&quot;</span><span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="w">    </span>-X<span class="w"> </span>POST<span class="w"> </span>http://api.example.com/send-sms<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="w">    </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;phone&quot;:&quot;13800138000&quot;}&#39;</span>
-<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a><span class="k">done</span>
-<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="c1"># 如果全部返回 200 → 无限流，存在短信轰炸风险</span>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Linux / Mac</label><label for="__tabbed_1_2">Windows PowerShell</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>seq<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">100</span><span class="k">)</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="w">  </span>curl<span class="w"> </span>-s<span class="w"> </span>-o<span class="w"> </span>/dev/null<span class="w"> </span>-w<span class="w"> </span><span class="s2">&quot;%{http_code}\n&quot;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="w">    </span>-X<span class="w"> </span>POST<span class="w"> </span>http://api.example.com/send-sms<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="w">    </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;phone&quot;:&quot;13800138000&quot;}&#39;</span>
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="k">done</span>
+<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a><span class="c1"># 如果全部返回 200 → 无限流，存在短信轰炸风险</span>
 </code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="n">1</span><span class="p">..</span><span class="n">100</span> <span class="p">|</span> <span class="k">ForEach</span><span class="n">-Object</span> <span class="p">{</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>  <span class="nv">$r</span> <span class="p">=</span> <span class="nb">Invoke-WebRequest</span> <span class="n">-Uri</span> <span class="s2">&quot;http://api.example.com/send-sms&quot;</span> <span class="n">-Method</span> <span class="n">POST</span> <span class="n">-Body</span> <span class="s1">&#39;{&quot;phone&quot;:&quot;13800138000&quot;}&#39;</span> <span class="n">-ContentType</span> <span class="s2">&quot;application/json&quot;</span>
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>  <span class="nb">Write-Output</span> <span class="nv">$r</span><span class="p">.</span><span class="n">StatusCode</span>
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="p">}</span>
+</code></pre></div>
+</div>
+</div>
+</div>
 <hr />
 <h2 id="checklist">十、安全测试 Checklist<a class="headerlink" href="#checklist" title="Permanent link">&para;</a></h2>
 <h3 id="101">10.1 认证与授权<a class="headerlink" href="#101" title="Permanent link">&para;</a></h3>
