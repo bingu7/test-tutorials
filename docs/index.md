@@ -133,7 +133,7 @@ hide:
     |------|--------|---------|
     | 学习路线 | 1 | 阶段目标、推荐教程、练习任务、达成标准 |
     | 学习辅助 | 4 | 工具选型指南、阶段学习检查清单、章节练习与参考答案、学习验收与通关路径 |
-    | 基础理论 | 8 | 测试思维、ISTQB 术语、测试金字塔、探索式测试、Python 基础、前端基础、敏捷测试、测试理论测验 |
+    | 基础理论 | 9 | 测试思维、ISTQB 术语、测试金字塔、探索式测试、Python 基础、前端基础、JavaScript 基础、敏捷测试、测试理论测验 |
     | 工具操作 | 11 | SQL、Redis/MongoDB、Linux、Git、Docker、Fiddler、Postman、接口联调、正则表达式、网络知识、Linux 测验 |
     | 专项测试 | 4 | 接口测试方法论、接口测试测验、JMeter 性能、Web 安全 |
     | 自动化测试 | 4 | Python+Selenium+Playwright+Appium |
@@ -201,6 +201,7 @@ hide:
     |------|------|------|--------|
     | [Python 基础](基础理论/Python基础教程-软件测试版.md) | 语法、数据类型、函数、文件操作 | 3天 | ★★★★★ |
     | [前端基础](基础理论/前端基础教程-软件测试版.md) | HTML/CSS/JS、浏览器调试工具 | 2天 | ★★★★ |
+    | [JavaScript 基础](基础理论/JavaScript基础教程-软件测试版.md) | JS 语法、DOM、异步、Postman 脚本 | 3天 | ★★★★ |
     | [Python 接口自动化](自动化测试/Python+Requests+Allure接口自动化教程-软件测试版.md) | Requests + Pytest + Allure 框架 | 5天 | ★★★★★ |
     | [Selenium Web 自动化](自动化测试/Selenium-Web自动化教程-软件测试版.md) | Web UI 自动化、Page Object | 3天 | ★★★★ |
     | [Playwright Web 自动化](自动化测试/Playwright自动化测试教程-软件测试版.md) | 现代 Web 自动化、自动等待、网络拦截 | 3天 | ★★★★ |
@@ -246,6 +247,7 @@ hide:
 <div class="home-links">
 <a href="基础理论/软件测试理论基础教程/">测试理论</a>
 <a href="基础理论/Python基础教程-软件测试版/">Python</a>
+<a href="基础理论/JavaScript基础教程-软件测试版/">JavaScript</a>
 <a href="基础理论/前端基础教程-软件测试版/">前端基础</a>
 <a href="工具操作/Postman接口测试教程-软件测试版/">Postman</a>
 </div>
