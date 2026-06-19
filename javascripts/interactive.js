@@ -57,6 +57,17 @@
             ],
             passText: '接口测试基础已掌握，建议继续学习：',
             failText: '建议先巩固接口测试基础，再继续学习其他内容。'
+        },
+        'playwright-basics': {
+            reviewText: '建议回看以下内容：',
+            reviewLinks: [{ url: '/自动化测试/Playwright自动化测试教程-软件测试版/', text: 'Playwright 自动化测试教程' }],
+            reviewFocus: '重点关注：语义化定位器、自动等待机制、expect 断言、Page Object 模式、Trace 回放',
+            passLinks: [
+                { url: '/项目实战/Web自动化项目实战/', text: 'Web 自动化项目实战' },
+                { url: '/自动化测试/Selenium-Web自动化教程-软件测试版/', text: 'Selenium Web 自动化' }
+            ],
+            passText: 'Playwright 基础已掌握，建议继续学习：',
+            failText: '建议先巩固 Playwright 基础，再继续学习其他内容。'
         }
     };
 
