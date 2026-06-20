@@ -10,7 +10,17 @@
     // 测验 ID → URL 映射
     var QUIZ_URLS = {
         'python-basics': '/基础理论/Python基础测验/',
-        'sql-basics': '/工具操作/SQL基础测验/'
+        'sql-basics': '/工具操作/SQL基础测验/',
+        'api-basics': '/专项测试/接口测试基础测验/',
+        'playwright-basics': '/自动化测试/Playwright基础测验/'
+    };
+
+    // 测验 ID → 中文名映射
+    var QUIZ_NAMES = {
+        'python-basics': 'Python 基础测验',
+        'sql-basics': 'SQL 基础测验',
+        'api-basics': '接口测试基础测验',
+        'playwright-basics': 'Playwright 基础测验'
     };
 
     // 五阶段学习路径配置
@@ -55,7 +65,7 @@
                 { id: '工具操作/Redis与MongoDB教程', name: 'Redis 与 MongoDB', url: '/工具操作/Redis与MongoDB教程-软件测试版/' },
                 { id: '工具操作/接口抓包联调实战教程', name: '接口抓包联调实战', url: '/工具操作/接口抓包联调实战教程-软件测试版/' }
             ],
-            quizzes: [],
+            quizzes: ['api-basics'],
             practiceUrl: '/章节练习与参考答案/'
         },
         phase4: {
@@ -69,7 +79,7 @@
                 { id: '自动化测试/Playwright自动化测试教程', name: 'Playwright Web 自动化', url: '/自动化测试/Playwright自动化测试教程-软件测试版/' },
                 { id: '自动化测试/Appium-App自动化教程', name: 'Appium App 自动化', url: '/自动化测试/Appium-App自动化教程-软件测试版/' }
             ],
-            quizzes: [],
+            quizzes: ['playwright-basics'],
             practiceUrl: '/章节练习与参考答案/'
         },
         phase5: {
@@ -414,7 +424,7 @@
                 detailsHtml += '<div class="quiz-links"><strong>📝 阶段测验：</strong>';
                 phase.quizzes.forEach(function(quizId) {
                     var quizResult = getQuizResult(quizId);
-                    var quizName = quizId === 'python-basics' ? 'Python 基础测验' : quizId === 'sql-basics' ? 'SQL 基础测验' : quizId;
+                    var quizName = QUIZ_NAMES[quizId] || quizId;
                     var quizUrl = QUIZ_URLS[quizId] || '#';
                     detailsHtml += '<a href="' + resolveUrl(quizUrl) + '" class="quiz-link">' +
                         quizName +
