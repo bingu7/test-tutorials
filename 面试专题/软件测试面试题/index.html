@@ -3380,6 +3380,83 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        等价类和边界值怎么用？
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        什么是测试左移？
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bug" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        上线后出了 Bug 怎么处理？
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        敏捷测试和传统测试有什么区别？
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        兼容性测试怎么做？
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bug_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        如何判断一个 Bug 是前端还是后端？
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        面试评分参考
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3619,6 +3696,83 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        等价类和边界值怎么用？
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        什么是测试左移？
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bug" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        上线后出了 Bug 怎么处理？
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        敏捷测试和传统测试有什么区别？
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        兼容性测试怎么做？
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bug_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        如何判断一个 Bug 是前端还是后端？
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        面试评分参考
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3698,6 +3852,81 @@
 <li class="task-list-item"><input type="checkbox" disabled/> 是否避免只背书本定义。</li>
 <li class="task-list-item"><input type="checkbox" disabled/> 是否能说明风险和判断标准。</li>
 </ul>
+<h2 id="_9">等价类和边界值怎么用？<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
+<p>回答思路：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>等价类是把输入分成有效和无效的组，每组取一个代表值测试。边界值是重点测边界附近的值，比如最小值、最大值、刚好超出。
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>实际工作中两者经常配合使用。比如年龄字段要求 1-150，等价类取有效值（25）和无效值（-1、200），边界值取 0、1、2、149、150、151。
+</code></pre></div>
+<h2 id="_10">什么是测试左移？<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
+<p>推荐回答：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>测试左移是把测试活动提前到需求和设计阶段，而不是等开发完成再测。
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>具体做法包括：参与需求评审发现需求问题、在设计阶段评审接口文档和技术方案、提前准备测试数据和自动化脚本。
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>好处是更早发现问题，修复成本更低。
+</code></pre></div>
+<p>面试加分点：能举出一个实际需求评审中发现的问题例子。</p>
+<h2 id="bug">上线后出了 Bug 怎么处理？<a class="headerlink" href="#bug" title="Permanent link">&para;</a></h2>
+<p>推荐回答：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>先评估影响范围和严重程度。如果是阻塞性 Bug（如支付失败、数据丢失），立刻通知开发和运维，评估是否需要回滚。
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>同时记录 Bug 的复现步骤、影响用户数、日志信息。
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>修复后做回归验证，确认问题解决且没有引入新问题。
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>最后做复盘：为什么测试阶段没发现？是用例遗漏、环境差异还是数据问题？补充用例防止再次发生。
+</code></pre></div>
+<p>不要回答："那是开发的问题，我只负责测试。"</p>
+<h2 id="_11">敏捷测试和传统测试有什么区别？<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>传统测试是瀑布模型下的阶段式测试，需求→开发→测试→上线，测试在开发之后。
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>敏捷测试是持续测试，每个 Sprint 都有测试活动：需求评审、用例设计、执行、回归。
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>敏捷测试更强调：测试左移、自动化回归、持续集成、团队协作（测试和开发不是对立关系）。
+</code></pre></div>
+<h2 id="_12">兼容性测试怎么做？<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>先确定兼容性矩阵：哪些浏览器、操作系统、设备、分辨率需要覆盖。
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>优先覆盖用户量最大的组合（看埋点数据或产品确认）。
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>核心功能在每个组合上验证，非核心功能抽查。
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>常用工具：BrowserStack、Sauce Labs、真机实验室。
+</code></pre></div>
+<h2 id="bug_1">如何判断一个 Bug 是前端还是后端？<a class="headerlink" href="#bug_1" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>1. 用 Fiddler/浏览器 DevTools 抓包，看请求参数是否正确。
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>2. 如果请求参数错误 → 前端问题。
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>3. 如果请求参数正确但响应错误 → 后端问题。
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>4. 如果响应数据正确但页面显示错误 → 前端渲染问题。
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>5. 不确定时，用 Postman 直接调接口排除前端干扰。
+</code></pre></div>
+<h2 id="_13">面试评分参考<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>初级（1-2年）</th>
+<th>中级（3-5年）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>测试基础</td>
+<td>能说清流程和用例设计方法</td>
+<td>能结合项目说明策略和权衡</td>
+</tr>
+<tr>
+<td>缺陷管理</td>
+<td>能写清楚缺陷报告</td>
+<td>能分析缺陷趋势和根因</td>
+</tr>
+<tr>
+<td>工具使用</td>
+<td>会用 Postman、Fiddler</td>
+<td>能选型和搭建测试框架</td>
+</tr>
+<tr>
+<td>沟通表达</td>
+<td>能描述测试过程</td>
+<td>能用 STAR 法表达项目经验</td>
+</tr>
+<tr>
+<td>质量意识</td>
+<td>知道要测什么</td>
+<td>能评估风险、推动流程改进</td>
+</tr>
+</tbody>
+</table>
 
 
 
