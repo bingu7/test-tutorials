@@ -10,3 +10,4 @@ mkdocs-local*.log
 # Root draft tutorial markdown files
 /*.md
 !/README.md
+_check_links.py
