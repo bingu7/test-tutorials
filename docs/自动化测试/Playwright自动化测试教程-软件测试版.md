@@ -718,7 +718,18 @@ playwright show-trace trace.zip
 
 ## 九、Page Object 模式
 
-### 9.1 BasePage
+### 9.1 Page Object 设计原则
+
+```text
+Playwright 推荐的 PO 原则：
+1. 定位器用 get_by_role / get_by_test_id，不用 CSS 字符串
+2. 操作方法返回 self（链式调用）或返回下一个页面对象
+3. 断言用 expect，不用 assert — expect 内置重试
+4. 定位器集中在类顶部，修改时只改一处
+5. 不要封装通用 click/fill — Playwright 的 locator 已经够用
+```
+
+### 9.2 BasePage
 
 ```python
 # pages/base_page.py
@@ -732,63 +743,123 @@ class BasePage:
         self.page.goto(url)
         return self
     
-    def click(self, locator: str):
-        self.page.locator(locator).click()
+    def expect_url_contains(self, text: str):
+        expect(self.page).to_have_url(f"*{text}*")
         return self
     
-    def fill(self, locator: str, text: str):
-        self.page.locator(locator).fill(text)
+    def expect_title_contains(self, text: str):
+        expect(self.page).to_have_title(f"*{text}*")
         return self
     
-    def get_text(self, locator: str) -> str:
-        return self.page.locator(locator).text_content()
-    
-    def is_visible(self, locator: str) -> bool:
-        return self.page.locator(locator).is_visible()
-    
-    def wait_for(self, locator: str, state: str = "visible"):
-        self.page.locator(locator).wait_for(state=state)
+    def take_screenshot(self, name: str):
+        self.page.screenshot(path=f"screenshots/{name}.png")
         return self
 ```
 
-### 9.2 LoginPage 示例
+> **为什么 BasePage 不封装 click/fill？** Playwright 的 `locator.click()` 和 `locator.fill()` 已经内置自动等待和重试，再封装一层反而增加维护成本。直接在页面类中用 `self.page.get_by_role(...).click()` 更清晰。
+
+### 9.3 LoginPage 示例
 
 ```python
 # pages/login_page.py
 from playwright.sync_api import Page, expect
-from pages.base_page import BasePage
 
-class LoginPage(BasePage):
+class LoginPage:
     URL = "/login"
     
-    # 定位
-    USERNAME = "input[name='username']"
-    PASSWORD = "input[name='password']"
-    LOGIN_BTN = "button[type='submit']"
-    ERROR_MSG = ".error-message"
-    
     def __init__(self, page: Page):
-        super().__init__(page)
+        self.page = page
+        # 定位器集中定义，用 Playwright 推荐的语义定位
+        self.username_input = page.get_by_placeholder("请输入用户名")
+        self.password_input = page.get_by_placeholder("请输入密码")
+        self.login_button = page.get_by_role("button", name="登录")
+        self.error_message = page.locator(".error-message")
     
     def open(self):
-        self.navigate(self.URL)
+        self.page.goto(self.URL)
         return self
     
     def login(self, username: str, password: str):
-        self.fill(self.USERNAME, username)
-        self.fill(self.PASSWORD, password)
-        self.click(self.LOGIN_BTN)
+        self.username_input.fill(username)
+        self.password_input.fill(password)
+        self.login_button.click()
         return self
     
-    def get_error_msg(self) -> str:
-        return self.get_text(self.ERROR_MSG)
-    
     def expect_error(self, msg: str):
-        expect(self.page.locator(self.ERROR_MSG)).to_contain_text(msg)
+        expect(self.error_message).to_contain_text(msg)
         return self
 ```
 
-### 9.3 测试用例
+> **对比 Selenium：** Selenium 的 PO 通常封装 `click_element(locator)` 这类通用方法，因为 Selenium 的 `find_element` + `click` 是两步操作。Playwright 的 `locator.click()` 已经是一步完成，不需要额外封装。
+
+### 9.4 跨页面导航
+
+```python
+# login 成功后返回 HomePage
+class LoginPage:
+    # ... 上面的代码 ...
+    
+    def login_and_go_home(self, username: str, password: str):
+        """登录并跳转到首页，返回 HomePage 对象"""
+        self.login(username, password)
+        return HomePage(self.page)
+
+class HomePage:
+    def __init__(self, page: Page):
+        self.page = page
+        self.search_input = page.get_by_placeholder("搜索商品")
+        self.user_menu = page.get_by_role("button", name="用户菜单")
+    
+    def search(self, keyword: str):
+        self.search_input.fill(keyword)
+        self.search_input.press("Enter")
+        return self
+    
+    def expect_welcome(self, username: str):
+        expect(self.page.locator(".welcome")).to_contain_text(username)
+        return self
+```
+
+### 9.5 用 storage_state 复用登录态
+
+```python
+# conftest.py — 登录一次，所有用例复用
+import os
+import pytest
+from playwright.sync_api import Page
+
+AUTH_FILE = "auth.json"
+
+@pytest.fixture(scope="session")
+def login_once(browser):
+    """首次运行：登录并保存状态；后续运行：直接加载"""
+    if not os.path.exists(AUTH_FILE):
+        context = browser.new_context()
+        page = context.new_page()
+        page.goto("https://example.com/login")
+        page.get_by_placeholder("用户名").fill("admin")
+        page.get_by_placeholder("密码").fill("123456")
+        page.get_by_role("button", name="登录").click()
+        page.wait_for_url("**/home")
+        context.storage_state(path=AUTH_FILE)
+        context.close()
+
+@pytest.fixture
+def logged_in_page(browser, login_once) -> Page:
+    """每个用例都用已登录的 context"""
+    context = browser.new_context(storage_state=AUTH_FILE)
+    page = context.new_page()
+    yield page
+    page.close()
+    context.close()
+
+# 用例中直接用 logged_in_page，不需要每次登录
+def test_home_search(logged_in_page):
+    home = HomePage(logged_in_page)
+    home.search("手机")
+```
+
+### 9.6 测试用例
 
 ```python
 # tests/test_login.py
@@ -1111,23 +1182,306 @@ Playwright 的 `locator` 类似 Selenium 的 `find_element`，但 API 更简洁�
 
 ---
 
-## 十五、最佳实践
+## 十五、Playwright Test Runner 高级配置
 
-### 15.1 用例编写
+### 15.1 并行执行
+
+```python
+# pytest.ini - 控制并行度
+[pytest]
+addopts = -n auto          # 需要 pytest-xdist，自动使用所有 CPU 核心
+addopts = -n 4             # 固定 4 个 worker
+```
+
+**Playwright 原生并行（推荐）：**
+
+```python
+# playwright.config.py（非 pytest 插件模式）
+import asyncio
+from playwright.async_api import async_playwright
+
+# 每个测试用例独立 Browser Context，天然隔离
+# pytest-playwright 插件默认并行，无需额外配置
+```
+
+**并行时的隔离原则：**
+
+| 隔离级别 | 说明 | 推荐度 |
+|----------|------|--------|
+| Browser Context | 每个测试独立 context，共享浏览器进程 | ⭐⭐⭐⭐⭐ 推荐 |
+| 独立浏览器实例 | 每个测试启动新浏览器 | ⭐⭐ 资源开销大 |
+| 共享页面 | 不隔离 | ❌ 不推荐 |
+
+### 15.2 失败重试
+
+```ini
+# pytest.ini
+[pytest]
+addopts =
+    --retries 2                # 失败重试 2 次（需 pytest-rerunfailures）
+    --retry-delay 1            # 重试间隔 1 秒
+```
+
+**Playwright 原生重试：**
+
+```python
+# conftest.py
+@pytest.fixture(autouse=True)
+def retry_on_failure(request):
+    """用例失败时自动截图"""
+    yield
+    if request.node.rep_call.failed:
+        page = request.node.funcargs.get("page")
+        if page:
+            page.screenshot(path=f"failures/{request.node.name}.png")
+```
+
+### 15.3 标签与筛选
+
+```python
+import pytest
+
+@pytest.mark.smoke
+def test_login_success(page):
+    """冒烟测试"""
+    pass
+
+@pytest.mark.slow
+def test_large_report(page):
+    """慢速测试"""
+    pass
+
+@pytest.mark.skip(reason="功能暂未实现")
+def test_new_feature(page):
+    pass
+
+@pytest.mark.parametrize("browser", ["chromium", "firefox", "webkit"])
+def test_cross_browser(page):
+    """跨浏览器测试"""
+    pass
+```
+
+**运行时筛选：**
+
+```bash
+pytest -m smoke              # 只跑冒烟
+pytest -m "not slow"         # 跳过慢速
+pytest -m "smoke and not slow"  # 组合条件
+pytest --browser firefox     # 指定浏览器
+```
+
+---
+
+## 十六、视觉回归测试
+
+### 16.1 什么是视觉回归
+
+传统断言检查"数据是否正确"，视觉断言检查"页面是否长得对"。
+
+```python
+# 传统断言：只检查文本
+assert page.locator("h1").text_content() == "首页"
+
+# 视觉断言：检查整个页面外观
+expect(page).to_have_screenshot("homepage.png")
+```
+
+### 16.2 截图对比
+
+```python
+from playwright.sync_api import Page, expect
+
+def test_homepage_visual(page: Page):
+    page.goto("https://example.com")
+    
+    # 首次运行：生成基准截图
+    # 后续运行：与基准截图对比
+    expect(page).to_have_screenshot("homepage.png", max_diff_pixels=100)
+
+def test_component_visual(page: Page):
+    page.goto("https://example.com/login")
+    
+    # 只对比特定元素
+    login_form = page.locator(".login-form")
+    expect(login_form).to_have_screenshot("login-form.png")
+```
+
+### 16.3 配置选项
+
+```python
+# 容差配置
+expect(page).to_have_screenshot(
+    "page.png",
+    max_diff_pixels=100,        # 允许最多 100 个像素不同
+    max_diff_pixel_ratio=0.01,  # 允许最多 1% 像素不同
+    threshold=0.2               # 单像素颜色差异阈值
+)
+
+# 忽略特定区域
+expect(page).to_have_screenshot(
+    "page.png",
+    mask=[page.locator(".dynamic-content")]  # 遮盖动态区域
+)
+```
+
+### 16.4 更新基准截图
+
+```bash
+# 首次运行或需要更新基准时
+pytest --update-snapshots
+
+# 截图保存在 tests 目录下的 test-results 文件夹
+```
+
+---
+
+## 十七、测试报告
+
+### 17.1 HTML 报告
+
+```bash
+# 安装
+pip install pytest-html
+
+# 生成报告
+pytest --html=report.html --self-contained-html
+```
+
+### 17.2 Allure 报告（推荐）
+
+```bash
+# 安装
+pip install allure-pytest
+
+# 运行并生成数据
+pytest --alluredir=allure-results
+
+# 生成并打开报告
+allure serve allure-results
+```
+
+**在代码中添加 Allure 元数据：**
+
+```python
+import allure
+
+@allure.feature("登录模块")
+@allure.story("正常登录")
+@allure.severity(allure.severity_level.CRITICAL)
+def test_login_success(page):
+    with allure.step("打开登录页"):
+        page.goto("https://example.com/login")
+    
+    with allure.step("输入账号密码"):
+        page.fill("#username", "testuser")
+        page.fill("#password", "123456")
+    
+    with allure.step("点击登录"):
+        page.click("button[type='submit']")
+    
+    with allure.step("验证登录成功"):
+        expect(page.locator("h1")).to_contain_text("首页")
+    
+    # 附加截图到报告
+    allure.attach(page.screenshot(), name="登录成功", attachment_type=allure.attachment_type.PNG)
+```
+
+### 17.3 GitHub Actions 集成 Allure
+
+```yaml
+- name: Run tests
+  run: pytest --alluredir=allure-results
+
+- name: Generate Allure Report
+  uses: simple-elf/allure-report-action@v1
+  if: always()
+  with:
+    allure_results: allure-results
+
+- name: Deploy report
+  uses: peaceiris/actions-gh-pages@v3
+  if: always()
+  with:
+    github_token: ${{ secrets.GITHUB_TOKEN }}
+    publish_dir: allure-history
+```
+
+---
+
+## 十八、Mobile 模拟
+
+### 18.1 设备模拟
+
+```python
+from playwright.sync_api import sync_playwright
+
+def test_mobile_page():
+    with sync_playwright() as p:
+        # 使用预设设备
+        iphone = p.devices["iPhone 13"]
+        browser = p.chromium.launch()
+        context = browser.new_context(**iphone)
+        page = context.new_page()
+        page.goto("https://example.com")
+        
+        # 验证移动端布局
+        expect(page.locator(".mobile-menu")).to_be_visible()
+        context.close()
+        browser.close()
+```
+
+**常用预设设备：**
+
+```python
+# 查看所有预设设备
+from playwright.sync_api import sync_playwright
+with sync_playwright() as p:
+    print(list(p.devices.keys()))
+    # iPhone 13, iPhone 13 Pro, Pixel 5, Galaxy S21, iPad Pro 11...
+```
+
+### 18.2 自定义视口
+
+```python
+context = browser.new_context(
+    viewport={"width": 375, "height": 812},  # iPhone X 尺寸
+    is_mobile=True,
+    has_touch=True,
+    user_agent="Mozilla/5.0 (iPhone; CPU iPhone OS 15_0..."
+)
+```
+
+### 18.3 地理位置模拟
+
+```python
+context = browser.new_context(
+    geolocation={"latitude": 39.9042, "longitude": 116.4074},  # 北京
+    permissions=["geolocation"]
+)
+page = context.new_page()
+page.goto("https://map.example.com")
+# 页面会显示北京位置
+```
+
+---
+
+## 十九、最佳实践
+
+### 19.1 用例编写
 
 - 优先用 `get_by_role` / `get_by_test_id` 定位
 - 用 `expect` 断言而非 `assert`
 - 失败时自动截图（`--screenshot on`）
 - 用 Trace 录制排查偶发失败
 
-### 15.2 框架设计
+### 19.2 框架设计
 
 - Page Object 模式
 - 登录态用 `storage_state` 持久化
 - API + UI 混合测试
 - 数据外部化（YAML/JSON）
 
-### 15.3 推荐学习
+### 19.3 推荐学习
 
 - 官方文档：`https://playwright.dev/python/`
 - GitHub：`https://github.com/microsoft/playwright-python`
