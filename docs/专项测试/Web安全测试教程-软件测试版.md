@@ -613,6 +613,380 @@ Body: {"userId": 1001}
 !!! info "测试纪律"
     安全测试必须在授权环境下进行。禁止对未授权系统进行渗透测试。发现的安全漏洞需及时上报，不得利用或传播。
 
+## 十四、DevSecOps 集成
+
+> 安全不应该在上线前才想起来，而应该融入整个开发流程——这就是 **DevSecOps（开发-安全-运维一体化）** 的核心理念。
+
+### 14.1 什么是 DevSecOps
+
+传统模式：开发完 → 测试完 → 最后才做安全检查 → 发现漏洞 → 返工（成本极高）
+
+DevSecOps 模式：**安全左移**（Shift Left），在开发的每个阶段都嵌入安全检查：
+
+| 阶段 | 传统做法 | DevSecOps 做法 |
+|------|---------|---------------|
+| 编码 | 不管安全 | IDE 安全插件实时提示 |
+| 提交 | 不管安全 | Git Hooks 扫描密钥泄露 |
+| 构建 | 不管安全 | SAST 静态扫描 + SCA 依赖检查 |
+| 测试 | 上线前才查 | DAST 动态扫描 |
+| 部署 | 手动检查 | 自动化安全门禁 |
+| 运行 | 出事才响应 | 运行时监控 + WAF |
+
+### 14.2 DevSecOps 流程图
+
+```
+代码提交 → 代码扫描(SAST) → 构建 → 依赖扫描(SCA) → 部署 → 动态扫描(DAST) → 运行时监控
+   │            │              │          │              │          │              │
+   │        SonarQube        Docker    Snyk/npm       K8s/云    OWASP ZAP      WAF/SIEM
+   │        Semgrep          CI/CD     audit                                   日志告警
+   └── git-secrets ──────────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+### 14.3 SAST（静态应用安全测试）
+
+**原理**：在源码阶段发现安全问题，不需要运行程序。就像代码审查，但是自动化。
+
+**常用工具**：
+
+| 工具 | 特点 | 适用场景 |
+|------|------|---------|
+| **SonarQube** | 综合代码质量+安全 | Java/JS/Python 等多语言 |
+| **Semgrep** | 轻量、规则灵活 | 团队自定义安全规则 |
+| **Bandit** | Python 专用 | Python 项目安全扫描 |
+
+**CI/CD 集成示例（GitLab CI）**：
+
+```yaml
+# .gitlab-ci.yml
+sast-scan:
+  stage: test
+  image: python:3.11
+  script:
+    # Bandit 扫描 Python 代码安全问题
+    - pip install bandit
+    - bandit -r src/ -f json -o bandit-report.json
+    # 如果发现高危漏洞则阻断流水线
+    - bandit -r src/ --severity-level high --exit-code 1
+  artifacts:
+    paths:
+      - bandit-report.json
+```
+
+**Semgrep 示例**：
+
+```yaml
+# .gitlab-ci.yml
+semgrep-scan:
+  stage: test
+  image: semgrep/semgrep
+  script:
+    # 使用 OWASP 规则集扫描
+    - semgrep --config=p/owasp-top-ten --json -o semgrep-report.json src/
+  artifacts:
+    paths:
+      - semgrep-report.json
+```
+
+**常见扫描结果解读**：
+
+```
+Bandit 示例输出：
+Issue: [B105:hardcoded_password_string] Possible hardcoded password
+Severity: Medium   Confidence: Medium
+File: src/config.py  Line: 15
+→ 含义：代码中发现了硬编码的密码字符串，建议用环境变量替代
+```
+
+---
+
+### 14.4 DAST（动态应用安全测试）
+
+**原理**：在运行时扫描安全漏洞，不需要源码。像一个自动化黑客，对你的应用发各种攻击请求。
+
+**常用工具**：
+
+| 工具 | 特点 | 适用场景 |
+|------|------|---------|
+| **OWASP ZAP** | 免费开源 | CI/CD 自动化扫描 |
+| **Burp Suite** | 功能全面 | 手动+自动化测试 |
+| **Nuclei** | 模板化扫描 | 快速漏洞验证 |
+
+**OWASP ZAP 自动化扫描配置**：
+
+```bash
+# 安装 ZAP（Docker 方式）
+docker pull ghcr.io/zaproxy/zaproxy:stable
+
+# 全自动扫描（适合 CI/CD）
+docker run --rm \
+  -v $(pwd)/report:/zap/wrk \
+  ghcr.io/zaproxy/zaproxy:stable \
+  zap-full-scan.py \
+  -t http://target-app:8080 \
+  -r report.html \
+  -x report.xml
+
+# 只爬虫+扫描 API（更快）
+docker run --rm \
+  -v $(pwd)/report:/zap/wrk \
+  ghcr.io/zaproxy/zaproxy:stable \
+  zap-api-scan.py \
+  -t http://target-app:8080/api/swagger.json \
+  -f openapi \
+  -r api-report.html
+```
+
+**CI/CD 集成示例（GitLab CI）**：
+
+```yaml
+# .gitlab-ci.yml
+dast-scan:
+  stage: security
+  image: ghcr.io/zaproxy/zaproxy:stable
+  script:
+    - zap-full-scan.py -t $TARGET_URL -r report.html -x report.xml
+  artifacts:
+    paths:
+      - report.html
+      - report.xml
+  allow_failure: true  # DAST 扫描可能有误报，不阻断流水线
+```
+
+---
+
+### 14.5 SCA（软件成分分析）
+
+**原理**：检查项目依赖的第三方库是否有已知安全漏洞。你的代码没问题，但你引用的库可能有漏洞。
+
+**真实案例**：
+- **Log4Shell (2021)**：Log4j 远程代码执行漏洞，影响全球 35000+ Java 项目
+- **event-stream (2018)**：npm 包被注入恶意代码，窃取比特币钱包
+
+**常用工具**：
+
+| 工具 | 适用 | 特点 |
+|------|------|------|
+| **Snyk** | 多语言 | 有免费版，自动修复建议 |
+| **Dependabot** | GitHub | 自动创建 PR 修复漏洞 |
+| **pip-audit** | Python | 轻量命令行工具 |
+| **npm audit** | Node.js | 内置在 npm 中 |
+| **Trivy** | 容器+代码 | 扫描镜像和文件系统 |
+
+**实战：在 CI 中集成依赖扫描**：
+
+```bash
+# Python - pip-audit
+pip install pip-audit
+pip-audit  # 检查 requirements.txt 中的漏洞
+
+# Node.js - npm audit
+npm audit          # 显示漏洞
+npm audit fix      # 自动修复
+npm audit --json   # 输出 JSON 报告
+```
+
+```yaml
+# .gitlab-ci.yml - 依赖扫描
+dependency-scan:
+  stage: security
+  script:
+    # Python 项目
+    - pip install pip-audit
+    - pip-audit --strict --desc
+    # 如果有 high/critical 漏洞则失败
+  allow_failure: false  # 依赖漏洞必须修复
+```
+
+**Snyk CI/CD 集成**：
+
+```yaml
+# .gitlab-ci.yml
+snyk-scan:
+  stage: security
+  image: snyk/snyk:python
+  script:
+    - snyk test --severity-threshold=high
+  variables:
+    SNYK_TOKEN: $SNYK_API_TOKEN  # 在 CI/CD 变量中配置
+```
+
+---
+
+### 14.6 密钥与敏感信息管理
+
+**❌ 错误做法——把密钥写在代码里**：
+
+```python
+# 千万不要这样写！
+DATABASE_PASSWORD = "MyS3cretPass"
+API_KEY = "sk-1234567890abcdef"
+AWS_SECRET_KEY = "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
+```
+
+**✅ 正确做法**：
+
+```python
+# 方法1：环境变量
+import os
+DB_PASSWORD = os.environ.get("DATABASE_PASSWORD")
+API_KEY = os.environ.get("API_KEY")
+
+# 方法2：.env 文件（不要提交到 Git！）
+# .env 文件加入 .gitignore
+from dotenv import load_dotenv
+load_dotenv()
+API_KEY = os.environ.get("API_KEY")
+```
+
+**密钥管理服务**：
+
+| 服务 | 适用场景 |
+|------|---------|
+| **HashiCorp Vault** | 自建密钥管理 |
+| **AWS Secrets Manager** | AWS 云环境 |
+| **Azure Key Vault** | Azure 云环境 |
+| **GCP Secret Manager** | GCP 云环境 |
+
+**git-secrets 扫描**：
+
+```bash
+# 安装 git-secrets
+# Mac
+brew install git-secrets
+# Linux
+git clone https://github.com/awslabs/git-secrets.git
+cd git-secrets && sudo make install
+
+# 在项目中配置
+git secrets --install
+git secrets --register-aws  # 添加 AWS 密钥模式
+
+# 扫描整个仓库历史
+git secrets --scan-history
+
+# 手动添加自定义模式
+git secrets --add 'password\s*=\s*.+'
+git secrets --add 'api_key\s*=\s*.+'
+```
+
+**CI/CD 密钥扫描**：
+
+```yaml
+# .gitlab-ci.yml
+secret-scan:
+  stage: security
+  script:
+    # 使用 gitleaks 扫描 Git 历史中的密钥
+    - docker run --rm -v $(pwd):/path zricethezav/gitleaks detect --source=/path --report-path=/path/gitleaks-report.json
+  artifacts:
+    paths:
+      - gitleaks-report.json
+```
+
+---
+
+### 14.7 安全测试在 CI/CD 中的落地
+
+**质量门禁配置示例**：
+
+```yaml
+# .gitlab-ci.yml - 完整安全流水线
+stages:
+  - build
+  - test
+  - security
+  - deploy
+
+# 代码扫描（每次提交）
+sast:
+  stage: security
+  script:
+    - bandit -r src/ --severity-level high --exit-code 1
+  rules:
+    - if: $CI_MERGE_REQUEST_IID  # 只在 MR 时运行
+
+# 依赖扫描（每次提交）
+dependency-check:
+  stage: security
+  script:
+    - pip-audit --strict
+  rules:
+    - if: $CI_MERGE_REQUEST_IID
+
+# 密钥扫描（每次提交）
+secret-detection:
+  stage: security
+  script:
+    - gitleaks detect --source=. --exit-code 1
+
+# DAST 扫描（部署到测试环境后）
+dast:
+  stage: security
+  needs: ["deploy-to-staging"]
+  script:
+    - zap-full-scan.py -t $STAGING_URL -r report.html
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+
+# 安全门禁：必须全部通过才能部署到生产
+deploy-to-production:
+  stage: deploy
+  needs: ["sast", "dependency-check", "secret-detection", "dast"]
+  script:
+    - echo "All security checks passed, deploying to production..."
+```
+
+**安全扫描报告解读**：
+
+```
+漏洞优先级 = 严重程度（CVSS评分）× 可利用性 × 业务影响
+
+CVSS 评分标准：
+┌──────────┬──────────┬─────────────────────────┐
+│  评分范围  │   等级   │         处理方式          │
+├──────────┼──────────┼─────────────────────────┤
+│ 9.0 - 10 │ Critical │ 必须立即修复，阻断发布    │
+│ 7.0 - 8.9│   High   │ 24小时内修复             │
+│ 4.0 - 6.9│  Medium  │ 一周内修复，记入待办      │
+│ 0.1 - 3.9│   Low    │ 下个迭代修复             │
+│    0     │   Info   │ 仅记录，不需要修复        │
+└──────────┴──────────┴─────────────────────────┘
+```
+
+**安全门禁策略建议**：
+
+```
+Critical / High  → 阻断流水线，不允许合并/发布
+Medium           → 警告但不阻断，创建 Issue 跟踪
+Low / Info       → 仅在报告中记录
+```
+
+---
+
+### 14.8 DevSecOps 工具链总结
+
+```
+┌─────────────────────────────────────────────────────────┐
+│                    DevSecOps 工具链                       │
+├──────────┬──────────────┬───────────────────────────────┤
+│   阶段    │    工具       │           作用                │
+├──────────┼──────────────┼───────────────────────────────┤
+│  编码     │ IDE 插件      │ 实时安全提示                  │
+│  提交     │ git-secrets  │ 防止密钥提交                  │
+│  SAST    │ Semgrep      │ 代码安全扫描                  │
+│  SCA     │ Snyk         │ 依赖漏洞检查                  │
+│  DAST    │ OWASP ZAP    │ 运行时安全扫描                │
+│  容器安全 │ Trivy        │ 镜像漏洞扫描                  │
+│  运行时   │ WAF + SIEM   │ 实时监控与告警                │
+└──────────┴──────────────┴───────────────────────────────┘
+```
+
+> 💡 **给测试工程师的建议**：DevSecOps 不是让测试人员一个人扛所有安全工作，而是让整个团队（开发、测试、运维）共同参与安全。测试工程师在其中的角色是：**推动安全测试落地、解读扫描报告、验证漏洞修复**。
+
+---
+
 ### 推荐下一步
 
 根据你的学习进度，选择下一步：

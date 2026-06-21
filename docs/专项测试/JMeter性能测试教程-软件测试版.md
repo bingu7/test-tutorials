@@ -1255,6 +1255,314 @@ sampleresult.default.encoding=UTF-8
 
 ### 推荐下一步
 
+## 十三、分布式压测
+
+### 13.1 为什么需要分布式
+
+单台机器压测存在瓶颈：
+
+| 瓶颈 | 表现 | 解决方案 |
+|------|------|----------|
+| CPU 不足 | JMeter 本身 CPU 占满，生成不了更多线程 | 多台 Slave 分摊 |
+| 内存不足 | 大量线程导致 OOM | 分布式后每台机器线程数减少 |
+| 网络带宽 | 单机网卡打满 | 多 Slave 分散网络流量 |
+| 单 IP 限制 | 服务器对单 IP 限流 | 多 Slave 不同 IP |
+
+### 13.2 JMeter 分布式架构
+
+```text
+┌─────────────────┐
+│   Master (控制)  │  ← 发送测试计划、收集结果
+│   jmeter -n -r  │
+└────────┬────────┘
+         │
+    ┌────┴────┐
+    │         │
+┌───▼───┐ ┌──▼────┐
+│Slave 1│ │Slave 2│  ← 执行压测，发送请求
+│100线程│ │100线程│
+└───────┘ └───────┘
+```
+
+```text
+Master：负责发送测试计划、汇总结果、生成报告。
+Slave：负责执行测试、向目标服务器发请求。
+目标服务器：被测系统。
+```
+
+### 13.3 分布式配置步骤
+
+**Step 1：所有机器安装相同版本 JMeter**
+
+```bash
+# 确认版本一致
+jmeter --version
+```
+
+**Step 2：配置 Slave 节点**
+
+```bash
+# 编辑 Slave 的 jmeter.properties
+# 修改以下配置：
+
+# 监听端口（默认 1099）
+server.rmi.ssl.disable=true    # 关闭 SSL（测试环境）
+server_port=1099
+```
+
+```bash
+# 启动 Slave
+jmeter-server
+# 输出：Created remote object: UnicastServerRef2 [stub: ...]
+```
+
+**Step 3：配置 Master 节点**
+
+```bash
+# 编辑 Master 的 jmeter.properties
+# 添加 Slave IP 列表
+remote_hosts=192.168.1.101,192.168.1.102,192.168.1.103
+server.rmi.ssl.disable=true
+```
+
+**Step 4：Master 发起分布式压测**
+
+```bash
+# 远程启动所有 Slave（-r = --remotestart）
+jmeter -n -t test.jmx -r -l result.jtl -e -o report
+
+# 远程启动指定 Slave（逗号分隔）
+jmeter -n -t test.jmx -R 192.168.1.101,192.168.1.102 -l result.jtl
+```
+
+### 13.4 注意事项
+
+| 事项 | 说明 |
+|------|------|
+| 防火墙 | 确保 Master 能访问 Slave 的 1099 端口 |
+| 时间同步 | 所有机器做 NTP 时间同步（`ntpdate`），否则时间戳混乱 |
+| 数据隔离 | 使用 `__machineName` 函数区分不同 Slave 的数据 |
+| CSV 参数化 | 每台 Slave 需要独立的 CSV 文件，不能共享 |
+| 结果收集 | `-l result.jtl` 只收集 Master 端，Slave 端需单独配置 |
+| 网络 | Slave 和目标服务器最好在同一内网 |
+
+---
+
+## 十四、压测报告分析
+
+### 14.1 聚合报告关键指标
+
+| 指标 | 含义 | 健康标准 |
+|------|------|----------|
+| **Samples** | 总请求数 | — |
+| **Average** | 平均响应时间 | < 500ms（接口） |
+| **Median (P50)** | 50% 请求的响应时间 | < 300ms |
+| **P95** | 95% 请求的响应时间 | < 1s |
+| **P99** | 99% 请求的响应时间 | < 2s |
+| **Min / Max** | 最小 / 最大响应时间 | Max 不应是 Average 的 10 倍+ |
+| **Error %** | 错误率 | < 0.1% |
+| **Throughput** | TPS（每秒事务数） | 达到目标 TPS |
+
+### 14.2 性能拐点识别
+
+```text
+压测加压过程：
+
+并发数 ↑  →  TPS ↑  →  RT ↑
+                ↓
+        达到拐点后：
+并发数 ↑  →  TPS 不变或下降  →  RT 急剧上升  →  错误率飙升
+
+拐点 = 最佳并发数（系统最大承载能力）
+```
+
+```text
+拐点识别方法：
+1. 逐步增加并发（如 50→100→150→200→250）
+2. 观察 TPS 和 RT 的变化趋势
+3. 当 RT 增长率 > TPS 增长率时，就是拐点
+```
+
+### 14.3 瓶颈定位思路
+
+| 现象 | 可能原因 | 排查方向 |
+|------|----------|----------|
+| CPU 高 | 死循环、大量计算、GC 频繁 | `top`、`jstack`、GC 日志 |
+| 内存高 | 内存泄漏、缓存未清理 | `jmap`、堆分析 |
+| IO 高 | 慢 SQL、大量读写 | `iostat`、慢查询日志 |
+| 网络高 | 大响应体、带宽不足 | `iftop`、抓包 |
+| 连接数高 | 连接池泄漏、未释放 | `ss`、连接池监控 |
+| TPS 低但 CPU/IO 正常 | 锁竞争、线程阻塞 | `jstack` 分析线程状态 |
+
+### 14.4 压测报告模板
+
+```markdown
+## 性能测试报告
+
+### 测试概要
+- 测试日期：2026-06-22
+- 测试环境：UAT 环境，4C8G × 3 台
+- 测试工具：JMeter 5.6.3 + 分布式（3 Slave）
+- 测试时长：30 分钟
+
+### 测试场景
+| 场景 | 并发数 | 持续时间 | 目标 TPS |
+|------|--------|----------|----------|
+| 基准测试 | 50 | 5min | ≥100 |
+| 负载测试 | 200 | 30min | ≥500 |
+| 压力测试 | 500 | 10min | 观察拐点 |
+
+### 测试结果
+| 接口 | 目标 TPS | 实际 TPS | P95 | 错误率 | 是否达标 |
+|------|----------|----------|-----|--------|----------|
+| /api/login | 500 | 620 | 180ms | 0.01% | ✅ |
+| /api/order | 300 | 280 | 850ms | 0.05% | ❌ |
+
+### 瓶颈分析
+- 订单接口 TPS 未达标，瓶颈在数据库慢查询
+- 慢 SQL：`SELECT * FROM orders WHERE user_id=? ORDER BY create_time`
+- 建议：添加索引 `(user_id, create_time)`
+
+### 风险与建议
+- 当前系统承载 500 并发，大促预计 1000 并发，需扩容
+- 建议添加 Redis 缓存热点商品数据
+```
+
+---
+
+## 十五、全链路压测概念
+
+### 15.1 什么是全链路压测
+
+```text
+单接口压测：只测一个接口（如登录接口）
+全链路压测：模拟真实用户行为链路（浏览→加购→下单→支付）
+
+区别：
+- 单接口压测无法发现跨服务瓶颈（如数据库连接池被下游服务打满）
+- 全链路压测能看到整个系统的实际承载能力
+```
+
+### 15.2 流量录制与回放
+
+```text
+GoReplay 流量录制原理：
+
+生产环境流量 → GoReplay 录制 → 流量文件 → 测试环境回放（可放大 N 倍）
+```
+
+```bash
+# GoReplay 录制
+sudo gor --input-raw :8080 --output-file requests.gor
+
+# 流量回放（2 倍速）
+gor --input-file requests.gor --output-http "http://test-server:8080" --stats --multiplier 2
+```
+
+### 15.3 压测数据隔离
+
+```text
+核心问题：压测数据不能污染真实数据。
+
+方案：
+1. 影子库：压测数据写入独立的"影子库"，不影响真实库
+2. 影子表：同一库中，压测数据写入带 _shadow 后缀的表
+3. 流量标记：压测请求带特殊 Header（如 X-Test-Flag: true）
+4. 中间件拦截：根据标记将压测流量路由到影子库
+```
+
+```text
+流量标记示例（JMeter HTTP Header Manager）：
+X-Test-Flag: true
+X-Test-Timestamp: ${__time(,)}
+```
+
+### 15.4 压测环境管理
+
+| 事项 | 建议 |
+|------|------|
+| 环境隔离 | 压测环境独立于开发/测试环境 |
+| 数据准备 | 提前准备足量测试数据（10 万+用户、100 万+订单） |
+| 监控就绪 | 压测前确认 Grafana/监控大盘正常 |
+| 通知机制 | 压测前通知运维、DBA、开发 |
+| 回滚方案 | 准备紧急停止脚本和数据清理脚本 |
+
+---
+
+## 十六、性能基准管理
+
+### 16.1 性能基线建立
+
+```text
+每次版本发布前，对核心接口跑一次基准测试，记录基线数据。
+
+基线数据：
+- 接口：/api/login
+- TPS 基线：620
+- P95 基线：180ms
+- 错误率基线：0.01%
+```
+
+### 16.2 版本间性能对比
+
+```text
+对比方法：
+1. 用相同测试脚本、相同并发数、相同环境
+2. 分别跑旧版本和新版本
+3. 对比 TPS、P95、错误率
+
+性能退化判定：
+- TPS 下降 > 10% → 性能退化，需排查
+- P95 上升 > 20% → 性能退化，需排查
+- 错误率上升 > 0.1% → 需排查
+```
+
+### 16.3 CI/CD 中集成性能基准
+
+```yaml
+# GitLab CI 示例
+performance-baseline:
+  stage: test
+  script:
+    - jmeter -n -t test.jmx -l result.jtl -e -o report
+    - python check_performance.py --baseline baseline.json --result result.jtl
+  artifacts:
+    paths:
+      - report/
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+```
+
+```python
+# check_performance.py 简化版
+import json, sys
+
+with open("baseline.json") as f:
+    baseline = json.load(f)
+
+# 解析 result.jtl，对比 baseline
+# 如果 TPS 下降 > 10% 或 P95 上升 > 20%，exit 1 失败
+current_tps = parse_tps("result.jtl")
+if current_tps < baseline["tps"] * 0.9:
+    print(f"❌ TPS 退化：{current_tps} < {baseline['tps'] * 0.9}")
+    sys.exit(1)
+
+print("✅ 性能基线达标")
+```
+
+### 16.4 性能退化告警
+
+```text
+在 CI/CD 中设置性能门禁：
+
+绿灯（通过）：TPS ≥ 基线 × 90%，P95 ≤ 基线 × 120%
+黄灯（警告）：TPS 在基线 80%-90%，或 P95 超基线 120%-150%
+红灯（失败）：TPS < 基线 × 80%，或 P95 > 基线 × 150%
+
+黄灯：允许合并但标记风险
+红灯：阻止合并，必须修复
+```
+
 根据你的学习进度，选择下一步：
 
 1. **如果你想学安全测试**：学习 [Web 安全测试](Web安全测试教程-软件测试版.md)，掌握常见漏洞验证
