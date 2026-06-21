@@ -5964,6 +5964,36 @@
 <a id="__codelineno-17-14" name="__codelineno-17-14" href="#__codelineno-17-14"></a><span class="c1"># 输出格式自定义</span>
 <a id="__codelineno-17-15" name="__codelineno-17-15" href="#__codelineno-17-15"></a>docker<span class="w"> </span>ps<span class="w"> </span>--format<span class="w"> </span><span class="s2">&quot;table {{.Names}}\t{{.Status}}\t{{.Ports}}&quot;</span>
 </code></pre></div>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--format</code></td>
+<td>自定义输出格式</td>
+</tr>
+<tr>
+<td><code>{{.Names}}</code></td>
+<td>容器名称</td>
+</tr>
+<tr>
+<td><code>{{.Status}}</code></td>
+<td>运行状态</td>
+</tr>
+<tr>
+<td><code>{{.Ports}}</code></td>
+<td>端口映射</td>
+</tr>
+<tr>
+<td><code>\t</code></td>
+<td>制表符（列对齐）</td>
+</tr>
+</tbody>
+</table>
 <h3 id="43">4.3 启动/停止/重启<a class="headerlink" href="#43" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>docker<span class="w"> </span>start<span class="w"> </span>mynginx
 <a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>docker<span class="w"> </span>stop<span class="w"> </span>mynginx
@@ -6802,6 +6832,31 @@
 <a id="__codelineno-79-5" name="__codelineno-79-5" href="#__codelineno-79-5"></a>docker<span class="w"> </span>system<span class="w"> </span>prune<span class="w"> </span>-a<span class="w">       </span><span class="c1"># 删未用镜像/容器/网络</span>
 <a id="__codelineno-79-6" name="__codelineno-79-6" href="#__codelineno-79-6"></a>docker<span class="w"> </span>system<span class="w"> </span>prune<span class="w"> </span>-a<span class="w"> </span>--volumes<span class="w">  </span><span class="c1"># 含卷</span>
 </code></pre></div>
+<blockquote>
+<p>⚠️ <strong>生产环境慎用！</strong> <code>-a</code> 和 <code>--volumes</code> 会删除大量资源，可能导致数据丢失。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>prune</code></td>
+<td>清理无用资源</td>
+</tr>
+<tr>
+<td><code>-a</code></td>
+<td>删除所有未使用的镜像（不仅是悬空的）</td>
+</tr>
+<tr>
+<td><code>--volumes</code></td>
+<td>同时删除未使用的卷（数据会丢失！）</td>
+</tr>
+</tbody>
+</table>
 <h3 id="114">11.4 容器无法访问外网<a class="headerlink" href="#114" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-80-1" name="__codelineno-80-1" href="#__codelineno-80-1"></a><span class="c1"># 检查 DNS</span>
 <a id="__codelineno-80-2" name="__codelineno-80-2" href="#__codelineno-80-2"></a>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>alpine<span class="w"> </span>nslookup<span class="w"> </span>baidu.com
@@ -6877,6 +6932,28 @@
 <a id="__codelineno-87-4" name="__codelineno-87-4" href="#__codelineno-87-4"></a><span class="w">  </span>--memory-swap<span class="o">=</span><span class="s2">&quot;1g&quot;</span><span class="w"> </span><span class="se">\ </span><span class="w">    </span><span class="c1"># 含 swap</span>
 <a id="__codelineno-87-5" name="__codelineno-87-5" href="#__codelineno-87-5"></a><span class="w">  </span>nginx
 </code></pre></div>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--cpus</code></td>
+<td>限制 CPU 核数（0.5 = 半核）</td>
+</tr>
+<tr>
+<td><code>--memory</code></td>
+<td>内存上限</td>
+</tr>
+<tr>
+<td><code>--memory-swap</code></td>
+<td>内存+swap 总上限（1g 表示 swap 可用 512m）</td>
+</tr>
+</tbody>
+</table>
 <h3 id="123">12.3 安全建议<a class="headerlink" href="#123" title="Permanent link">&para;</a></h3>
 <ul>
 <li>不用 root 用户运行</li>

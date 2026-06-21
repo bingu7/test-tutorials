@@ -5796,23 +5796,29 @@
 <a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a>
 <a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a><span class="c1"># 图形化</span>
 <a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a>git<span class="w"> </span>log<span class="w"> </span>--graph<span class="w"> </span>--oneline<span class="w"> </span>--all<span class="w"> </span>--decorate
-<a id="__codelineno-13-14" name="__codelineno-13-14" href="#__codelineno-13-14"></a>
-<a id="__codelineno-13-15" name="__codelineno-13-15" href="#__codelineno-13-15"></a><span class="c1"># 最近 N 条</span>
-<a id="__codelineno-13-16" name="__codelineno-13-16" href="#__codelineno-13-16"></a>git<span class="w"> </span>log<span class="w"> </span>-5
-<a id="__codelineno-13-17" name="__codelineno-13-17" href="#__codelineno-13-17"></a>git<span class="w"> </span>log<span class="w"> </span>-n<span class="w"> </span><span class="m">5</span>
-<a id="__codelineno-13-18" name="__codelineno-13-18" href="#__codelineno-13-18"></a>
-<a id="__codelineno-13-19" name="__codelineno-13-19" href="#__codelineno-13-19"></a><span class="c1"># 按作者</span>
-<a id="__codelineno-13-20" name="__codelineno-13-20" href="#__codelineno-13-20"></a>git<span class="w"> </span>log<span class="w"> </span>--author<span class="o">=</span><span class="s2">&quot;张三&quot;</span>
-<a id="__codelineno-13-21" name="__codelineno-13-21" href="#__codelineno-13-21"></a>
-<a id="__codelineno-13-22" name="__codelineno-13-22" href="#__codelineno-13-22"></a><span class="c1"># 按时间</span>
-<a id="__codelineno-13-23" name="__codelineno-13-23" href="#__codelineno-13-23"></a>git<span class="w"> </span>log<span class="w"> </span>--since<span class="o">=</span><span class="s2">&quot;2026-06-01&quot;</span><span class="w"> </span>--until<span class="o">=</span><span class="s2">&quot;2026-06-07&quot;</span>
+<a id="__codelineno-13-14" name="__codelineno-13-14" href="#__codelineno-13-14"></a><span class="p">|</span><span class="w"> </span>参数<span class="w"> </span><span class="p">|</span><span class="w"> </span>含义<span class="w"> </span><span class="p">|</span>
+<a id="__codelineno-13-15" name="__codelineno-13-15" href="#__codelineno-13-15"></a><span class="p">|</span><span class="w"> </span>--<span class="w"> </span><span class="p">|</span><span class="w"> </span>--<span class="w"> </span><span class="p">|</span>
+<a id="__codelineno-13-16" name="__codelineno-13-16" href="#__codelineno-13-16"></a><span class="p">|</span><span class="w"> </span><span class="sb">`</span>--graph<span class="sb">`</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>用<span class="w"> </span>ASCII<span class="w"> </span>图形显示分支合并关系<span class="w"> </span><span class="p">|</span>
+<a id="__codelineno-13-17" name="__codelineno-13-17" href="#__codelineno-13-17"></a><span class="p">|</span><span class="w"> </span><span class="sb">`</span>--oneline<span class="sb">`</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>每个<span class="w"> </span>commit<span class="w"> </span>只显示一行（简略）<span class="w"> </span><span class="p">|</span>
+<a id="__codelineno-13-18" name="__codelineno-13-18" href="#__codelineno-13-18"></a><span class="p">|</span><span class="w"> </span><span class="sb">`</span>--all<span class="sb">`</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>显示所有分支（不只是当前分支）<span class="w"> </span><span class="p">|</span>
+<a id="__codelineno-13-19" name="__codelineno-13-19" href="#__codelineno-13-19"></a><span class="p">|</span><span class="w"> </span><span class="sb">`</span>--decorate<span class="sb">`</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>显示<span class="w"> </span>commit<span class="w"> </span>关联的分支/tag<span class="w"> </span>名称<span class="w"> </span><span class="p">|</span>
+<a id="__codelineno-13-20" name="__codelineno-13-20" href="#__codelineno-13-20"></a>
+<a id="__codelineno-13-21" name="__codelineno-13-21" href="#__codelineno-13-21"></a><span class="c1"># 最近 N 条</span>
+<a id="__codelineno-13-22" name="__codelineno-13-22" href="#__codelineno-13-22"></a>git<span class="w"> </span>log<span class="w"> </span>-5
+<a id="__codelineno-13-23" name="__codelineno-13-23" href="#__codelineno-13-23"></a>git<span class="w"> </span>log<span class="w"> </span>-n<span class="w"> </span><span class="m">5</span>
 <a id="__codelineno-13-24" name="__codelineno-13-24" href="#__codelineno-13-24"></a>
-<a id="__codelineno-13-25" name="__codelineno-13-25" href="#__codelineno-13-25"></a><span class="c1"># 按关键字</span>
-<a id="__codelineno-13-26" name="__codelineno-13-26" href="#__codelineno-13-26"></a>git<span class="w"> </span>log<span class="w"> </span>--grep<span class="o">=</span><span class="s2">&quot;登录&quot;</span>
+<a id="__codelineno-13-25" name="__codelineno-13-25" href="#__codelineno-13-25"></a><span class="c1"># 按作者</span>
+<a id="__codelineno-13-26" name="__codelineno-13-26" href="#__codelineno-13-26"></a>git<span class="w"> </span>log<span class="w"> </span>--author<span class="o">=</span><span class="s2">&quot;张三&quot;</span>
 <a id="__codelineno-13-27" name="__codelineno-13-27" href="#__codelineno-13-27"></a>
-<a id="__codelineno-13-28" name="__codelineno-13-28" href="#__codelineno-13-28"></a><span class="c1"># 查看某文件历史</span>
-<a id="__codelineno-13-29" name="__codelineno-13-29" href="#__codelineno-13-29"></a>git<span class="w"> </span>log<span class="w"> </span>file.py
-<a id="__codelineno-13-30" name="__codelineno-13-30" href="#__codelineno-13-30"></a>git<span class="w"> </span>log<span class="w"> </span>-p<span class="w"> </span>file.py<span class="w">     </span><span class="c1"># 含每次差异</span>
+<a id="__codelineno-13-28" name="__codelineno-13-28" href="#__codelineno-13-28"></a><span class="c1"># 按时间</span>
+<a id="__codelineno-13-29" name="__codelineno-13-29" href="#__codelineno-13-29"></a>git<span class="w"> </span>log<span class="w"> </span>--since<span class="o">=</span><span class="s2">&quot;2026-06-01&quot;</span><span class="w"> </span>--until<span class="o">=</span><span class="s2">&quot;2026-06-07&quot;</span>
+<a id="__codelineno-13-30" name="__codelineno-13-30" href="#__codelineno-13-30"></a>
+<a id="__codelineno-13-31" name="__codelineno-13-31" href="#__codelineno-13-31"></a><span class="c1"># 按关键字</span>
+<a id="__codelineno-13-32" name="__codelineno-13-32" href="#__codelineno-13-32"></a>git<span class="w"> </span>log<span class="w"> </span>--grep<span class="o">=</span><span class="s2">&quot;登录&quot;</span>
+<a id="__codelineno-13-33" name="__codelineno-13-33" href="#__codelineno-13-33"></a>
+<a id="__codelineno-13-34" name="__codelineno-13-34" href="#__codelineno-13-34"></a><span class="c1"># 查看某文件历史</span>
+<a id="__codelineno-13-35" name="__codelineno-13-35" href="#__codelineno-13-35"></a>git<span class="w"> </span>log<span class="w"> </span>file.py
+<a id="__codelineno-13-36" name="__codelineno-13-36" href="#__codelineno-13-36"></a>git<span class="w"> </span>log<span class="w"> </span>-p<span class="w"> </span>file.py<span class="w">     </span><span class="c1"># 含每次差异</span>
 </code></pre></div>
 <h3 id="36">3.6 查看差异<a class="headerlink" href="#36" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="c1"># 工作区 vs 暂存区</span>
@@ -6077,17 +6083,18 @@
 <a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a>
 <a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a><span class="c1"># 推送本地分支到远程不同名分支</span>
 <a id="__codelineno-27-5" name="__codelineno-27-5" href="#__codelineno-27-5"></a>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>feature/test:feature/test-v2
-<a id="__codelineno-27-6" name="__codelineno-27-6" href="#__codelineno-27-6"></a>
-<a id="__codelineno-27-7" name="__codelineno-27-7" href="#__codelineno-27-7"></a><span class="c1"># 关联本地与远程分支</span>
-<a id="__codelineno-27-8" name="__codelineno-27-8" href="#__codelineno-27-8"></a>git<span class="w"> </span>branch<span class="w"> </span>--set-upstream-to<span class="o">=</span>origin/dev<span class="w"> </span>dev
-<a id="__codelineno-27-9" name="__codelineno-27-9" href="#__codelineno-27-9"></a>
-<a id="__codelineno-27-10" name="__codelineno-27-10" href="#__codelineno-27-10"></a><span class="c1"># 删除远程分支</span>
-<a id="__codelineno-27-11" name="__codelineno-27-11" href="#__codelineno-27-11"></a>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>--delete<span class="w"> </span>feature/old
-<a id="__codelineno-27-12" name="__codelineno-27-12" href="#__codelineno-27-12"></a>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>:feature/old<span class="w">      </span><span class="c1"># 等价</span>
-<a id="__codelineno-27-13" name="__codelineno-27-13" href="#__codelineno-27-13"></a>
-<a id="__codelineno-27-14" name="__codelineno-27-14" href="#__codelineno-27-14"></a><span class="c1"># 拉取远程分支到本地</span>
-<a id="__codelineno-27-15" name="__codelineno-27-15" href="#__codelineno-27-15"></a>git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>dev<span class="w"> </span>origin/dev
-<a id="__codelineno-27-16" name="__codelineno-27-16" href="#__codelineno-27-16"></a>git<span class="w"> </span>checkout<span class="w"> </span>--track<span class="w"> </span>origin/dev
+<a id="__codelineno-27-6" name="__codelineno-27-6" href="#__codelineno-27-6"></a>&gt;<span class="w"> </span>**<span class="sb">`</span>本地分支:远程分支<span class="sb">`</span><span class="w"> </span>语法：**<span class="w"> </span>冒号左边是本地分支名，右边是推送到远程后的分支名。如果不加<span class="w"> </span><span class="sb">`</span>:远程名<span class="sb">`</span>，则远程分支名与本地相同。常用于重命名远程分支或推送本地分支到不同名称的远程分支。
+<a id="__codelineno-27-7" name="__codelineno-27-7" href="#__codelineno-27-7"></a>
+<a id="__codelineno-27-8" name="__codelineno-27-8" href="#__codelineno-27-8"></a><span class="c1"># 关联本地与远程分支</span>
+<a id="__codelineno-27-9" name="__codelineno-27-9" href="#__codelineno-27-9"></a>git<span class="w"> </span>branch<span class="w"> </span>--set-upstream-to<span class="o">=</span>origin/dev<span class="w"> </span>dev
+<a id="__codelineno-27-10" name="__codelineno-27-10" href="#__codelineno-27-10"></a>
+<a id="__codelineno-27-11" name="__codelineno-27-11" href="#__codelineno-27-11"></a><span class="c1"># 删除远程分支</span>
+<a id="__codelineno-27-12" name="__codelineno-27-12" href="#__codelineno-27-12"></a>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>--delete<span class="w"> </span>feature/old
+<a id="__codelineno-27-13" name="__codelineno-27-13" href="#__codelineno-27-13"></a>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>:feature/old<span class="w">      </span><span class="c1"># 等价</span>
+<a id="__codelineno-27-14" name="__codelineno-27-14" href="#__codelineno-27-14"></a>
+<a id="__codelineno-27-15" name="__codelineno-27-15" href="#__codelineno-27-15"></a><span class="c1"># 拉取远程分支到本地</span>
+<a id="__codelineno-27-16" name="__codelineno-27-16" href="#__codelineno-27-16"></a>git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>dev<span class="w"> </span>origin/dev
+<a id="__codelineno-27-17" name="__codelineno-27-17" href="#__codelineno-27-17"></a>git<span class="w"> </span>checkout<span class="w"> </span>--track<span class="w"> </span>origin/dev
 </code></pre></div>
 <h3 id="55-fork">5.5 同步上游仓库（fork 场景）<a class="headerlink" href="#55-fork" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="c1"># 添加上游</span>

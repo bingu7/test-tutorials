@@ -6843,6 +6843,24 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-54-1" name="__codelineno-54-1" href="#__codelineno-54-1"></a>appium<span class="w"> </span>-p<span class="w"> </span><span class="m">4723</span><span class="w"> </span>--base-path<span class="w"> </span>/
 <a id="__codelineno-54-2" name="__codelineno-54-2" href="#__codelineno-54-2"></a>appium<span class="w"> </span>-p<span class="w"> </span><span class="m">4724</span><span class="w"> </span>--base-path<span class="w"> </span>/
 </code></pre></div>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-p</code></td>
+<td>指定 Appium Server 监听端口（默认 4723）</td>
+</tr>
+<tr>
+<td><code>--base-path</code></td>
+<td>API 路径前缀（默认 /wd/hub）</td>
+</tr>
+</tbody>
+</table>
 <p>每个 worker 用不同设备 + 端口：</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-55-1" name="__codelineno-55-1" href="#__codelineno-55-1"></a><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">scope</span><span class="o">=</span><span class="s2">&quot;function&quot;</span><span class="p">)</span>
 <a id="__codelineno-55-2" name="__codelineno-55-2" href="#__codelineno-55-2"></a><span class="k">def</span><span class="w"> </span><span class="nf">driver</span><span class="p">(</span><span class="n">worker_id</span><span class="p">):</span>
@@ -6894,6 +6912,9 @@
 <li>App 是否已安装</li>
 <li>用 <code>adb shell am start -n package/activity</code> 手动验证</li>
 </ul>
+<blockquote>
+<p><strong><code>am start -n</code> 语法：</strong> <code>am</code> 是 Android 的 Activity Manager，<code>-n</code> 指定组件名，格式为 <code>包名/Activity类名</code>。例如 <code>com.example.app/.MainActivity</code>。</p>
+</blockquote>
 <h3 id="135">13.5 元素能找到但点击无响应<a class="headerlink" href="#135" title="Permanent link">&para;</a></h3>
 <ul>
 <li>元素可能不在屏幕中央</li>

@@ -6354,16 +6354,27 @@
 <a id="__codelineno-15-21" name="__codelineno-15-21" href="#__codelineno-15-21"></a><span class="w">        </span><span class="o">}</span>
 <a id="__codelineno-15-22" name="__codelineno-15-22" href="#__codelineno-15-22"></a><span class="w">    </span><span class="o">}</span>
 <a id="__codelineno-15-23" name="__codelineno-15-23" href="#__codelineno-15-23"></a>
-<a id="__codelineno-15-24" name="__codelineno-15-24" href="#__codelineno-15-24"></a><span class="w">    </span><span class="n">post</span><span class="w"> </span><span class="o">{</span>
-<a id="__codelineno-15-25" name="__codelineno-15-25" href="#__codelineno-15-25"></a><span class="w">        </span><span class="n">always</span><span class="w"> </span><span class="o">{</span>
-<a id="__codelineno-15-26" name="__codelineno-15-26" href="#__codelineno-15-26"></a><span class="w">            </span><span class="n">publishHTML</span><span class="o">([</span>
-<a id="__codelineno-15-27" name="__codelineno-15-27" href="#__codelineno-15-27"></a><span class="w">                </span><span class="nl">reportDir:</span><span class="w"> </span><span class="s1">&#39;report&#39;</span><span class="o">,</span>
-<a id="__codelineno-15-28" name="__codelineno-15-28" href="#__codelineno-15-28"></a><span class="w">                </span><span class="nl">reportFiles:</span><span class="w"> </span><span class="s1">&#39;index.html&#39;</span><span class="o">,</span>
-<a id="__codelineno-15-29" name="__codelineno-15-29" href="#__codelineno-15-29"></a><span class="w">                </span><span class="nl">reportName:</span><span class="w"> </span><span class="s1">&#39;JMeter Report&#39;</span>
-<a id="__codelineno-15-30" name="__codelineno-15-30" href="#__codelineno-15-30"></a><span class="w">            </span><span class="o">])</span>
-<a id="__codelineno-15-31" name="__codelineno-15-31" href="#__codelineno-15-31"></a><span class="w">        </span><span class="o">}</span>
-<a id="__codelineno-15-32" name="__codelineno-15-32" href="#__codelineno-15-32"></a><span class="w">    </span><span class="o">}</span>
-<a id="__codelineno-15-33" name="__codelineno-15-33" href="#__codelineno-15-33"></a><span class="o">}</span>
+<a id="__codelineno-15-24" name="__codelineno-15-24" href="#__codelineno-15-24"></a><span class="o">**</span><span class="n">JMeter</span><span class="w"> </span><span class="err">命令参数详解：</span><span class="o">**</span>
+<a id="__codelineno-15-25" name="__codelineno-15-25" href="#__codelineno-15-25"></a>
+<a id="__codelineno-15-26" name="__codelineno-15-26" href="#__codelineno-15-26"></a><span class="o">|</span><span class="w"> </span><span class="err">参数</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="err">含义</span><span class="w"> </span><span class="o">|</span>
+<a id="__codelineno-15-27" name="__codelineno-15-27" href="#__codelineno-15-27"></a><span class="o">|------|------|</span>
+<a id="__codelineno-15-28" name="__codelineno-15-28" href="#__codelineno-15-28"></a><span class="o">|</span><span class="w"> </span><span class="err">`</span><span class="o">-</span><span class="n">n</span><span class="err">`</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="err">非</span><span class="w"> </span><span class="n">GUI</span><span class="w"> </span><span class="err">模式（命令行运行）</span><span class="w"> </span><span class="o">|</span>
+<a id="__codelineno-15-29" name="__codelineno-15-29" href="#__codelineno-15-29"></a><span class="o">|</span><span class="w"> </span><span class="err">`</span><span class="o">-</span><span class="n">t</span><span class="err">`</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="err">指定测试计划文件</span><span class="w"> </span><span class="o">|</span>
+<a id="__codelineno-15-30" name="__codelineno-15-30" href="#__codelineno-15-30"></a><span class="o">|</span><span class="w"> </span><span class="err">`</span><span class="o">-</span><span class="n">l</span><span class="err">`</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="err">结果日志文件</span><span class="w"> </span><span class="o">|</span>
+<a id="__codelineno-15-31" name="__codelineno-15-31" href="#__codelineno-15-31"></a><span class="o">|</span><span class="w"> </span><span class="err">`</span><span class="o">-</span><span class="n">e</span><span class="err">`</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="err">测试结束后生成报告</span><span class="w"> </span><span class="o">|</span>
+<a id="__codelineno-15-32" name="__codelineno-15-32" href="#__codelineno-15-32"></a><span class="o">|</span><span class="w"> </span><span class="err">`</span><span class="o">-</span><span class="n">o</span><span class="err">`</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="err">报告输出目录</span><span class="w"> </span><span class="o">|</span>
+<a id="__codelineno-15-33" name="__codelineno-15-33" href="#__codelineno-15-33"></a><span class="o">|</span><span class="w"> </span><span class="err">`</span><span class="o">-</span><span class="n">Jkey</span><span class="o">=</span><span class="n">value</span><span class="err">`</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="err">传入变量（覆盖测试计划中的默认值）</span><span class="w"> </span><span class="o">|</span>
+<a id="__codelineno-15-34" name="__codelineno-15-34" href="#__codelineno-15-34"></a>
+<a id="__codelineno-15-35" name="__codelineno-15-35" href="#__codelineno-15-35"></a><span class="w">    </span><span class="n">post</span><span class="w"> </span><span class="o">{</span>
+<a id="__codelineno-15-36" name="__codelineno-15-36" href="#__codelineno-15-36"></a><span class="w">        </span><span class="n">always</span><span class="w"> </span><span class="o">{</span>
+<a id="__codelineno-15-37" name="__codelineno-15-37" href="#__codelineno-15-37"></a><span class="w">            </span><span class="n">publishHTML</span><span class="o">([</span>
+<a id="__codelineno-15-38" name="__codelineno-15-38" href="#__codelineno-15-38"></a><span class="w">                </span><span class="nl">reportDir:</span><span class="w"> </span><span class="s1">&#39;report&#39;</span><span class="o">,</span>
+<a id="__codelineno-15-39" name="__codelineno-15-39" href="#__codelineno-15-39"></a><span class="w">                </span><span class="nl">reportFiles:</span><span class="w"> </span><span class="s1">&#39;index.html&#39;</span><span class="o">,</span>
+<a id="__codelineno-15-40" name="__codelineno-15-40" href="#__codelineno-15-40"></a><span class="w">                </span><span class="nl">reportName:</span><span class="w"> </span><span class="s1">&#39;JMeter Report&#39;</span>
+<a id="__codelineno-15-41" name="__codelineno-15-41" href="#__codelineno-15-41"></a><span class="w">            </span><span class="o">])</span>
+<a id="__codelineno-15-42" name="__codelineno-15-42" href="#__codelineno-15-42"></a><span class="w">        </span><span class="o">}</span>
+<a id="__codelineno-15-43" name="__codelineno-15-43" href="#__codelineno-15-43"></a><span class="w">    </span><span class="o">}</span>
+<a id="__codelineno-15-44" name="__codelineno-15-44" href="#__codelineno-15-44"></a><span class="o">}</span>
 </code></pre></div>
 <h3 id="74-web-ui-selenium">7.4 Web UI 自动化（Selenium）<a class="headerlink" href="#74-web-ui-selenium" title="Permanent link">&para;</a></h3>
 <p>需要在 Jenkins 节点装浏览器和驱动，或用 Docker + Selenium Grid。</p>
