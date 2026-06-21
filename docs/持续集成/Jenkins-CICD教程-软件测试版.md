@@ -115,6 +115,17 @@ docker run -d \
   -v jenkins_home:/var/jenkins_home \
   jenkins/jenkins:lts
 ```
+**参数拆解：**
+
+| 参数 | 含义 |
+|------|------|
+| `-d` | 后台运行 |
+| `--name jenkins` | 容器命名为 jenkins |
+| `-p 8080:8080` | 端口映射，本机 8080 → 容器 8080 |
+| `-p 50000:50000` | Agent 通信端口 |
+| `-v jenkins_home:/var/jenkins_home` | 持久化 Jenkins 数据 |
+| `jenkins/jenkins:lts` | 使用 LTS 版本镜像 |
+
 
 **方式二：WAR 包**
 
@@ -143,6 +154,12 @@ sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/
 sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
 sudo yum install fontconfig java-17-openjdk jenkins
 ```
+
+> **wget 参数说明：**
+>
+> | 参数 | 含义 |
+> |------|------|
+> | `-O <路径>` | 将下载的文件保存到指定路径（而非当前目录） |
 
 启动服务：
 

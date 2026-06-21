@@ -144,6 +144,15 @@ sudo usermod -aG docker $USER
 # 退出重登
 ```
 
+> **curl 参数说明：**
+>
+> | 参数 | 含义 |
+> |------|------|
+> | `-f` | 请求失败时返回错误码（而非输出 HTML 错误页） |
+> | `-s` | 静默模式，不显示进度条和错误信息 |
+> | `-S` | 配合 `-s` 使用，出错时仍显示错误信息 |
+> | `-L` | 跟随 HTTP 重定向（301/302）自动跳转 |
+
 ### 2.3 验证安装
 
 ```bash
@@ -464,6 +473,13 @@ docker build -t myapp:v1 .
 # . 表示当前目录为构建上下文
 ```
 
+> **docker build 参数说明：**
+>
+> | 参数 | 含义 |
+> |------|------|
+> | `-t` | 为镜像指定名称和标签（格式：`名称:标签`） |
+> | `.` | 指定构建上下文路径，Docker 会将该目录下的文件发送给守护进程 |
+
 **运行：**
 
 ```bash
@@ -607,6 +623,14 @@ CMD ["pytest", "--alluredir=./allure-results"]
 docker build -t api-test:v1 .
 docker run --rm -v $(pwd)/reports:/app/allure-results api-test:v1
 ```
+
+> **参数说明：**
+>
+> | 参数 | 含义 |
+> |------|------|
+> | `-t api-test:v1` | 为镜像命名为 `api-test`，标签为 `v1` |
+> | `--rm` | 容器退出后自动删除（适合一次性测试任务） |
+> | `-v $(pwd)/reports:/app/allure-results` | 将宿主机的 `reports` 目录挂载到容器内，用于收集测试报告 |
 
 ### 5.5 优化建议
 

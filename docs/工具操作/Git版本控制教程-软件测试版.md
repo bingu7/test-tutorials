@@ -479,6 +479,13 @@ git checkout feature
 git rebase main
 ```
 
+> **`git rebase` 参数说明：**
+>
+> | 参数 | 含义 |
+> |------|------|
+> | `checkout feature` | 切换到功能分支（rebase 操作的对象是当前分支） |
+> | `rebase main` | 将当前分支的提交"重放"到 main 分支末端，形成线性历史 |
+
 **Rebase vs Merge：**
 
 ```
@@ -1224,6 +1231,8 @@ git clone --branch dev --single-branch <url>
 # 防止再次发生，写好 .gitignore
 ```
 
+> **`git filter-repo` 是什么？** 专门用来改写 Git 历史的工具（比如删除某个文件、替换敏感信息）。比 `git filter-branch` 更安全、更快。使用前需安装：`pip install git-filter-repo`。
+
 ### 11.7 不小心提交到错误分支
 
 ```bash
@@ -1238,6 +1247,16 @@ git cherry-pick <hash>
 git checkout main
 git reset --hard HEAD~1     # 或 revert
 ```
+
+> **代码块命令说明：**
+>
+> | 命令 | 含义 |
+> |------|------|
+> | `git log --oneline` | 以简略格式查看提交历史（每行一个 commit） |
+> | `git cherry-pick <hash>` | 把指定 commit 的改动"摘"到当前分支（不带历史） |
+> | `git reset --hard HEAD~1` | 回退一个 commit，工作区也一起还原（`--hard` 会丢弃修改） |
+
+> **`cherry-pick` 是什么？** 把某个提交"摘下来"放到当前分支。就像从树上摘樱桃，只挑那个特定的提交，不管它原来在哪个分支。
 
 ### 11.8 远程分支已删除，本地还显示
 

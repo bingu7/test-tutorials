@@ -81,6 +81,16 @@ SELECT 0
 SELECT 1
 ```
 
+> **redis-cli 连接参数说明：**
+>
+> | 参数 | 含义 |
+> |------|------|
+> | `-h <IP>` | 指定 Redis 服务器地址（默认 127.0.0.1） |
+> | `-p <端口>` | 指定端口（默认 6379） |
+> | `-a <密码>` | 认证密码（生产环境建议用 `REDISCLI_AUTH` 环境变量，避免密码出现在进程列表中） |
+> | `--tls` | 启用 SSL/TLS 加密连接（云 Redis 通常需要） |
+> | `SELECT N` | 切换到第 N 号数据库（Redis 默认有 16 个库，编号 0-15） |
+
 **图形化工具：**
 
 | 工具 | 平台 | 特点 |
@@ -292,13 +302,29 @@ DEL user:12345:info
 ```bash
 # 清理所有测试 token（redis-cli 不支持管道 xargs，需通过 shell）
 redis-cli KEYS "test:*:token" | xargs redis-cli DEL
+```
 
+**命令拆解：**
+
+| 部分 | 含义 |
+|------|------|
+| `redis-cli KEYS "test:*:token"` | 查找所有匹配的 key |
+| `\|` | 管道符，把前一个命令的输出传给下一个 |
+| `xargs redis-cli DEL` | 把前面查到的 key 一个个传给 `DEL` 命令删除 |
+
+> 简单理解：`KEYS` 查出所有 key → 用管道 `\|` 传给 `xargs` → `xargs` 批量调用 `DEL` 删除。
+
+```bash
 # 清理验证码
 DEL verify:code:13800138000
 
 # 清理限流（DEL 不支持通配符，需先 KEYS 再批量 DEL）
 redis-cli KEYS "rate:limit:*" | xargs redis-cli DEL
+```
 
+**清空整个测试数据库**（谨慎！）：
+
+```bash
 # 清空整个测试数据库
 SELECT 1
 FLUSHDB
