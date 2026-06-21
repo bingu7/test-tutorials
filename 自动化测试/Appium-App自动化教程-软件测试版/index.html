@@ -5803,7 +5803,7 @@
 <a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>sdkmanager<span class="w"> </span>--list
 </code></pre></div>
 <h3 id="24-nodejs">2.4 安装 Node.js<a class="headerlink" href="#24-nodejs" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># Mac</span>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># Mac</span>
 <a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>brew<span class="w"> </span>install<span class="w"> </span>node
 <a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
 <a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="c1"># Windows 官网下载</span>
@@ -5815,6 +5815,41 @@
 <a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>node<span class="w"> </span>-v
 <a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>npm<span class="w"> </span>-v
 </code></pre></div>
+<strong>参数拆解：</strong></p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>curl</code></td>
+<td>命令行 HTTP 客户端</td>
+</tr>
+<tr>
+<td><code>-f</code></td>
+<td>失败时返回错误码（不输出 HTML 错误页）</td>
+</tr>
+<tr>
+<td><code>-s</code></td>
+<td>静默模式，不显示进度条</td>
+</tr>
+<tr>
+<td><code>-S</code></td>
+<td>与 <code>-s</code> 配合，出错时显示错误信息</td>
+</tr>
+<tr>
+<td><code>-L</code></td>
+<td>跟随重定向</td>
+</tr>
+<tr>
+<td><code>| sudo -E bash -</code></td>
+<td>将脚本传给 bash 执行（<code>-E</code> 保留环境变量）</td>
+</tr>
+</tbody>
+</table>
 <h3 id="25-appium-server">2.5 安装 Appium Server<a class="headerlink" href="#25-appium-server" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># 全局安装</span>
 <a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>npm<span class="w"> </span>install<span class="w"> </span>-g<span class="w"> </span>appium

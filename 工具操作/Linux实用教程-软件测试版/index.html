@@ -6019,7 +6019,7 @@
 <p>首次连接会提示确认指纹，输入 <code>yes</code> 后输入密码即可登录。</p>
 <h3 id="23">2.3 文件传输<a class="headerlink" href="#23" title="Permanent link">&para;</a></h3>
 <p><strong>SCP 命令（命令行）：</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># 本地 → 远程</span>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># 本地 → 远程</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>scp<span class="w"> </span>/local/file.txt<span class="w"> </span>username@192.168.1.100:/remote/path/
 <a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
 <a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># 远程 → 本地</span>
@@ -6028,6 +6028,33 @@
 <a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="c1"># 传输文件夹（加 -r）</span>
 <a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>scp<span class="w"> </span>-r<span class="w"> </span>/local/dir<span class="w"> </span>username@192.168.1.100:/remote/path/
 </code></pre></div>
+<strong>参数拆解：</strong></p>
+<table>
+<thead>
+<tr>
+<th>部分</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>scp</code></td>
+<td>Secure Copy，基于 SSH 的安全文件传输</td>
+</tr>
+<tr>
+<td><code>username@192.168.1.100</code></td>
+<td>远程服务器的用户名和地址</td>
+</tr>
+<tr>
+<td><code>:/remote/path/</code></td>
+<td>远程服务器的目标路径</td>
+</tr>
+<tr>
+<td><code>-r</code></td>
+<td>递归复制整个目录</td>
+</tr>
+</tbody>
+</table>
 <p><strong>SFTP（交互式）：</strong></p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>sftp<span class="w"> </span>username@192.168.1.100
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
@@ -6682,13 +6709,40 @@
 <a id="__codelineno-39-10" name="__codelineno-39-10" href="#__codelineno-39-10"></a><span class="c1"># 删除以 # 开头的注释</span>
 <a id="__codelineno-39-11" name="__codelineno-39-11" href="#__codelineno-39-11"></a>sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">&#39;/^#/d&#39;</span><span class="w"> </span>config.conf
 </code></pre></div>
+<p><strong>参数拆解：</strong></p>
+<table>
+<thead>
+<tr>
+<th>部分</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>sed -i</code></td>
+<td><code>-i</code> 表示直接修改原文件（不加 <code>-i</code> 只输出到屏幕）</td>
+</tr>
+<tr>
+<td><code>'s/old/new/g'</code></td>
+<td><code>s</code> 表示替换，<code>/</code> 是分隔符，<code>g</code> 表示全局替换（每行所有匹配都改）</td>
+</tr>
+<tr>
+<td><code>'/^$/d'</code></td>
+<td><code>^$</code> 表示空行（从头到尾什么都没有），<code>d</code> 表示删除</td>
+</tr>
+<tr>
+<td><code>'/^#/d'</code></td>
+<td><code>^#</code> 表示以 <code>#</code> 开头的行（通常是注释），<code>d</code> 删除</td>
+</tr>
+</tbody>
+</table>
 <h3 id="73-awk">7.3 awk（按列处理）<a class="headerlink" href="#73-awk" title="Permanent link">&para;</a></h3>
 <p>awk 适合处理结构化文本（如表格、日志的特定列）。</p>
 <p><strong>基础语法：</strong></p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a>awk<span class="w"> </span><span class="s1">&#39;条件 {动作}&#39;</span><span class="w"> </span>文件
 </code></pre></div>
 <p><strong>示例：</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a><span class="c1"># 打印第 1 列</span>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a><span class="c1"># 打印第 1 列</span>
 <a id="__codelineno-41-2" name="__codelineno-41-2" href="#__codelineno-41-2"></a>awk<span class="w"> </span><span class="s1">&#39;{print $1}&#39;</span><span class="w"> </span>file.txt
 <a id="__codelineno-41-3" name="__codelineno-41-3" href="#__codelineno-41-3"></a>
 <a id="__codelineno-41-4" name="__codelineno-41-4" href="#__codelineno-41-4"></a><span class="c1"># 打印第 1 列和第 3 列</span>
@@ -6707,6 +6761,41 @@
 <a id="__codelineno-41-17" name="__codelineno-41-17" href="#__codelineno-41-17"></a><span class="c1"># 计算总和</span>
 <a id="__codelineno-41-18" name="__codelineno-41-18" href="#__codelineno-41-18"></a>awk<span class="w"> </span><span class="s1">&#39;{sum += $1} END {print sum}&#39;</span><span class="w"> </span>nums.txt
 </code></pre></div>
+<strong>参数拆解：</strong></p>
+<table>
+<thead>
+<tr>
+<th>部分</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>awk</code></td>
+<td>文本处理工具，按行处理</td>
+</tr>
+<tr>
+<td><code>{print $1}</code></td>
+<td>打印第 1 列（<code>$0</code> 是整行，<code>$NF</code> 是最后一列）</td>
+</tr>
+<tr>
+<td><code>-F:</code></td>
+<td>指定分隔符为冒号（默认是空格/Tab）</td>
+</tr>
+<tr>
+<td><code>$3 &gt; 100</code></td>
+<td>条件：第 3 列大于 100</td>
+</tr>
+<tr>
+<td><code>NR</code></td>
+<td>当前行号</td>
+</tr>
+<tr>
+<td><code>END</code></td>
+<td>处理完所有行后执行</td>
+</tr>
+</tbody>
+</table>
 <p><strong>测试场景示例：</strong></p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a><span class="c1"># 统计 Nginx 访问日志中每个 IP 的访问次数</span>
 <a id="__codelineno-42-2" name="__codelineno-42-2" href="#__codelineno-42-2"></a>awk<span class="w"> </span><span class="s1">&#39;{print $1}&#39;</span><span class="w"> </span>access.log<span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span><span class="p">|</span><span class="w"> </span>uniq<span class="w"> </span>-c<span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span>-rn<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-10
@@ -7364,11 +7453,91 @@
 <a id="__codelineno-86-39" name="__codelineno-86-39" href="#__codelineno-86-39"></a>curl<span class="w"> </span>-o<span class="w"> </span>/dev/null<span class="w"> </span>-s<span class="w"> </span>-w<span class="w"> </span><span class="s2">&quot;HTTP: %{http_code}\nTotal: %{time_total}s\nDNS: %{time_namelookup}s\nConnect: %{time_connect}s\n&quot;</span><span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-86-40" name="__codelineno-86-40" href="#__codelineno-86-40"></a><span class="w">  </span>http://api.example.com/test
 </code></pre></div>
+<p><strong>curl 参数拆解：</strong></p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-i</code></td>
+<td>显示响应头 + 响应体</td>
+</tr>
+<tr>
+<td><code>-I</code></td>
+<td>只显示响应头（HEAD 请求）</td>
+</tr>
+<tr>
+<td><code>-v</code></td>
+<td>详细模式，显示完整的握手和请求过程（调试用）</td>
+</tr>
+<tr>
+<td><code>-X POST</code></td>
+<td>指定请求方法（GET/POST/PUT/DELETE）</td>
+</tr>
+<tr>
+<td><code>-H "..."</code></td>
+<td>添加请求头（如 <code>Content-Type</code>、<code>Authorization</code>）</td>
+</tr>
+<tr>
+<td><code>-d "..."</code></td>
+<td>发送请求体数据（POST/PUT 时用）</td>
+</tr>
+<tr>
+<td><code>-F "key=@file"</code></td>
+<td>表单文件上传（<code>@</code> 后跟文件路径）</td>
+</tr>
+<tr>
+<td><code>-o file</code></td>
+<td>保存响应到文件（自己命名）</td>
+</tr>
+<tr>
+<td><code>-O</code></td>
+<td>保存响应到文件（用原始文件名）</td>
+</tr>
+<tr>
+<td><code>-L</code></td>
+<td>跟随重定向（301/302 自动跳转）</td>
+</tr>
+<tr>
+<td><code>-k</code></td>
+<td>跳过 SSL 证书校验（自签名证书测试用）</td>
+</tr>
+<tr>
+<td><code>-o /dev/null -s -w</code></td>
+<td>丢弃响应、静默、只输出自定义格式（常用于测响应时间）</td>
+</tr>
+</tbody>
+</table>
 <p><strong>wget 下载工具：</strong></p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-87-1" name="__codelineno-87-1" href="#__codelineno-87-1"></a>wget<span class="w"> </span>http://example.com/file.zip
 <a id="__codelineno-87-2" name="__codelineno-87-2" href="#__codelineno-87-2"></a>wget<span class="w"> </span>-c<span class="w"> </span>http://example.com/file.zip<span class="w">       </span><span class="c1"># 断点续传</span>
 <a id="__codelineno-87-3" name="__codelineno-87-3" href="#__codelineno-87-3"></a>wget<span class="w"> </span>-b<span class="w"> </span>http://example.com/file.zip<span class="w">       </span><span class="c1"># 后台下载</span>
 </code></pre></div>
+<blockquote>
+<p><strong>wget 参数说明：</strong></p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-c</code></td>
+<td>断点续传（大文件下载中断后可从断点继续）</td>
+</tr>
+<tr>
+<td><code>-b</code></td>
+<td>后台下载（日志写入 <code>wget-log</code>）</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
 <h3 id="114">11.4 抓包工具<a class="headerlink" href="#114" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-88-1" name="__codelineno-88-1" href="#__codelineno-88-1"></a><span class="c1"># tcpdump（命令行抓包）</span>
 <a id="__codelineno-88-2" name="__codelineno-88-2" href="#__codelineno-88-2"></a>tcpdump<span class="w"> </span>-i<span class="w"> </span>eth0<span class="w">                            </span><span class="c1"># 抓 eth0 网卡</span>

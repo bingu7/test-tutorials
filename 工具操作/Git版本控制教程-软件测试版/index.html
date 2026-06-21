@@ -5937,6 +5937,27 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>git<span class="w"> </span>checkout<span class="w"> </span>feature
 <a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>git<span class="w"> </span>rebase<span class="w"> </span>main
 </code></pre></div>
+<blockquote>
+<p><strong><code>git rebase</code> 参数说明：</strong></p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>checkout feature</code></td>
+<td>切换到功能分支（rebase 操作的对象是当前分支）</td>
+</tr>
+<tr>
+<td><code>rebase main</code></td>
+<td>将当前分支的提交"重放"到 main 分支末端，形成线性历史</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
 <p><strong>Rebase vs Merge：</strong></p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>Merge（保留分叉，产生 Merge Commit）：
 <a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>  A ── B ───────── M
@@ -6596,6 +6617,9 @@
 <a id="__codelineno-62-3" name="__codelineno-62-3" href="#__codelineno-62-3"></a>
 <a id="__codelineno-62-4" name="__codelineno-62-4" href="#__codelineno-62-4"></a><span class="c1"># 防止再次发生，写好 .gitignore</span>
 </code></pre></div>
+<blockquote>
+<p><strong><code>git filter-repo</code> 是什么？</strong> 专门用来改写 Git 历史的工具（比如删除某个文件、替换敏感信息）。比 <code>git filter-branch</code> 更安全、更快。使用前需安装：<code>pip install git-filter-repo</code>。</p>
+</blockquote>
 <h3 id="117">11.7 不小心提交到错误分支<a class="headerlink" href="#117" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-63-1" name="__codelineno-63-1" href="#__codelineno-63-1"></a><span class="c1"># 假设在 main 提交了应该在 dev 的内容</span>
 <a id="__codelineno-63-2" name="__codelineno-63-2" href="#__codelineno-63-2"></a>git<span class="w"> </span>log<span class="w"> </span>--oneline<span class="w">       </span><span class="c1"># 找到 commit hash</span>
@@ -6608,6 +6632,32 @@
 <a id="__codelineno-63-9" name="__codelineno-63-9" href="#__codelineno-63-9"></a>git<span class="w"> </span>checkout<span class="w"> </span>main
 <a id="__codelineno-63-10" name="__codelineno-63-10" href="#__codelineno-63-10"></a>git<span class="w"> </span>reset<span class="w"> </span>--hard<span class="w"> </span>HEAD~1<span class="w">     </span><span class="c1"># 或 revert</span>
 </code></pre></div>
+<blockquote>
+<p><strong>代码块命令说明：</strong></p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>git log --oneline</code></td>
+<td>以简略格式查看提交历史（每行一个 commit）</td>
+</tr>
+<tr>
+<td><code>git cherry-pick &lt;hash&gt;</code></td>
+<td>把指定 commit 的改动"摘"到当前分支（不带历史）</td>
+</tr>
+<tr>
+<td><code>git reset --hard HEAD~1</code></td>
+<td>回退一个 commit，工作区也一起还原（<code>--hard</code> 会丢弃修改）</td>
+</tr>
+</tbody>
+</table>
+<p><strong><code>cherry-pick</code> 是什么？</strong> 把某个提交"摘下来"放到当前分支。就像从树上摘樱桃，只挑那个特定的提交，不管它原来在哪个分支。</p>
+</blockquote>
 <h3 id="118">11.8 远程分支已删除，本地还显示<a class="headerlink" href="#118" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-64-1" name="__codelineno-64-1" href="#__codelineno-64-1"></a>git<span class="w"> </span>fetch<span class="w"> </span>--prune
 <a id="__codelineno-64-2" name="__codelineno-64-2" href="#__codelineno-64-2"></a><span class="c1"># 或</span>

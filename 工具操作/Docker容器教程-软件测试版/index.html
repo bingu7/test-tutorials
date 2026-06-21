@@ -5747,6 +5747,35 @@
 <a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a>sudo<span class="w"> </span>usermod<span class="w"> </span>-aG<span class="w"> </span>docker<span class="w"> </span><span class="nv">$USER</span>
 <a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="c1"># 退出重登</span>
 </code></pre></div>
+<blockquote>
+<p><strong>curl 参数说明：</strong></p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-f</code></td>
+<td>请求失败时返回错误码（而非输出 HTML 错误页）</td>
+</tr>
+<tr>
+<td><code>-s</code></td>
+<td>静默模式，不显示进度条和错误信息</td>
+</tr>
+<tr>
+<td><code>-S</code></td>
+<td>配合 <code>-s</code> 使用，出错时仍显示错误信息</td>
+</tr>
+<tr>
+<td><code>-L</code></td>
+<td>跟随 HTTP 重定向（301/302）自动跳转</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
 <h3 id="23">2.3 验证安装<a class="headerlink" href="#23" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>docker<span class="w"> </span>--version
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>docker<span class="w"> </span>info
@@ -6034,6 +6063,27 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>myapp:v1<span class="w"> </span>.
 <a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a><span class="c1"># . 表示当前目录为构建上下文</span>
 </code></pre></div>
+<blockquote>
+<p><strong>docker build 参数说明：</strong></p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-t</code></td>
+<td>为镜像指定名称和标签（格式：<code>名称:标签</code>）</td>
+</tr>
+<tr>
+<td><code>.</code></td>
+<td>指定构建上下文路径，Docker 会将该目录下的文件发送给守护进程</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
 <p><strong>运行：</strong></p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>-p<span class="w"> </span><span class="m">5000</span>:5000<span class="w"> </span>myapp:v1
 </code></pre></div>
@@ -6137,6 +6187,31 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>api-test:v1<span class="w"> </span>.
 <a id="__codelineno-39-2" name="__codelineno-39-2" href="#__codelineno-39-2"></a>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-v<span class="w"> </span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/reports:/app/allure-results<span class="w"> </span>api-test:v1
 </code></pre></div>
+<blockquote>
+<p><strong>参数说明：</strong></p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-t api-test:v1</code></td>
+<td>为镜像命名为 <code>api-test</code>，标签为 <code>v1</code></td>
+</tr>
+<tr>
+<td><code>--rm</code></td>
+<td>容器退出后自动删除（适合一次性测试任务）</td>
+</tr>
+<tr>
+<td><code>-v $(pwd)/reports:/app/allure-results</code></td>
+<td>将宿主机的 <code>reports</code> 目录挂载到容器内，用于收集测试报告</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
 <h3 id="55">5.5 优化建议<a class="headerlink" href="#55" title="Permanent link">&para;</a></h3>
 <p><strong>1. 合并 RUN：</strong> 减少镜像层数</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a><span class="c"># ❌ 多层</span>

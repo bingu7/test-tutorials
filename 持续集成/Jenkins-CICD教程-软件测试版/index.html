@@ -5603,13 +5603,48 @@
 </ul>
 <h3 id="22">2.2 安装方式<a class="headerlink" href="#22" title="Permanent link">&para;</a></h3>
 <p><strong>方式一：Docker（推荐，最简单）</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span><span class="se">\</span>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span>--name<span class="w"> </span>jenkins<span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">  </span>-p<span class="w"> </span><span class="m">8080</span>:8080<span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">  </span>-p<span class="w"> </span><span class="m">50000</span>:50000<span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">  </span>-v<span class="w"> </span>jenkins_home:/var/jenkins_home<span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">  </span>jenkins/jenkins:lts
 </code></pre></div>
+<strong>参数拆解：</strong></p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-d</code></td>
+<td>后台运行</td>
+</tr>
+<tr>
+<td><code>--name jenkins</code></td>
+<td>容器命名为 jenkins</td>
+</tr>
+<tr>
+<td><code>-p 8080:8080</code></td>
+<td>端口映射，本机 8080 → 容器 8080</td>
+</tr>
+<tr>
+<td><code>-p 50000:50000</code></td>
+<td>Agent 通信端口</td>
+</tr>
+<tr>
+<td><code>-v jenkins_home:/var/jenkins_home</code></td>
+<td>持久化 Jenkins 数据</td>
+</tr>
+<tr>
+<td><code>jenkins/jenkins:lts</code></td>
+<td>使用 LTS 版本镜像</td>
+</tr>
+</tbody>
+</table>
 <p><strong>方式二：WAR 包</strong></p>
 <ol>
 <li>下载 jenkins.war（<code>https://www.jenkins.io/download/</code>）</li>
@@ -5633,6 +5668,23 @@
 <a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>sudo<span class="w"> </span>rpm<span class="w"> </span>--import<span class="w"> </span>https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
 <a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>fontconfig<span class="w"> </span>java-17-openjdk<span class="w"> </span>jenkins
 </code></pre></div>
+<blockquote>
+<p><strong>wget 参数说明：</strong></p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-O &lt;路径&gt;</code></td>
+<td>将下载的文件保存到指定路径（而非当前目录）</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
 <p>启动服务：</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>jenkins
 <a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>jenkins
