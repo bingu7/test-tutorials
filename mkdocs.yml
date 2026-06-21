@@ -185,5 +185,10 @@ extra:
 
 # 自定义代码块复制按钮提示
 extra_javascript:
-  - javascripts/interactive.js
+  - javascripts/common.js
+  - javascripts/navigation.js
+  - javascripts/quiz.js
+  - javascripts/progress.js
+  - javascripts/related.js
   - javascripts/learning-progress.js
+  - javascripts/interactive.js
