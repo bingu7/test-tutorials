@@ -97,30 +97,9 @@
         }
     };
 
-    // ==================== 基础路径解析 ====================
-    // 从 canonical URL 推导站点子路径，兼容 GitHub Pages 子目录部署
-    function getBasePath() {
-        try {
-            var canonical = document.querySelector('link[rel="canonical"]');
-            if (canonical && canonical.href) {
-                var pathname = new URL(canonical.href).pathname;
-                if (pathname.length > 1 && pathname.endsWith('/')) {
-                    return pathname.replace(/\/+$/, '');
-                }
-            }
-        } catch(e) {}
-        return '';
-    }
-
-    function resolveUrl(url) {
-        if (url && url.charAt(0) === '/') {
-            return getBasePath() + url;
-        }
-        return url;
-    }
-
-    // 暴露给 interactive.js 使用
-    window.__lpResolveUrl = resolveUrl;
+    // 使用 common.js 提供的共享函数
+    var getBasePath = window.__getBasePath || function() { return ''; };
+    var resolveUrl = window.__resolveUrl || function(u) { return u; };
 
     // 初始化学习进度数据
     function getProgressData() {
