@@ -342,6 +342,14 @@ docker ps -q
 docker ps --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
 ```
 
+| 参数 | 含义 |
+|------|------|
+| `--format` | 自定义输出格式 |
+| `{{.Names}}` | 容器名称 |
+| `{{.Status}}` | 运行状态 |
+| `{{.Ports}}` | 端口映射 |
+| `\t` | 制表符（列对齐） |
+
 ### 4.3 启动/停止/重启
 
 ```bash
@@ -1354,6 +1362,14 @@ docker system prune -a       # 删未用镜像/容器/网络
 docker system prune -a --volumes  # 含卷
 ```
 
+> ⚠️ **生产环境慎用！** `-a` 和 `--volumes` 会删除大量资源，可能导致数据丢失。
+
+| 参数 | 含义 |
+|------|------|
+| `prune` | 清理无用资源 |
+| `-a` | 删除所有未使用的镜像（不仅是悬空的） |
+| `--volumes` | 同时删除未使用的卷（数据会丢失！） |
+
 ### 11.4 容器无法访问外网
 
 ```bash
@@ -1454,6 +1470,12 @@ docker run -d \
   --memory-swap="1g" \     # 含 swap
   nginx
 ```
+
+| 参数 | 含义 |
+|------|------|
+| `--cpus` | 限制 CPU 核数（0.5 = 半核） |
+| `--memory` | 内存上限 |
+| `--memory-swap` | 内存+swap 总上限（1g 表示 swap 可用 512m） |
 
 ### 12.3 安全建议
 

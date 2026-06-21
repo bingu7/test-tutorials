@@ -309,6 +309,12 @@ git log --oneline
 
 # 图形化
 git log --graph --oneline --all --decorate
+| 参数 | 含义 |
+| -- | -- |
+| `--graph` | 用 ASCII 图形显示分支合并关系 |
+| `--oneline` | 每个 commit 只显示一行（简略） |
+| `--all` | 显示所有分支（不只是当前分支） |
+| `--decorate` | 显示 commit 关联的分支/tag 名称 |
 
 # 最近 N 条
 git log -5
@@ -603,6 +609,7 @@ git push origin feature/test
 
 # 推送本地分支到远程不同名分支
 git push origin feature/test:feature/test-v2
+> **`本地分支:远程分支` 语法：** 冒号左边是本地分支名，右边是推送到远程后的分支名。如果不加 `:远程名`，则远程分支名与本地相同。常用于重命名远程分支或推送本地分支到不同名称的远程分支。
 
 # 关联本地与远程分支
 git branch --set-upstream-to=origin/dev dev

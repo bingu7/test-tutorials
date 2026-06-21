@@ -362,6 +362,9 @@ find /var/log -name "*.log" -mtime +30 -delete     # 删除 30 天前日志
 find /tmp -name "*.log" -exec ls -l {} \;          # 对结果执行命令
 ```
 
+> **`find -exec` 语法：** `-exec` 对每个找到的文件执行后面的命令。`{}` 是占位符，代表当前找到的文件名。`\;` 表示命令结束（必须有）。简单理解：找到文件 → 用 `{}` 替换文件名 → 执行命令。
+
+
 **locate 命令（按数据库快速查找）：**
 
 ```bash
@@ -746,6 +749,14 @@ awk '{sum += $1} END {print sum}' nums.txt
 awk '{print $1}' access.log | sort | uniq -c | sort -rn | head -10
 ```
 
+| 部分 | 含义 |
+|------|------|
+| `awk '{print $1}'` | 提取第 1 列（IP 地址） |
+| `sort` | 排序（uniq 要求输入已排序） |
+| `uniq -c` | 去重并计数（-c 显示出现次数） |
+| `sort -rn` | 按数值倒序排列（-n 数值排序，-r 倒序） |
+| `head -10` | 只显示前 10 条 |
+
 ```
    2345 192.168.1.50
    1892 192.168.1.51
@@ -970,6 +981,14 @@ pkill -f "java.*MyApp" # 按命令行匹配杀
 # 找到并杀死 Java 进程
 ps -ef | grep java | grep -v grep | awk '{print $2}' | xargs kill -9
 
+| 部分 | 含义 |
+|------|------|
+| `ps -ef` | 列出所有进程 |
+| `grep java` | 过滤含 java 的行 |
+| `grep -v grep` | 排除 grep 自身（避免误杀） |
+| `awk '{print $2}'` | 提取第 2 列（PID） |
+| `xargs kill -9` | 把 PID 传给 kill -9 强制杀死 |
+
 # 一行命令
 pkill -9 -f "MyApp"
 ```
@@ -979,6 +998,14 @@ pkill -9 -f "MyApp"
 ```bash
 # 方式 1：nohup + &（推荐，关闭终端后仍运行）
 nohup ./startup.sh > app.log 2>&1 &
+
+> **nohup + 重定向 + & 三件套：**
+> | 部分 | 含义 |
+> |------|------|
+> | `nohup` | 终端关闭后进程不退出（no hang up） |
+> | `> app.log` | 标准输出写入 app.log |
+> | `2>&1` | 标准错误也重定向到标准输出（合并到同一文件） |
+> | `&` | 放到后台运行 |
 
 # 方式 2：& 直接后台（关终端就停）
 ./script.sh &
@@ -1369,6 +1396,8 @@ ufw status                     # Ubuntu
 firewall-cmd --permanent --add-port=8080/tcp
 firewall-cmd --reload
 ```
+
+> **firewall-cmd 两步操作：** `--permanent` 表示写入规则（永久生效），但不会立即生效。必须再执行 `firewall-cmd --reload` 重新加载才能生效。如果去掉 `--permanent` 则立即生效但重启后丢失。
 
 ### 11.3 接口调试（curl）
 
@@ -1987,6 +2016,8 @@ df -h
 
 # Step 2：找占用最大的目录
 du -h --max-depth=1 / 2>/dev/null | sort -h
+
+> **命令拆解：** `du` 统计磁盘占用，`-h` 人类可读格式（KB/MB/GB），`--max-depth=1` 只统计一层子目录，`2>/dev/null` 把错误信息丢弃（如权限不足），`sort -h` 按大小排序。
 
 # Step 3：找大文件
 find / -type f -size +1G 2>/dev/null

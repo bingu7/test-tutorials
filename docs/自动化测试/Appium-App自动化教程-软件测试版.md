@@ -1277,6 +1277,11 @@ appium -p 4723 --base-path /
 appium -p 4724 --base-path /
 ```
 
+| 参数 | 含义 |
+|------|------|
+| `-p` | 指定 Appium Server 监听端口（默认 4723） |
+| `--base-path` | API 路径前缀（默认 /wd/hub） |
+
 每个 worker 用不同设备 + 端口：
 
 ```python
@@ -1345,6 +1350,8 @@ adb start-server
 - appPackage / appActivity 是否对
 - App 是否已安装
 - 用 `adb shell am start -n package/activity` 手动验证
+
+> **`am start -n` 语法：** `am` 是 Android 的 Activity Manager，`-n` 指定组件名，格式为 `包名/Activity类名`。例如 `com.example.app/.MainActivity`。
 
 ### 13.5 元素能找到但点击无响应
 
