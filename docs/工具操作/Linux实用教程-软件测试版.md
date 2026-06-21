@@ -1184,20 +1184,94 @@ iostat -x 1                   # 需安装：yum install sysstat
 
 ### 10.4 网络监控
 
+**查看网络连接：**
+
+=== "Linux / Mac"
+
+    ```bash
+    netstat -an                                      # 查看所有连接
+    netstat -tlnp                                    # 查看监听端口
+    ss -tlnp                                         # ss 更现代，推荐
+    netstat -an | grep 8080                          # 查看特定端口
+    netstat -ant | grep ESTABLISHED | wc -l          # 统计连接数
+    netstat -ant | awk '{print $6}' | sort | uniq -c | sort -rn   # 连接状态分布
+    ```
+
+=== "Windows"
+
+    ```powershell
+    netstat -an                                      # 查看所有连接
+    netstat -an | findstr 8080                       # 查看特定端口
+    netstat -an | findstr ESTABLISHED | find /c ""   # 统计连接数
+    ```
+
+**参数拆解：**
+
+| 命令 | 参数 | 含义 |
+|------|------|------|
+| `netstat -a` | `-a` (all) | 显示所有连接和监听端口 |
+| `netstat -n` | `-n` (numeric) | 以数字显示地址和端口（不解析域名，速度更快） |
+| `netstat -t` | `-t` (tcp) | 只显示 TCP 连接 |
+| `netstat -p` | `-p` (program) | 显示对应的进程名/ID（需 root 权限） |
+| `netstat -l` | `-l` (listening) | 只显示监听状态的端口 |
+| `ss -tlnp` | 组合 | TCP + 监听 + 数字 + 进程，一条命令看所有监听端口 |
+
+**常用组合速查：**
+
 ```bash
-# 查看网络连接
-netstat -an                    # 所有连接
-netstat -anp | grep 8080       # 查看 8080 端口占用
-netstat -ant | grep ESTABLISHED | wc -l   # 当前连接数
+# 谁占了 8080 端口？（测试最常问的问题）
+netstat -anp | grep 8080
+ss -anp | grep 8080
 
-# 新版命令（多数现代 Linux 发行版可用）
-ss -anp
-ss -tlnp                       # 监听的 TCP 端口
+# 当前有多少活跃连接？
+netstat -ant | grep ESTABLISHED | wc -l
 
-# 实时网络流量
-iftop                          # 需安装
-nload                          # 简洁版
-sar -n DEV 1                   # 网卡流量
+# 连接状态分布（排查连接泄漏）
+netstat -ant | awk '{print $6}' | sort | uniq -c | sort -rn
+# 输出示例：
+#   150 ESTABLISHED
+#    12 TIME_WAIT
+#     3 CLOSE_WAIT        ← 如果这个数持续增长，可能是连接泄漏
+
+# 监听端口列表（快速确认服务是否启动）
+ss -tlnp
+# 输出示例：
+# State   Recv-Q  Send-Q  Local Address:Port  Process
+# LISTEN  0       128     0.0.0.0:8080        users:(("java",pid=1234))
+# LISTEN  0       128     0.0.0.0:3306        users:(("mysqld",pid=5678))
+```
+
+**`netstat` vs `ss`：**
+
+| 对比 | `netstat` | `ss` |
+|------|-----------|------|
+| 速度 | 较慢（遍历 /proc） | 快（直接读 netlink） |
+| 推荐度 | 传统，兼容性好 | 现代 Linux 推荐 |
+| 安装 | 通常预装 | 通常预装（iproute2 包） |
+| 参数 | 几乎一致 | 几乎一致 |
+
+**测试实战场景：**
+
+```bash
+# 场景 1：压测前确认端口是否启动
+ss -tlnp | grep 8080
+
+# 场景 2：压测中监控连接数变化
+watch -n 1 'ss -ant | grep ESTABLISHED | wc -l'
+
+# 场景 3：压测后检查是否有连接泄漏（TIME_WAIT / CLOSE_WAIT 堆积）
+ss -ant | awk '{print $1}' | sort | uniq -c | sort -rn
+
+# 场景 4：查某个进程开了多少连接
+ss -anp | grep pid=1234 | wc -l
+```
+
+**实时网络流量：**
+
+```bash
+iftop                          # 需安装，实时显示各连接流量
+nload                          # 简洁版，按网卡显示
+sar -n DEV 1                   # 网卡流量，每秒刷新
 ```
 
 ### 10.5 系统综合监控
