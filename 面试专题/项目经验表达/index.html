@@ -3898,42 +3898,36 @@
 <h1 id="_1">项目经验表达<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
 <p>很多新手学了不少工具，但面试时说项目只会说“我负责功能测试和接口测试”。这种表达太空泛，面试官很难判断你到底做过什么。</p>
 <h2 id="_2">推荐表达结构<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>项目背景
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>  -&gt; 我的职责
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>  -&gt; 测试范围
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>  -&gt; 使用工具
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>  -&gt; 关键测试点
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>  -&gt; 发现的问题
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>  -&gt; 最终结果
-</code></pre></div>
+<p>项目背景
+  -&gt; 我的职责
+  -&gt; 测试范围
+  -&gt; 使用工具
+  -&gt; 关键测试点
+  -&gt; 发现的问题
+  -&gt; 最终结果</p>
 <h2 id="_3">电商项目表达示例<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
 <p>不推荐：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>我做过电商项目，负责写用例、测接口、提 Bug。
-</code></pre></div>
+<p>我做过电商项目，负责写用例、测接口、提 Bug。</p>
 <p>推荐：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>我做过一个电商下单流程测试，主要负责购物车、订单创建和支付状态流转。
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>测试前我先根据需求拆了测试点，包括商品库存、优惠券、收货地址、订单金额、支付回调和超时取消。
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>执行时用 Postman 验证接口，用数据库校验订单状态和库存变化。
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>其中发现过一个问题：支付回调重复发送时，订单状态被重复更新，可能导致后续发货逻辑异常。提交缺陷后开发增加了幂等校验，我回归验证通过。
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>最后输出了测试用例、缺陷记录和测试报告。
-</code></pre></div>
+<p>我做过一个电商下单流程测试，主要负责购物车、订单创建和支付状态流转。
+测试前我先根据需求拆了测试点，包括商品库存、优惠券、收货地址、订单金额、支付回调和超时取消。
+执行时用 Postman 验证接口，用数据库校验订单状态和库存变化。
+其中发现过一个问题：支付回调重复发送时，订单状态被重复更新，可能导致后续发货逻辑异常。提交缺陷后开发增加了幂等校验，我回归验证通过。
+最后输出了测试用例、缺陷记录和测试报告。</p>
 <h2 id="_4">接口自动化项目表达示例<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>我做过一个接口自动化回归项目，主要覆盖登录、用户信息、订单查询和订单创建接口。
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>框架使用 Python、Requests、Pytest 和 Allure。
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>我把基础请求方法封装成公共方法，把环境地址和账号放到配置文件中，用 YAML 管理测试数据。
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>断言方面不仅校验状态码，还校验业务码、关键字段和数据库状态。
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>后面把自动化命令接入 Jenkins，每次构建后自动运行，并生成 Allure 报告。
-</code></pre></div>
+<p>我做过一个接口自动化回归项目，主要覆盖登录、用户信息、订单查询和订单创建接口。
+框架使用 Python、Requests、Pytest 和 Allure。
+我把基础请求方法封装成公共方法，把环境地址和账号放到配置文件中，用 YAML 管理测试数据。
+断言方面不仅校验状态码，还校验业务码、关键字段和数据库状态。
+后面把自动化命令接入 Jenkins，每次构建后自动运行，并生成 Allure 报告。</p>
 <h2 id="_5">回答项目难点<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
 <p>面试官常问：“项目里遇到过什么难点？”</p>
 <p>不要回答：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>没什么难点。
-</code></pre></div>
+<p>没什么难点。</p>
 <p>可以回答：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>当时接口自动化最大的问题是测试数据不稳定。比如订单创建依赖商品库存和用户地址，数据被其他同学改动后用例会失败。
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>后来我把测试数据分成固定基础数据和用例运行时创建的数据，运行前先准备数据，运行后清理部分数据，同时给断言增加更明确的失败提示。
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>这样用例稳定性明显提升。
-</code></pre></div>
+<p>当时接口自动化最大的问题是测试数据不稳定。比如订单创建依赖商品库存和用户地址，数据被其他同学改动后用例会失败。
+后来我把测试数据分成固定基础数据和用例运行时创建的数据，运行前先准备数据，运行后清理部分数据，同时给断言增加更明确的失败提示。
+这样用例稳定性明显提升。</p>
 <h2 id="star">STAR 表达法<a class="headerlink" href="#star" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -3971,19 +3965,17 @@
 <li class="task-list-item"><input type="checkbox" disabled/> 是否避免夸大，比如没做过性能测试就不要说负责性能优化。</li>
 </ul>
 <h2 id="web">Web 自动化项目表达示例<a class="headerlink" href="#web" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>我做过一个 Web 自动化回归项目，覆盖电商系统的核心流程：登录、商品搜索、加入购物车、下单。
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>技术栈用 Playwright + Pytest + Allure。
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>框架采用 Page Object 模式，每个页面封装成一个类，测试用例只调用业务方法。
-<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>最大的挑战是元素定位不稳定，商品列表的 DOM 结构经常变化。我跟前端协商加了 data-testid 属性，稳定性明显提升。
-<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>最后接入 GitHub Actions，每次提测前自动跑一轮回归，失败用例自动截图和保存 Trace。
-</code></pre></div>
+<p>我做过一个 Web 自动化回归项目，覆盖电商系统的核心流程：登录、商品搜索、加入购物车、下单。
+技术栈用 Playwright + Pytest + Allure。
+框架采用 Page Object 模式，每个页面封装成一个类，测试用例只调用业务方法。
+最大的挑战是元素定位不稳定，商品列表的 DOM 结构经常变化。我跟前端协商加了 data-testid 属性，稳定性明显提升。
+最后接入 GitHub Actions，每次提测前自动跑一轮回归，失败用例自动截图和保存 Trace。</p>
 <h2 id="_7">性能测试项目表达示例<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>我参与过一个电商大促前的性能测试，目标是验证系统在 1000 并发下的稳定性。
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>我负责设计压测场景：首页浏览、商品搜索、下单支付，用 JMeter 编写脚本。
-<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>压测过程中发现商品搜索接口在 500 并发时响应时间从 200ms 飙升到 3 秒。
-<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>排查后发现是数据库缺少索引，全表扫描导致。加索引后响应时间稳定在 300ms 以内。
-<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>最终输出了性能测试报告，包含 TPS、响应时间、错误率和瓶颈分析。
-</code></pre></div>
+<p>我参与过一个电商大促前的性能测试，目标是验证系统在 1000 并发下的稳定性。
+我负责设计压测场景：首页浏览、商品搜索、下单支付，用 JMeter 编写脚本。
+压测过程中发现商品搜索接口在 500 并发时响应时间从 200ms 飙升到 3 秒。
+排查后发现是数据库缺少索引，全表扫描导致。加索引后响应时间稳定在 300ms 以内。
+最终输出了性能测试报告，包含 TPS、响应时间、错误率和瓶颈分析。</p>
 <h2 id="_8">面试官追问怎么回答<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -4021,15 +4013,13 @@
 </table>
 <h2 id="_9">常见追问的"坑"<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
 <p>不要这样回答：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>面试官：你们自动化覆盖率多少？
-<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>你：100%。
-<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>（没有项目能做到 100%，面试官会追问细节然后露馅）
-</code></pre></div>
+<p>面试官：你们自动化覆盖率多少？
+你：100%。
+（没有项目能做到 100%，面试官会追问细节然后露馅）</p>
 <p>推荐这样回答：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>核心接口覆盖率大概 70%，UI 层只覆盖了 5 条核心流程。
-<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>覆盖率不是目标，重点是覆盖了最有业务价值的场景。
-<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>我们定期 review 用例，把维护成本高但价值低的用例下掉。
-</code></pre></div>
+<p>核心接口覆盖率大概 70%，UI 层只覆盖了 5 条核心流程。
+覆盖率不是目标，重点是覆盖了最有业务价值的场景。
+我们定期 review 用例，把维护成本高但价值低的用例下掉。</p>
 <h2 id="_10">项目表达检查清单（补充）<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
 <ul class="task-list">
 <li class="task-list-item"><input type="checkbox" disabled/> 是否准备了 2-3 个不同类型的项目（功能测试、自动化、性能）。</li>
