@@ -3965,44 +3965,66 @@
 <p>接口测试面试重点通常包括 HTTP 基础、接口用例设计、鉴权、断言、数据校验和异常场景。</p>
 <h2 id="get-post">GET 和 POST 有什么区别？<a class="headerlink" href="#get-post" title="Permanent link">&para;</a></h2>
 <p>推荐回答：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>GET 通常用于查询，参数常放在 URL Query 中；POST 通常用于创建或提交数据，参数常放在请求体中。
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>从测试角度看，不能只按方法判断业务含义，还要看接口设计文档。
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>GET 请求也要验证参数校验、权限和分页；POST 请求要重点验证必填字段、重复提交和数据落库。
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>GET：通常用于查询，参数放在 URL Query 中
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>POST：通常用于创建或提交数据，参数放在请求体中
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>从测试角度看：
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>- 不能只按方法判断业务含义，还要看接口设计文档
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>- GET 请求也要验证参数校验、权限和分页
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>- POST 请求要重点验证必填字段、重复提交和数据落库
 </code></pre></div>
-<p>不要绝对化地说“GET 一定没有请求体”“POST 一定安全”。实际项目里要看实现和规范。</p>
+<p>不要绝对化地说"GET 一定没有请求体""POST 一定安全"。实际项目里要看实现和规范。</p>
 <h2 id="_2">接口测试怎么设计用例？<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <p>可以从这些角度回答：</p>
 <ul>
-<li>正常参数。</li>
-<li>必填参数为空。</li>
-<li>参数类型错误。</li>
-<li>参数长度边界。</li>
-<li>枚举值非法。</li>
-<li>未登录、登录过期、权限不足。</li>
-<li>重复提交和幂等。</li>
-<li>数据库落库校验。</li>
-<li>错误信息是否合理。</li>
+<li>正常参数</li>
+<li>必填参数为空</li>
+<li>参数类型错误</li>
+<li>参数长度边界</li>
+<li>枚举值非法</li>
+<li>未登录、登录过期、权限不足</li>
+<li>重复提交和幂等</li>
+<li>数据库落库校验</li>
+<li>错误信息是否合理</li>
 </ul>
 <p>示例回答：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>比如创建订单接口，我会测正常下单、商品不存在、库存不足、地址为空、优惠券不可用、重复提交、未登录访问、支付金额计算和数据库订单状态。
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>比如创建订单接口，我会测：
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>- 正常下单
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>- 商品不存在、库存不足
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>- 地址为空、优惠券不可用
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>- 重复提交
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>- 未登录访问
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>- 支付金额计算
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>- 数据库订单状态
 </code></pre></div>
 <h2 id="http-200">HTTP 状态码 200 是否代表接口成功？<a class="headerlink" href="#http-200" title="Permanent link">&para;</a></h2>
 <p>推荐回答：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>不一定。HTTP 200 只能说明 HTTP 请求正常返回，业务是否成功还要看业务码、响应字段和数据变化。
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>有些系统业务失败也返回 200，比如 code 为 1001 表示参数错误。
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>不一定。HTTP 200 只能说明 HTTP 请求正常返回。
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>业务是否成功还要看：
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>- 业务码（code 字段）
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>- 响应字段
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>- 数据变化
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>有些系统业务失败也返回 200，比如 code 为 1001 表示参数错误。
 </code></pre></div>
 <p>接口断言建议：</p>
 <ul>
-<li>HTTP 状态码。</li>
-<li>业务码。</li>
-<li>响应字段。</li>
-<li>数据库或缓存变化。</li>
-<li>响应时间。</li>
+<li>HTTP 状态码</li>
+<li>业务码</li>
+<li>响应字段</li>
+<li>数据库或缓存变化</li>
+<li>响应时间</li>
 </ul>
 <h2 id="token">token 过期怎么测试？<a class="headerlink" href="#token" title="Permanent link">&para;</a></h2>
 <p>可以这样回答：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>我会准备有效 token、过期 token、伪造 token、空 token，分别请求需要登录的接口。
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>预期有效 token 可以访问，其他情况返回 401 或业务未登录错误，并且不能返回敏感数据。
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>准备 4 种 token 分别请求需要登录的接口：
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>1. 有效 token → 预期可以访问
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>2. 过期 token → 预期返回 401 或业务未登录错误
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>3. 伪造 token → 预期拒绝访问
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>4. 空 token → 预期拒绝访问
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>重点：任何情况都不能返回敏感数据。
 </code></pre></div>
 <h2 id="_3">接口自动化断言怎么写？<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
 <p>示例：</p>
@@ -4012,65 +4034,91 @@
 <a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="k">assert</span> <span class="n">body</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">][</span><span class="s2">&quot;orderStatus&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;PAID&quot;</span>
 </code></pre></div>
 <p>更完整的回答：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>我不会只断言状态码，还会断言业务码、关键字段、数据库状态，必要时校验响应时间和日志。
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>我不会只断言状态码，还会断言：
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>- 业务码
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>- 关键字段
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>- 数据库状态
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>- 必要时校验响应时间和日志
 </code></pre></div>
 <h2 id="_4">接口测试发现前后端问题怎么定位？<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
 <p>回答思路：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>先看请求是否正确，包括 URL、方法、Header、参数和 token。
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>如果请求不正确，可能是前端传参问题。
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>如果请求正确但响应错误，再看接口返回、后端日志、数据库数据。
-<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>如果接口数据正确但页面展示错误，可能是前端渲染或字段映射问题。
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>排查步骤：
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>1. 看请求是否正确（URL、方法、Header、参数、token）
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>   → 请求不正确 → 前端传参问题
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>2. 请求正确但响应错误 → 看后端日志、数据库数据
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>3. 接口数据正确但页面展示错误 → 前端渲染或字段映射问题
 </code></pre></div>
 <h2 id="_5">面试自查<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
 <ul class="task-list">
-<li class="task-list-item"><input type="checkbox" disabled/> 是否能说清楚 HTTP 状态码和业务码区别。</li>
-<li class="task-list-item"><input type="checkbox" disabled/> 是否能设计异常参数。</li>
-<li class="task-list-item"><input type="checkbox" disabled/> 是否知道鉴权和越权测试。</li>
-<li class="task-list-item"><input type="checkbox" disabled/> 是否能结合数据库校验说明接口正确性。</li>
+<li class="task-list-item"><input type="checkbox" disabled/> 是否能说清楚 HTTP 状态码和业务码区别</li>
+<li class="task-list-item"><input type="checkbox" disabled/> 是否能设计异常参数</li>
+<li class="task-list-item"><input type="checkbox" disabled/> 是否知道鉴权和越权测试</li>
+<li class="task-list-item"><input type="checkbox" disabled/> 是否能结合数据库校验说明接口正确性</li>
 </ul>
 <h2 id="restful-api">RESTful API 的设计规范了解吗？<a class="headerlink" href="#restful-api" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>RESTful 是一种接口设计风格，核心原则：
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>- 资源用名词表示（/users、/orders），不用动词（/getUsers）。
-<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>- 用 HTTP 方法表示操作：GET 查询、POST 创建、PUT 全量更新、PATCH 部分更新、DELETE 删除。
-<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>- 状态码语义化：201 创建成功、204 删除成功、404 资源不存在。
-<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>- 版本号放在 URL（/api/v1/users）或 Header 中。
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>1. 资源用名词表示
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>   /users、/orders ✅
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>   /getUsers ❌
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>2. 用 HTTP 方法表示操作
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>   GET 查询、POST 创建、PUT 全量更新、PATCH 部分更新、DELETE 删除
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>3. 状态码语义化
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>   201 创建成功、204 删除成功、404 资源不存在
+<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>
+<a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>4. 版本号放在 URL 或 Header 中
+<a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a>   /api/v1/users
 </code></pre></div>
 <p>测试关注：接口是否遵循规范、URL 是否语义化、状态码是否正确。</p>
 <h2 id="_6">接口依赖怎么处理？<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>比如下单接口依赖登录接口返回的 token，支付接口依赖下单接口返回的订单号。
-<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>处理方式：
-<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>1. 用例之间共享数据：登录后保存 token，后续用例自动携带。
-<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>2. 前置请求：在用例执行前先调用依赖接口获取数据。
-<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>3. 数据库直取：直接从数据库查需要的数据（适合稳定的测试数据）。
-<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>4. Mock：用 Mock 服务模拟依赖接口的返回。
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>处理方式：
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>1. 用例之间共享数据：登录后保存 token，后续用例自动携带
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>2. 前置请求：在用例执行前先调用依赖接口获取数据
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>3. 数据库直取：直接从数据库查需要的数据（适合稳定的测试数据）
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>4. Mock：用 Mock 服务模拟依赖接口的返回
 </code></pre></div>
 <h2 id="_7">怎么测试接口的幂等性？<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>幂等性是指同一个请求调用多次，结果和调用一次一样。
-<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>测试方法：用同一个请求参数连续调用 2-3 次，检查：
-<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>- 数据是否只创建一条（不是重复创建）。
-<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>- 状态是否保持一致。
-<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>- 是否返回合理的提示（如&quot;订单已存在&quot;）。
-<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>重点测：支付回调、订单创建、退款接口。
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>幂等性 = 同一个请求调用多次，结果和调用一次一样
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>测试方法：用同一个请求参数连续调用 2-3 次，检查：
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>- 数据是否只创建一条（不是重复创建）
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>- 状态是否保持一致
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>- 是否返回合理的提示（如&quot;订单已存在&quot;）
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>重点测：支付回调、订单创建、退款接口
 </code></pre></div>
 <h2 id="_8">接口超时怎么测试？<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>1. 正常超时：设置合理的超时时间（如 5 秒），模拟接口响应超过 5 秒，检查客户端是否正确处理超时。
-<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>2. 边界：刚好在超时时间返回，检查是否正常处理。
-<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>3. 重试机制：超时后是否有重试，重试次数是否合理。
-<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>4. 幂等：超时后重试是否会导致重复操作。
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>1. 正常超时：设置合理的超时时间（如 5 秒），模拟接口响应超过 5 秒，检查客户端是否正确处理
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>2. 边界：刚好在超时时间返回，检查是否正常处理
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>3. 重试机制：超时后是否有重试，重试次数是否合理
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>4. 幂等：超时后重试是否会导致重复操作
 </code></pre></div>
 <h2 id="mock">Mock 和挡板有什么区别？<a class="headerlink" href="#mock" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>Mock 是在测试侧模拟接口返回，用于被测系统依赖的第三方服务不可用时。
-<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>挡板是在服务侧模拟下游服务，用于压测时隔离外部依赖。
-<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>测试中常用 Mock：比如支付接口用 Mock 返回成功/失败，不需要真实调用支付平台。
-<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>工具：Postman Mock Server、WireMock、Python 的 responses 库。
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>Mock：在测试侧模拟接口返回
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>  - 场景：被测系统依赖的第三方服务不可用时
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>  - 工具：Postman Mock Server、WireMock、responses 库
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>挡板：在服务侧模拟下游服务
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>  - 场景：压测时隔离外部依赖
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>测试中常用 Mock：比如支付接口用 Mock 返回成功/失败，不需要真实调用支付平台。
 </code></pre></div>
 <h2 id="ui">接口测试和 UI 测试怎么分配？<a class="headerlink" href="#ui" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>遵循测试金字塔：
-<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>- 接口层覆盖大部分业务逻辑验证（70-80%）。
-<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>- UI 层只覆盖核心用户路径（10-20%）。
-<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>- 单元测试由开发负责（覆盖底层逻辑）。
-<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>接口测试成本低、速度快、稳定性高；UI 测试成本高、速度慢、容易因页面变化失败。
-<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>所以复杂数据校验、边界值、异常场景放接口层，只在 UI 层验证用户可见的交互流程。
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>接口层：覆盖大部分业务逻辑验证（70-80%）
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>  → 成本低、速度快、稳定性高
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>UI 层：只覆盖核心用户路径（10-20%）
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>  → 成本高、速度慢、容易因页面变化失败
+<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>
+<a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a>单元测试：由开发负责（覆盖底层逻辑）
+<a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a>
+<a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a>所以：复杂数据校验、边界值、异常场景放接口层，只在 UI 层验证用户可见的交互流程。
 </code></pre></div>
 <h2 id="_9">面试评分参考<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
 <table>

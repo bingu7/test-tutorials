@@ -4565,44 +4565,61 @@
 </code></pre></div>
 <h2 id="sleep">为什么不要大量使用 sleep？<a class="headerlink" href="#sleep" title="Permanent link">&para;</a></h2>
 <p>推荐回答：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>sleep 是固定等待，页面快时浪费时间，页面慢时仍可能失败。
-<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>更推荐显式等待或框架内置自动等待，等待某个元素出现、可点击或接口完成。
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>sleep 是固定等待：
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>- 页面快时 → 浪费时间
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>- 页面慢时 → 仍可能失败
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>更推荐：
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>- 显式等待：等待某个元素出现、可点击或接口完成
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>- 框架内置自动等待：如 Playwright 的 click() 自动等待元素可操作
 </code></pre></div>
 <h2 id="_4">元素定位不稳定怎么办？<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
 <p>处理思路：</p>
 <ul>
-<li>优先使用稳定属性：<code>id</code>、<code>name</code>、<code>data-testid</code>、可访问名称。</li>
-<li>避免依赖容易变化的层级 XPath。</li>
-<li>和开发约定测试专用属性。</li>
-<li>对动态列表先定位容器，再定位目标元素。</li>
-<li>失败时保存截图和页面 HTML。</li>
+<li>优先使用稳定属性：<code>id</code>、<code>name</code>、<code>data-testid</code>、可访问名称</li>
+<li>避免依赖容易变化的层级 XPath</li>
+<li>和开发约定测试专用属性</li>
+<li>对动态列表先定位容器，再定位目标元素</li>
+<li>失败时保存截图和页面 HTML</li>
 </ul>
 <h2 id="_5">自动化用例失败怎么排查？<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
 <p>可以按顺序回答：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>先看失败日志和截图，确认失败步骤。
-<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>再判断是环境问题、数据问题、定位问题、等待问题还是业务缺陷。
-<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>如果本地能复现，就进一步查看接口、数据库和页面状态。
-<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>如果只是偶现，要看是否有并发数据污染或等待不稳定。
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>排查步骤：
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>1. 看失败日志和截图，确认失败步骤
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>2. 判断问题类型：
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>   - 环境问题、数据问题
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>   - 定位问题、等待问题
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>   - 业务缺陷
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>3. 本地能复现 → 查看接口、数据库和页面状态
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>4. 只是偶现 → 检查并发数据污染或等待不稳定
 </code></pre></div>
 <h2 id="_6">自动化覆盖率是不是越高越好？<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
 <p>推荐回答：</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>不是。自动化要关注收益和维护成本。
-<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>核心、稳定、重复执行的场景优先自动化；变化频繁或人工判断成本低的场景不一定值得自动化。
-<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>覆盖率高但经常失败，会降低团队信任。
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>优先自动化的场景：
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>- 核心、稳定、重复执行
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>不一定值得自动化的场景：
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>- 变化频繁
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>- 人工判断成本低
+<a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>
+<a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a>覆盖率高但经常失败 → 会降低团队信任
 </code></pre></div>
 <h2 id="_7">面试自查<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
 <ul class="task-list">
-<li class="task-list-item"><input type="checkbox" disabled/> 是否能解释自动化的价值和边界。</li>
-<li class="task-list-item"><input type="checkbox" disabled/> 是否知道稳定性问题怎么处理。</li>
-<li class="task-list-item"><input type="checkbox" disabled/> 是否能说出框架分层。</li>
-<li class="task-list-item"><input type="checkbox" disabled/> 是否知道失败排查流程。</li>
+<li class="task-list-item"><input type="checkbox" disabled/> 是否能解释自动化的价值和边界</li>
+<li class="task-list-item"><input type="checkbox" disabled/> 是否知道稳定性问题怎么处理</li>
+<li class="task-list-item"><input type="checkbox" disabled/> 是否能说出框架分层</li>
+<li class="task-list-item"><input type="checkbox" disabled/> 是否知道失败排查流程</li>
 </ul>
 <h2 id="page-object_1">Page Object 模式是什么？有什么好处？<a class="headerlink" href="#page-object_1" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>Page Object 把每个页面的元素定位和操作封装成一个类，测试用例只调用类的方法。
-<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>好处：
-<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>1. 元素定位集中管理，页面变化时只改一个地方。
-<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>2. 测试用例更易读，调用的是业务方法而不是底层定位。
-<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>3. 代码复用，同一个页面的操作可以在多个用例中复用。
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>Page Object = 把每个页面的元素定位和操作封装成一个类，测试用例只调用类的方法
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>好处：
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>1. 元素定位集中管理，页面变化时只改一个地方
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>2. 测试用例更易读，调用的是业务方法而不是底层定位
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>3. 代码复用，同一个页面的操作可以在多个用例中复用
 </code></pre></div>
 <p>示例：</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">LoginPage</span><span class="p">:</span>
@@ -4617,36 +4634,40 @@
 <a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">submit</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
 </code></pre></div>
 <h2 id="_8">数据驱动测试怎么做？<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>数据驱动是把测试数据和测试逻辑分离，同一套用例用不同数据执行。
-<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>实现方式：
-<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>1. Pytest 的 @pytest.mark.parametrize 装饰器。
-<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>2. YAML/JSON/CSV 文件管理测试数据。
-<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>3. 数据库读取测试数据。
-<a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>好处：加新场景只需加数据，不改代码；数据和逻辑分离，易维护。
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>数据驱动 = 把测试数据和测试逻辑分离，同一套用例用不同数据执行
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>实现方式：
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>1. Pytest 的 @pytest.mark.parametrize 装饰器
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>2. YAML/JSON/CSV 文件管理测试数据
+<a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>3. 数据库读取测试数据
+<a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>
+<a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a>好处：
+<a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a>- 加新场景只需加数据，不改代码
+<a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a>- 数据和逻辑分离，易维护
 </code></pre></div>
 <h2 id="_9">怎么提高自动化用例的稳定性？<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>1. 用显式等待或自动等待替代 sleep。
-<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>2. 用稳定的选择器（id、data-testid）替代易变的 XPath。
-<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>3. 测试数据独立：每条用例用独立数据，避免互相影响。
-<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>4. 前置准备和后置清理：运行前创建数据，运行后清理。
-<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>5. 失败重试：对偶现失败用 pytest-rerunfailures 重试。
-<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>6. 环境隔离：用 Docker 搭建独立测试环境。
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>1. 用显式等待或自动等待替代 sleep
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>2. 用稳定的选择器（id、data-testid）替代易变的 XPath
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>3. 测试数据独立：每条用例用独立数据，避免互相影响
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>4. 前置准备和后置清理：运行前创建数据，运行后清理
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>5. 失败重试：对偶现失败用 pytest-rerunfailures 重试
+<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>6. 环境隔离：用 Docker 搭建独立测试环境
 </code></pre></div>
 <h2 id="cicd">自动化测试怎么接入 CI/CD？<a class="headerlink" href="#cicd" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>1. 代码提交后触发 Jenkins/GitHub Actions/GitLab CI。
-<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>2. 流水线安装依赖、运行测试、生成报告。
-<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>3. 用 Allure 生成可视化报告，归档到服务器。
-<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>4. 测试失败时通知团队（邮件、钉钉、Slack）。
-<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>5. 设置质量门禁：覆盖率低于阈值或有失败用例时阻断部署。
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>1. 代码提交后触发 Jenkins/GitHub Actions/GitLab CI
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>2. 流水线安装依赖、运行测试、生成报告
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>3. 用 Allure 生成可视化报告，归档到服务器
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>4. 测试失败时通知团队（邮件、钉钉、Slack）
+<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>5. 设置质量门禁：覆盖率低于阈值或有失败用例时阻断部署
 </code></pre></div>
 <h2 id="ui">接口自动化和 UI 自动化怎么选？<a class="headerlink" href="#ui" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>优先做接口自动化，原因：
-<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>- 速度快：接口请求毫秒级，UI 操作秒级。
-<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>- 稳定性高：不受页面布局变化影响。
-<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>- 覆盖广：可以测到 UI 无法覆盖的边界和异常。
-<a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>- 维护成本低：接口变化频率低于 UI。
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>- 速度快：接口请求毫秒级，UI 操作秒级
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>- 稳定性高：不受页面布局变化影响
+<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>- 覆盖广：可以测到 UI 无法覆盖的边界和异常
+<a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>- 维护成本低：接口变化频率低于 UI
 <a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a>
-<a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a>UI 自动化只覆盖核心用户路径：登录→浏览→下单→支付。
+<a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a>UI 自动化只覆盖核心用户路径：登录 → 浏览 → 下单 → 支付
 </code></pre></div>
 <h2 id="_10">你自动化项目的成功率/覆盖率是多少？<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>不要编一个精确数字。可以这样回答：
