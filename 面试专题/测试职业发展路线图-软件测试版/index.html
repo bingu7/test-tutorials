@@ -4441,15 +4441,17 @@
 <p><strong>关键判断</strong>：AI 会淘汰"只执行不思考"的测试，但会让"懂策略会工具"的测试更值钱。</p>
 </blockquote>
 <h3 id="13">1.3 角色演变<a class="headerlink" href="#13" title="Permanent link">&para;</a></h3>
-<p>传统路径：功能测试工程师 → 测试工程师 → 测试主管
-现代路径：
-  - 测试工程师 → 自动化工程师 → 测试开发工程师（SDET）
-  - 测试工程师 → 质量工程师（QE） → 质量架构师
-  - 测试工程师 → 测试经理 → QA 总监</p>
-<p>三者区别：
-  测试工程师 — 执行测试，发现缺陷，验证功能
-  质量工程师 — 关注全流程质量，推动质量内建，参与架构评审
-  SDET       — 侧重测试基础设施建设，开发测试工具和平台</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>传统路径：功能测试工程师 → 测试工程师 → 测试主管
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>现代路径：
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>  - 测试工程师 → 自动化工程师 → 测试开发工程师（SDET）
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>  - 测试工程师 → 质量工程师（QE） → 质量架构师
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>  - 测试工程师 → 测试经理 → QA 总监
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>三者区别：
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>  测试工程师 — 执行测试，发现缺陷，验证功能
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>  质量工程师 — 关注全流程质量，推动质量内建，参与架构评审
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>  SDET       — 侧重测试基础设施建设，开发测试工具和平台
+</code></pre></div>
 <hr />
 <h2 id="_3">二、职业阶段划分<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
 <table>
@@ -4509,14 +4511,15 @@
 <h3 id="31-sdet">3.1 测试开发工程师（SDET）<a class="headerlink" href="#31-sdet" title="Permanent link">&para;</a></h3>
 <p><strong>定位</strong>：开发测试工具和基础设施，提升整个团队的测试效率。</p>
 <p><strong>核心技能栈</strong>：</p>
-<p>编程语言：Python（必备）、Java/Go（至少精通一门）
-测试框架：pytest、JUnit5、TestNG、Robot Framework
-Web 自动化：Selenium、Playwright、Cypress
-接口测试：requests、Postman、RestAssured
-CI/CD：Jenkins、GitHub Actions、GitLab CI
-容器化：Docker 基础、Kubernetes 概念
-数据库：MySQL/PostgreSQL（SQL 熟练）、Redis 基础
-工具开发：命令行工具、Web 测试平台、数据工厂</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>编程语言：Python（必备）、Java/Go（至少精通一门）
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>测试框架：pytest、JUnit5、TestNG、Robot Framework
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>Web 自动化：Selenium、Playwright、Cypress
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>接口测试：requests、Postman、RestAssured
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>CI/CD：Jenkins、GitHub Actions、GitLab CI
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>容器化：Docker 基础、Kubernetes 概念
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>数据库：MySQL/PostgreSQL（SQL 熟练）、Redis 基础
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>工具开发：命令行工具、Web 测试平台、数据工厂
+</code></pre></div>
 <p><strong>日常做什么</strong>：</p>
 <ul>
 <li>维护和优化自动化测试框架</li>
@@ -4527,11 +4530,12 @@ CI/CD：Jenkins、GitHub Actions、GitLab CI
 <h3 id="32">3.2 性能测试工程师<a class="headerlink" href="#32" title="Permanent link">&para;</a></h3>
 <p><strong>定位</strong>：保障系统在高并发、大数据量下的稳定性和响应速度。</p>
 <p><strong>核心技能栈</strong>：</p>
-<p>工具：JMeter（主力）、Locust、Gatling、wrk
-监控：Prometheus + Grafana、Arthas、SkyWalking
-分析：JVM 调优（GC 日志分析）、数据库慢查询、网络抓包
-场景：压测方案设计、容量评估、性能瓶颈定位
-云原生：分布式压测、K8s 环境下的性能测试</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>工具：JMeter（主力）、Locust、Gatling、wrk
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>监控：Prometheus + Grafana、Arthas、SkyWalking
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>分析：JVM 调优（GC 日志分析）、数据库慢查询、网络抓包
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>场景：压测方案设计、容量评估、性能瓶颈定位
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>云原生：分布式压测、K8s 环境下的性能测试
+</code></pre></div>
 <p><strong>关键能力</strong>：</p>
 <ul>
 <li>不只是会用 JMeter 录脚本，而是能根据业务场景设计压测方案</li>
@@ -4541,33 +4545,36 @@ CI/CD：Jenkins、GitHub Actions、GitLab CI
 <h3 id="33">3.3 安全测试工程师<a class="headerlink" href="#33" title="Permanent link">&para;</a></h3>
 <p><strong>定位</strong>：发现系统安全漏洞，保障数据和业务安全。</p>
 <p><strong>核心技能栈</strong>：</p>
-<p>基础：OWASP Top 10、常见漏洞原理（SQL 注入、XSS、CSRF 等）
-工具：Burp Suite、Nmap、SQLMap、OWASP ZAP
-进阶：渗透测试、代码审计、安全扫描自动化
-认证：CEH、OSCP、CISSP
-行业知识：等保合规、GDPR、数据安全法</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>基础：OWASP Top 10、常见漏洞原理（SQL 注入、XSS、CSRF 等）
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>工具：Burp Suite、Nmap、SQLMap、OWASP ZAP
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>进阶：渗透测试、代码审计、安全扫描自动化
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>认证：CEH、OSCP、CISSP
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>行业知识：等保合规、GDPR、数据安全法
+</code></pre></div>
 <h3 id="34">3.4 自动化架构师<a class="headerlink" href="#34" title="Permanent link">&para;</a></h3>
 <p><strong>定位</strong>：设计和落地整个组织的自动化测试体系。</p>
 <p><strong>核心能力</strong>：</p>
-<p>技术深度：精通多种测试框架，能做二次开发
-架构设计：分层测试策略（金字塔模型）、测试数据管理方案
-技术广度：了解前端、后端、移动端、微服务各自的测试特点
-推动能力：能说服管理层投入资源，能指导团队落地
-工具链：从用例管理到执行到报告的全链路工具选型</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>技术深度：精通多种测试框架，能做二次开发
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>架构设计：分层测试策略（金字塔模型）、测试数据管理方案
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>技术广度：了解前端、后端、移动端、微服务各自的测试特点
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>推动能力：能说服管理层投入资源，能指导团队落地
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>工具链：从用例管理到执行到报告的全链路工具选型
+</code></pre></div>
 <hr />
 <h2 id="_6">四、管理路线详解<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
 <h3 id="41">4.1 晋升路径<a class="headerlink" href="#41" title="Permanent link">&para;</a></h3>
-<p>测试组长（Team Lead）
-  │  带 3-5 人小团队，负责任务分配和进度跟踪
-  ▼
-测试经理（Test Manager）
-  │  管理多个项目或产品线的测试工作，负责资源调配
-  ▼
-QA 总监（QA Director）
-  │  制定质量战略，跨部门协调，对产品质量结果负责
-  ▼
-VP of Engineering / CTO（技术高管）
-     全面技术管理，质量只是其中一环</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>测试组长（Team Lead）
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>  │  带 3-5 人小团队，负责任务分配和进度跟踪
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>  ▼
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>测试经理（Test Manager）
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>  │  管理多个项目或产品线的测试工作，负责资源调配
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>  ▼
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>QA 总监（QA Director）
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>  │  制定质量战略，跨部门协调，对产品质量结果负责
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>  ▼
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>VP of Engineering / CTO（技术高管）
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>     全面技术管理，质量只是其中一环
+</code></pre></div>
 <h3 id="42">4.2 管理路线需要的软技能<a class="headerlink" href="#42" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>沟通能力</strong>：向上汇报、跨部门协调、冲突处理</li>
@@ -4656,36 +4663,40 @@ VP of Engineering / CTO（技术高管）
 <h2 id="_8">六、技能提升路径<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
 <h3 id="61">6.1 每个阶段的学习重点<a class="headerlink" href="#61" title="Permanent link">&para;</a></h3>
 <p><strong>入门期（0-2 年）</strong>：</p>
-<p>□ 测试基础理论（黑盒、白盒、用例设计方法）
-□ SQL 查询（单表、联表、子查询）
-□ Linux 基本操作（文件操作、日志查看、进程管理）
-□ 接口测试基础（HTTP 协议、Postman 使用）
-□ 一门编程语言入门（Python 优先）
-□ 缺陷管理工具（Jira、禅道）
-□ Git 基本操作</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>□ 测试基础理论（黑盒、白盒、用例设计方法）
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>□ SQL 查询（单表、联表、子查询）
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>□ Linux 基本操作（文件操作、日志查看、进程管理）
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>□ 接口测试基础（HTTP 协议、Postman 使用）
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>□ 一门编程语言入门（Python 优先）
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>□ 缺陷管理工具（Jira、禅道）
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>□ Git 基本操作
+</code></pre></div>
 <p><strong>进阶期（2-5 年）</strong>：</p>
-<p>□ 自动化测试框架（Selenium/Playwright + pytest）
-□ 接口自动化（requests 库、数据驱动）
-□ CI/CD 集成（Jenkins/GitHub Actions）
-□ Docker 基础
-□ 性能测试入门（JMeter）
-□ 测试框架封装和二次开发
-□ 代码能力提升（设计模式、数据结构基础）</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>□ 自动化测试框架（Selenium/Playwright + pytest）
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>□ 接口自动化（requests 库、数据驱动）
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>□ CI/CD 集成（Jenkins/GitHub Actions）
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>□ Docker 基础
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>□ 性能测试入门（JMeter）
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>□ 测试框架封装和二次开发
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>□ 代码能力提升（设计模式、数据结构基础）
+</code></pre></div>
 <p><strong>高级期（5-8 年）</strong>：</p>
-<p>□ 测试平台开发（前后端、数据库设计）
-□ 性能测试深入（全链路压测、性能调优）
-□ 安全测试基础
-□ 微服务测试策略
-□ 质量度量体系设计
-□ 技术方案设计和评审能力
-□ 带领小团队的经验</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>□ 测试平台开发（前后端、数据库设计）
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>□ 性能测试深入（全链路压测、性能调优）
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>□ 安全测试基础
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>□ 微服务测试策略
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>□ 质量度量体系设计
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>□ 技术方案设计和评审能力
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>□ 带领小团队的经验
+</code></pre></div>
 <p><strong>专家期（8 年+）</strong>：</p>
-<p>□ 质量体系建设和组织级改进
-□ 技术选型和架构决策
-□ 行业趋势判断（AI 测试、混沌工程等）
-□ 跨团队影响力
-□ 技术布道（内部培训、外部分享）
-□ 战略规划和预算管理</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>□ 质量体系建设和组织级改进
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>□ 技术选型和架构决策
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>□ 行业趋势判断（AI 测试、混沌工程等）
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>□ 跨团队影响力
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>□ 技术布道（内部培训、外部分享）
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>□ 战略规划和预算管理
+</code></pre></div>
 <h3 id="62">6.2 推荐学习资源<a class="headerlink" href="#62" title="Permanent link">&para;</a></h3>
 <p><strong>书籍</strong>：</p>
 <table>
@@ -4790,10 +4801,11 @@ VP of Engineering / CTO（技术高管）
 </table>
 <h3 id="72">7.2 如何包装项目经验<a class="headerlink" href="#72" title="Permanent link">&para;</a></h3>
 <p>使用 <strong>STAR 法则</strong>：</p>
-<p>Situation（背景）：项目是什么、业务场景、团队规模
-Task（任务）：你负责什么、要解决什么问题
-Action（行动）：你具体做了什么、用了什么技术、怎么做的
-Result（结果）：带来了什么效果（量化：效率提升XX%、缺陷减少XX%）</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>Situation（背景）：项目是什么、业务场景、团队规模
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>Task（任务）：你负责什么、要解决什么问题
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>Action（行动）：你具体做了什么、用了什么技术、怎么做的
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>Result（结果）：带来了什么效果（量化：效率提升XX%、缺陷减少XX%）
+</code></pre></div>
 <p><strong>反面示例</strong>：</p>
 <blockquote>
 <p>"我在项目中负责自动化测试。"</p>
@@ -4831,46 +4843,42 @@ Result（结果）：带来了什么效果（量化：效率提升XX%、缺陷�
 <h3 id="81">8.1 金融测试<a class="headerlink" href="#81" title="Permanent link">&para;</a></h3>
 <p><strong>行业特点</strong>：合规要求高、数据准确性要求极高、高并发交易场景。</p>
 <p><strong>核心技能</strong>：</p>
-<ul>
-<li>金融业务知识（支付、清算、风控、合规）</li>
-<li>数据一致性测试（分布式事务、对账）</li>
-<li>高并发测试（交易峰值、资金安全）</li>
-<li>监管合规（等保三级、PCI-DSS、银保监会要求）</li>
-<li>安全测试（资金安全、数据加密）</li>
-</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>- 金融业务知识（支付、清算、风控、合规）
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>- 数据一致性测试（分布式事务、对账）
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>- 高并发测试（交易峰值、资金安全）
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>- 监管合规（等保三级、PCI-DSS、银保监会要求）
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>- 安全测试（资金安全、数据加密）
+</code></pre></div>
 <p><strong>薪资溢价</strong>：相比通用测试高 20%-40%，量化交易方向更高。</p>
 <h3 id="82">8.2 车载测试<a class="headerlink" href="#82" title="Permanent link">&para;</a></h3>
 <p><strong>行业特点</strong>：嵌入式系统、功能安全、行业标准严格。</p>
 <p><strong>核心技能</strong>：</p>
-<ul>
-<li>AUTOSAR 架构理解</li>
-<li>ISO 26262 功能安全标准</li>
-<li>CAN/LIN/Ethernet 总线协议</li>
-<li>车载诊断（UDS、DTC）</li>
-<li>HIL（硬件在环）测试</li>
-<li>自动驾驶测试（感知、决策、控制模块）</li>
-</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>- AUTOSAR 架构理解
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>- ISO 26262 功能安全标准
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>- CAN/LIN/Ethernet 总线协议
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>- 车载诊断（UDS、DTC）
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>- HIL（硬件在环）测试
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>- 自动驾驶测试（感知、决策、控制模块）
+</code></pre></div>
 <p><strong>入门建议</strong>：有嵌入式基础更佳，可从车载 HMI 测试入手。</p>
 <h3 id="83">8.3 医疗测试<a class="headerlink" href="#83" title="Permanent link">&para;</a></h3>
 <p><strong>行业特点</strong>：法规严格（FDA、CE）、数据隐私要求高、容错率极低。</p>
 <p><strong>核心技能</strong>：</p>
-<ul>
-<li>医疗器械法规（FDA 21 CFR Part 11、IEC 62304）</li>
-<li>HL7/FHIR 医疗数据标准</li>
-<li>可用性测试（人机交互、安全操作）</li>
-<li>验证与确认（V&amp;V）流程</li>
-<li>电子病历系统测试</li>
-</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>- 医疗器械法规（FDA 21 CFR Part 11、IEC 62304）
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>- HL7/FHIR 医疗数据标准
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>- 可用性测试（人机交互、安全操作）
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>- 验证与确认（V&amp;V）流程
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>- 电子病历系统测试
+</code></pre></div>
 <h3 id="84">8.4 游戏测试<a class="headerlink" href="#84" title="Permanent link">&para;</a></h3>
 <p><strong>行业特点</strong>：玩家体验优先、性能要求高、测试维度多样。</p>
 <p><strong>核心技能</strong>：</p>
-<ul>
-<li>游戏引擎基础（Unity/Unreal）</li>
-<li>性能测试（帧率、内存、加载时间）</li>
-<li>兼容性测试（多设备、多平台）</li>
-<li>自动化游戏测试（图像识别、脚本自动化）</li>
-<li>游戏玩法测试（平衡性、可玩性）</li>
-</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>- 游戏引擎基础（Unity/Unreal）
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>- 性能测试（帧率、内存、加载时间）
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>- 兼容性测试（多设备、多平台）
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>- 自动化游戏测试（图像识别、脚本自动化）
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>- 游戏玩法测试（平衡性、可玩性）
+</code></pre></div>
 <p><strong>注意</strong>：游戏测试入门门槛相对较低，但天花板取决于技术深度。</p>
 <hr />
 <h2 id="_11">九、行动清单<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
@@ -4880,9 +4888,10 @@ Result（结果）：带来了什么效果（量化：效率提升XX%、缺陷�
 <li><strong>维护 GitHub</strong>：放你的自动化框架、工具脚本、学习笔记。</li>
 <li><strong>加入社区</strong>：TesterHome、掘金测试专栏，参与讨论和分享。</li>
 </ol>
-<p>记住：测试的核心竞争力不是会用多少工具，
-而是能用合适的方法在合适的时间发现合适的问题。
-工具会变，方法论和质量思维不会过时。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>记住：测试的核心竞争力不是会用多少工具，
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>而是能用合适的方法在合适的时间发现合适的问题。
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>工具会变，方法论和质量思维不会过时。
+</code></pre></div>
 <hr />
 <blockquote>
 <p>最后更新：2025 年 6 月

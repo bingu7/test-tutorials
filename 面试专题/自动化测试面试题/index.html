@@ -4273,8 +4273,9 @@
 <p>自动化测试面试不会只问“会不会 Selenium”。更常见的是问你为什么做自动化、怎么选场景、怎么保证稳定、失败怎么排查。</p>
 <h2 id="_2">什么样的用例适合自动化？<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <p>推荐回答：</p>
-<p>适合自动化的是稳定、重复执行、业务价值高、人工执行成本高的场景，比如登录、下单、查询、核心接口回归。
-不适合自动化的是需求频繁变化、一次性验证、强依赖人工判断或验证码很复杂的场景。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>适合自动化的是稳定、重复执行、业务价值高、人工执行成本高的场景，比如登录、下单、查询、核心接口回归。
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>不适合自动化的是需求频繁变化、一次性验证、强依赖人工判断或验证码很复杂的场景。
+</code></pre></div>
 <h2 id="_3">自动化测试框架一般包含哪些模块？<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
 <p>可以回答：</p>
 <ul>
@@ -4288,9 +4289,10 @@
 <li>CI 集成：在流水线中自动运行。</li>
 </ul>
 <h2 id="selenium-playwright">Selenium 和 Playwright 怎么选？<a class="headerlink" href="#selenium-playwright" title="Permanent link">&para;</a></h2>
-<p>如果公司已有 Selenium 框架，我会优先维护现有框架，因为迁移成本高。
-如果是新项目，我更倾向 Playwright，因为它自动等待能力强，调试工具和 trace 对定位问题比较友好。
-但最终要看团队技术栈、浏览器要求和维护成本。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>如果公司已有 Selenium 框架，我会优先维护现有框架，因为迁移成本高。
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>如果是新项目，我更倾向 Playwright，因为它自动等待能力强，调试工具和 trace 对定位问题比较友好。
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>但最终要看团队技术栈、浏览器要求和维护成本。
+</code></pre></div>
 <h2 id="playwright">Playwright 的自动等待机制是怎么工作的？<a class="headerlink" href="#playwright" title="Permanent link">&para;</a></h2>
 <p>回答思路：先说原理，再对比 Selenium。</p>
 <p>Playwright 在执行操作前会自动等待元素满足 5 个条件：</p>
@@ -4353,20 +4355,20 @@
 <p>不推荐用 XPath，因为可读性差、维护成本高。</p>
 <h2 id="playwright-route">Playwright 的网络拦截（route）怎么用？<a class="headerlink" href="#playwright-route" title="Permanent link">&para;</a></h2>
 <p>常见场景：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># 1. Mock 接口响应</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="n">page</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;**/api/user&quot;</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">route</span><span class="p">:</span> <span class="n">route</span><span class="o">.</span><span class="n">fulfill</span><span class="p">(</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="n">status</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="s1">&#39;{&quot;name&quot;:&quot;test&quot;}&#39;</span><span class="p">))</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="c1"># 2. 阻止资源加载（加速测试）</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="n">page</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\.(png|jpg)$&quot;</span><span class="p">),</span> <span class="k">lambda</span> <span class="n">route</span><span class="p">:</span> <span class="n">route</span><span class="o">.</span><span class="n">abort</span><span class="p">())</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="c1"># 3. 修改请求头</span>
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="k">def</span><span class="w"> </span><span class="nf">add_auth</span><span class="p">(</span><span class="n">route</span><span class="p">):</span>
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>    <span class="n">route</span><span class="o">.</span><span class="n">continue_</span><span class="p">(</span><span class="n">headers</span><span class="o">=</span><span class="p">{</span><span class="o">**</span><span class="n">route</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">headers</span><span class="p">,</span> <span class="s2">&quot;Authorization&quot;</span><span class="p">:</span> <span class="s2">&quot;Bearer xxx&quot;</span><span class="p">})</span>
-<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="n">page</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;**/api/**&quot;</span><span class="p">,</span> <span class="n">add_auth</span><span class="p">)</span>
-<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>
-<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="c1"># 4. 监听请求</span>
-<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="n">page</span><span class="o">.</span><span class="n">on</span><span class="p">(</span><span class="s2">&quot;request&quot;</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">req</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">req</span><span class="o">.</span><span class="n">method</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">req</span><span class="o">.</span><span class="n">url</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">))</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># 1. Mock 接口响应</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">page</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;**/api/user&quot;</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">route</span><span class="p">:</span> <span class="n">route</span><span class="o">.</span><span class="n">fulfill</span><span class="p">(</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    <span class="n">status</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="s1">&#39;{&quot;name&quot;:&quot;test&quot;}&#39;</span><span class="p">))</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="c1"># 2. 阻止资源加载（加速测试）</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="n">page</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\.(png|jpg)$&quot;</span><span class="p">),</span> <span class="k">lambda</span> <span class="n">route</span><span class="p">:</span> <span class="n">route</span><span class="o">.</span><span class="n">abort</span><span class="p">())</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="c1"># 3. 修改请求头</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="k">def</span><span class="w"> </span><span class="nf">add_auth</span><span class="p">(</span><span class="n">route</span><span class="p">):</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>    <span class="n">route</span><span class="o">.</span><span class="n">continue_</span><span class="p">(</span><span class="n">headers</span><span class="o">=</span><span class="p">{</span><span class="o">**</span><span class="n">route</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">headers</span><span class="p">,</span> <span class="s2">&quot;Authorization&quot;</span><span class="p">:</span> <span class="s2">&quot;Bearer xxx&quot;</span><span class="p">})</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="n">page</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;**/api/**&quot;</span><span class="p">,</span> <span class="n">add_auth</span><span class="p">)</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="c1"># 4. 监听请求</span>
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="n">page</span><span class="o">.</span><span class="n">on</span><span class="p">(</span><span class="s2">&quot;request&quot;</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">req</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">req</span><span class="o">.</span><span class="n">method</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">req</span><span class="o">.</span><span class="n">url</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">))</span>
 </code></pre></div>
 <p>面试加分点：对比 Selenium 需要第三方库（如 BrowserMob Proxy），Playwright 原生支持。</p>
 <h2 id="playwright-browser-context">Playwright 的 Browser Context 有什么用？<a class="headerlink" href="#playwright-browser-context" title="Permanent link">&para;</a></h2>
@@ -4391,11 +4393,11 @@
 <li>控制台日志</li>
 </ul>
 <p>使用方式：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># pytest.ini 配置</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>--tracing<span class="w"> </span>on
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="c1"># 用例失败后查看</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>playwright<span class="w"> </span>show-trace<span class="w"> </span>trace.zip
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># pytest.ini 配置</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>--tracing<span class="w"> </span>on
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="c1"># 用例失败后查看</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>playwright<span class="w"> </span>show-trace<span class="w"> </span>trace.zip
 </code></pre></div>
 <p>面试加分点：对比 Selenium 需要额外配置录屏或截图，Playwright 内置 Trace 可以逐步回放。</p>
 <h2 id="page-object">Page Object 模式怎么设计？<a class="headerlink" href="#page-object" title="Permanent link">&para;</a></h2>
@@ -4406,30 +4408,30 @@
 <li>用例层只调用 Page 方法，不直接操作元素</li>
 <li>元素定位器集中在类顶部，修改时只改一处</li>
 </ol>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">LoginPage</span><span class="p">:</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">page</span><span class="p">):</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">page</span> <span class="o">=</span> <span class="n">page</span>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">username</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_placeholder</span><span class="p">(</span><span class="s2">&quot;用户名&quot;</span><span class="p">)</span>
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">password</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_placeholder</span><span class="p">(</span><span class="s2">&quot;密码&quot;</span><span class="p">)</span>
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">login_btn</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">&quot;button&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;登录&quot;</span><span class="p">)</span>
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>
-<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">login</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user</span><span class="p">,</span> <span class="n">pwd</span><span class="p">):</span>
-<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">username</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
-<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">password</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">pwd</span><span class="p">)</span>
-<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">login_btn</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
-<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>        <span class="k">return</span> <span class="n">HomePage</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">page</span><span class="p">)</span>  <span class="c1"># 返回下一个页面对象</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">LoginPage</span><span class="p">:</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">page</span><span class="p">):</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">page</span> <span class="o">=</span> <span class="n">page</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">username</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_placeholder</span><span class="p">(</span><span class="s2">&quot;用户名&quot;</span><span class="p">)</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">password</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_placeholder</span><span class="p">(</span><span class="s2">&quot;密码&quot;</span><span class="p">)</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">login_btn</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">&quot;button&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;登录&quot;</span><span class="p">)</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">login</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user</span><span class="p">,</span> <span class="n">pwd</span><span class="p">):</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">username</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">password</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">pwd</span><span class="p">)</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">login_btn</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>        <span class="k">return</span> <span class="n">HomePage</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">page</span><span class="p">)</span>  <span class="c1"># 返回下一个页面对象</span>
 </code></pre></div>
 <h2 id="playwright_2">Playwright 怎么做数据驱动测试？<a class="headerlink" href="#playwright_2" title="Permanent link">&para;</a></h2>
 <p>推荐用 <code>pytest.mark.parametrize</code>：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s2">&quot;user,pwd,expected&quot;</span><span class="p">,</span> <span class="p">[</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>    <span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;123456&quot;</span><span class="p">,</span> <span class="s2">&quot;用户名不能为空&quot;</span><span class="p">),</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    <span class="p">(</span><span class="s2">&quot;test&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;密码不能为空&quot;</span><span class="p">),</span>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    <span class="p">(</span><span class="s2">&quot;wrong&quot;</span><span class="p">,</span> <span class="s2">&quot;wrong&quot;</span><span class="p">,</span> <span class="s2">&quot;账号或密码错误&quot;</span><span class="p">),</span>
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="p">])</span>
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_login_validation</span><span class="p">(</span><span class="n">page</span><span class="p">,</span> <span class="n">user</span><span class="p">,</span> <span class="n">pwd</span><span class="p">,</span> <span class="n">expected</span><span class="p">):</span>
-<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>    <span class="n">login_page</span> <span class="o">=</span> <span class="n">LoginPage</span><span class="p">(</span><span class="n">page</span><span class="p">)</span>
-<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>    <span class="n">login_page</span><span class="o">.</span><span class="n">open</span><span class="p">()</span><span class="o">.</span><span class="n">login</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="n">pwd</span><span class="p">)</span>
-<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>    <span class="n">login_page</span><span class="o">.</span><span class="n">expect_error</span><span class="p">(</span><span class="n">expected</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s2">&quot;user,pwd,expected&quot;</span><span class="p">,</span> <span class="p">[</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>    <span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;123456&quot;</span><span class="p">,</span> <span class="s2">&quot;用户名不能为空&quot;</span><span class="p">),</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>    <span class="p">(</span><span class="s2">&quot;test&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;密码不能为空&quot;</span><span class="p">),</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>    <span class="p">(</span><span class="s2">&quot;wrong&quot;</span><span class="p">,</span> <span class="s2">&quot;wrong&quot;</span><span class="p">,</span> <span class="s2">&quot;账号或密码错误&quot;</span><span class="p">),</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="p">])</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_login_validation</span><span class="p">(</span><span class="n">page</span><span class="p">,</span> <span class="n">user</span><span class="p">,</span> <span class="n">pwd</span><span class="p">,</span> <span class="n">expected</span><span class="p">):</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>    <span class="n">login_page</span> <span class="o">=</span> <span class="n">LoginPage</span><span class="p">(</span><span class="n">page</span><span class="p">)</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>    <span class="n">login_page</span><span class="o">.</span><span class="n">open</span><span class="p">()</span><span class="o">.</span><span class="n">login</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="n">pwd</span><span class="p">)</span>
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>    <span class="n">login_page</span><span class="o">.</span><span class="n">expect_error</span><span class="p">(</span><span class="n">expected</span><span class="p">)</span>
 </code></pre></div>
 <p>也可以用 YAML/JSON 文件管理测试数据，通过 <code>conftest.py</code> 加载。</p>
 <h2 id="playwright-cicd">Playwright CI/CD 集成要注意什么？<a class="headerlink" href="#playwright-cicd" title="Permanent link">&para;</a></h2>
@@ -4495,8 +4497,8 @@
 </table>
 <h2 id="playwright-codegen">Playwright 的 Codegen 是什么？<a class="headerlink" href="#playwright-codegen" title="Permanent link">&para;</a></h2>
 <p>Codegen 是 Playwright 内置的录制工具，可以录制用户操作并自动生成测试代码：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>npx<span class="w"> </span>playwright<span class="w"> </span>codegen<span class="w"> </span>https://example.com<span class="w">   </span><span class="c1"># 打开录制器</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>npx<span class="w"> </span>playwright<span class="w"> </span>codegen<span class="w"> </span>--save-storage<span class="o">=</span>auth.json<span class="w">  </span><span class="c1"># 保存登录态</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>npx<span class="w"> </span>playwright<span class="w"> </span>codegen<span class="w"> </span>https://example.com<span class="w">   </span><span class="c1"># 打开录制器</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>npx<span class="w"> </span>playwright<span class="w"> </span>codegen<span class="w"> </span>--save-storage<span class="o">=</span>auth.json<span class="w">  </span><span class="c1"># 保存登录态</span>
 </code></pre></div>
 <p>适用场景：快速生成初始脚本、学习定位器语法、录制复杂操作流程。</p>
 <p>注意：录制的代码通常需要人工优化，不适合直接用于生产。</p>
@@ -4512,19 +4514,19 @@
 </ol>
 <h2 id="playwright-api">Playwright 怎么做 API 测试？<a class="headerlink" href="#playwright-api" title="Permanent link">&para;</a></h2>
 <p>Playwright 内置 <code>APIRequestContext</code>，不需要额外引入 requests 库：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># 方式 1：直接测试接口</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_login_api</span><span class="p">(</span><span class="n">api_context</span><span class="p">):</span>
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>    <span class="n">response</span> <span class="o">=</span> <span class="n">api_context</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;/api/login&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;user&quot;</span><span class="p">:</span> <span class="s2">&quot;test&quot;</span><span class="p">,</span> <span class="s2">&quot;pwd&quot;</span><span class="p">:</span> <span class="s2">&quot;123&quot;</span><span class="p">})</span>
-<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>    <span class="k">assert</span> <span class="n">response</span><span class="o">.</span><span class="n">ok</span>
-<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>    <span class="k">assert</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s2">&quot;code&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span>
-<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>
-<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="c1"># 方式 2：UI + API 混合（推荐）</span>
-<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_order_flow</span><span class="p">(</span><span class="n">page</span><span class="p">,</span> <span class="n">api_context</span><span class="p">):</span>
-<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>    <span class="n">resp</span> <span class="o">=</span> <span class="n">api_context</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;/api/login&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;user&quot;</span><span class="p">:</span> <span class="s2">&quot;test&quot;</span><span class="p">,</span> <span class="s2">&quot;pwd&quot;</span><span class="p">:</span> <span class="s2">&quot;123&quot;</span><span class="p">})</span>
-<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>    <span class="n">token</span> <span class="o">=</span> <span class="n">resp</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s2">&quot;data&quot;</span><span class="p">][</span><span class="s2">&quot;token&quot;</span><span class="p">]</span>
-<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>    <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">&quot;https://example.com&quot;</span><span class="p">)</span>
-<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>    <span class="n">page</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;localStorage.setItem(&#39;token&#39;, &#39;</span><span class="si">{</span><span class="n">token</span><span class="si">}</span><span class="s2">&#39;)&quot;</span><span class="p">)</span>
-<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>    <span class="n">page</span><span class="o">.</span><span class="n">reload</span><span class="p">()</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># 方式 1：直接测试接口</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_login_api</span><span class="p">(</span><span class="n">api_context</span><span class="p">):</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>    <span class="n">response</span> <span class="o">=</span> <span class="n">api_context</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;/api/login&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;user&quot;</span><span class="p">:</span> <span class="s2">&quot;test&quot;</span><span class="p">,</span> <span class="s2">&quot;pwd&quot;</span><span class="p">:</span> <span class="s2">&quot;123&quot;</span><span class="p">})</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>    <span class="k">assert</span> <span class="n">response</span><span class="o">.</span><span class="n">ok</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>    <span class="k">assert</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s2">&quot;code&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="c1"># 方式 2：UI + API 混合（推荐）</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_order_flow</span><span class="p">(</span><span class="n">page</span><span class="p">,</span> <span class="n">api_context</span><span class="p">):</span>
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>    <span class="n">resp</span> <span class="o">=</span> <span class="n">api_context</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;/api/login&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;user&quot;</span><span class="p">:</span> <span class="s2">&quot;test&quot;</span><span class="p">,</span> <span class="s2">&quot;pwd&quot;</span><span class="p">:</span> <span class="s2">&quot;123&quot;</span><span class="p">})</span>
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>    <span class="n">token</span> <span class="o">=</span> <span class="n">resp</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s2">&quot;data&quot;</span><span class="p">][</span><span class="s2">&quot;token&quot;</span><span class="p">]</span>
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>    <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">&quot;https://example.com&quot;</span><span class="p">)</span>
+<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>    <span class="n">page</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;localStorage.setItem(&#39;token&#39;, &#39;</span><span class="si">{</span><span class="n">token</span><span class="si">}</span><span class="s2">&#39;)&quot;</span><span class="p">)</span>
+<a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>    <span class="n">page</span><span class="o">.</span><span class="n">reload</span><span class="p">()</span>
 </code></pre></div>
 <p>面试加分点：一个框架搞定 UI + API 测试，不需要额外引入 requests 库。</p>
 <h2 id="playwright_3">Playwright 怎么调试测试？<a class="headerlink" href="#playwright_3" title="Permanent link">&para;</a></h2>
@@ -4556,15 +4558,16 @@
 </tbody>
 </table>
 <p>常用调试命令：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>pytest<span class="w"> </span>--headed<span class="w">              </span><span class="c1"># 有头模式运行</span>
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>pytest<span class="w"> </span>--browser<span class="w"> </span>chromium<span class="w">    </span><span class="c1"># 指定浏览器</span>
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>pytest<span class="w"> </span>-k<span class="w"> </span>test_login<span class="w">         </span><span class="c1"># 只运行特定用例</span>
-<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>pytest<span class="w"> </span>--screenshot<span class="w"> </span>on<span class="w">       </span><span class="c1"># 失败时自动截图</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>pytest<span class="w"> </span>--headed<span class="w">              </span><span class="c1"># 有头模式运行</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>pytest<span class="w"> </span>--browser<span class="w"> </span>chromium<span class="w">    </span><span class="c1"># 指定浏览器</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>pytest<span class="w"> </span>-k<span class="w"> </span>test_login<span class="w">         </span><span class="c1"># 只运行特定用例</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>pytest<span class="w"> </span>--screenshot<span class="w"> </span>on<span class="w">       </span><span class="c1"># 失败时自动截图</span>
 </code></pre></div>
 <h2 id="sleep">为什么不要大量使用 sleep？<a class="headerlink" href="#sleep" title="Permanent link">&para;</a></h2>
 <p>推荐回答：</p>
-<p>sleep 是固定等待，页面快时浪费时间，页面慢时仍可能失败。
-更推荐显式等待或框架内置自动等待，等待某个元素出现、可点击或接口完成。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>sleep 是固定等待，页面快时浪费时间，页面慢时仍可能失败。
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>更推荐显式等待或框架内置自动等待，等待某个元素出现、可点击或接口完成。
+</code></pre></div>
 <h2 id="_4">元素定位不稳定怎么办？<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
 <p>处理思路：</p>
 <ul>
@@ -4576,15 +4579,17 @@
 </ul>
 <h2 id="_5">自动化用例失败怎么排查？<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
 <p>可以按顺序回答：</p>
-<p>先看失败日志和截图，确认失败步骤。
-再判断是环境问题、数据问题、定位问题、等待问题还是业务缺陷。
-如果本地能复现，就进一步查看接口、数据库和页面状态。
-如果只是偶现，要看是否有并发数据污染或等待不稳定。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>先看失败日志和截图，确认失败步骤。
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>再判断是环境问题、数据问题、定位问题、等待问题还是业务缺陷。
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>如果本地能复现，就进一步查看接口、数据库和页面状态。
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>如果只是偶现，要看是否有并发数据污染或等待不稳定。
+</code></pre></div>
 <h2 id="_6">自动化覆盖率是不是越高越好？<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
 <p>推荐回答：</p>
-<p>不是。自动化要关注收益和维护成本。
-核心、稳定、重复执行的场景优先自动化；变化频繁或人工判断成本低的场景不一定值得自动化。
-覆盖率高但经常失败，会降低团队信任。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>不是。自动化要关注收益和维护成本。
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>核心、稳定、重复执行的场景优先自动化；变化频繁或人工判断成本低的场景不一定值得自动化。
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>覆盖率高但经常失败，会降低团队信任。
+</code></pre></div>
 <h2 id="_7">面试自查<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
 <ul class="task-list">
 <li class="task-list-item"><input type="checkbox" disabled/> 是否能解释自动化的价值和边界。</li>
@@ -4593,59 +4598,62 @@
 <li class="task-list-item"><input type="checkbox" disabled/> 是否知道失败排查流程。</li>
 </ul>
 <h2 id="page-object_1">Page Object 模式是什么？有什么好处？<a class="headerlink" href="#page-object_1" title="Permanent link">&para;</a></h2>
-<p>Page Object 把每个页面的元素定位和操作封装成一个类，测试用例只调用类的方法。
-好处：
-1. 元素定位集中管理，页面变化时只改一个地方。
-2. 测试用例更易读，调用的是业务方法而不是底层定位。
-3. 代码复用，同一个页面的操作可以在多个用例中复用。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>Page Object 把每个页面的元素定位和操作封装成一个类，测试用例只调用类的方法。
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>好处：
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>1. 元素定位集中管理，页面变化时只改一个地方。
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>2. 测试用例更易读，调用的是业务方法而不是底层定位。
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>3. 代码复用，同一个页面的操作可以在多个用例中复用。
+</code></pre></div>
 <p>示例：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">LoginPage</span><span class="p">:</span>
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">page</span><span class="p">):</span>
-<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">username</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_placeholder</span><span class="p">(</span><span class="s2">&quot;用户名&quot;</span><span class="p">)</span>
-<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">password</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_placeholder</span><span class="p">(</span><span class="s2">&quot;密码&quot;</span><span class="p">)</span>
-<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">submit</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">&quot;button&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;登录&quot;</span><span class="p">)</span>
-<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>
-<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">login</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user</span><span class="p">,</span> <span class="n">pwd</span><span class="p">):</span>
-<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">username</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
-<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">password</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">pwd</span><span class="p">)</span>
-<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">submit</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">LoginPage</span><span class="p">:</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">page</span><span class="p">):</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">username</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_placeholder</span><span class="p">(</span><span class="s2">&quot;用户名&quot;</span><span class="p">)</span>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">password</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_placeholder</span><span class="p">(</span><span class="s2">&quot;密码&quot;</span><span class="p">)</span>
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">submit</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">&quot;button&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;登录&quot;</span><span class="p">)</span>
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">login</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user</span><span class="p">,</span> <span class="n">pwd</span><span class="p">):</span>
+<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">username</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
+<a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">password</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">pwd</span><span class="p">)</span>
+<a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">submit</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
 </code></pre></div>
 <h2 id="_8">数据驱动测试怎么做？<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
-<p>数据驱动是把测试数据和测试逻辑分离，同一套用例用不同数据执行。
-实现方式：
-1. Pytest 的 @pytest.mark.parametrize 装饰器。
-2. YAML/JSON/CSV 文件管理测试数据。
-3. 数据库读取测试数据。
-好处：加新场景只需加数据，不改代码；数据和逻辑分离，易维护。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>数据驱动是把测试数据和测试逻辑分离，同一套用例用不同数据执行。
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>实现方式：
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>1. Pytest 的 @pytest.mark.parametrize 装饰器。
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>2. YAML/JSON/CSV 文件管理测试数据。
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>3. 数据库读取测试数据。
+<a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>好处：加新场景只需加数据，不改代码；数据和逻辑分离，易维护。
+</code></pre></div>
 <h2 id="_9">怎么提高自动化用例的稳定性？<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
-<ol>
-<li>用显式等待或自动等待替代 sleep。</li>
-<li>用稳定的选择器（id、data-testid）替代易变的 XPath。</li>
-<li>测试数据独立：每条用例用独立数据，避免互相影响。</li>
-<li>前置准备和后置清理：运行前创建数据，运行后清理。</li>
-<li>失败重试：对偶现失败用 pytest-rerunfailures 重试。</li>
-<li>环境隔离：用 Docker 搭建独立测试环境。</li>
-</ol>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>1. 用显式等待或自动等待替代 sleep。
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>2. 用稳定的选择器（id、data-testid）替代易变的 XPath。
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>3. 测试数据独立：每条用例用独立数据，避免互相影响。
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>4. 前置准备和后置清理：运行前创建数据，运行后清理。
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>5. 失败重试：对偶现失败用 pytest-rerunfailures 重试。
+<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>6. 环境隔离：用 Docker 搭建独立测试环境。
+</code></pre></div>
 <h2 id="cicd">自动化测试怎么接入 CI/CD？<a class="headerlink" href="#cicd" title="Permanent link">&para;</a></h2>
-<ol>
-<li>代码提交后触发 Jenkins/GitHub Actions/GitLab CI。</li>
-<li>流水线安装依赖、运行测试、生成报告。</li>
-<li>用 Allure 生成可视化报告，归档到服务器。</li>
-<li>测试失败时通知团队（邮件、钉钉、Slack）。</li>
-<li>设置质量门禁：覆盖率低于阈值或有失败用例时阻断部署。</li>
-</ol>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>1. 代码提交后触发 Jenkins/GitHub Actions/GitLab CI。
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>2. 流水线安装依赖、运行测试、生成报告。
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>3. 用 Allure 生成可视化报告，归档到服务器。
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>4. 测试失败时通知团队（邮件、钉钉、Slack）。
+<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>5. 设置质量门禁：覆盖率低于阈值或有失败用例时阻断部署。
+</code></pre></div>
 <h2 id="ui">接口自动化和 UI 自动化怎么选？<a class="headerlink" href="#ui" title="Permanent link">&para;</a></h2>
-<p>优先做接口自动化，原因：
-- 速度快：接口请求毫秒级，UI 操作秒级。
-- 稳定性高：不受页面布局变化影响。
-- 覆盖广：可以测到 UI 无法覆盖的边界和异常。
-- 维护成本低：接口变化频率低于 UI。</p>
-<p>UI 自动化只覆盖核心用户路径：登录→浏览→下单→支付。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>优先做接口自动化，原因：
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>- 速度快：接口请求毫秒级，UI 操作秒级。
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>- 稳定性高：不受页面布局变化影响。
+<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>- 覆盖广：可以测到 UI 无法覆盖的边界和异常。
+<a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>- 维护成本低：接口变化频率低于 UI。
+<a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a>
+<a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a>UI 自动化只覆盖核心用户路径：登录→浏览→下单→支付。
+</code></pre></div>
 <h2 id="_10">你自动化项目的成功率/覆盖率是多少？<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
-<p>不要编一个精确数字。可以这样回答：
-"核心接口用例 80+ 条，成功率稳定在 95% 以上。失败的主要原因是测试环境不稳定和测试数据被污染。
-UI 自动化覆盖了 5 条核心流程（登录、搜索、加购、下单、支付），成功率 90% 左右。
-我会定期分析失败用例，把环境问题和数据问题的用例优化掉。"</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>不要编一个精确数字。可以这样回答：
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>&quot;核心接口用例 80+ 条，成功率稳定在 95% 以上。失败的主要原因是测试环境不稳定和测试数据被污染。
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>UI 自动化覆盖了 5 条核心流程（登录、搜索、加购、下单、支付），成功率 90% 左右。
+<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>我会定期分析失败用例，把环境问题和数据问题的用例优化掉。&quot;
+</code></pre></div>
 <h2 id="_11">面试评分参考<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
