@@ -13,6 +13,7 @@ edit_uri: edit/main/docs/
 theme:
   name: material
   language: zh
+  logo: assets/images/bingu-logo.png
   palette:
     # 浅色模式
     - scheme: default
