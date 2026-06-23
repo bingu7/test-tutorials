@@ -3795,6 +3795,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#python-list-n" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Python list 去重、切片、取倒数第N个元素？
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#_11" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4461,6 +4472,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#python-list-n" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Python list 去重、切片、取倒数第N个元素？
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#_11" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4896,6 +4918,23 @@
 <a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>&quot;核心接口用例 80+ 条，成功率稳定在 95% 以上。失败的主要原因是测试环境不稳定和测试数据被污染。
 <a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>UI 自动化覆盖了 5 条核心流程（登录、搜索、加购、下单、支付），成功率 90% 左右。
 <a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>我会定期分析失败用例，把环境问题和数据问题的用例优化掉。&quot;
+</code></pre></div>
+<h2 id="python-list-n">Python list 去重、切片、取倒数第N个元素？<a class="headerlink" href="#python-list-n" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>列表去重：
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>  list1 = [1, 2, 2, 3]
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>  new_list = list(set(list1))  # 不保序
+<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>  new_list = list(dict.fromkeys(list1))  # 保序
+<a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>
+<a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a>列表切片：
+<a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a>  list1[1:4]   # 下标1到3（不含4）
+<a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a>  list1[:3]    # 前3个
+<a id="__codelineno-19-9" name="__codelineno-19-9" href="#__codelineno-19-9"></a>  list1[2:]    # 从下标2到末尾
+<a id="__codelineno-19-10" name="__codelineno-19-10" href="#__codelineno-19-10"></a>  list1[-3:]   # 最后3个
+<a id="__codelineno-19-11" name="__codelineno-19-11" href="#__codelineno-19-11"></a>
+<a id="__codelineno-19-12" name="__codelineno-19-12" href="#__codelineno-19-12"></a>取倒数第5个元素：
+<a id="__codelineno-19-13" name="__codelineno-19-13" href="#__codelineno-19-13"></a>  list1[-5]
+<a id="__codelineno-19-14" name="__codelineno-19-14" href="#__codelineno-19-14"></a>
+<a id="__codelineno-19-15" name="__codelineno-19-15" href="#__codelineno-19-15"></a>面试加分：提到 set 去重不保序，dict.fromkeys 保序。
 </code></pre></div>
 <h2 id="_11">面试评分参考<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
 <table>

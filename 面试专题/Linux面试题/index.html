@@ -3869,6 +3869,17 @@
   <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
       
+        怎么查看系统资源使用情况？
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
         面试评分参考
       
     </span>
@@ -4046,6 +4057,17 @@
   <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
       
+        怎么查看系统资源使用情况？
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
         面试评分参考
       
     </span>
@@ -4215,7 +4237,26 @@
 <a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a>crontab -l       查看定时任务
 <a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a>crontab -r       删除所有定时任务
 </code></pre></div>
-<h2 id="_5">面试评分参考<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<h2 id="_5">怎么查看系统资源使用情况？<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>常用命令：
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>top              # 实时查看 CPU、内存、进程
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>htop             # top 的增强版（需要安装）
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>free -m          # 查看内存（MB 为单位）
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>df -h            # 查看磁盘空间
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>du -sh /path     # 查看目录大小
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>ps -ef           # 查看所有进程
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>ps aux | grep java  # 查找特定进程
+<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>
+<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>free -m 重点关注：
+<a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>  total     = 总内存
+<a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a>  used      = 已使用
+<a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a>  free      = 空闲
+<a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a>  available = 还能用的内存（含缓存可回收部分）
+<a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a>
+<a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a>实际看内存是否紧张，重点看 available，因为 Linux 会用空闲内存做缓存。
+</code></pre></div>
+<h2 id="_6">面试评分参考<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
