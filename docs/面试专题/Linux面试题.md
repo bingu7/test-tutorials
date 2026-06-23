@@ -169,6 +169,28 @@ crontab -l       查看定时任务
 crontab -r       删除所有定时任务
 ```
 
+## 怎么查看系统资源使用情况？
+
+```text
+常用命令：
+
+top              # 实时查看 CPU、内存、进程
+htop             # top 的增强版（需要安装）
+free -m          # 查看内存（MB 为单位）
+df -h            # 查看磁盘空间
+du -sh /path     # 查看目录大小
+ps -ef           # 查看所有进程
+ps aux | grep java  # 查找特定进程
+
+free -m 重点关注：
+  total     = 总内存
+  used      = 已使用
+  free      = 空闲
+  available = 还能用的内存（含缓存可回收部分）
+
+实际看内存是否紧张，重点看 available，因为 Linux 会用空闲内存做缓存。
+```
+
 ## 面试评分参考
 
 | 维度 | 初级（1-2年） | 中级（3-5年） |
