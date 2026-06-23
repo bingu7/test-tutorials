@@ -38,7 +38,7 @@ hide:
 <h3>准备面试看这里</h3>
 <p>用模板、案例和项目表达，把知识讲成能落地的经验。</p>
 <div class="home-links">
-<a href="案例库/index.md">案例库</a>
+<a href="案例库/">案例库</a>
 <a href="项目实战/">项目实战</a>
 <a href="面试专题/">面试专题</a>
 </div>
@@ -317,30 +317,30 @@ hide:
 <section class="home-resource-grid">
 <article class="home-card home-resource-card">
 <h3>社区与标准</h3>
-<a href="https://testerhome.com/">TesterHome</a>
-<a href="https://glossary.istqb.org/">ISTQB Glossary</a>
+<a href="https://testerhome.com/" target="_blank" rel="noopener">TesterHome</a>
+<a href="https://glossary.istqb.org/" target="_blank" rel="noopener">ISTQB Glossary</a>
 </article>
 <article class="home-card home-resource-card">
 <h3>接口与安全</h3>
-<a href="https://learning.postman.com/docs/introduction/overview/">Postman</a>
-<a href="https://owasp.org/www-project-web-security-testing-guide/">OWASP WSTG</a>
+<a href="https://learning.postman.com/docs/introduction/overview/" target="_blank" rel="noopener">Postman</a>
+<a href="https://owasp.org/www-project-web-security-testing-guide/" target="_blank" rel="noopener">OWASP WSTG</a>
 </article>
 <article class="home-card home-resource-card">
 <h3>自动化测试</h3>
-<a href="https://docs.pytest.org/">Pytest</a>
-<a href="https://playwright.dev/docs/intro">Playwright</a>
-<a href="https://www.selenium.dev/documentation/">Selenium</a>
+<a href="https://docs.pytest.org/" target="_blank" rel="noopener">Pytest</a>
+<a href="https://playwright.dev/docs/intro" target="_blank" rel="noopener">Playwright</a>
+<a href="https://www.selenium.dev/documentation/" target="_blank" rel="noopener">Selenium</a>
 </article>
 <article class="home-card home-resource-card">
 <h3>工程化工具</h3>
-<a href="https://jmeter.apache.org/usermanual/index.html">JMeter</a>
-<a href="https://allurereport.org/docs/">Allure</a>
-<a href="https://www.jenkins.io/doc/">Jenkins</a>
+<a href="https://jmeter.apache.org/usermanual/index.html" target="_blank" rel="noopener">JMeter</a>
+<a href="https://allurereport.org/docs/" target="_blank" rel="noopener">Allure</a>
+<a href="https://www.jenkins.io/doc/" target="_blank" rel="noopener">Jenkins</a>
 </article>
 <article class="home-card home-resource-card">
 <h3>基础技术</h3>
-<a href="https://docs.python.org/zh-cn/3/">Python</a>
-<a href="https://git-scm.com/doc">Git</a>
-<a href="https://docs.docker.com/">Docker</a>
+<a href="https://docs.python.org/zh-cn/3/" target="_blank" rel="noopener">Python</a>
+<a href="https://git-scm.com/doc" target="_blank" rel="noopener">Git</a>
+<a href="https://docs.docker.com/" target="_blank" rel="noopener">Docker</a>
 </article>
 </section>

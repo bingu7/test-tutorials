@@ -4,15 +4,14 @@
 (function() {
     'use strict';
 
-    // 基础路径解析：从 canonical URL 推导站点子路径
+    // 基础路径解析：从 common.js 脚本 URL 反推站点根路径
+    // ponytail: 原方案用 canonical URL，但 canonical 包含当前页面路径（如 /test-tutorials/学习中心/），
+    // 导致子页面上 resolveUrl 拼出错误链接。改用脚本 src 的绝对 URL 更可靠。
     function getBasePath() {
         try {
-            var canonical = document.querySelector('link[rel="canonical"]');
-            if (canonical && canonical.href) {
-                var pathname = new URL(canonical.href).pathname;
-                if (pathname.length > 1 && pathname.endsWith('/')) {
-                    return pathname.replace(/\/+$/, '');
-                }
+            var script = document.querySelector('script[src*="common.js"]');
+            if (script && script.src) {
+                return new URL(script.src).pathname.replace(/\/javascripts\/common\.js$/, '');
             }
         } catch(e) {}
         return '';
