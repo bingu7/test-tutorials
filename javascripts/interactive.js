@@ -10,19 +10,27 @@
 (function() {
     'use strict';
 
+    // 单个模块初始化失败不影响其他模块
+    function safeInit(name) {
+        try {
+            var fn = window[name];
+            if (typeof fn === 'function') fn();
+        } catch(e) {
+            console.error('Init failed: ' + name, e);
+        }
+    }
+
     function initAll() {
-        if (typeof initHeaderTabsOnScroll === 'function') initHeaderTabsOnScroll();
-        if (typeof initQuizzes === 'function') initQuizzes();
-        if (typeof initProgressTracker === 'function') initProgressTracker();
-        if (typeof initReadingProgress === 'function') initReadingProgress();
-        if (typeof initRelatedTutorials === 'function') initRelatedTutorials();
-        if (typeof initKeyboardShortcuts === 'function') initKeyboardShortcuts();
-        if (typeof initScrollMemory === 'function') initScrollMemory();
+        safeInit('initHeaderTabsOnScroll');
+        safeInit('initQuizzes');
+        safeInit('initProgressTracker');
+        safeInit('initReadingProgress');
+        safeInit('initRelatedTutorials');
+        safeInit('initKeyboardShortcuts');
+        safeInit('initScrollMemory');
 
         // 初始化学习进度系统（来自 learning-progress.js）
-        if (typeof initTutorialPage === 'function') {
-            initTutorialPage();
-        }
+        safeInit('initTutorialPage');
     }
 
     document.addEventListener('DOMContentLoaded', initAll);
