@@ -24,7 +24,18 @@
         return url;
     }
 
+    // 当前页面路径（解码后）。location.pathname 对中文返回百分号编码，
+    // 直接用于中文标题匹配会全部失配，必须先 decodeURIComponent。
+    function getPath() {
+        try {
+            return decodeURIComponent(window.location.pathname);
+        } catch(e) {
+            return window.location.pathname;
+        }
+    }
+
     // 暴露给其他模块使用
     window.__getBasePath = getBasePath;
     window.__resolveUrl = resolveUrl;
+    window.__getPath = getPath;
 })();

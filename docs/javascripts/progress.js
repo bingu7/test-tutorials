@@ -15,7 +15,14 @@
             var key = 'progress-' + category;
             var items = tracker.querySelectorAll('.progress-item');
             var saved = localStorage.getItem(key);
-            var checked = saved ? JSON.parse(saved) : [];
+            var checked = [];
+            if (saved) {
+                try {
+                    checked = JSON.parse(saved);
+                } catch(e) {
+                    console.warn('Failed to restore progress:', e);
+                }
+            }
 
             items.forEach(function(item, index) {
                 var checkbox = document.createElement('input');

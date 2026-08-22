@@ -35,8 +35,7 @@ theme:
     - navigation.top            # 返回顶部按钮
     - navigation.instant        # 即时加载（SPA 体验）
     - navigation.footer         # 上/下篇导航
-    - navigation.tabs           # 顶部标签导航
-    - navigation.tabs.position  # 标签栏固定在顶部
+    - navigation.tabs           # 顶部标签导航（非 sticky；上滑导航由自定义 scroll-tabs 负责）
     - search.suggest            # 搜索建议
     - search.highlight          # 搜索高亮
     - content.code.copy         # 代码块复制按钮
@@ -126,6 +125,7 @@ nav:
     - 接口抓包联调实战: 工具操作/接口抓包联调实战教程-软件测试版.md
     - 正则表达式: 工具操作/正则表达式教程-软件测试版.md
     - 网络知识: 工具操作/网络知识教程-软件测试版.md
+    - 网络知识测验: 工具操作/网络知识测验.md
   - 专项测试:
     - 接口测试方法论: 专项测试/接口测试完整教程-软件测试版.md
     - 接口测试基础测验: 专项测试/接口测试基础测验.md
@@ -152,6 +152,7 @@ nav:
     - Jenkins CI/CD: 持续集成/Jenkins-CICD教程-软件测试版.md
     - GitHub Actions: 持续集成/GitHub-Actions教程-软件测试版.md
     - GitLab CI/CD: 持续集成/GitLab-CICD教程-软件测试版.md
+    - 持续集成测验: 持续集成/持续集成测验.md
   - 资源中心:
     - 模板库:
       - 模板库总览: 模板库/index.md
@@ -171,6 +172,9 @@ nav:
       - 搜索功能测试案例: 案例库/搜索功能测试案例.md
       - 消息通知测试案例: 案例库/消息通知测试案例.md
       - 多语言/国际化测试案例: 案例库/多语言国际化测试案例.md
+      - 兼容性测试案例: 案例库/兼容性测试案例-软件测试版.md
+      - 安全测试案例: 案例库/安全测试案例-软件测试版.md
+      - 性能测试案例: 案例库/性能测试案例-软件测试版.md
     - 面试专题:
       - 面试专题总览: 面试专题/index.md
       - 软件测试面试题: 面试专题/软件测试面试题.md

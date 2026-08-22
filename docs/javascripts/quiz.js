@@ -49,16 +49,51 @@
             ],
             passText: 'Playwright 基础已掌握，建议继续学习：',
             failText: '建议先巩固 Playwright 基础，再继续学习其他内容。'
-        }
+        },
+        'testing-theory': {
+            reviewText: '建议回看以下内容：',
+            reviewLinks: [
+                { url: '/基础理论/软件测试理论基础教程/', text: '软件测试理论基础教程' },
+                { url: '/基础理论/ISTQB软件测试术语速查/', text: 'ISTQB 术语速查' }
+            ],
+            reviewFocus: '重点关注：测试原则、测试级别与类型、用例设计、缺陷严重程度与优先级',
+            passLinks: [
+                { url: '/工具操作/数据库SQL教程-软件测试版/', text: '数据库 SQL 教程' },
+                { url: '/工具操作/Postman接口测试教程-软件测试版/', text: 'Postman 接口测试' }
+            ],
+            passText: '测试理论已掌握，建议继续学习：',
+            failText: '建议先巩固软件测试理论基础，再继续学习其他内容。'
+        },
+        'linux-basics': {
+            reviewText: '建议回看以下内容：',
+            reviewLinks: [{ url: '/工具操作/Linux实用教程-软件测试版/', text: 'Linux 实用教程' }],
+            reviewFocus: '重点关注：常用命令、日志排查、进程与端口、权限与磁盘',
+            passLinks: [
+                { url: '/工具操作/Git版本控制教程-软件测试版/', text: 'Git 版本控制' },
+                { url: '/工具操作/Docker容器教程-软件测试版/', text: 'Docker 容器' }
+            ],
+            passText: 'Linux 基础已掌握，建议继续学习：',
+            failText: '建议先巩固 Linux 基础，再继续学习其他内容。'
+        },
     };
+
+    // HTML 转义：题目文本来自页面 DOM（textContent 已解码实体），
+    // 拼进 innerHTML 前必须转义，否则含 < > & 的题目会破坏反馈区渲染
+    function escapeHtml(s) {
+        return String(s).replace(/[&<>"']/g, function(c) {
+            return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+        });
+    }
 
     // 初始化测验
     window.initQuizzes = function() {
-        document.querySelectorAll('.quiz-container').forEach(function(quiz) {
+        document.querySelectorAll('.quiz-container').forEach(function(quiz, quizIndex) {
             if (quiz.dataset.initialized) return;
             quiz.dataset.initialized = 'true';
 
-            var quizId = quiz.dataset.quizId || 'quiz-' + Math.random().toString(36).substr(2, 9);
+            // 回退 ID 必须稳定（页面路径 + 序号），随机 ID 会导致刷新后无法恢复答案
+            var getPath = window.__getPath || function() { return window.location.pathname; };
+            var quizId = quiz.dataset.quizId || ('quiz-' + getPath() + '-' + quizIndex);
             quiz.dataset.quizId = quizId;
 
             var submitBtn = quiz.querySelector('.quiz-submit');
@@ -113,11 +148,18 @@
                     wrongQuestions.push({
                         index: index + 1,
                         question: questionText,
-                        correctAnswer: options[correctIndex].textContent.trim()
+                        answered: true
                     });
                 } else {
                     correct++;
                 }
+            } else {
+                // 未作答的题也计入错题，但单独标记，便于反馈区区分
+                wrongQuestions.push({
+                    index: index + 1,
+                    question: questionText,
+                    answered: false
+                });
             }
             if (explanation) explanation.classList.add('show');
         });
@@ -142,7 +184,7 @@
             quiz.appendChild(scoreDiv);
         }
 
-        var percentage = Math.round((correct / total) * 100);
+        var percentage = total > 0 ? Math.round((correct / total) * 100) : 0;
         var emoji = percentage >= 80 ? '🎉' : percentage >= 60 ? '👍' : '💪';
 
         // 构建反馈内容
@@ -165,10 +207,11 @@
         if (wrongQuestions.length > 0) {
             feedbackHtml += '<div class="quiz-wrong-analysis">';
             feedbackHtml += '<h4>📝 错题分析</h4>';
-            feedbackHtml += '<p>你答错了 ' + wrongQuestions.length + ' 道题：</p>';
+            feedbackHtml += '<p>共有 ' + wrongQuestions.length + ' 道题未通过（未作答的题已单独标注）：</p>';
             feedbackHtml += '<ul>';
             wrongQuestions.forEach(function(q) {
-                feedbackHtml += '<li><strong>第 ' + q.index + ' 题：</strong>' + q.question + '</li>';
+                feedbackHtml += '<li><strong>第 ' + q.index + ' 题：</strong>' + escapeHtml(q.question) +
+                    (q.answered ? '' : '（未作答）') + '</li>';
             });
             feedbackHtml += '</ul>';
 

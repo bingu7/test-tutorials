@@ -57,23 +57,50 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
+      - name: Check server deploy config
+        id: server
+        env:
+          SERVER_HOST: ${{ secrets.SERVER_HOST }}
+          SERVER_SSH_KEY: ${{ secrets.SERVER_SSH_KEY }}
+        run: |
+          if [ -n "$SERVER_HOST" ] && [ -n "$SERVER_SSH_KEY" ]; then
+            echo "enabled=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "enabled=false" >> "$GITHUB_OUTPUT"
+            echo "SERVER_HOST / SERVER_SSH_KEY 未配置，跳过宝塔部署"
+          fi
+
       - name: Download site artifact
+        if: steps.server.outputs.enabled == 'true'
         uses: actions/download-artifact@v4
         with:
           name: site
           path: site/
 
       - name: Configure SSH
+        if: steps.server.outputs.enabled == 'true'
+        env:
+          SERVER_SSH_KEY: ${{ secrets.SERVER_SSH_KEY }}
+          SERVER_HOST: ${{ secrets.SERVER_HOST }}
+          SERVER_PORT: ${{ secrets.SERVER_PORT }}
         run: |
           mkdir -p ~/.ssh
-          printf '%s\n' "${{ secrets.SERVER_SSH_KEY }}" > ~/.ssh/id_ed25519
+          # 写入私钥；若 secret 末尾无换行则补一个（OpenSSH 需要）
+          printf '%s' "$SERVER_SSH_KEY" > ~/.ssh/id_ed25519
+          if [ -n "$(tail -c1 ~/.ssh/id_ed25519)" ]; then echo >> ~/.ssh/id_ed25519; fi
           chmod 600 ~/.ssh/id_ed25519
-          ssh-keyscan -p "${{ secrets.SERVER_PORT }}" "${{ secrets.SERVER_HOST }}" >> ~/.ssh/known_hosts
+          ssh-keyscan -p "${SERVER_PORT:-22}" "$SERVER_HOST" >> ~/.ssh/known_hosts
 
       - name: Deploy to server
+        if: steps.server.outputs.enabled == 'true'
+        env:
+          SERVER_PORT: ${{ secrets.SERVER_PORT }}
+          SERVER_USER: ${{ secrets.SERVER_USER }}
+          SERVER_HOST: ${{ secrets.SERVER_HOST }}
+          DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
         run: |
           rsync -avz --delete \
             --exclude='.user.ini' \
-            -e "ssh -p ${{ secrets.SERVER_PORT }}" \
+            -e "ssh -p ${SERVER_PORT:-22}" \
             site/ \
-            ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:${{ secrets.DEPLOY_PATH }}/
+            "$SERVER_USER@$SERVER_HOST:$DEPLOY_PATH/"

@@ -144,11 +144,13 @@
 
     window.initRelatedTutorials = function() {
         var resolveUrl = window.__resolveUrl || function(u) { return u; };
+        var getPath = window.__getPath || function() { return window.location.pathname; };
         var content = document.querySelector('.md-content__inner');
         if (!content) return;
-        if (document.querySelector('.related-tutorials')) return;
+        // SPA：若上一页残留（极少），清掉后按当前路径重建
+        document.querySelectorAll('.related-tutorials').forEach(function(el) { el.remove(); });
 
-        var path = window.location.pathname;
+        var path = getPath();
 
         var currentKey = null;
         Object.keys(relatedMap).forEach(function(key) {

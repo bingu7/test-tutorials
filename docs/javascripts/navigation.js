@@ -84,11 +84,7 @@
     }
 
     // ==================== 滚动位置记忆 ====================
-    var __scrollMemoryInitialized = false;
     window.initScrollMemory = function() {
-        if (__scrollMemoryInitialized) return;
-        __scrollMemoryInitialized = true;
-
         var key = 'scroll-' + window.location.pathname;
         var tocKey = 'toc-' + window.location.pathname;
 
@@ -116,30 +112,42 @@
                 }
             }
 
-            // 保存 TOC 滚动位置
-            tocWrap.addEventListener('scroll', function() {
-                sessionStorage.setItem(tocKey, tocWrap.scrollTop);
-            });
+            // 只绑一次 TOC 滚动保存（用命名 handler + 标记）
+            if (!tocWrap.dataset.scrollMemoryBound) {
+                tocWrap.dataset.scrollMemoryBound = '1';
+                tocWrap.addEventListener('scroll', function() {
+                    var k = 'toc-' + window.location.pathname;
+                    sessionStorage.setItem(k, tocWrap.scrollTop);
+                }, { passive: true });
+            }
         }
 
-        // 保存主页面滚动位置（页面离开前）
-        window.addEventListener('beforeunload', function() {
-            sessionStorage.setItem(key, window.scrollY);
-        });
-
-        // SPA 导航时也保存
-        if (typeof location$ !== 'undefined') {
-            location$.subscribe(function() {
-                sessionStorage.setItem(key, window.scrollY);
-                if (tocWrap) {
-                    sessionStorage.setItem(tocKey, tocWrap.scrollTop);
-                }
+        // beforeunload / SPA location 订阅只初始化一次
+        if (!window.__scrollMemoryGlobalBound) {
+            window.__scrollMemoryGlobalBound = true;
+            window.addEventListener('beforeunload', function() {
+                sessionStorage.setItem('scroll-' + window.location.pathname, window.scrollY);
             });
+            if (typeof location$ !== 'undefined') {
+                location$.subscribe(function() {
+                    // 在真正换页前 location$ 触发时，仍可取到当前 scroll
+                    sessionStorage.setItem('scroll-' + window.location.pathname, window.scrollY);
+                    var tw = document.querySelector('.md-sidebar--secondary .md-sidebar__scrollwrap');
+                    if (tw) {
+                        sessionStorage.setItem('toc-' + window.location.pathname, tw.scrollTop);
+                    }
+                });
+            }
         }
     };
 
     // ==================== 阅读进度条 ====================
     window.initReadingProgress = function() {
+        // 移除旧进度条与旧监听，避免 SPA 切换后重复绑定
+        if (window.__readingProgressHandler) {
+            window.removeEventListener('scroll', window.__readingProgressHandler);
+            window.__readingProgressHandler = null;
+        }
         var existing = document.querySelector('.reading-progress');
         if (existing) existing.remove();
 
@@ -154,29 +162,39 @@
             progressBar.style.width = progress + '%';
         }
 
-        window.addEventListener('scroll', updateProgress);
+        window.__readingProgressHandler = updateProgress;
+        window.addEventListener('scroll', updateProgress, { passive: true });
         updateProgress();
     };
 
     // ==================== 快捷键支持 ====================
     window.initKeyboardShortcuts = function() {
+        if (window.__keyboardShortcutsInitialized) return;
+        window.__keyboardShortcutsInitialized = true;
+
         var navDebounce = false;
         document.addEventListener('keydown', function(e) {
-            if ((e.ctrlKey && e.key === 'k') || (e.key === '/' && !e.target.closest('input, textarea'))) {
+            // e.target 一般是元素，但可能不是 Element（如 document），统一防护
+            var targetEl = e.target instanceof Element ? e.target : null;
+            var inEditable = !!(targetEl && targetEl.closest('input, textarea, select, [contenteditable]'));
+
+            if ((e.ctrlKey && e.key === 'k') || (e.key === '/' && !inEditable)) {
                 e.preventDefault();
                 var searchInput = document.querySelector('.md-search__input');
                 if (searchInput) searchInput.focus();
             }
 
-            if (!e.target.closest('input, textarea, select')) {
+            if (!inEditable) {
                 var prevLink = document.querySelector('.md-footer__link--prev');
                 var nextLink = document.querySelector('.md-footer__link--next');
                 if (e.key === 'ArrowLeft' && prevLink && !navDebounce) {
                     navDebounce = true;
                     window.location.href = prevLink.href;
+                    setTimeout(function() { navDebounce = false; }, 500);
                 } else if (e.key === 'ArrowRight' && nextLink && !navDebounce) {
                     navDebounce = true;
                     window.location.href = nextLink.href;
+                    setTimeout(function() { navDebounce = false; }, 500);
                 }
             }
         });

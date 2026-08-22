@@ -12,7 +12,9 @@
         'python-basics': '/基础理论/Python基础测验/',
         'sql-basics': '/工具操作/SQL基础测验/',
         'api-basics': '/专项测试/接口测试基础测验/',
-        'playwright-basics': '/自动化测试/Playwright基础测验/'
+        'playwright-basics': '/自动化测试/Playwright基础测验/',
+        'testing-theory': '/基础理论/软件测试理论基础测验/',
+        'linux-basics': '/工具操作/Linux基础测验/'
     };
 
     // 测验 ID → 中文名映射
@@ -20,7 +22,9 @@
         'python-basics': 'Python 基础测验',
         'sql-basics': 'SQL 基础测验',
         'api-basics': '接口测试基础测验',
-        'playwright-basics': 'Playwright 基础测验'
+        'playwright-basics': 'Playwright 基础测验',
+        'testing-theory': '软件测试理论测验',
+        'linux-basics': 'Linux 基础测验'
     };
 
     // 五阶段学习路径配置
@@ -35,7 +39,7 @@
                 { id: '基础理论/探索式测试教程', name: '探索式测试', url: '/基础理论/探索式测试教程-软件测试版/' },
                 { id: '基础理论/敏捷测试教程', name: '敏捷测试', url: '/基础理论/敏捷测试教程-软件测试版/' }
             ],
-            quizzes: ['python-basics'],
+            quizzes: ['testing-theory'],
             practiceUrl: '/章节练习与参考答案/'
         },
         phase2: {
@@ -52,7 +56,7 @@
                 { id: '工具操作/正则表达式教程', name: '正则表达式', url: '/工具操作/正则表达式教程-软件测试版/' },
                 { id: '工具操作/网络知识教程', name: '网络知识', url: '/工具操作/网络知识教程-软件测试版/' }
             ],
-            quizzes: ['sql-basics'],
+            quizzes: ['sql-basics', 'linux-basics'],
             practiceUrl: '/章节练习与参考答案/'
         },
         phase3: {
@@ -79,7 +83,7 @@
                 { id: '自动化测试/Playwright自动化测试教程', name: 'Playwright Web 自动化', url: '/自动化测试/Playwright自动化测试教程-软件测试版/' },
                 { id: '自动化测试/Appium-App自动化教程', name: 'Appium App 自动化', url: '/自动化测试/Appium-App自动化教程-软件测试版/' }
             ],
-            quizzes: ['playwright-basics'],
+            quizzes: ['python-basics', 'playwright-basics'],
             practiceUrl: '/章节练习与参考答案/'
         },
         phase5: {
@@ -153,7 +157,7 @@
         data.quiz[quizId] = {
             score: score,
             total: total,
-            percentage: Math.round((score / total) * 100),
+            percentage: total > 0 ? Math.round((score / total) * 100) : 0,
             completedAt: new Date().toISOString()
         };
         saveProgressData(data);
@@ -440,16 +444,28 @@
         var content = document.querySelector('.md-content__inner');
         if (!content) return;
 
-        // 获取当前教程ID
-        var path = window.location.pathname;
-        var basePath = getBasePath();
+        // SPA 切换时先移除旧按钮，避免重复插入
+        document.querySelectorAll('.tutorial-complete-btn').forEach(function(el) {
+            el.remove();
+        });
+
+        // 获取当前教程ID（pathname 需解码，中文路径是百分号编码的）
+        var getPath = window.__getPath || function() { return window.location.pathname; };
+        var path = getPath();
+        var basePath = getBasePath() || '';
         var relativePath = basePath && path.indexOf(basePath) === 0 ? path.substring(basePath.length) : path;
+        // 规范化：保证前导 /、无末尾重复斜杠干扰
+        if (relativePath.charAt(0) !== '/') relativePath = '/' + relativePath;
+        relativePath = relativePath.replace(/\/+$/, '/') || '/';
         var tutorialId = null;
 
-        // 从路径中提取教程ID
+        // 从路径中提取教程ID（优先精确后缀匹配）
         Object.keys(LEARNING_PHASES).forEach(function(phaseId) {
             LEARNING_PHASES[phaseId].tutorials.forEach(function(tutorial) {
-                if (relativePath.indexOf(tutorial.url) !== -1) {
+                var url = tutorial.url || '';
+                if (!url) return;
+                if (url.charAt(0) !== '/') url = '/' + url;
+                if (relativePath === url || relativePath.indexOf(url) !== -1 || path.indexOf(url) !== -1) {
                     tutorialId = tutorial.id;
                 }
             });
@@ -459,21 +475,18 @@
 
         // 创建完成状态按钮
         var isLearned = isTutorialLearned(tutorialId);
-        var buttonHtml = '<div class="tutorial-complete-btn">' +
+        var wrap = document.createElement('div');
+        wrap.className = 'tutorial-complete-btn';
+        wrap.innerHTML =
             '<button class="complete-toggle' + (isLearned ? ' completed' : '') + '" data-tutorial-id="' + tutorialId + '">' +
             (isLearned ? '✅ 已完成学习' : '☐ 标记为已学习') +
-            '</button>' +
-            '</div>';
+            '</button>';
 
         // 插入到文章末尾
-        var article = document.querySelector('article');
+        var article = document.querySelector('article') || content;
         if (article) {
-            var btnContainer = document.createElement('div');
-            btnContainer.innerHTML = buttonHtml;
-            article.appendChild(btnContainer.firstElementChild);
-
-            // 绑定点击事件
-            var btn = article.querySelector('.complete-toggle');
+            article.appendChild(wrap);
+            var btn = wrap.querySelector('.complete-toggle');
             if (btn) {
                 btn.addEventListener('click', function() {
                     var id = this.dataset.tutorialId;
