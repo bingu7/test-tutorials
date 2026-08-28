@@ -140,7 +140,7 @@ Charles 提供两种视图模式（工具栏按钮切换）：
 | `Overview` | 请求概要（URL、方法、状态码、耗时、大小） |
 | `Request` | 请求详情（Headers、Body、Query String） |
 | `Response` | 响应详情（Headers、Body，支持 JSON/XML/HTML 格式化） |
-| `Summary` | 请求时间线（DNS、连接、SSL、响应各阶段耗时） |
+| `Summary` | 耗时分解与大小汇总（DNS 解析、连接、SSL 握手、发送、等待、接收各阶段耗时） |
 | `Chart` | 请求大小/时间的可视化图表 |
 | `Notes` | 自定义备注 |
 
@@ -506,16 +506,20 @@ ipconfig
 
 ## 八、常用快捷键
 
+!!! warning "说明"
+    Charles 官方未发布快捷键清单，且不同版本、不同平台可能存在差异。以下条目经第三方资料交叉核对；最可靠的做法是直接查看 Charles 菜单栏——菜单项右侧标注的快捷键以你本机安装的版本为准。
+
 | 快捷键 | 功能 |
 |--------|------|
-| `Cmd/Ctrl + F` | 搜索请求 |
-| `Cmd/Ctrl + X` | 清空所有会话 |
-| `Cmd/Ctrl + Delete` | 删除选中会话 |
-| `Cmd/Ctrl + R` | 重放选中请求 |
-| `Cmd/Ctrl + Shift + R` | 高级重放（设置次数/并发） |
-| `Space` | 选中请求后查看详情 |
-| `Cmd/Ctrl + E` | 启用/禁用断点 |
-| `Cmd/Ctrl + T` | 启用/禁用 Throttle |
+| `Cmd/Ctrl + F` | 搜索（Edit → Find） |
+| `Cmd/Ctrl + T` | 启用/停用弱网限速（Proxy → Throttling） |
+| `Cmd/Ctrl + Shift + M` | 打开 Map Local（Tools → Map Local） |
+| `Cmd/Ctrl + Shift + E` | 打开 Rewrite 设置（Tools → Rewrite） |
+| `Cmd/Ctrl + Shift + B` | 打开 Breakpoints 设置（Tools → Breakpoints） |
+| `Cmd/Ctrl + Shift + T` | 高级重放（Tools → Advanced Repeat） |
+
+!!! tip "无快捷键的常用操作"
+    清空会话、删除选中请求、单条重放等操作在 Charles 中主要通过右键上下文菜单完成：选中请求后右键，选择 `Repeat`、`Clear Session` 等。部分版本支持选中请求后按 `Delete` 删除。
 
 ---
 
