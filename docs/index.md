@@ -69,12 +69,13 @@ hide:
 <div class="home-step">02</div>
 <div>
 <h3>工具实战</h3>
-<p>3-4 周，掌握 SQL、Linux、Git、Postman、Fiddler、网络知识等高频工具。</p>
+<p>3-4 周，掌握 SQL、Linux、Git、Postman、Fiddler/Charles、网络知识等高频工具。</p>
 <div class="home-links">
 <a href="工具操作/数据库SQL教程-软件测试版/">SQL</a>
 <a href="工具操作/Linux实用教程-软件测试版/">Linux</a>
 <a href="工具操作/Postman接口测试教程-软件测试版/">Postman</a>
 <a href="工具操作/Fiddler抓包教程-软件测试版/">Fiddler</a>
+<a href="工具操作/Charles抓包教程-软件测试版/">Charles</a>
 </div>
 </div>
 </article>
@@ -135,15 +136,15 @@ hide:
     |------|--------|---------|
     | 学习路线 | 1 | 阶段目标、推荐教程、练习任务、达成标准 |
     | 学习辅助 | 4 | 工具选型指南、阶段学习检查清单、章节练习与参考答案、学习验收与通关路径 |
-    | 基础理论 | 12 | 测试思维、ISTQB 术语、测试金字塔、探索式测试、测试用例设计方法论、Python 基础、前端基础、JavaScript 基础、TypeScript 基础、敏捷测试、测试理论测验 |
-    | 工具操作 | 11 | SQL、Redis/MongoDB、Linux、Git、Docker、Fiddler、Postman、接口联调、正则表达式、网络知识、Linux 测验 |
+    | 基础理论 | 12 | 测试思维、测试理论测验、ISTQB 术语、测试金字塔、探索式测试、测试用例设计方法论、Python 基础及测验、前端基础、JavaScript 基础、TypeScript 基础、敏捷测试 |
+    | 工具操作 | 14 | SQL 教程及测验、Redis/MongoDB、Linux 教程及测验、Git、Docker、Fiddler、Charles、Postman、接口联调、正则表达式、网络知识教程及测验 |
     | 专项测试 | 8 | 接口测试方法论、接口测试测验、接口测试进阶测验、JMeter 性能、Web 安全、AI 辅助测试、测试左移右移、移动端专项 |
     | 自动化测试 | 5 | Python+Selenium+Playwright+Playwright测验+Appium |
     | 项目实战 | 6 | 项目总览、电商、接口自动化、Web 自动化、性能测试、CI/CD 回归实战 |
     | 模板库 | 7 | 测试计划、测试用例、接口用例、缺陷报告、测试报告、上线检查 |
-    | 案例库 | 8 | 登录、购物车、下单支付、权限控制、文件上传、搜索、通知、国际化案例 |
+    | 案例库 | 11 | 登录、购物车、下单支付、权限控制、文件上传、搜索、通知、国际化案例，另有兼容性、安全、性能专项案例 |
     | 面试专题 | 15 | 软件测试、接口测试、自动化测试、性能测试、安全测试、移动端测试、AI 测试、测试管理、数据库 SQL、Linux、CI/CD、项目经验表达、面试复盘、测试职业发展路线图 |
-    | 持续集成 | 3 | Jenkins CI/CD、GitHub Actions、GitLab CI/CD |
+    | 持续集成 | 4 | Jenkins CI/CD、GitHub Actions、GitLab CI/CD、持续集成测验 |
     | **合计** | **80+** | **测试工程师全栈技能** |
 
 ---
@@ -177,6 +178,7 @@ hide:
     | [Git 版本控制](工具操作/Git版本控制教程-软件测试版.md) | 分支管理、协作流程 | 1天 | ★★★★ |
     | [Docker 容器](工具操作/Docker容器教程-软件测试版.md) | 测试环境搭建、Compose | 2天 | ★★★★ |
     | [Fiddler 抓包](工具操作/Fiddler抓包教程-软件测试版.md) | HTTP 抓包分析、Mock | 1天 | ★★★★ |
+    | [Charles 抓包](工具操作/Charles抓包教程-软件测试版.md) | HTTP/HTTPS 抓包、Mock、弱网、移动端 | 1天 | ★★★★ |
     | [Postman 接口](工具操作/Postman接口测试教程-软件测试版.md) | 接口调试、断言脚本 | 2天 | ★★★★ |
     | [正则表达式](工具操作/正则表达式教程-软件测试版.md) | 日志分析、数据提取、接口断言 | 1天 | ★★★★ |
     | [网络知识](工具操作/网络知识教程-软件测试版.md) | TCP/IP、HTTP、DNS、代理、WebSocket、CDN、负载均衡 | 3天 | ★★★★ |
@@ -272,6 +274,7 @@ hide:
 <a href="工具操作/Git版本控制教程-软件测试版/">Git</a>
 <a href="工具操作/Docker容器教程-软件测试版/">Docker</a>
 <a href="工具操作/Fiddler抓包教程-软件测试版/">Fiddler</a>
+<a href="工具操作/Charles抓包教程-软件测试版/">Charles</a>
 <a href="工具操作/Postman接口测试教程-软件测试版/">Postman</a>
 </div>
 </article>

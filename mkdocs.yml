@@ -51,6 +51,10 @@ plugins:
       separator: '[\s\-\.]+'   # 中文搜索分词
       lang: zh
   - tags
+  - git-revision-date-localized:   # 页面底部显示“最后更新”时间
+      enable_creation_date: false
+      type: date
+      locale: zh
 
 # Markdown 扩展
 markdown_extensions:

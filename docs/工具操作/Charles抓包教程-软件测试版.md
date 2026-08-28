@@ -175,12 +175,12 @@ Charles 提供两种视图模式（工具栏按钮切换）：
 
 1. 勾选 `Enable SSL Proxying`
 2. 点击 `Add` 添加要解密的域名：
-   - Host：`*`（匹配所有）
+   - Host：填写具体域名，支持通配符，如 `*.api.example.com`
    - Port：`443`
 3. 点击 `OK`
 
 !!! tip "建议"
-    不建议用 `*:443` 抓所有 HTTPS，会产生大量无关数据。按需添加具体域名，如 `*.api.example.com`。
+    按需添加具体域名即可。想临时抓取所有 HTTPS，可以用 Host `*` + Port `443`，但会产生大量无关数据，日常测试不推荐。
 
 ### 4.3 验证证书安装
 
@@ -251,8 +251,8 @@ ipconfig
 
 **Step 3：信任证书**
 
-4. 进入 `设置` → `通用` → `关于本机` → `证书信任设置`
-5. 开启对 `Charles Proxy CA` 的信任开关
+1. 进入 `设置` → `通用` → `关于本机` → `证书信任设置`
+2. 开启对 `Charles Proxy CA` 的信任开关
 
 !!! warning "iOS 10.3+ 注意"
     必须手动到"证书信任设置"开启信任开关，否则 HTTPS 仍然无法解密。
@@ -580,9 +580,9 @@ ipconfig
 
 ## 附录：参考资料
 
-- Charles 官方文档：`https://www.charlesproxy.com/documentation/`
-- Charles 证书下载：`http://chls.pro/ssl`
-- HTTP 状态码参考：MDN Web Docs
+- Charles 官方文档：[https://www.charlesproxy.com/documentation/](https://www.charlesproxy.com/documentation/)
+- Charles 证书下载：[http://chls.pro/ssl](http://chls.pro/ssl)
+- HTTP 状态码参考：[MDN Web Docs](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Status)
 
 ---
 
