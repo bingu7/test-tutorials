@@ -33,11 +33,25 @@
             reviewLinks: [{ url: '/专项测试/接口测试完整教程-软件测试版/', text: '接口测试方法论' }],
             reviewFocus: '重点关注：HTTP 方法、状态码、接口用例设计、断言策略',
             passLinks: [
-                { url: '/自动化测试/Python+Requests+Allure接口自动化教程-软件测试版/', text: 'Python 接口自动化' },
-                { url: '/专项测试/JMeter性能测试教程-软件测试版/', text: 'JMeter 性能测试' }
+                { url: '/专项测试/接口测试进阶测验/', text: '接口测试进阶测验' },
+                { url: '/自动化测试/Python+Requests+Allure接口自动化教程-软件测试版/', text: 'Python 接口自动化' }
             ],
             passText: '接口测试基础已掌握，建议继续学习：',
             failText: '建议先巩固接口测试基础，再继续学习其他内容。'
+        },
+        'api-advanced': {
+            reviewText: '建议回看以下内容：',
+            reviewLinks: [
+                { url: '/专项测试/接口测试完整教程-软件测试版/', text: '接口测试方法论' },
+                { url: '/基础理论/测试用例设计方法论教程-软件测试版/', text: '测试用例设计方法论' }
+            ],
+            reviewFocus: '重点关注：等价类与边界值、RESTful 规范、数据驱动与参数化、Mock 服务、幂等性与安全测试',
+            passLinks: [
+                { url: '/自动化测试/Python+Requests+Allure接口自动化教程-软件测试版/', text: 'Python 接口自动化' },
+                { url: '/项目实战/接口自动化项目实战/', text: '接口自动化项目实战' }
+            ],
+            passText: '接口测试进阶已掌握，建议继续学习：',
+            failText: '建议先回看接口测试方法论与用例设计方法论，再重新测验。'
         },
         'playwright-basics': {
             reviewText: '建议回看以下内容：',
@@ -74,6 +88,28 @@
             ],
             passText: 'Linux 基础已掌握，建议继续学习：',
             failText: '建议先巩固 Linux 基础，再继续学习其他内容。'
+        },
+        'network-basics': {
+            reviewText: '建议回看以下内容：',
+            reviewLinks: [{ url: '/工具操作/网络知识教程-软件测试版/', text: '网络知识教程' }],
+            reviewFocus: '重点关注：TCP 三次握手与四次挥手、HTTP 状态码、Cookie/Session/Token、DNS 解析、HTTPS 抓包证书',
+            passLinks: [
+                { url: '/工具操作/Fiddler抓包教程-软件测试版/', text: 'Fiddler 抓包教程' },
+                { url: '/工具操作/Charles抓包教程-软件测试版/', text: 'Charles 抓包教程' }
+            ],
+            passText: '网络知识已掌握，建议继续学习：',
+            failText: '建议先回看网络知识教程，重点补状态码与抓包证书部分。'
+        },
+        'ci-basics': {
+            reviewText: '建议回看以下内容：',
+            reviewLinks: [{ url: '/持续集成/Jenkins-CICD教程-软件测试版/', text: 'Jenkins CI/CD 教程' }],
+            reviewFocus: '重点关注：CI/CD 概念、声明式 Pipeline 语法、Webhook 触发、Docker 环境一致性、质量门禁',
+            passLinks: [
+                { url: '/持续集成/GitHub-Actions教程-软件测试版/', text: 'GitHub Actions 教程' },
+                { url: '/项目实战/CICD自动化回归实战/', text: 'CI/CD 自动化回归实战' }
+            ],
+            passText: '持续集成已掌握，建议继续学习：',
+            failText: '建议先回看 Jenkins CI/CD 教程，重点补 Pipeline 语法与触发机制。'
         },
     };
 
@@ -173,8 +209,8 @@
         localStorage.setItem('quiz-' + quizId, JSON.stringify(answers));
 
         // 保存测验结果到学习进度系统
-        if (typeof saveQuizResult === 'function') {
-            saveQuizResult(quizId, correct, total);
+        if (typeof window.saveQuizResult === 'function') {
+            window.saveQuizResult(quizId, correct, total);
         }
 
         var scoreDiv = quiz.querySelector('.quiz-score');
