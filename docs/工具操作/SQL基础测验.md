@@ -4,7 +4,7 @@ description: SQL 基础测验，检验增删改查和多表查询掌握程度。
 # SQL 基础测验
 
 !!! abstract "测验说明"
-    本测验用于检验 SQL 基础教程的学习效果。共 10 道题，包括选择题和填空题。
+    本测验用于检验 SQL 基础教程的学习效果。共 10 道选择题。
 
 <div class="tutorial-meta">
     <span class="difficulty-badge difficulty-beginner">📗 入门难度</span>

@@ -1,5 +1,5 @@
 ---
-description: 80+ 篇系统化软件测试教程，覆盖入门到面试的完整技能栈。
+description: 90+ 篇系统化软件测试教程，覆盖入门到面试的完整技能栈。
 
 hide:
   - navigation
@@ -9,7 +9,7 @@ hide:
 <section class="home-hero">
 <div class="home-eyebrow">软件测试学习指南</div>
 <h1>软件测试知识体系</h1>
-<p>80+ 篇系统化文档，覆盖从零基础入门到自动化进阶、项目实战、模板案例和面试准备的完整技能栈。</p>
+<p>90+ 篇系统化文档，覆盖从零基础入门到自动化进阶、项目实战、模板案例和面试准备的完整技能栈。</p>
 </section>
 
 <section class="home-quick-grid">
@@ -123,10 +123,10 @@ hide:
 ## 教程概览
 
 <section class="home-stats">
-<div class="home-stat"><strong>80+</strong><span>篇系统教程</span></div>
+<div class="home-stat"><strong>90+</strong><span>篇系统教程</span></div>
 <div class="home-stat"><strong>6</strong><span>个项目实战</span></div>
 <div class="home-stat"><strong>7</strong><span>份常用模板</span></div>
-<div class="home-stat"><strong>8</strong><span>组功能案例</span></div>
+<div class="home-stat"><strong>11</strong><span>组功能案例</span></div>
 <div class="home-stat"><strong>5</strong><span>阶段学习路径</span></div>
 </section>
 
@@ -139,13 +139,13 @@ hide:
     | 基础理论 | 12 | 测试思维、测试理论测验、ISTQB 术语、测试金字塔、探索式测试、测试用例设计方法论、Python 基础及测验、前端基础、JavaScript 基础、TypeScript 基础、敏捷测试 |
     | 工具操作 | 14 | SQL 教程及测验、Redis/MongoDB、Linux 教程及测验、Git、Docker、Fiddler、Charles、Postman、接口联调、正则表达式、网络知识教程及测验 |
     | 专项测试 | 8 | 接口测试方法论、接口测试测验、接口测试进阶测验、JMeter 性能、Web 安全、AI 辅助测试、测试左移右移、移动端专项 |
-    | 自动化测试 | 5 | Python+Selenium+Playwright+Playwright测验+Appium |
+    | 自动化测试 | 5 | Requests 接口自动化、Selenium、Playwright（含基础测验）、Appium |
     | 项目实战 | 6 | 项目总览、电商、接口自动化、Web 自动化、性能测试、CI/CD 回归实战 |
     | 模板库 | 7 | 测试计划、测试用例、接口用例、缺陷报告、测试报告、上线检查 |
-    | 案例库 | 11 | 登录、购物车、下单支付、权限控制、文件上传、搜索、通知、国际化案例，另有兼容性、安全、性能专项案例 |
+    | 案例库 | 12 | 登录、购物车、下单支付、权限控制、文件上传、搜索、通知、国际化案例，另有兼容性、安全、性能专项案例 |
     | 面试专题 | 15 | 软件测试、接口测试、自动化测试、性能测试、安全测试、移动端测试、AI 测试、测试管理、数据库 SQL、Linux、CI/CD、项目经验表达、面试复盘、测试职业发展路线图 |
     | 持续集成 | 4 | Jenkins CI/CD、GitHub Actions、GitLab CI/CD、持续集成测验 |
-    | **合计** | **80+** | **测试工程师全栈技能** |
+    | **合计** | **90+** | **测试工程师全栈技能** |
 
 ---
 

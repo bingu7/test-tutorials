@@ -66,7 +66,7 @@
             { icon: '🏗️', title: 'CI/CD 自动化回归实战', url: '/项目实战/CICD自动化回归实战/' }
         ],
         'Fiddler抓包教程': [
-            { icon: '📮', title: 'Postman 接口教程', url: '/工具操作/Postman接口测试教程-软件测试版/' },
+            { icon: '🕵️', title: 'Charles 抓包教程', url: '/工具操作/Charles抓包教程-软件测试版/' },
             { icon: '🔗', title: '接口抓包联调实战', url: '/工具操作/接口抓包联调实战教程-软件测试版/' },
             { icon: '🌐', title: '网络知识教程', url: '/工具操作/网络知识教程-软件测试版/' }
         ],
@@ -139,7 +139,92 @@
             { icon: '🗃️', title: '数据库 SQL 教程', url: '/工具操作/数据库SQL教程-软件测试版/' },
             { icon: '🐍', title: 'Python 基础测验', url: '/基础理论/Python基础测验/' },
             { icon: '🗄️', title: 'Redis 与 MongoDB', url: '/工具操作/Redis与MongoDB教程-软件测试版/' }
-        ]
+        ],
+        'Charles抓包教程': [
+            { icon: '🕵️', title: 'Fiddler 抓包教程', url: '/工具操作/Fiddler抓包教程-软件测试版/' },
+            { icon: '🔗', title: '接口抓包联调实战', url: '/工具操作/接口抓包联调实战教程-软件测试版/' },
+            { icon: '🌐', title: '网络知识教程', url: '/工具操作/网络知识教程-软件测试版/' }
+        ],
+        '测试用例设计方法论教程': [
+            { icon: '📖', title: '软件测试理论基础', url: '/基础理论/软件测试理论基础教程/' },
+            { icon: '🔍', title: '探索式测试教程', url: '/基础理论/探索式测试教程-软件测试版/' },
+            { icon: '🔗', title: '接口测试方法论', url: '/专项测试/接口测试完整教程-软件测试版/' }
+        ],
+        'JavaScript基础教程': [
+            { icon: '🌐', title: '前端基础教程', url: '/基础理论/前端基础教程-软件测试版/' },
+            { icon: '📘', title: 'TypeScript 基础教程', url: '/基础理论/TypeScript基础教程-软件测试版/' },
+            { icon: '🎭', title: 'Selenium Web 自动化', url: '/自动化测试/Selenium-Web自动化教程-软件测试版/' }
+        ],
+        'TypeScript基础教程': [
+            { icon: '📜', title: 'JavaScript 基础教程', url: '/基础理论/JavaScript基础教程-软件测试版/' },
+            { icon: '🎪', title: 'Playwright 自动化', url: '/自动化测试/Playwright自动化测试教程-软件测试版/' },
+            { icon: '🏗️', title: 'Web 自动化项目实战', url: '/项目实战/Web自动化项目实战/' }
+        ],
+        'Jenkins-CICD教程': [
+            { icon: '🐳', title: 'Docker 容器教程', url: '/工具操作/Docker容器教程-软件测试版/' },
+            { icon: '📝', title: '持续集成测验', url: '/持续集成/持续集成测验/' },
+            { icon: '🏗️', title: 'CI/CD 自动化回归实战', url: '/项目实战/CICD自动化回归实战/' }
+        ],
+        'GitHub-Actions教程': [
+            { icon: '🚀', title: 'Jenkins CI/CD', url: '/持续集成/Jenkins-CICD教程-软件测试版/' },
+            { icon: '📝', title: '持续集成测验', url: '/持续集成/持续集成测验/' },
+            { icon: '🏗️', title: 'CI/CD 自动化回归实战', url: '/项目实战/CICD自动化回归实战/' }
+        ],
+        'GitLab-CICD教程': [
+            { icon: '🚀', title: 'Jenkins CI/CD', url: '/持续集成/Jenkins-CICD教程-软件测试版/' },
+            { icon: '📝', title: '持续集成测验', url: '/持续集成/持续集成测验/' },
+            { icon: '🏗️', title: 'CI/CD 自动化回归实战', url: '/项目实战/CICD自动化回归实战/' }
+        ],
+        'AI辅助测试教程': [
+            { icon: '🔗', title: '接口测试方法论', url: '/专项测试/接口测试完整教程-软件测试版/' },
+            { icon: '🧪', title: '接口自动化教程', url: '/自动化测试/Python+Requests+Allure接口自动化教程-软件测试版/' },
+            { icon: '📋', title: '测试用例模板', url: '/模板库/测试用例模板/' }
+        ],
+        '测试左右移教程': [
+            { icon: '🚀', title: 'Jenkins CI/CD', url: '/持续集成/Jenkins-CICD教程-软件测试版/' },
+            { icon: '🏗️', title: 'CI/CD 自动化回归实战', url: '/项目实战/CICD自动化回归实战/' },
+            { icon: '📊', title: '测试报告模板', url: '/模板库/测试报告模板/' }
+        ],
+        '移动端专项测试教程': [
+            { icon: '📱', title: 'Appium App 自动化', url: '/自动化测试/Appium-App自动化教程-软件测试版/' },
+            { icon: '🕵️', title: 'Charles 抓包教程', url: '/工具操作/Charles抓包教程-软件测试版/' },
+            { icon: '📋', title: '兼容性测试案例', url: '/案例库/兼容性测试案例-软件测试版/' }
+        ],
+        'CICD自动化回归实战': [
+            { icon: '🚀', title: 'Jenkins CI/CD', url: '/持续集成/Jenkins-CICD教程-软件测试版/' },
+            { icon: '🧪', title: '接口自动化教程', url: '/自动化测试/Python+Requests+Allure接口自动化教程-软件测试版/' },
+            { icon: '📊', title: '测试报告模板', url: '/模板库/测试报告模板/' }
+        ],
+        '接口自动化项目实战': [
+            { icon: '🧪', title: '接口自动化教程', url: '/自动化测试/Python+Requests+Allure接口自动化教程-软件测试版/' },
+            { icon: '🔗', title: '接口测试方法论', url: '/专项测试/接口测试完整教程-软件测试版/' },
+            { icon: '🚀', title: 'CI/CD 自动化回归实战', url: '/项目实战/CICD自动化回归实战/' }
+        ],
+        'Web自动化项目实战': [
+            { icon: '🎪', title: 'Playwright 自动化', url: '/自动化测试/Playwright自动化测试教程-软件测试版/' },
+            { icon: '🎭', title: 'Selenium Web 自动化', url: '/自动化测试/Selenium-Web自动化教程-软件测试版/' },
+            { icon: '🚀', title: 'CI/CD 自动化回归实战', url: '/项目实战/CICD自动化回归实战/' }
+        ],
+        '性能测试项目实战': [
+            { icon: '📈', title: 'JMeter 性能测试', url: '/专项测试/JMeter性能测试教程-软件测试版/' },
+            { icon: '🐳', title: 'Docker 容器教程', url: '/工具操作/Docker容器教程-软件测试版/' },
+            { icon: '📊', title: '性能测试案例', url: '/案例库/性能测试案例-软件测试版/' }
+        ],
+        '接口测试进阶测验': [
+            { icon: '🔗', title: '接口测试方法论', url: '/专项测试/接口测试完整教程-软件测试版/' },
+            { icon: '📝', title: '接口测试基础测验', url: '/专项测试/接口测试基础测验/' },
+            { icon: '🧪', title: '接口自动化教程', url: '/自动化测试/Python+Requests+Allure接口自动化教程-软件测试版/' }
+        ],
+        '网络知识测验': [
+            { icon: '🌐', title: '网络知识教程', url: '/工具操作/网络知识教程-软件测试版/' },
+            { icon: '🕵️', title: 'Fiddler 抓包教程', url: '/工具操作/Fiddler抓包教程-软件测试版/' },
+            { icon: '📮', title: 'Postman 接口教程', url: '/工具操作/Postman接口测试教程-软件测试版/' }
+        ],
+        '持续集成测验': [
+            { icon: '🚀', title: 'Jenkins CI/CD', url: '/持续集成/Jenkins-CICD教程-软件测试版/' },
+            { icon: '🐙', title: 'GitHub Actions 教程', url: '/持续集成/GitHub-Actions教程-软件测试版/' },
+            { icon: '🏗️', title: 'CI/CD 自动化回归实战', url: '/项目实战/CICD自动化回归实战/' }
+        ],
     };
 
     window.initRelatedTutorials = function() {

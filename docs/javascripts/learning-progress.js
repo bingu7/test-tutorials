@@ -12,9 +12,12 @@
         'python-basics': '/基础理论/Python基础测验/',
         'sql-basics': '/工具操作/SQL基础测验/',
         'api-basics': '/专项测试/接口测试基础测验/',
+        'api-advanced': '/专项测试/接口测试进阶测验/',
         'playwright-basics': '/自动化测试/Playwright基础测验/',
         'testing-theory': '/基础理论/软件测试理论基础测验/',
-        'linux-basics': '/工具操作/Linux基础测验/'
+        'linux-basics': '/工具操作/Linux基础测验/',
+        'network-basics': '/工具操作/网络知识测验/',
+        'ci-basics': '/持续集成/持续集成测验/'
     };
 
     // 测验 ID → 中文名映射
@@ -22,9 +25,12 @@
         'python-basics': 'Python 基础测验',
         'sql-basics': 'SQL 基础测验',
         'api-basics': '接口测试基础测验',
+        'api-advanced': '接口测试进阶测验',
         'playwright-basics': 'Playwright 基础测验',
         'testing-theory': '软件测试理论测验',
-        'linux-basics': 'Linux 基础测验'
+        'linux-basics': 'Linux 基础测验',
+        'network-basics': '网络知识测验',
+        'ci-basics': '持续集成测验'
     };
 
     // 五阶段学习路径配置
@@ -36,6 +42,7 @@
                 { id: '基础理论/软件测试理论基础教程', name: '软件测试理论基础', url: '/基础理论/软件测试理论基础教程/' },
                 { id: '基础理论/ISTQB软件测试术语速查', name: 'ISTQB 术语速查', url: '/基础理论/ISTQB软件测试术语速查/' },
                 { id: '基础理论/测试金字塔与自动化分层策略', name: '测试金字塔与分层策略', url: '/基础理论/测试金字塔与自动化分层策略/' },
+                { id: '基础理论/测试用例设计方法论教程', name: '测试用例设计方法论', url: '/基础理论/测试用例设计方法论教程-软件测试版/' },
                 { id: '基础理论/探索式测试教程', name: '探索式测试', url: '/基础理论/探索式测试教程-软件测试版/' },
                 { id: '基础理论/敏捷测试教程', name: '敏捷测试', url: '/基础理论/敏捷测试教程-软件测试版/' }
             ],
@@ -47,16 +54,16 @@
             description: '掌握 SQL、Linux、Git、Postman、Fiddler、网络知识等高频工具',
             tutorials: [
                 { id: '工具操作/数据库SQL教程', name: '数据库 SQL', url: '/工具操作/数据库SQL教程-软件测试版/' },
-                { id: '工具操作/SQL基础测验', name: 'SQL 基础测验', url: '/工具操作/SQL基础测验/' },
                 { id: '工具操作/Linux实用教程', name: 'Linux 实用', url: '/工具操作/Linux实用教程-软件测试版/' },
                 { id: '工具操作/Git版本控制教程', name: 'Git 版本控制', url: '/工具操作/Git版本控制教程-软件测试版/' },
                 { id: '工具操作/Docker容器教程', name: 'Docker 容器', url: '/工具操作/Docker容器教程-软件测试版/' },
                 { id: '工具操作/Postman接口测试教程', name: 'Postman 接口', url: '/工具操作/Postman接口测试教程-软件测试版/' },
                 { id: '工具操作/Fiddler抓包教程', name: 'Fiddler 抓包', url: '/工具操作/Fiddler抓包教程-软件测试版/' },
+                { id: '工具操作/Charles抓包教程', name: 'Charles 抓包', url: '/工具操作/Charles抓包教程-软件测试版/' },
                 { id: '工具操作/正则表达式教程', name: '正则表达式', url: '/工具操作/正则表达式教程-软件测试版/' },
                 { id: '工具操作/网络知识教程', name: '网络知识', url: '/工具操作/网络知识教程-软件测试版/' }
             ],
-            quizzes: ['sql-basics', 'linux-basics'],
+            quizzes: ['sql-basics', 'linux-basics', 'network-basics'],
             practiceUrl: '/章节练习与参考答案/'
         },
         phase3: {
@@ -66,10 +73,13 @@
                 { id: '专项测试/接口测试完整教程', name: '接口测试方法论', url: '/专项测试/接口测试完整教程-软件测试版/' },
                 { id: '专项测试/JMeter性能测试教程', name: 'JMeter 性能测试', url: '/专项测试/JMeter性能测试教程-软件测试版/' },
                 { id: '专项测试/Web安全测试教程', name: 'Web 安全测试', url: '/专项测试/Web安全测试教程-软件测试版/' },
+                { id: '专项测试/AI辅助测试教程', name: 'AI 辅助测试', url: '/专项测试/AI辅助测试教程-软件测试版/' },
+                { id: '专项测试/测试左右移教程', name: '测试左移与右移', url: '/专项测试/测试左右移教程-软件测试版/' },
+                { id: '专项测试/移动端专项测试教程', name: '移动端专项测试', url: '/专项测试/移动端专项测试教程-软件测试版/' },
                 { id: '工具操作/Redis与MongoDB教程', name: 'Redis 与 MongoDB', url: '/工具操作/Redis与MongoDB教程-软件测试版/' },
                 { id: '工具操作/接口抓包联调实战教程', name: '接口抓包联调实战', url: '/工具操作/接口抓包联调实战教程-软件测试版/' }
             ],
-            quizzes: ['api-basics'],
+            quizzes: ['api-basics', 'api-advanced'],
             practiceUrl: '/章节练习与参考答案/'
         },
         phase4: {
@@ -78,6 +88,8 @@
             tutorials: [
                 { id: '基础理论/Python基础教程', name: 'Python 基础', url: '/基础理论/Python基础教程-软件测试版/' },
                 { id: '基础理论/前端基础教程', name: '前端基础', url: '/基础理论/前端基础教程-软件测试版/' },
+                { id: '基础理论/JavaScript基础教程', name: 'JavaScript 基础', url: '/基础理论/JavaScript基础教程-软件测试版/' },
+                { id: '基础理论/TypeScript基础教程', name: 'TypeScript 基础', url: '/基础理论/TypeScript基础教程-软件测试版/' },
                 { id: '自动化测试/Python+Requests+Allure接口自动化教程', name: 'Python 接口自动化', url: '/自动化测试/Python+Requests+Allure接口自动化教程-软件测试版/' },
                 { id: '自动化测试/Selenium-Web自动化教程', name: 'Selenium Web 自动化', url: '/自动化测试/Selenium-Web自动化教程-软件测试版/' },
                 { id: '自动化测试/Playwright自动化测试教程', name: 'Playwright Web 自动化', url: '/自动化测试/Playwright自动化测试教程-软件测试版/' },
@@ -90,13 +102,16 @@
             name: '项目与面试',
             description: '完成项目实战，输出作品集材料，并能进行面试表达',
             tutorials: [
+                { id: '持续集成/Jenkins-CICD教程', name: 'Jenkins CI/CD', url: '/持续集成/Jenkins-CICD教程-软件测试版/' },
+                { id: '持续集成/GitHub-Actions教程', name: 'GitHub Actions', url: '/持续集成/GitHub-Actions教程-软件测试版/' },
+                { id: '持续集成/GitLab-CICD教程', name: 'GitLab CI/CD', url: '/持续集成/GitLab-CICD教程-软件测试版/' },
                 { id: '项目实战/电商系统测试实战', name: '电商系统测试实战', url: '/项目实战/电商系统测试实战/' },
                 { id: '项目实战/接口自动化项目实战', name: '接口自动化项目实战', url: '/项目实战/接口自动化项目实战/' },
                 { id: '项目实战/Web自动化项目实战', name: 'Web 自动化项目实战', url: '/项目实战/Web自动化项目实战/' },
                 { id: '项目实战/性能测试项目实战', name: '性能测试项目实战', url: '/项目实战/性能测试项目实战/' },
                 { id: '项目实战/CICD自动化回归实战', name: 'CI/CD 自动化回归实战', url: '/项目实战/CICD自动化回归实战/' }
             ],
-            quizzes: [],
+            quizzes: ['ci-basics'],
             practiceUrl: '/项目实战/'
         }
     };
@@ -197,7 +212,8 @@
 
         var data = getCachedProgressData();
         var completed = 0;
-        var total = phase.tutorials.length;
+        // 教程与测验共同决定阶段完成度，避免教程勾完、测验没做也被判 100%
+        var total = phase.tutorials.length + (phase.quizzes ? phase.quizzes.length : 0);
 
         phase.tutorials.forEach(function(tutorial) {
             if (data.learned[tutorial.id]) {
@@ -205,10 +221,20 @@
             }
         });
 
+        (phase.quizzes || []).forEach(function(quizId) {
+            if (data.quiz[quizId]) {
+                completed++;
+            }
+        });
+
         return {
             completed: completed,
             total: total,
-            percentage: total > 0 ? Math.round((completed / total) * 100) : 0
+            percentage: total > 0 ? Math.round((completed / total) * 100) : 0,
+            tutorialCompleted: phase.tutorials.filter(function(t) { return data.learned[t.id]; }).length,
+            tutorialTotal: phase.tutorials.length,
+            quizCompleted: (phase.quizzes || []).filter(function(q) { return !!data.quiz[q]; }).length,
+            quizTotal: (phase.quizzes || []).length
         };
     };
 
@@ -281,17 +307,28 @@
         var phases = Object.keys(LEARNING_PHASES);
         var totalTutorials = 0;
         var completedTutorials = 0;
+        var totalQuizzes = 0;
+        var completedQuizzes = 0;
 
         phases.forEach(function(phaseId) {
             var progress = getPhaseProgress(phaseId);
             totalTutorials += progress.total;
             completedTutorials += progress.completed;
+            totalQuizzes += progress.quizTotal || 0;
+            completedQuizzes += progress.quizCompleted || 0;
         });
+
+        var tutorialCompleted = completedTutorials - completedQuizzes;
+        var tutorialTotal = totalTutorials - totalQuizzes;
 
         return {
             completed: completedTutorials,
             total: totalTutorials,
-            percentage: totalTutorials > 0 ? Math.round((completedTutorials / totalTutorials) * 100) : 0
+            percentage: totalTutorials > 0 ? Math.round((completedTutorials / totalTutorials) * 100) : 0,
+            tutorialCompleted: tutorialCompleted,
+            tutorialTotal: tutorialTotal,
+            quizCompleted: completedQuizzes,
+            quizTotal: totalQuizzes
         };
     };
 
@@ -321,7 +358,7 @@
                 overallBar.style.width = overall.percentage + '%';
             }
             if (overallText) {
-                overallText.textContent = '已完成 ' + overall.completed + '/' + overall.total + ' 个教程 (' + overall.percentage + '%)';
+                overallText.textContent = '已完成 ' + overall.completed + '/' + overall.total + ' 项（教程 ' + overall.tutorialCompleted + '/' + overall.tutorialTotal + ' · 测验 ' + overall.quizCompleted + '/' + overall.quizTotal + '，' + overall.percentage + '%）';
             }
         }
     }
@@ -342,7 +379,7 @@
             '<h3>学习进度总览</h3>' +
             '<div class="progress-tracker" data-overall-progress>' +
             '<div class="progress-bar"><div class="progress-fill" style="width: ' + overallProgress.percentage + '%"></div></div>' +
-            '<div class="progress-text">已完成 ' + overallProgress.completed + '/' + overallProgress.total + ' 个教程 (' + overallProgress.percentage + '%)</div>' +
+            '<div class="progress-text">已完成 ' + overallProgress.completed + '/' + overallProgress.total + ' 项（教程 ' + overallProgress.tutorialCompleted + '/' + overallProgress.tutorialTotal + ' · 测验 ' + overallProgress.quizCompleted + '/' + overallProgress.quizTotal + '，' + overallProgress.percentage + '%）</div>' +
             '</div>' +
             '<div class="recommendation-box">' +
             '<strong>💡 下一步建议：</strong>' +
