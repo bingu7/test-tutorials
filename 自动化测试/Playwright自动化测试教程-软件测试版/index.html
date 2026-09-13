@@ -47,12 +47,6 @@
     
     
       
-        
-        
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
-        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
-      
     
     
       <link rel="stylesheet" href="../../stylesheets/extra.css">
@@ -63,7 +57,20 @@
 
     
     
-  </head>
+  
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Playwright Web 自动化 - 软件测试知识体系" />
+<meta property="og:description" content="Playwright 自动化教程，自动等待、网络拦截和 Trace 回放。" />
+<meta property="og:image" content="https://bingu7.github.io/test-tutorials/assets/images/social/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/Playwright%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88.png" />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:url" content="https://bingu7.github.io/test-tutorials/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/Playwright%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/" />
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:title" content="Playwright Web 自动化 - 软件测试知识体系" />
+<meta property="twitter:description" content="Playwright 自动化教程，自动等待、网络拦截和 Trace 回放。" />
+<meta property="twitter:image" content="https://bingu7.github.io/test-tutorials/assets/images/social/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/Playwright%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88.png" />
+</head>
   
   
     
@@ -7877,6 +7884,140 @@
 
 
 
+<h2 id="__comments">评论</h2>
+
+<div class="giscus"></div>
+
+<script>
+  (function () {
+    'use strict';
+
+    // Material 的即时加载会在每次导航后重新执行本脚本，
+    // 用全局标记保证初始化逻辑只执行一次
+    if (window.__giscusInit) return;
+    window.__giscusInit = true;
+
+    var REPO = 'bingu7/test-tutorials';
+    var REPO_ID = 'R_kgDOS0GDqQ';
+    var CATEGORY = 'General';
+    var CATEGORY_ID = 'DIC_kwDOS0GDqc4DFf2W';
+
+    // giscus iframe 是否已完成首次通信、待下发的主题
+    var giscusLoaded = false;
+    var pendingTheme = null;
+
+    // 依据 Material 调色板选择 giscus 主题
+    function getGiscusTheme() {
+      var palette = typeof __md_get === 'function' ? __md_get('__palette') : null;
+      if (palette && typeof palette.color === 'object') {
+        return palette.color.scheme === 'slate' ? 'dark' : 'light';
+      }
+      var scheme = document.body.getAttribute('data-md-color-scheme');
+      return scheme === 'slate' ? 'dark' : 'light';
+    }
+
+    // 挂载 giscus（即时加载后页面 DOM 会被替换，需要重新插入脚本）
+    function mount() {
+      var container = document.querySelector('.giscus');
+      if (!container) return;
+      if (container.dataset.giscusMounted === 'true') return;
+      container.dataset.giscusMounted = 'true';
+
+      // 每次挂载都是新的 iframe，重置加载状态
+      giscusLoaded = false;
+      pendingTheme = null;
+
+      var script = document.createElement('script');
+      script.src = 'https://giscus.app/client.js';
+      script.setAttribute('data-repo', REPO);
+      script.setAttribute('data-repo-id', REPO_ID);
+      script.setAttribute('data-category', CATEGORY);
+      script.setAttribute('data-category-id', CATEGORY_ID);
+      script.setAttribute('data-mapping', 'pathname');
+      script.setAttribute('data-strict', '1');
+      script.setAttribute('data-reactions-enabled', '1');
+      script.setAttribute('data-emit-metadata', '0');
+      script.setAttribute('data-input-position', 'bottom');
+      script.setAttribute('data-theme', getGiscusTheme());
+      script.setAttribute('data-lang', 'zh-CN');
+      script.setAttribute('data-loading', 'lazy');
+      script.setAttribute('crossorigin', 'anonymous');
+      script.async = true;
+      // 加载失败时允许下次导航重试
+      script.onerror = function () {
+        container.dataset.giscusMounted = 'false';
+      };
+
+      container.appendChild(script);
+    }
+
+    // 向 giscus iframe 下发主题
+    function postTheme(theme) {
+      var frame = document.querySelector('.giscus-frame');
+      if (!frame || !frame.contentWindow) return;
+      frame.contentWindow.postMessage(
+        { giscus: { setConfig: { theme: theme } } },
+        'https://giscus.app'
+      );
+    }
+
+    // 主题切换时同步 iframe；
+    // iframe 未加载完成（懒加载）时先记下，等 giscus 首次通信后再下发，
+    // 否则 postMessage 会因目标 origin 尚未就绪而失败，导致暗色下评论区仍是浅色
+    function syncTheme() {
+      var theme = getGiscusTheme();
+
+      if (giscusLoaded) {
+        postTheme(theme);
+      } else {
+        pendingTheme = theme;
+      }
+    }
+
+    // giscus 加载完成后会向父页面发消息（如 resizeHeight），以此判定就绪
+    window.addEventListener('message', function (event) {
+      if (event.origin !== 'https://giscus.app') return;
+      giscusLoaded = true;
+      if (pendingTheme) {
+        var theme = pendingTheme;
+        pendingTheme = null;
+        postTheme(theme);
+      }
+    });
+
+    // 等待 Material bundle 就绪后订阅一次导航事件
+    // （bundle 在页面底部加载，首屏执行本脚本时 document$ 可能尚未定义）
+    var tries = 0;
+    function start() {
+      if (typeof document$ === 'undefined') {
+        if (++tries < 100) {
+          setTimeout(start, 50);
+          return;
+        }
+        // 兜底：无即时加载能力时直接挂载
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', mount);
+        } else {
+          mount();
+        }
+        return;
+      }
+      document$.subscribe(mount);
+      mount();
+    }
+    start();
+
+    document.addEventListener('change', function (event) {
+      var target = event.target;
+      // Material 的明暗切换是一组 radio[name="__palette"]
+      if (target && target.matches && target.matches('input[name="__palette"]')) {
+        // 等 Material 应用新配色后再同步
+        setTimeout(syncTheme, 100);
+      }
+    });
+  })();
+</script>
+
                 
               </article>
             </div>
@@ -7940,7 +8081,16 @@
       <div class="md-copyright">
   
   
+  <span class="md-copyright__stats">
+    <span id="busuanzi_container_page_pv" style="display:none">
+      本页阅读 <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span id="busuanzi_container_site_uv" style="display:none">
+      全站访客 <span id="busuanzi_value_site_uv"></span>
+    </span>
+  </span>
 </div>
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
       
         
 <div class="md-social">
