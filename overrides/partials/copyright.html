@@ -1,0 +1,32 @@
+{#-
+  页脚版权区 + 不蒜子阅读量统计
+
+  在 Material 原生 copyright 基础上追加：
+  - 本页阅读量（page_pv）
+  - 全站访客数（site_uv）
+
+  计数服务：不蒜子（https://busuanzi.ibruce.info）
+  说明：加载失败时容器保持隐藏，不影响页面其余部分。
+-#}
+<div class="md-copyright">
+  {% if config.copyright %}
+    <div class="md-copyright__highlight">
+      {{ config.copyright }}
+    </div>
+  {% endif %}
+  {% if not config.extra.generator == false %}
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  {% endif %}
+  <span class="md-copyright__stats">
+    <span id="busuanzi_container_page_pv" style="display:none">
+      本页阅读 <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span id="busuanzi_container_site_uv" style="display:none">
+      全站访客 <span id="busuanzi_value_site_uv"></span>
+    </span>
+  </span>
+</div>
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>

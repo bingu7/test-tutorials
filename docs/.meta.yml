@@ -1,0 +1,7 @@
+# 全站页面默认元数据（由 Material meta 插件加载）
+#
+# 页面自己的 front matter 优先级更高，可单独覆盖以下设置。
+# 例如在某个页面写 `comments: false` 即可关闭该页评论。
+
+# 启用 Giscus 评论（模板见 overrides/partials/comments.html）
+comments: true

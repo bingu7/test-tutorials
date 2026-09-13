@@ -1,3 +1,30 @@
+/* ==================== 字体：系统字体栈（替代 Google Fonts） ==================== */
+/*
+ * theme.font: false 关闭了远程字体加载，避免国内访问
+ * fonts.googleapis.com 超时阻塞首屏渲染。这里定义覆盖范围更完整的
+ * 系统字体栈：优先中文系统字体，再回退到 Material 默认的无衬线序列。
+ * 变量定义在 html 上以覆盖 Material 的 :root 定义（后者用 var(--md-text-font,_)）。
+ */
+html {
+    --md-text-font: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+        "Hiragino Sans GB", "Microsoft YaHei", "Source Han Sans SC",
+        "Noto Sans CJK SC", "WenQuanYi Micro Hei", Helvetica, Arial, sans-serif;
+    --md-code-font: "SFMono-Regular", Consolas, "Liberation Mono", Menlo,
+        "Microsoft YaHei", "PingFang SC", monospace;
+}
+
+
+/* ==================== 页脚：阅读量统计 ==================== */
+/* 不蒜子加载成功前容器为 display:none，加载后由脚本置为 inline */
+.md-copyright__stats {
+    margin-left: 0.75rem;
+}
+
+.md-copyright__stats > span + span {
+    margin-left: 0.75rem;
+}
+
+
 /* ==================== 设计令牌（Design Tokens） ==================== */
 :root {
     /* 成功色系 */

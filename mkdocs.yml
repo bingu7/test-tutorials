@@ -14,6 +14,10 @@ theme:
   name: material
   language: zh
   logo: assets/images/bingu-logo.png
+  custom_dir: overrides          # 自定义模板（评论系统等）
+  # 关闭 Google Fonts 远程加载：改用系统字体栈（见 extra.css），
+  # 避免国内访问 fonts.googleapis.com 超时拖慢首屏
+  font: false
   palette:
     # 浅色模式
     - scheme: default
@@ -45,15 +49,23 @@ theme:
   icon:
     repo: fontawesome/brands/github
 
-# 搜索插件
+# 插件
 plugins:
   - search:
       separator: '[\s\-\.]+'   # 中文搜索分词
       lang: zh
+  - meta:                        # 支持 .meta.yml 批量设置页面元数据（评论开关等）
+      meta_file: .meta.yml
   - git-revision-date-localized:   # 页面底部显示“最后更新”时间
       enable_creation_date: false
       type: date
       locale: zh
+  # 社交分享卡片（og:image）：仅在 CI 生成，本地构建跳过（省去下载中文字体）
+  - social:
+      enabled: !ENV [CI, false]
+      cards_layout_options:
+        font_family: Noto Sans SC   # 中文字形；默认 Roboto 不含中文
+        background_color: indigo
 
 # Markdown 扩展
 markdown_extensions:

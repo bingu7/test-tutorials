@@ -191,9 +191,13 @@ mkdocs serve
 
 ## 🛠️ 技术栈
 
-- **文档引擎**：[MkDocs Material](https://squidfunk.github.io/mkdocs-material/)
+- **文档引擎**：[MkDocs Material](https://squidfunk.github.io/mkdocs-material/)（搜索、明暗主题、即时加载）
+- **站点功能**：测验系统、学习进度追踪、相关推荐、Giscus 评论、不蒜子阅读量、社交分享卡片
 - **托管平台**：[GitHub Pages](https://pages.github.com/) + 宝塔服务器静态站点
 - **自动部署**：GitHub Actions（push 到 main 自动构建并双端部署）
+
+> 分享卡片（og:image）仅在 CI 构建时生成（`CI=true`），本地构建自动跳过。
+> 评论基于 [Giscus](https://giscus.app)，需为仓库安装 giscus GitHub App 后方可发帖。
 
 ---
 

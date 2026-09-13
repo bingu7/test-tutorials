@@ -7,6 +7,13 @@ CLAUDE.md
 mkdocs-local*.log
 启动命令.txt
 
+# 社交卡片字体/渲染缓存（social 插件）
+.cache/
+
+# Playwright MCP 运行产物
+.playwright-mcp/
+docs/.playwright-mcp/
+
 # Root draft tutorial markdown files
 /*.md
 !/README.md

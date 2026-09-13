@@ -1,3 +1,7 @@
 mkdocs>=1.6,<2
-mkdocs-material>=9.5,<10
+# [imaging] 额外依赖（cairosvg + pillow）用于生成社交分享卡片；
+# 卡片仅在 CI 构建（CI=true）时生成，本地构建会自动跳过
+mkdocs-material[imaging]>=9.5,<10
 mkdocs-git-revision-date-localized-plugin>=1.2
+# 中文搜索分词：search 插件检测到 jieba 时启用，缺失会导致中文搜索退化
+jieba>=0.42

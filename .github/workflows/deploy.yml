@@ -27,8 +27,14 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
+      - name: Install system dependencies for social cards
+        run: sudo apt-get update && sudo apt-get install -y libcairo2
+
       - name: Build MkDocs site
         run: mkdocs build --strict
+        env:
+          # 显式开启社交分享卡片生成（social 插件 enabled: !ENV [CI, false]）
+          CI: 'true'
 
       - name: Check built site for broken internal links
         uses: lycheeverse/lychee-action@v2
