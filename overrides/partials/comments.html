@@ -5,7 +5,11 @@
   关闭：设置 `comments: false`
 
   配置来源：https://giscus.app
-  仓库：bingu7/test-tutorials · 分类：Announcements（公告，仅维护者与 giscus 可创建）
+  仓库：bingu7/test-tutorials · 分类：General
+
+  注意：不要改用 Announcements 分类。虽然 giscus 官方推荐它，
+  但实测存在无法自动创建 discussion 的问题（giscus/giscus#1323），
+  会导致访客发不出第一条评论。General 分类已验证可正常自动建帖。
 
   映射说明：使用 title（页面标题）而非 pathname。
   站点同时部署在 GitHub Pages 与宝塔服务器，两者 URL 路径前缀不同，
@@ -28,8 +32,8 @@
 
     var REPO = 'bingu7/test-tutorials';
     var REPO_ID = 'R_kgDOS0GDqQ';
-    var CATEGORY = 'Announcements';
-    var CATEGORY_ID = 'DIC_kwDOS0GDqc4DFf2V';
+    var CATEGORY = 'General';
+    var CATEGORY_ID = 'DIC_kwDOS0GDqc4DFf2W';
 
     // giscus iframe 是否已完成首次通信、待下发的主题
     var giscusLoaded = false;
