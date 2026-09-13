@@ -66,6 +66,7 @@ description: Python 基础教程，语法、数据类型、函数、文件操作
 ### 2.1 安装 Python
 
 **Windows：**
+
 1. 官网下载：`https://www.python.org/downloads/`
 2. 安装时 **勾选** `Add Python to PATH`
 3. 验证：`python --version`
@@ -145,6 +146,7 @@ x = y = z = 0
 ```
 
 **命名规范：**
+
 - 变量名：`snake_case`（小写下划线）：`user_name`、`test_data`
 - 常量：`UPPER_CASE`：`MAX_RETRY`、`BASE_URL`
 - 类名：`PascalCase`：`LoginPage`、`TestLogin`

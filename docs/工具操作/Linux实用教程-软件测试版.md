@@ -76,6 +76,7 @@ Linux 命令很多，新手不要按字典背。测试工作里先掌握“查�
 ```
 
 **测试人员重点关注：**
+
 - `/etc/` — 配置文件
 - `/var/log/` — 系统日志
 - `/opt/` 或 `/usr/local/` — 应用部署位置
@@ -1203,6 +1204,7 @@ free -h -s 1
 ```
 
 **关键概念：**
+
 - `available`：真正可用内存（关注这个，不是 free）
 - `buff/cache`：缓存（系统会按需释放）
 
@@ -1534,6 +1536,7 @@ tar -tzvf archive.tar.gz
 ```
 
 **记忆口诀：**
+
 - `c` create 创建
 - `x` extract 解压
 - `t` list 列表
@@ -2232,7 +2235,7 @@ systemctl   # 服务
 
 ## 下一步建议
 
-<div class="tutorial-next-steps">
+<div class="tutorial-next-steps" markdown="1">
 
 ### 完成检查
 

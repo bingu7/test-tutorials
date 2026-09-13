@@ -284,6 +284,7 @@ nohup appium > appium.log 2>&1 &
 打开 Appium Inspector，配置 Capabilities：
 
 **Server：**
+
 - Remote Host: `127.0.0.1`
 - Remote Port: `4723`
 - Remote Path: `/`
@@ -1391,6 +1392,7 @@ WebView.setWebContentsDebuggingEnabled(true)
 ### 13.8 真机和模拟器表现不一致
 
 模拟器与真机差异：
+
 - 性能
 - 网络
 - 传感器

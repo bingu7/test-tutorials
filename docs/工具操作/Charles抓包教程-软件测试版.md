@@ -229,6 +229,7 @@ ipconfig
 
 !!! warning "Android 7.0+ 注意"
     系统默认不信任用户安装的 CA 证书。解决方案：
+
     - 应用配置 `network_security_config.xml` 信任用户证书（需开发协助）
     - 使用 root 设备 + Magisk 模块自动信任用户证书
     - 使用 Android 6.0 以下设备/模拟器测试

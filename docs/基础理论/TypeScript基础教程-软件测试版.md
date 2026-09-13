@@ -690,7 +690,7 @@ function first<T>(arr: T[]): T { return arr[0] }
 
 ## 下一步建议
 
-<div class="tutorial-next-steps">
+<div class="tutorial-next-steps" markdown="1">
 
 ### 完成检查
 

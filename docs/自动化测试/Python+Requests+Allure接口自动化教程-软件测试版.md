@@ -166,6 +166,7 @@ pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
 常用国内源：
+
 - 清华：`https://pypi.tuna.tsinghua.edu.cn/simple`
 - 阿里：`https://mirrors.aliyun.com/pypi/simple/`
 - 豆瓣：`https://pypi.douban.com/simple/`
@@ -206,6 +207,7 @@ scoop install allure
 ```
 
 方式 2：手动安装
+
 1. 下载：`https://github.com/allure-framework/allure2/releases`
 2. 解压到本地，如 `D:\tools\allure-<版本号>`
 3. 添加到系统环境变量 PATH：`D:\tools\allure-<版本号>\bin`
@@ -237,6 +239,7 @@ allure --version
 推荐 **PyCharm Community**（免费版足够）或 **VSCode + Python 插件**。
 
 PyCharm 配置：
+
 - `File` → `Settings` → `Project` → `Python Interpreter`
 - 选择正确的 Python 解释器
 - 安装项目依赖
@@ -1696,6 +1699,7 @@ allure serve ./reports/allure-results
 ### 12.1 Jenkins 集成
 
 **前置准备：**
+
 - Jenkins 安装 Allure 插件
 - Jenkins 服务器安装 Python + Allure
 
@@ -1931,6 +1935,7 @@ pytest -n auto # 自动检测 CPU 数
 ### 13.8 Fixture 不生效
 
 排查清单：
+
 - conftest.py 是否在正确位置（用例同目录或上级目录）
 - Fixture 函数名是否拼写正确
 - 是否漏写了 `@pytest.fixture` 装饰器
@@ -2001,7 +2006,7 @@ pytest -n auto # 自动检测 CPU 数
 
 ## 下一步建议
 
-<div class="tutorial-next-steps">
+<div class="tutorial-next-steps" markdown="1">
 
 ### 完成检查
 

@@ -74,6 +74,7 @@ markdown_extensions:
   - attr_list                  # 属性列表
   - def_list                   # 定义列表
   - footnotes                  # 脚注
+  - md_in_html                 # 允许 HTML 块内解析 Markdown（需在容器上加 markdown="1"）
   - tables                     # 表格
   - toc:
       permalink: true          # 标题永久链接

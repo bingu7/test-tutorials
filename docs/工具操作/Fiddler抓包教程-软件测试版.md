@@ -177,6 +177,7 @@ Fiddler 本质是一个 **中间人代理（Man-in-the-Middle Proxy）**，所�
 
 !!! warning "HTTP/3（QUIC）注意"
     Chrome 等浏览器默认启用 HTTP/3 over QUIC（基于 UDP），Fiddler Classic 作为 TCP 代理完全无法抓到这类请求。排查时需在浏览器中禁用 QUIC：
+
     - Chrome：访问 `chrome://flags/#enable-quic`，设为 `Disabled`
     - 或启动 Chrome 时加参数 `--disable-quic`
 
@@ -193,6 +194,7 @@ Fiddler 本质是一个 **中间人代理（Man-in-the-Middle Proxy）**，所�
 ### 4.2 验证证书安装
 
 Windows 系统下：
+
 - `Win + R` 输入 `certmgr.msc`
 - 进入 `受信任的根证书颁发机构` → `证书`
 - 查找名为 `DO_NOT_TRUST_FiddlerRoot` 的证书
@@ -251,6 +253,7 @@ ipconfig
 
 !!! warning "Android 7.0+ 注意"
     系统默认不信任用户安装的 CA 证书。需要：
+
     - 应用配置 `network_security_config.xml` 信任用户证书（开发协助），或
     - 使用 root 设备将证书安装到系统目录，或
     - **Magisk + MagiskTrustUserCerts 模块**：免手动复制证书，自动信任用户证书（root 用户推荐），或

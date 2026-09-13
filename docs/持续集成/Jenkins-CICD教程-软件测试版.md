@@ -866,6 +866,7 @@ post {
 **安装 DingTalk 插件**
 
 **创建钉钉机器人：**
+
 - 钉钉群 → 设置 → 智能群助手 → 添加机器人 → 自定义
 - 获取 Webhook URL
 
@@ -1285,6 +1286,7 @@ tail -f /var/log/jenkins/jenkins.log
 ```
 
 常见原因：
+
 - JDK 版本不对（Jenkins LTS 2.426+ 需要 JDK 17 或 21）
 - 端口被占用
 - 内存不足
@@ -1300,6 +1302,7 @@ tail -f /var/log/jenkins/jenkins.log
 **HTTPS 仓库：** 配置用户名密码凭证
 
 **SSH 仓库：**
+
 - Jenkins 用户的 `~/.ssh/id_rsa` 是否正确
 - known_hosts 是否含目标主机
 - 凭证 ID 是否对
@@ -1442,7 +1445,7 @@ withCredentials([string(credentialsId: 'api-token', variable: 'TOKEN')]) {
 
 ## 下一步建议
 
-<div class="tutorial-next-steps">
+<div class="tutorial-next-steps" markdown="1">
 
 ### 完成检查
 

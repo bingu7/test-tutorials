@@ -1259,6 +1259,7 @@ WHERE o.status = 'PAID' AND p.id IS NULL;
 **问题：** `Access denied for user`
 
 排查：
+
 - 用户名、密码是否正确
 - 用户是否有该 IP 的访问权限
 - 是否有该数据库的权限
@@ -1345,11 +1346,13 @@ cursor.execute(sql, (name,))
 ### 12.2 推荐学习资源
 
 **书籍：**
+
 - 《MySQL 必知必会》（入门首选）
 - 《高性能 MySQL》（进阶）
 - 《SQL 必知必会》（通用 SQL）
 
 **网站：**
+
 - SQL Zoo：`https://sqlzoo.net/`（交互式练习）
 - LeetCode 数据库题
 - MySQL 官方文档
@@ -1395,7 +1398,7 @@ EXPLAIN SELECT ...;
 
 ## 下一步建议
 
-<div class="tutorial-next-steps">
+<div class="tutorial-next-steps" markdown="1">
 
 ### 完成检查
 

@@ -1175,6 +1175,7 @@ def test_example(page: Page, browser_name: str):
 ### 14.6 与 Selenium 迁移
 
 Playwright 的 `locator` 类似 Selenium 的 `find_element`，但 API 更简洁。迁移时注意：
+
 - 无需 `WebDriverWait`，`expect` 自带等待
 - `page.goto()` 替代 `driver.get()`
 - `locator.fill()` 替代 `send_keys()`

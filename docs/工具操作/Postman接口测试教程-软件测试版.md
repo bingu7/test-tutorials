@@ -139,6 +139,7 @@ Postman 是一款功能强大的 **API 开发与测试平台**，最初是 Chrom
 **Themes：** 可切换深色/浅色主题
 
 **Proxy：** 配置代理，如需经过 Fiddler 抓包：
+
 - 勾选 `Use custom proxy configuration`
 - Proxy server: `127.0.0.1:8888`
 
@@ -230,6 +231,7 @@ GET https://jsonplaceholder.typicode.com/users/1
 ```
 
 切换 Body 显示模式：
+
 - `Pretty`：格式化展示（推荐）
 - `Raw`：原始字符串
 - `Preview`：预览（HTML 渲染）
@@ -415,6 +417,7 @@ Body: {"username":"{{username}}","password":"{{password}}"}
 `Environments` → `Globals` → 添加变量，所有环境都能访问。
 
 适合放：
+
 - 工具类变量（如 UUID 生成函数对应的值）
 - 不区分环境的固定值
 
@@ -794,6 +797,7 @@ pm.test(`[${pm.iterationData.get("case_name")}] code 符合预期`, function () 
 在 Collection 中创建请求 → 点击 `Save Response` → `Save as example`
 
 为每个请求添加多个 Example：
+
 - 状态码 200 的成功响应
 - 状态码 400 的参数错误响应
 - 状态码 500 的服务器错误响应
@@ -1096,6 +1100,7 @@ Postman 提供 fork/merge 功能：
 ### 15.3 变量没有生效
 
 排查清单：
+
 - 是否已选中环境（右上角）
 - 变量名称是否拼写一致（区分大小写）
 - `Current Value` 是否有值（不是只填了 `Initial Value`）
@@ -1184,7 +1189,7 @@ Postman 提供 fork/merge 功能：
 
 ## 下一步建议
 
-<div class="tutorial-next-steps">
+<div class="tutorial-next-steps" markdown="1">
 
 ### 完成检查
 

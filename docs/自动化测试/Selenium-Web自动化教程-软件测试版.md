@@ -1039,6 +1039,7 @@ def test_register():
 ```
 
 **问题：**
+
 - 元素变了改一堆地方
 - 重复代码
 - 可读性差
@@ -1624,6 +1625,7 @@ This version of ChromeDriver only supports Chrome version XX
 ```
 
 **解决：**
+
 - Selenium 4.6+ 自动管理
 - 或手动下载匹配版本
 
@@ -1672,6 +1674,7 @@ def safe_click(driver, locator, retries=3):
 ### 13.5 浏览器闪退
 
 可能原因：
+
 - ChromeDriver 与 Chrome 版本不匹配
 - 启动参数有问题
 - 内存不足
