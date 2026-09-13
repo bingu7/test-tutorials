@@ -1924,6 +1924,56 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="下一步建议">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        完成检查
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        推荐下一步
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        阶段测验
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        通关检查
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -5611,6 +5661,56 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="下一步建议">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        完成检查
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        推荐下一步
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        阶段测验
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        通关检查
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -5767,22 +5867,30 @@
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>       ↓          ↓          ↓          ↓
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>       开发负责   开发+测试   测试主导    用户/产品
 </code></pre></div>
-<p><strong>单元测试（Unit Test）：</strong>
-- 对象：函数/方法/类
-- 执行者：开发
-- 工具：JUnit、PyTest、NUnit</p>
-<p><strong>集成测试（Integration Test）：</strong>
-- 对象：模块间接口
-- 执行者：开发 + 测试
-- 重点：接口数据流、调用链</p>
-<p><strong>系统测试（System Test）：</strong>
-- 对象：完整系统
-- 执行者：测试
-- 涵盖：功能、性能、安全、兼容等</p>
-<p><strong>验收测试（Acceptance Test）：</strong>
-- 对象：成品
-- 执行者：客户 / 产品
-- 类型：α 测试（公司内）、β 测试（外部用户）</p>
+<p><strong>单元测试（Unit Test）：</strong></p>
+<ul>
+<li>对象：函数/方法/类</li>
+<li>执行者：开发</li>
+<li>工具：JUnit、PyTest、NUnit</li>
+</ul>
+<p><strong>集成测试（Integration Test）：</strong></p>
+<ul>
+<li>对象：模块间接口</li>
+<li>执行者：开发 + 测试</li>
+<li>重点：接口数据流、调用链</li>
+</ul>
+<p><strong>系统测试（System Test）：</strong></p>
+<ul>
+<li>对象：完整系统</li>
+<li>执行者：测试</li>
+<li>涵盖：功能、性能、安全、兼容等</li>
+</ul>
+<p><strong>验收测试（Acceptance Test）：</strong></p>
+<ul>
+<li>对象：成品</li>
+<li>执行者：客户 / 产品</li>
+<li>类型：α 测试（公司内）、β 测试（外部用户）</li>
+</ul>
 <h3 id="22">2.2 按测试方法分类<a class="headerlink" href="#22" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -5959,9 +6067,11 @@
 <a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>   ↓                ↑
 <a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>   编码 ──── 单元测试
 </code></pre></div>
-<p><strong>特点：</strong>
-- 测试与开发对应（左侧开发阶段对应右侧测试阶段）
-- 阶段清晰，便于管理</p>
+<p><strong>特点：</strong></p>
+<ul>
+<li>测试与开发对应（左侧开发阶段对应右侧测试阶段）</li>
+<li>阶段清晰，便于管理</li>
+</ul>
 <div class="admonition warning">
 <p class="admonition-title">常见误区</p>
 <p>V 模型并非"测试介入晚"——每个开发阶段（需求/设计/编码）都有对应的测试活动（验收测试设计/系统测试设计/单元测试设计），只是测试<strong>执行</strong>在编码完成后。真正的问题是测试<strong>执行</strong>晚，而非测试<strong>设计</strong>晚。W 模型在此基础上强调测试设计与开发同步执行。</p>
@@ -5981,10 +6091,12 @@
 <a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>  ↓              ↓
 <a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>验收      ←→  验收测试
 </code></pre></div>
-<p><strong>特点：</strong>
-- 测试与开发并行
-- 测试贯穿全生命周期
-- <strong>改进了 V 模型测试介入晚的问题</strong></p>
+<p><strong>特点：</strong></p>
+<ul>
+<li>测试与开发并行</li>
+<li>测试贯穿全生命周期</li>
+<li><strong>改进了 V 模型测试介入晚的问题</strong></li>
+</ul>
 <h3 id="33">3.3 敏捷测试模型<a class="headerlink" href="#33" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>Sprint 1   Sprint 2   Sprint 3   ...
 <a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>[设计-开发-测试-上线]  [设计-开发-测试-上线]
@@ -6109,15 +6221,19 @@
 <a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a><span class="gu">## 11. 交付物</span>
 </code></pre></div>
 <h3 id="45">4.5 用例评审<a class="headerlink" href="#45" title="Permanent link">&para;</a></h3>
-<p><strong>评审目的：</strong>
-- 用例完整性
-- 优先级合理性
-- 与需求一致性
-- 减少冗余</p>
-<p><strong>评审参与人：</strong>
-- 测试（主导）
-- 开发（确认实现细节）
-- 产品（确认需求理解）</p>
+<p><strong>评审目的：</strong></p>
+<ul>
+<li>用例完整性</li>
+<li>优先级合理性</li>
+<li>与需求一致性</li>
+<li>减少冗余</li>
+</ul>
+<p><strong>评审参与人：</strong></p>
+<ul>
+<li>测试（主导）</li>
+<li>开发（确认实现细节）</li>
+<li>产品（确认需求理解）</li>
+</ul>
 <h3 id="46">4.6 测试执行<a class="headerlink" href="#46" title="Permanent link">&para;</a></h3>
 <p><strong>执行原则：</strong></p>
 <ol>
@@ -6316,10 +6432,12 @@
 <a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>            ↓           ↓
 <a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>         [已取消]    [退款中] → [已退款]
 </code></pre></div>
-<p><strong>测试要覆盖：</strong>
-- 所有状态
-- 所有合法迁移
-- 非法迁移（如已完成 → 待支付，应拒绝）</p>
+<p><strong>测试要覆盖：</strong></p>
+<ul>
+<li>所有状态</li>
+<li>所有合法迁移</li>
+<li>非法迁移（如已完成 → 待支付，应拒绝）</li>
+</ul>
 <h3 id="56">5.6 场景法<a class="headerlink" href="#56" title="Permanent link">&para;</a></h3>
 <p><strong>适合：</strong> 业务流程测试。</p>
 <p><strong>基本流：</strong> 主流程<br />
@@ -6443,10 +6561,12 @@
 <a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a>   ↓             │
 <a id="__codelineno-15-13" name="__codelineno-15-13" href="#__codelineno-15-13"></a>关闭（Closed） / 重新打开（Reopen）─┘
 </code></pre></div>
-<p><strong>其他状态：</strong>
-- 推迟（Deferred）：暂时不修
-- 拒绝（Rejected）：不是 Bug
-- 重复（Duplicate）：和已有 Bug 重复</p>
+<p><strong>其他状态：</strong></p>
+<ul>
+<li>推迟（Deferred）：暂时不修</li>
+<li>拒绝（Rejected）：不是 Bug</li>
+<li>重复（Duplicate）：和已有 Bug 重复</li>
+</ul>
 <h3 id="62">6.2 缺陷严重等级<a class="headerlink" href="#62" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -6742,15 +6862,19 @@
 <a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>              ↑
 <a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>            质量看护
 </code></pre></div>
-<p><strong>测试与开发协作：</strong>
-- 早期参与设计评审
-- 一起做技术方案讨论
-- 缺陷沟通基于事实
-- 协作而非对抗</p>
-<p><strong>测试与产品协作：</strong>
-- 一起评审需求
-- 反馈用户体验
-- 探索性测试发现的问题及时反馈</p>
+<p><strong>测试与开发协作：</strong></p>
+<ul>
+<li>早期参与设计评审</li>
+<li>一起做技术方案讨论</li>
+<li>缺陷沟通基于事实</li>
+<li>协作而非对抗</li>
+</ul>
+<p><strong>测试与产品协作：</strong></p>
+<ul>
+<li>一起评审需求</li>
+<li>反馈用户体验</li>
+<li>探索性测试发现的问题及时反馈</li>
+</ul>
 <h3 id="83">8.3 敏捷团队中的测试<a class="headerlink" href="#83" title="Permanent link">&para;</a></h3>
 <ul>
 <li>全员对质量负责</li>
@@ -6797,78 +6921,100 @@
 <li>转项目管理（流程好的测试）</li>
 </ul>
 <h3 id="93">9.3 能力提升建议<a class="headerlink" href="#93" title="Permanent link">&para;</a></h3>
-<p><strong>基础（0-2 年）：</strong>
-- 掌握测试理论
-- 熟练 Postman、Fiddler
-- 会用 Jira 等工具
-- 学会 SQL 和 Linux 基础</p>
-<p><strong>进阶（2-5 年）：</strong>
-- 学一门编程（Python/Java）
-- 接口/UI 自动化
-- 性能测试（JMeter）
-- 学会 CI/CD</p>
-<p><strong>高阶（5 年+）：</strong>
-- 测试平台/框架开发
-- 多领域专长（性能 + 安全 + 自动化）
-- 团队管理与培养
-- 测试体系建设</p>
+<p><strong>基础（0-2 年）：</strong></p>
+<ul>
+<li>掌握测试理论</li>
+<li>熟练 Postman、Fiddler</li>
+<li>会用 Jira 等工具</li>
+<li>学会 SQL 和 Linux 基础</li>
+</ul>
+<p><strong>进阶（2-5 年）：</strong></p>
+<ul>
+<li>学一门编程（Python/Java）</li>
+<li>接口/UI 自动化</li>
+<li>性能测试（JMeter）</li>
+<li>学会 CI/CD</li>
+</ul>
+<p><strong>高阶（5 年+）：</strong></p>
+<ul>
+<li>测试平台/框架开发</li>
+<li>多领域专长（性能 + 安全 + 自动化）</li>
+<li>团队管理与培养</li>
+<li>测试体系建设</li>
+</ul>
 <h3 id="94">9.4 推荐学习资源<a class="headerlink" href="#94" title="Permanent link">&para;</a></h3>
-<p><strong>书籍：</strong>
-- 《软件测试的艺术》
-- 《Google 软件测试之道》
-- 《探索式软件测试》
-- 《软件测试基础教程（ISTQB）》</p>
-<p><strong>网站/社区：</strong>
-- TesterHome（国内最大测试社区）
-- 51Testing
-- ISTQB 官方</p>
-<p><strong>认证：</strong>
-- ISTQB（国际软件测试认证）
-- CSTQB（中国软件测试认证）</p>
+<p><strong>书籍：</strong></p>
+<ul>
+<li>《软件测试的艺术》</li>
+<li>《Google 软件测试之道》</li>
+<li>《探索式软件测试》</li>
+<li>《软件测试基础教程（ISTQB）》</li>
+</ul>
+<p><strong>网站/社区：</strong></p>
+<ul>
+<li>TesterHome（国内最大测试社区）</li>
+<li>51Testing</li>
+<li>ISTQB 官方</li>
+</ul>
+<p><strong>认证：</strong></p>
+<ul>
+<li>ISTQB（国际软件测试认证）</li>
+<li>CSTQB（中国软件测试认证）</li>
+</ul>
 <hr />
 <h2 id="_13">十、常见面试题与答案<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h2>
 <h3 id="101">10.1 基础概念<a class="headerlink" href="#101" title="Permanent link">&para;</a></h3>
 <p><strong>Q：测试用例由哪几部分组成？</strong></p>
 <p>A：用例编号、标题、模块、优先级、前置条件、测试步骤、预期结果、实际结果、执行状态、备注。</p>
 <p><strong>Q：黑盒、白盒、灰盒区别？</strong></p>
-<p>A：
-- 黑盒：不看代码，关注输入输出
-- 白盒：看代码，关注内部逻辑
-- 灰盒：部分了解，如接口测试</p>
+<p>A：</p>
+<ul>
+<li>黑盒：不看代码，关注输入输出</li>
+<li>白盒：看代码，关注内部逻辑</li>
+<li>灰盒：部分了解，如接口测试</li>
+</ul>
 <p><strong>Q：测试用例设计方法有哪些？</strong></p>
 <p>A：等价类、边界值、判定表、因果图、状态迁移、场景法、错误推测、正交法。</p>
 <h3 id="102">10.2 流程相关<a class="headerlink" href="#102" title="Permanent link">&para;</a></h3>
 <p><strong>Q：拿到需求后怎么做测试？</strong></p>
-<p>A：
-1. 需求评审，确认理解
-2. 制定测试计划
-3. 设计用例并评审
-4. 准备环境和数据
-5. 执行测试，记录 Bug
-6. 缺陷回归
-7. 输出测试报告</p>
+<p>A：</p>
+<ol>
+<li>需求评审，确认理解</li>
+<li>制定测试计划</li>
+<li>设计用例并评审</li>
+<li>准备环境和数据</li>
+<li>执行测试，记录 Bug</li>
+<li>缺陷回归</li>
+<li>输出测试报告</li>
+</ol>
 <p><strong>Q：什么时候停止测试？</strong></p>
-<p>A：达到准出标准：
-- 用例执行完毕
-- P0/P1 缺陷全修复
-- 通过率达标（如 95%）
-- 性能指标达标
-- 评审通过</p>
+<p>A：达到准出标准：</p>
+<ul>
+<li>用例执行完毕</li>
+<li>P0/P1 缺陷全修复</li>
+<li>通过率达标（如 95%）</li>
+<li>性能指标达标</li>
+<li>评审通过</li>
+</ul>
 <h3 id="103">10.3 缺陷管理<a class="headerlink" href="#103" title="Permanent link">&para;</a></h3>
 <p><strong>Q：开发说不是 Bug 怎么办？</strong></p>
-<p>A：
-1. 重新阅读需求，确认是否符合
-2. 找产品确认预期行为
-3. 提供详细复现步骤和证据
-4. 仍有分歧 → 三方会议讨论
-5. 不情绪化，基于事实沟通</p>
+<p>A：</p>
+<ol>
+<li>重新阅读需求，确认是否符合</li>
+<li>找产品确认预期行为</li>
+<li>提供详细复现步骤和证据</li>
+<li>仍有分歧 → 三方会议讨论</li>
+<li>不情绪化，基于事实沟通</li>
+</ol>
 <p><strong>Q：上线后发现 Bug 怎么办？</strong></p>
-<p>A：
-1. 评估影响范围和严重度
-2. 紧急修复 or 回滚
-3. 上线热修复
-4. 复盘：为何漏测？流程/用例/技术？
-5. 补充用例，避免再次发生</p>
+<p>A：</p>
+<ol>
+<li>评估影响范围和严重度</li>
+<li>紧急修复 or 回滚</li>
+<li>上线热修复</li>
+<li>复盘：为何漏测？流程/用例/技术？</li>
+<li>补充用例，避免再次发生</li>
+</ol>
 <h3 id="104">10.4 思考题<a class="headerlink" href="#104" title="Permanent link">&para;</a></h3>
 <p><strong>Q：如何测试一个电梯？</strong></p>
 <p>A：从多维度切入：</p>
@@ -6899,39 +7045,49 @@
 <p>类似电梯，从功能、性能、安全、易用、外观、特殊场景全方位考虑。</p>
 <h3 id="105">10.5 自动化相关<a class="headerlink" href="#105" title="Permanent link">&para;</a></h3>
 <p><strong>Q：什么样的用例适合自动化？</strong></p>
-<p>A：
-- 稳定、重复执行（回归）
-- 频繁执行
-- 手工成本高
-- 数据量大
-- 接口、性能场景</p>
-<p><strong>不适合：</strong>
-- UI 频繁变动
-- 一次性
-- 探索性
-- 复杂主观判断（如美观）</p>
+<p>A：</p>
+<ul>
+<li>稳定、重复执行（回归）</li>
+<li>频繁执行</li>
+<li>手工成本高</li>
+<li>数据量大</li>
+<li>接口、性能场景</li>
+</ul>
+<p><strong>不适合：</strong></p>
+<ul>
+<li>UI 频繁变动</li>
+<li>一次性</li>
+<li>探索性</li>
+<li>复杂主观判断（如美观）</li>
+</ul>
 <hr />
 <h2 id="_14">附录：测试人员成长清单<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h2>
-<p><strong>入职第一年：</strong>
-- [ ] 熟悉公司业务和产品
-- [ ] 掌握测试基础理论
-- [ ] 熟练使用 Postman / Fiddler
-- [ ] 能独立设计和执行用例
-- [ ] 学会 SQL 基础
-- [ ] 学会 Linux 常用命令
-- [ ] 了解 Git 基础</p>
-<p><strong>入职 2-3 年：</strong>
-- [ ] 掌握一门编程语言
-- [ ] 能写接口自动化用例
-- [ ] 了解性能测试
-- [ ] 了解基础安全测试
-- [ ] 能独立带小项目</p>
-<p><strong>入职 3-5 年：</strong>
-- [ ] 搭建自动化框架
-- [ ] 主导性能测试
-- [ ] 培养新人
-- [ ] 推动流程改进
-- [ ] 跨团队协作</p>
+<p><strong>入职第一年：</strong></p>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> 熟悉公司业务和产品</li>
+<li class="task-list-item"><input type="checkbox" disabled/> 掌握测试基础理论</li>
+<li class="task-list-item"><input type="checkbox" disabled/> 熟练使用 Postman / Fiddler</li>
+<li class="task-list-item"><input type="checkbox" disabled/> 能独立设计和执行用例</li>
+<li class="task-list-item"><input type="checkbox" disabled/> 学会 SQL 基础</li>
+<li class="task-list-item"><input type="checkbox" disabled/> 学会 Linux 常用命令</li>
+<li class="task-list-item"><input type="checkbox" disabled/> 了解 Git 基础</li>
+</ul>
+<p><strong>入职 2-3 年：</strong></p>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> 掌握一门编程语言</li>
+<li class="task-list-item"><input type="checkbox" disabled/> 能写接口自动化用例</li>
+<li class="task-list-item"><input type="checkbox" disabled/> 了解性能测试</li>
+<li class="task-list-item"><input type="checkbox" disabled/> 了解基础安全测试</li>
+<li class="task-list-item"><input type="checkbox" disabled/> 能独立带小项目</li>
+</ul>
+<p><strong>入职 3-5 年：</strong></p>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> 搭建自动化框架</li>
+<li class="task-list-item"><input type="checkbox" disabled/> 主导性能测试</li>
+<li class="task-list-item"><input type="checkbox" disabled/> 培养新人</li>
+<li class="task-list-item"><input type="checkbox" disabled/> 推动流程改进</li>
+<li class="task-list-item"><input type="checkbox" disabled/> 跨团队协作</li>
+</ul>
 <hr />
 <div class="admonition info">
 <p class="admonition-title">测试是一门兼具技术与思维的学科</p>
@@ -6940,33 +7096,26 @@
 <hr />
 <h2 id="_15">下一步建议<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h2>
 <div class="tutorial-next-steps">
-
-### 完成检查
-
-学完本教程后，检查自己是否能做到：
-
-- [ ] 能解释软件测试的目的和价值
-- [ ] 能区分功能测试、性能测试、安全测试、兼容性测试
-- [ ] 能说明测试计划、测试用例、缺陷报告、测试报告之间的关系
-- [ ] 能使用等价类、边界值、场景法设计测试用例
-- [ ] 能写出规范的缺陷报告
-
-### 推荐下一步
-
-根据你的学习进度，选择下一步：
-
-1. **如果你是零基础**：继续学习 [ISTQB 术语速查](ISTQB软件测试术语速查.md)，巩固测试术语
-2. **如果你想巩固基础**：做 [章节练习](../章节练习与参考答案.md)，练习测试点拆解和用例设计
-3. **如果你想进入下一阶段**：学习 [数据库 SQL](../工具操作/数据库SQL教程-软件测试版.md)，掌握数据校验能力
-
-### 阶段测验
-
-完成教程后，建议做 [Python 基础测验](Python基础测验.md) 检验学习效果。
-
-### 通关检查
-
-完成本阶段后，使用 [第1阶段-测试入门通关](../学习中心/第1阶段-测试入门通关.md) 检查是否可以进入下一阶段。
-
+<h3 id="_16">完成检查<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h3>
+<p>学完本教程后，检查自己是否能做到：</p>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> 能解释软件测试的目的和价值</li>
+<li class="task-list-item"><input type="checkbox" disabled/> 能区分功能测试、性能测试、安全测试、兼容性测试</li>
+<li class="task-list-item"><input type="checkbox" disabled/> 能说明测试计划、测试用例、缺陷报告、测试报告之间的关系</li>
+<li class="task-list-item"><input type="checkbox" disabled/> 能使用等价类、边界值、场景法设计测试用例</li>
+<li class="task-list-item"><input type="checkbox" disabled/> 能写出规范的缺陷报告</li>
+</ul>
+<h3 id="_17">推荐下一步<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h3>
+<p>根据你的学习进度，选择下一步：</p>
+<ol>
+<li><strong>如果你是零基础</strong>：继续学习 <a href="../ISTQB%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E6%9C%AF%E8%AF%AD%E9%80%9F%E6%9F%A5/">ISTQB 术语速查</a>，巩固测试术语</li>
+<li><strong>如果你想巩固基础</strong>：做 <a href="../../%E7%AB%A0%E8%8A%82%E7%BB%83%E4%B9%A0%E4%B8%8E%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88/">章节练习</a>，练习测试点拆解和用例设计</li>
+<li><strong>如果你想进入下一阶段</strong>：学习 <a href="../../%E5%B7%A5%E5%85%B7%E6%93%8D%E4%BD%9C/%E6%95%B0%E6%8D%AE%E5%BA%93SQL%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/">数据库 SQL</a>，掌握数据校验能力</li>
+</ol>
+<h3 id="_18">阶段测验<a class="headerlink" href="#_18" title="Permanent link">&para;</a></h3>
+<p>完成教程后，建议做 <a href="../Python%E5%9F%BA%E7%A1%80%E6%B5%8B%E9%AA%8C/">Python 基础测验</a> 检验学习效果。</p>
+<h3 id="_19">通关检查<a class="headerlink" href="#_19" title="Permanent link">&para;</a></h3>
+<p>完成本阶段后，使用 <a href="../../%E5%AD%A6%E4%B9%A0%E4%B8%AD%E5%BF%83/%E7%AC%AC1%E9%98%B6%E6%AE%B5-%E6%B5%8B%E8%AF%95%E5%85%A5%E9%97%A8%E9%80%9A%E5%85%B3/">第1阶段-测试入门通关</a> 检查是否可以进入下一阶段。</p>
 </div>
 
 
@@ -6988,7 +7137,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年8月30日 06:19:13 UTC">2026年8月30日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年9月13日 18:19:30 UTC">2026年9月13日</span>
   </span>
 
     

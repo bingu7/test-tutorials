@@ -2388,6 +2388,56 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="下一步建议">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        完成检查
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        推荐下一步
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        阶段测验
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        通关检查
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -5745,6 +5795,56 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="下一步建议">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        完成检查
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        推荐下一步
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        阶段测验
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        通关检查
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -7266,10 +7366,12 @@
 <h2 id="_11">十一、常见问题排查<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
 <h3 id="111">11.1 连接问题<a class="headerlink" href="#111" title="Permanent link">&para;</a></h3>
 <p><strong>问题：</strong> <code>Access denied for user</code></p>
-<p>排查：
-- 用户名、密码是否正确
-- 用户是否有该 IP 的访问权限
-- 是否有该数据库的权限</p>
+<p>排查：</p>
+<ul>
+<li>用户名、密码是否正确</li>
+<li>用户是否有该 IP 的访问权限</li>
+<li>是否有该数据库的权限</li>
+</ul>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a><span class="c1">-- 查看用户权限（需要管理员）</span>
 <a id="__codelineno-50-2" name="__codelineno-50-2" href="#__codelineno-50-2"></a><span class="k">SHOW</span><span class="w"> </span><span class="n">GRANTS</span><span class="w"> </span><span class="k">FOR</span><span class="w"> </span><span class="s1">'testuser'</span><span class="o">@</span><span class="s1">'%'</span><span class="p">;</span>
 </code></pre></div>
@@ -7334,14 +7436,18 @@
 <li><strong>避免在高峰期</strong> 执行复杂查询</li>
 </ol>
 <h3 id="122">12.2 推荐学习资源<a class="headerlink" href="#122" title="Permanent link">&para;</a></h3>
-<p><strong>书籍：</strong>
-- 《MySQL 必知必会》（入门首选）
-- 《高性能 MySQL》（进阶）
-- 《SQL 必知必会》（通用 SQL）</p>
-<p><strong>网站：</strong>
-- SQL Zoo：<code>https://sqlzoo.net/</code>（交互式练习）
-- LeetCode 数据库题
-- MySQL 官方文档</p>
+<p><strong>书籍：</strong></p>
+<ul>
+<li>《MySQL 必知必会》（入门首选）</li>
+<li>《高性能 MySQL》（进阶）</li>
+<li>《SQL 必知必会》（通用 SQL）</li>
+</ul>
+<p><strong>网站：</strong></p>
+<ul>
+<li>SQL Zoo：<code>https://sqlzoo.net/</code>（交互式练习）</li>
+<li>LeetCode 数据库题</li>
+<li>MySQL 官方文档</li>
+</ul>
 <hr />
 <h2 id="_13">附录：常用命令速查<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-55-1" name="__codelineno-55-1" href="#__codelineno-55-1"></a><span class="c1">-- 库表操作</span>
@@ -7378,34 +7484,27 @@
 <hr />
 <h2 id="_14">下一步建议<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h2>
 <div class="tutorial-next-steps">
-
-### 完成检查
-
-学完本教程后，检查自己是否能做到：
-
-- [ ] 能使用 SELECT 查询数据
-- [ ] 能使用 WHERE 筛选条件
-- [ ] 能使用 JOIN 关联多表查询
-- [ ] 能使用 GROUP BY 分组统计
-- [ ] 能使用聚合函数（COUNT、SUM、AVG、MAX、MIN）
-- [ ] 能理解 NULL 值的处理
-
-### 推荐下一步
-
-根据你的学习进度，选择下一步：
-
-1. **如果你想巩固 SQL**：做 [SQL 基础测验](SQL基础测验.md)，检验学习效果
-2. **如果你想继续学工具**：学习 [Linux 实用教程](Linux实用教程-软件测试版.md)，掌握日志排查
-3. **如果你想进入下一阶段**：学习 [Postman 接口测试](Postman接口测试教程-软件测试版.md)，掌握接口调试
-
-### 阶段测验
-
-完成教程后，建议做 [SQL 基础测验](SQL基础测验.md) 检验学习效果。
-
-### 通关检查
-
-完成本阶段后，使用 [第2阶段-工具实战通关](../学习中心/第2阶段-工具实战通关.md) 检查是否可以进入下一阶段。
-
+<h3 id="_15">完成检查<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h3>
+<p>学完本教程后，检查自己是否能做到：</p>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> 能使用 SELECT 查询数据</li>
+<li class="task-list-item"><input type="checkbox" disabled/> 能使用 WHERE 筛选条件</li>
+<li class="task-list-item"><input type="checkbox" disabled/> 能使用 JOIN 关联多表查询</li>
+<li class="task-list-item"><input type="checkbox" disabled/> 能使用 GROUP BY 分组统计</li>
+<li class="task-list-item"><input type="checkbox" disabled/> 能使用聚合函数（COUNT、SUM、AVG、MAX、MIN）</li>
+<li class="task-list-item"><input type="checkbox" disabled/> 能理解 NULL 值的处理</li>
+</ul>
+<h3 id="_16">推荐下一步<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h3>
+<p>根据你的学习进度，选择下一步：</p>
+<ol>
+<li><strong>如果你想巩固 SQL</strong>：做 <a href="../SQL%E5%9F%BA%E7%A1%80%E6%B5%8B%E9%AA%8C/">SQL 基础测验</a>，检验学习效果</li>
+<li><strong>如果你想继续学工具</strong>：学习 <a href="../Linux%E5%AE%9E%E7%94%A8%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/">Linux 实用教程</a>，掌握日志排查</li>
+<li><strong>如果你想进入下一阶段</strong>：学习 <a href="../Postman%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/">Postman 接口测试</a>，掌握接口调试</li>
+</ol>
+<h3 id="_17">阶段测验<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h3>
+<p>完成教程后，建议做 <a href="../SQL%E5%9F%BA%E7%A1%80%E6%B5%8B%E9%AA%8C/">SQL 基础测验</a> 检验学习效果。</p>
+<h3 id="_18">通关检查<a class="headerlink" href="#_18" title="Permanent link">&para;</a></h3>
+<p>完成本阶段后，使用 <a href="../../%E5%AD%A6%E4%B9%A0%E4%B8%AD%E5%BF%83/%E7%AC%AC2%E9%98%B6%E6%AE%B5-%E5%B7%A5%E5%85%B7%E5%AE%9E%E6%88%98%E9%80%9A%E5%85%B3/">第2阶段-工具实战通关</a> 检查是否可以进入下一阶段。</p>
 </div>
 
 
@@ -7427,7 +7526,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年6月19日 21:11:26 UTC">2026年6月19日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年9月13日 18:19:30 UTC">2026年9月13日</span>
   </span>
 
     

@@ -4481,11 +4481,13 @@
 <a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>    ├── 响应状态码 = 200
 <a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>    └── 响应体包含"success"
 </code></pre></div>
-<p>关键点：
-- 使用 CSV 文件管理测试账号，避免所有请求用同一个账号。
-- 接口之间有依赖（下单需要先登录），要处理 token 传递。
-- 商品 ID 和收货地址提前准备，避免动态生成带来的额外开销。
-- 请求头要模拟真实浏览器（User-Agent、Cookie、Referer）。</p>
+<p>关键点：</p>
+<ul>
+<li>使用 CSV 文件管理测试账号，避免所有请求用同一个账号。</li>
+<li>接口之间有依赖（下单需要先登录），要处理 token 传递。</li>
+<li>商品 ID 和收货地址提前准备，避免动态生成带来的额外开销。</li>
+<li>请求头要模拟真实浏览器（User-Agent、Cookie、Referer）。</li>
+</ul>
 <h2 id="_5">测试数据准备<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -4519,11 +4521,13 @@
 </table>
 <h2 id="_6">测试执行过程<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
 <h3 id="_7">第一步：基准测试<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
-<p>单用户访问各接口，记录基线响应时间：
-- 首页：150ms
-- 商品详情页：200ms
-- 下单：300ms
-- 支付：500ms</p>
+<p>单用户访问各接口，记录基线响应时间：</p>
+<ul>
+<li>首页：150ms</li>
+<li>商品详情页：200ms</li>
+<li>下单：300ms</li>
+<li>支付：500ms</li>
+</ul>
 <h3 id="_8">第二步：负载测试（逐步加压）<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
 <p>逐步增加并发用户数，观察 TPS 和响应时间的变化：</p>
 <table>
@@ -4574,10 +4578,12 @@
 </table>
 <p>发现问题：并发 500 时，下单接口 P95 超过 2s 目标，错误率也上升了。</p>
 <h3 id="_9">第三步：瓶颈定位<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
-<p>通过监控发现：
-1. 数据库 CPU 占用 95%——存在慢查询。
-2. 应用服务器 CPU 只有 60%——瓶颈不在应用层。
-3. 慢查询日志发现下单接口执行了全表扫描的 SELECT 语句。</p>
+<p>通过监控发现：</p>
+<ol>
+<li>数据库 CPU 占用 95%——存在慢查询。</li>
+<li>应用服务器 CPU 只有 60%——瓶颈不在应用层。</li>
+<li>慢查询日志发现下单接口执行了全表扫描的 SELECT 语句。</li>
+</ol>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1">-- 原始查询（无索引，耗时 1.2s）</span>
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">orders</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">user_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10001</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'pending'</span>
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">created_at</span><span class="w"> </span><span class="k">DESC</span><span class="w"> </span><span class="k">LIMIT</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
@@ -4685,7 +4691,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年6月21日 17:21:35 UTC">2026年6月21日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年9月13日 18:19:30 UTC">2026年9月13日</span>
   </span>
 
     

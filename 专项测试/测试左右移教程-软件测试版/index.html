@@ -6253,10 +6253,12 @@
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>                        ↑
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>                   测试只在这里介入
 </code></pre></div>
-<p>传统模式的问题：
-- <strong>缺陷发现太晚</strong>：一个需求阶段的 Bug 在测试阶段才被发现，修复成本是需求阶段的 <strong>30-100 倍</strong>
-- <strong>测试时间被压缩</strong>：开发延期，测试周期首当其冲被压缩
-- <strong>质量问题归咎测试</strong>："为什么没测出来？"成为测试人员的噩梦</p>
+<p>传统模式的问题：</p>
+<ul>
+<li><strong>缺陷发现太晚</strong>：一个需求阶段的 Bug 在测试阶段才被发现，修复成本是需求阶段的 <strong>30-100 倍</strong></li>
+<li><strong>测试时间被压缩</strong>：开发延期，测试周期首当其冲被压缩</li>
+<li><strong>质量问题归咎测试</strong>："为什么没测出来？"成为测试人员的噩梦</li>
+</ul>
 <h3 id="12-shift-left">1.2 测试左移（Shift Left）<a class="headerlink" href="#12-shift-left" title="Permanent link">&para;</a></h3>
 <p><strong>核心思想</strong>：将测试活动提前到软件生命周期的早期阶段。</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>左移后的测试时间线：
@@ -6265,12 +6267,14 @@
 <a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>   参与需求      发现需求     代码静态     单元测试
 <a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>   评审          设计问题     分析         覆盖率
 </code></pre></div>
-<p>左移的关键实践：
-- <strong>需求评审参与</strong>：测试人员提前发现需求歧义和遗漏
-- <strong>设计评审</strong>：检查可测试性、异常场景覆盖
-- <strong>单元测试</strong>：开发编写，测试推动覆盖率
-- <strong>静态代码分析</strong>：自动化检测代码质量问题
-- <strong>契约测试</strong>：微服务间的接口约定提前验证</p>
+<p>左移的关键实践：</p>
+<ul>
+<li><strong>需求评审参与</strong>：测试人员提前发现需求歧义和遗漏</li>
+<li><strong>设计评审</strong>：检查可测试性、异常场景覆盖</li>
+<li><strong>单元测试</strong>：开发编写，测试推动覆盖率</li>
+<li><strong>静态代码分析</strong>：自动化检测代码质量问题</li>
+<li><strong>契约测试</strong>：微服务间的接口约定提前验证</li>
+</ul>
 <h3 id="13-shift-right">1.3 测试右移（Shift Right）<a class="headerlink" href="#13-shift-right" title="Permanent link">&para;</a></h3>
 <p><strong>核心思想</strong>：将质量保障延伸到生产环境，持续监控和验证。</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>右移后的测试时间线：
@@ -6279,11 +6283,13 @@
 <a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>                                 性能监控     故障注入      真实用户
 <a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>                                 错误追踪     韧性验证      体验数据
 </code></pre></div>
-<p>右移的关键实践：
-- <strong>生产监控</strong>：APM、日志分析、错误率监控
-- <strong>混沌工程</strong>：主动注入故障验证系统韧性
-- <strong>金丝雀发布</strong>：小范围灰度验证
-- <strong>A/B 测试</strong>：用数据驱动功能验证</p>
+<p>右移的关键实践：</p>
+<ul>
+<li><strong>生产监控</strong>：APM、日志分析、错误率监控</li>
+<li><strong>混沌工程</strong>：主动注入故障验证系统韧性</li>
+<li><strong>金丝雀发布</strong>：小范围灰度验证</li>
+<li><strong>A/B 测试</strong>：用数据驱动功能验证</li>
+</ul>
 <h3 id="14">1.4 全景图<a class="headerlink" href="#14" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>┌─────────────────────────────────────────────────────────────────────┐
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>│                    软件质量保障全景图                                  │
@@ -6303,10 +6309,12 @@
 <hr />
 <h2 id="_5">二、单元测试（左移基础）<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
 <h3 id="21">2.1 为什么测试人员要懂单元测试<a class="headerlink" href="#21" title="Permanent link">&para;</a></h3>
-<p>单元测试是左移的基石。测试人员不需要写所有单元测试，但需要：
-- <strong>推动覆盖率</strong>：设定覆盖率目标并追踪
-- <strong>审查测试质量</strong>：检查单元测试是否覆盖了关键场景
-- <strong>补充边界测试</strong>：开发可能遗漏的边界和异常场景</p>
+<p>单元测试是左移的基石。测试人员不需要写所有单元测试，但需要：</p>
+<ul>
+<li><strong>推动覆盖率</strong>：设定覆盖率目标并追踪</li>
+<li><strong>审查测试质量</strong>：检查单元测试是否覆盖了关键场景</li>
+<li><strong>补充边界测试</strong>：开发可能遗漏的边界和异常场景</li>
+</ul>
 <h3 id="22-pytest">2.2 Pytest 基础<a class="headerlink" href="#22-pytest" title="Permanent link">&para;</a></h3>
 <h4 id="_6">安装与第一个测试<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>pip<span class="w"> </span>install<span class="w"> </span>pytest<span class="w"> </span>pytest-cov
@@ -6520,11 +6528,13 @@
 <hr />
 <h2 id="_8">三、静态代码分析（左移）<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
 <h3 id="31">3.1 什么是静态分析<a class="headerlink" href="#31" title="Permanent link">&para;</a></h3>
-<p>静态分析不运行代码，而是通过扫描源码发现潜在问题：
-- 代码风格不一致
-- 潜在 Bug（未使用的变量、空指针引用）
-- 安全漏洞（硬编码密码、SQL 拼接）
-- 代码复杂度过高</p>
+<p>静态分析不运行代码，而是通过扫描源码发现潜在问题：</p>
+<ul>
+<li>代码风格不一致</li>
+<li>潜在 Bug（未使用的变量、空指针引用）</li>
+<li>安全漏洞（硬编码密码、SQL 拼接）</li>
+<li>代码复杂度过高</li>
+</ul>
 <h3 id="32-python">3.2 Python 静态分析工具<a class="headerlink" href="#32-python" title="Permanent link">&para;</a></h3>
 <h4 id="pylint">pylint — 全面检查<a class="headerlink" href="#pylint" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>pip<span class="w"> </span>install<span class="w"> </span>pylint
@@ -6585,12 +6595,14 @@
 <a id="__codelineno-24-10" name="__codelineno-24-10" href="#__codelineno-24-10"></a>│             │  Dashboard / Reports      │
 <a id="__codelineno-24-11" name="__codelineno-24-11" href="#__codelineno-24-11"></a>└─────────────┴───────────────────────────┘
 </code></pre></div>
-<p>SonarQube 关注的维度：
-- <strong>Bugs</strong>：代码缺陷
-- <strong>Vulnerabilities</strong>：安全漏洞
-- <strong>Code Smells</strong>：代码异味
-- <strong>Coverage</strong>：测试覆盖率
-- <strong>Duplications</strong>：重复代码</p>
+<p>SonarQube 关注的维度：</p>
+<ul>
+<li><strong>Bugs</strong>：代码缺陷</li>
+<li><strong>Vulnerabilities</strong>：安全漏洞</li>
+<li><strong>Code Smells</strong>：代码异味</li>
+<li><strong>Coverage</strong>：测试覆盖率</li>
+<li><strong>Duplications</strong>：重复代码</li>
+</ul>
 <h3 id="35-cicd">3.5 CI/CD 中集成静态分析<a class="headerlink" href="#35-cicd" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="c1"># GitLab CI 示例</span>
 <a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a><span class="nt">stages</span><span class="p">:</span>
@@ -6771,10 +6783,12 @@
 <a id="__codelineno-32-4" name="__codelineno-32-4" href="#__codelineno-32-4"></a>                    ↕              ↕              ↕
 <a id="__codelineno-32-5" name="__codelineno-32-5" href="#__codelineno-32-5"></a>               [库存服务]       [通知服务]      [风控服务]
 </code></pre></div>
-<p>问题：
-- 服务 A 的接口改了，服务 B 不知道，联调才发现
-- 集成测试需要启动所有服务，环境搭建复杂
-- 接口文档和实际不一致</p>
+<p>问题：</p>
+<ul>
+<li>服务 A 的接口改了，服务 B 不知道，联调才发现</li>
+<li>集成测试需要启动所有服务，环境搭建复杂</li>
+<li>接口文档和实际不一致</li>
+</ul>
 <h3 id="52">5.2 什么是契约测试<a class="headerlink" href="#52" title="Permanent link">&para;</a></h3>
 <p><strong>契约测试</strong>验证服务之间的接口约定（请求/响应格式）是否一致。</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a>┌──────────┐    契约（Contract）    ┌──────────┐
@@ -7025,11 +7039,13 @@ CDC 方式：<strong>消费者定义期望</strong> → 提供者满足契约</p
 <a id="__codelineno-45-9" name="__codelineno-45-9" href="#__codelineno-45-9"></a>- 最慢的环节在哪里
 <a id="__codelineno-45-10" name="__codelineno-45-10" href="#__codelineno-45-10"></a>- 数据库查询是否命中索引
 </code></pre></div>
-<p>常用 APM 工具：
-- <strong>SkyWalking</strong>：开源，Java/Python/Go 支持好
-- <strong>Jaeger</strong>：Uber 开源，分布式追踪
-- <strong>Datadog</strong>：商业 SaaS，功能全面
-- <strong>New Relic</strong>：商业 SaaS，易用</p>
+<p>常用 APM 工具：</p>
+<ul>
+<li><strong>SkyWalking</strong>：开源，Java/Python/Go 支持好</li>
+<li><strong>Jaeger</strong>：Uber 开源，分布式追踪</li>
+<li><strong>Datadog</strong>：商业 SaaS，功能全面</li>
+<li><strong>New Relic</strong>：商业 SaaS，易用</li>
+</ul>
 <hr />
 <h2 id="_15">八、混沌工程（右移）<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h2>
 <h3 id="81">8.1 什么是混沌工程<a class="headerlink" href="#81" title="Permanent link">&para;</a></h3>
@@ -7177,10 +7193,12 @@ CDC 方式：<strong>消费者定义期望</strong> → 提供者满足契约</p
 <a id="__codelineno-50-17" name="__codelineno-50-17" href="#__codelineno-50-17"></a>
 <a id="__codelineno-50-18" name="__codelineno-50-18" href="#__codelineno-50-18"></a>任何阶段发现问题 → 自动回滚到旧版本
 </code></pre></div>
-<p>测试人员在金丝雀发布中的角色：
-- 定义金丝雀发布的<strong>验证指标</strong>（错误率阈值、延迟阈值）
-- 设计灰度阶段的<strong>自动化验证用例</strong>
-- 参与<strong>发布验证和回滚决策</strong></p>
+<p>测试人员在金丝雀发布中的角色：</p>
+<ul>
+<li>定义金丝雀发布的<strong>验证指标</strong>（错误率阈值、延迟阈值）</li>
+<li>设计灰度阶段的<strong>自动化验证用例</strong></li>
+<li>参与<strong>发布验证和回滚决策</strong></li>
+</ul>
 <h3 id="92-blue-green-deployment">9.2 蓝绿部署（Blue-Green Deployment）<a class="headerlink" href="#92-blue-green-deployment" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-51-1" name="__codelineno-51-1" href="#__codelineno-51-1"></a>蓝绿部署：
 <a id="__codelineno-51-2" name="__codelineno-51-2" href="#__codelineno-51-2"></a>
@@ -7291,11 +7309,13 @@ CDC 方式：<strong>消费者定义期望</strong> → 提供者满足契约</p
 </tr>
 </tbody>
 </table>
-<p><strong>说服策略</strong>：
-1. <strong>用数据说话</strong>：统计当前线上 Bug 有多少可以在更早阶段发现
-2. <strong>小范围试点</strong>：选一个项目试点，用结果说服
-3. <strong>降低门槛</strong>：不要一开始就追求完美，先跑起来
-4. <strong>展示 ROI</strong>：左移投入 1 天，省掉后面 5 天的回归和修复</p>
+<p><strong>说服策略</strong>：</p>
+<ol>
+<li><strong>用数据说话</strong>：统计当前线上 Bug 有多少可以在更早阶段发现</li>
+<li><strong>小范围试点</strong>：选一个项目试点，用结果说服</li>
+<li><strong>降低门槛</strong>：不要一开始就追求完美，先跑起来</li>
+<li><strong>展示 ROI</strong>：左移投入 1 天，省掉后面 5 天的回归和修复</li>
+</ol>
 <h3 id="103">10.3 渐进式落地路线图<a class="headerlink" href="#103" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-54-1" name="__codelineno-54-1" href="#__codelineno-54-1"></a>┌─────────────────────────────────────────────────────────────┐
 <a id="__codelineno-54-2" name="__codelineno-54-2" href="#__codelineno-54-2"></a>│               测试左移/右移 落地路线图                         │
@@ -7722,7 +7742,7 @@ CDC 方式：<strong>消费者定义期望</strong> → 提供者满足契约</p
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年8月28日 06:08:22 UTC">2026年8月28日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年9月13日 18:19:30 UTC">2026年9月13日</span>
   </span>
 
     

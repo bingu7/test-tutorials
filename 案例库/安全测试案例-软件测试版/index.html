@@ -4501,11 +4501,13 @@
 <h2 id="_4">越权测试案例<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
 <h3 id="a-b">水平越权：A 用户访问 B 用户的订单<a class="headerlink" href="#a-b" title="Permanent link">&para;</a></h3>
 <p><strong>攻击思路</strong>：登录用户 A 的账号，尝试通过修改请求参数访问用户 B 的数据。</p>
-<p><strong>测试步骤</strong>：
-1. 用用户 A 登录系统，访问自己的订单详情。
-2. 捕获请求：<code>GET /api/orders/10001</code>（10001 是 A 的订单号）。
-3. 修改订单号为 B 的订单号：<code>GET /api/orders/10002</code>。
-4. 观察是否返回 B 的订单数据。</p>
+<p><strong>测试步骤</strong>：</p>
+<ol>
+<li>用用户 A 登录系统，访问自己的订单详情。</li>
+<li>捕获请求：<code>GET /api/orders/10001</code>（10001 是 A 的订单号）。</li>
+<li>修改订单号为 B 的订单号：<code>GET /api/orders/10002</code>。</li>
+<li>观察是否返回 B 的订单数据。</li>
+</ol>
 <p><strong>预期结果</strong>：返回 403 或"无权访问"，不能返回 B 的数据。</p>
 <p><strong>缺陷示例</strong>：</p>
 <table>
@@ -4544,18 +4546,22 @@
 </table>
 <p><strong>修复建议</strong>：后端校验订单所属用户，查询时加 <code>WHERE user_id = 当前登录用户ID</code> 条件。</p>
 <h3 id="_5">垂直越权：普通用户访问管理员接口<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
-<p><strong>测试步骤</strong>：
-1. 用普通用户登录，获取 token。
-2. 用该 token 请求管理员接口：<code>GET /api/admin/users</code>。
-3. 观察是否返回用户列表。</p>
+<p><strong>测试步骤</strong>：</p>
+<ol>
+<li>用普通用户登录，获取 token。</li>
+<li>用该 token 请求管理员接口：<code>GET /api/admin/users</code>。</li>
+<li>观察是否返回用户列表。</li>
+</ol>
 <p><strong>预期结果</strong>：返回 403，不能访问管理员功能。</p>
 <h2 id="sql">SQL 注入测试案例<a class="headerlink" href="#sql" title="Permanent link">&para;</a></h2>
 <h3 id="_6">登录绕过<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
 <p><strong>攻击思路</strong>：在登录表单中输入 SQL 注入 payload，绕过密码验证。</p>
-<p><strong>测试步骤</strong>：
-1. 在用户名输入框输入：<code>admin' OR '1'='1' --</code>
-2. 密码随意输入。
-3. 点击登录。</p>
+<p><strong>测试步骤</strong>：</p>
+<ol>
+<li>在用户名输入框输入：<code>admin' OR '1'='1' --</code></li>
+<li>密码随意输入。</li>
+<li>点击登录。</li>
+</ol>
 <p><strong>预期结果</strong>：登录失败，不能绕过验证。</p>
 <p><strong>缺陷示例</strong>：</p>
 <table>
@@ -4592,10 +4598,12 @@
 </tr>
 </tbody>
 </table>
-<p><strong>修复建议</strong>：
-- 使用参数化查询（PreparedStatement），不要拼接 SQL。
-- 对输入做严格校验：用户名只允许字母、数字、下划线。
-- 部署 WAF（Web 应用防火墙）拦截常见注入 payload。</p>
+<p><strong>修复建议</strong>：</p>
+<ul>
+<li>使用参数化查询（PreparedStatement），不要拼接 SQL。</li>
+<li>对输入做严格校验：用户名只允许字母、数字、下划线。</li>
+<li>部署 WAF（Web 应用防火墙）拦截常见注入 payload。</li>
+</ul>
 <p><strong>其他注入测试点</strong>：</p>
 <table>
 <thead>
@@ -4622,10 +4630,12 @@
 <h2 id="xss">XSS 测试案例<a class="headerlink" href="#xss" title="Permanent link">&para;</a></h2>
 <h3 id="xss_1">评论区存储型 XSS<a class="headerlink" href="#xss_1" title="Permanent link">&para;</a></h3>
 <p><strong>攻击思路</strong>：在评论内容中插入恶意 JavaScript 代码，其他用户浏览时自动执行。</p>
-<p><strong>测试步骤</strong>：
-1. 在商品评论区提交内容：<code>&lt;script&gt;alert('XSS')&lt;/script&gt;</code>
-2. 刷新页面，查看评论是否被转义。
-3. 用另一个账号访问该商品页面。</p>
+<p><strong>测试步骤</strong>：</p>
+<ol>
+<li>在商品评论区提交内容：<code>&lt;script&gt;alert('XSS')&lt;/script&gt;</code></li>
+<li>刷新页面，查看评论是否被转义。</li>
+<li>用另一个账号访问该商品页面。</li>
+</ol>
 <p><strong>预期结果</strong>：脚本标签被转义为文本显示，不执行。</p>
 <p><strong>缺陷示例</strong>：</p>
 <table>
@@ -4662,10 +4672,12 @@
 </tr>
 </tbody>
 </table>
-<p><strong>修复建议</strong>：
-- 输出时对 <code>&lt;</code>、<code>&gt;</code>、<code>"</code>、<code>'</code>、<code>&amp;</code> 做 HTML 实体编码。
-- 设置 CSP（Content-Security-Policy）响应头，限制脚本来源。
-- 对用户输入做白名单过滤，只允许安全的 HTML 标签。</p>
+<p><strong>修复建议</strong>：</p>
+<ul>
+<li>输出时对 <code>&lt;</code>、<code>&gt;</code>、<code>"</code>、<code>'</code>、<code>&amp;</code> 做 HTML 实体编码。</li>
+<li>设置 CSP（Content-Security-Policy）响应头，限制脚本来源。</li>
+<li>对用户输入做白名单过滤，只允许安全的 HTML 标签。</li>
+</ul>
 <p><strong>其他 XSS 测试点</strong>：</p>
 <table>
 <thead>
@@ -4695,9 +4707,11 @@
 </table>
 <h2 id="_7">敏感信息泄露案例<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
 <h3 id="_8">响应头泄露版本号<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
-<p><strong>测试步骤</strong>：
-1. 用浏览器开发者工具或 curl 查看响应头。
-2. 检查 <code>Server</code>、<code>X-Powered-By</code> 等头信息。</p>
+<p><strong>测试步骤</strong>：</p>
+<ol>
+<li>用浏览器开发者工具或 curl 查看响应头。</li>
+<li>检查 <code>Server</code>、<code>X-Powered-By</code> 等头信息。</li>
+</ol>
 <p><strong>常见泄露</strong>：
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Server: nginx/1.18.0
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>X-Powered-By: Express
@@ -4706,9 +4720,11 @@
 <p><strong>影响</strong>：攻击者可针对已知版本的漏洞进行精准攻击。</p>
 <p><strong>修复建议</strong>：移除或伪装版本信息头。</p>
 <h3 id="_9">错误信息泄露堆栈<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
-<p><strong>测试步骤</strong>：
-1. 故意输入异常参数触发 500 错误。
-2. 查看返回的错误信息是否包含堆栈、SQL 语句、文件路径。</p>
+<p><strong>测试步骤</strong>：</p>
+<ol>
+<li>故意输入异常参数触发 500 错误。</li>
+<li>查看返回的错误信息是否包含堆栈、SQL 语句、文件路径。</li>
+</ol>
 <p><strong>常见泄露</strong>：
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="p">{</span>
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="nt">"error"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Internal Server Error"</span><span class="p">,</span>
@@ -4809,7 +4825,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年6月21日 17:21:35 UTC">2026年6月21日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年9月13日 18:19:30 UTC">2026年9月13日</span>
   </span>
 
     

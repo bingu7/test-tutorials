@@ -3333,6 +3333,45 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="下一步建议">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_27" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        完成检查
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_28" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        推荐下一步
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_29" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        通关检查
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -6729,6 +6768,45 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="下一步建议">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_27" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        完成检查
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_28" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        推荐下一步
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_29" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        通关检查
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -6933,22 +7011,30 @@
 </tbody>
 </table>
 <h3 id="15">1.5 接口测试关注什么<a class="headerlink" href="#15" title="Permanent link">&para;</a></h3>
-<p><strong>功能测试：</strong>
-- 接口能否正常返回数据
-- 返回数据是否符合预期
-- 异常入参时的处理</p>
-<p><strong>性能测试：</strong>
-- 响应时间
-- 并发能力（TPS/QPS）
-- 资源占用</p>
-<p><strong>安全测试：</strong>
-- 认证鉴权
-- 数据加密
-- SQL 注入、XSS 等漏洞</p>
-<p><strong>可靠性测试：</strong>
-- 重复调用幂等性
-- 异常恢复能力
-- 限流降级</p>
+<p><strong>功能测试：</strong></p>
+<ul>
+<li>接口能否正常返回数据</li>
+<li>返回数据是否符合预期</li>
+<li>异常入参时的处理</li>
+</ul>
+<p><strong>性能测试：</strong></p>
+<ul>
+<li>响应时间</li>
+<li>并发能力（TPS/QPS）</li>
+<li>资源占用</li>
+</ul>
+<p><strong>安全测试：</strong></p>
+<ul>
+<li>认证鉴权</li>
+<li>数据加密</li>
+<li>SQL 注入、XSS 等漏洞</li>
+</ul>
+<p><strong>可靠性测试：</strong></p>
+<ul>
+<li>重复调用幂等性</li>
+<li>异常恢复能力</li>
+<li>限流降级</li>
+</ul>
 <hr />
 <h2 id="http">二、HTTP 协议详解<a class="headerlink" href="#http" title="Permanent link">&para;</a></h2>
 <h3 id="21-http">2.1 HTTP 协议特点<a class="headerlink" href="#21-http" title="Permanent link">&para;</a></h3>
@@ -7310,10 +7396,12 @@
 <h2 id="_5">三、常见接口类型<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
 <h3 id="31-restful-api">3.1 RESTful API（最常见）<a class="headerlink" href="#31-restful-api" title="Permanent link">&para;</a></h3>
 <p>REST = Representational State Transfer，基于 HTTP 的资源化设计风格。</p>
-<p><strong>核心原则：</strong>
-- 使用 URL 表示资源（名词，不是动词）
-- 使用 HTTP 方法表示操作
-- 使用 HTTP 状态码表示结果</p>
+<p><strong>核心原则：</strong></p>
+<ul>
+<li>使用 URL 表示资源（名词，不是动词）</li>
+<li>使用 HTTP 方法表示操作</li>
+<li>使用 HTTP 状态码表示结果</li>
+</ul>
 <p><strong>示例：</strong></p>
 <table>
 <thead>
@@ -7372,10 +7460,12 @@
 </div>
 <h3 id="32-graphql">3.2 GraphQL<a class="headerlink" href="#32-graphql" title="Permanent link">&para;</a></h3>
 <p>由 Facebook 推出的查询语言，客户端可精确指定需要的字段。</p>
-<p><strong>特点：</strong>
-- 单一 endpoint（通常 <code>/graphql</code>）
-- 客户端定义返回结构
-- 减少 over-fetching 和 under-fetching</p>
+<p><strong>特点：</strong></p>
+<ul>
+<li>单一 endpoint（通常 <code>/graphql</code>）</li>
+<li>客户端定义返回结构</li>
+<li>减少 over-fetching 和 under-fetching</li>
+</ul>
 <p><strong>请求示例：</strong></p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="err">POST</span><span class="w"> </span><span class="err">/graphql</span>
 <a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="p">{</span>
@@ -7392,10 +7482,12 @@
 <p>响应只返回请求的字段。</p>
 <h3 id="33-websocket">3.3 WebSocket<a class="headerlink" href="#33-websocket" title="Permanent link">&para;</a></h3>
 <p>基于 TCP 的全双工通信协议，常用于即时通讯、推送、实时数据。</p>
-<p><strong>与 HTTP 区别：</strong>
-- 长连接（HTTP 通常短连接）
-- 双向通信（HTTP 单向请求-响应）
-- 协议头从 <code>http://</code> 变为 <code>ws://</code>，HTTPS 对应 <code>wss://</code></p>
+<p><strong>与 HTTP 区别：</strong></p>
+<ul>
+<li>长连接（HTTP 通常短连接）</li>
+<li>双向通信（HTTP 单向请求-响应）</li>
+<li>协议头从 <code>http://</code> 变为 <code>ws://</code>，HTTPS 对应 <code>wss://</code></li>
+</ul>
 <p><strong>测试工具：</strong> Postman 支持 WebSocket、<code>wscat</code> 命令行工具</p>
 <h3 id="34-rpcremote-procedure-call">3.4 RPC（Remote Procedure Call）<a class="headerlink" href="#34-rpcremote-procedure-call" title="Permanent link">&para;</a></h3>
 <p>远程过程调用，常见于微服务内部通信。</p>
@@ -7431,16 +7523,20 @@
 </tr>
 </tbody>
 </table>
-<p><strong>特点：</strong>
-- 调用远程方法像调用本地方法
-- 性能比 HTTP+JSON 高
-- 通常需要专门的测试工具（如 BloomRPC、Apifox 支持 gRPC）</p>
+<p><strong>特点：</strong></p>
+<ul>
+<li>调用远程方法像调用本地方法</li>
+<li>性能比 HTTP+JSON 高</li>
+<li>通常需要专门的测试工具（如 BloomRPC、Apifox 支持 gRPC）</li>
+</ul>
 <h3 id="35-soap">3.5 SOAP<a class="headerlink" href="#35-soap" title="Permanent link">&para;</a></h3>
 <p>老旧的 XML 接口协议，目前主要在金融、政府、传统行业仍有使用。</p>
-<p><strong>特点：</strong>
-- 基于 XML
-- 复杂的 WSDL 描述
-- 主要工具：SoapUI</p>
+<p><strong>特点：</strong></p>
+<ul>
+<li>基于 XML</li>
+<li>复杂的 WSDL 描述</li>
+<li>主要工具：SoapUI</li>
+</ul>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nt">&lt;soap:Envelope&gt;</span>
 <a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">  </span><span class="nt">&lt;soap:Body&gt;</span>
 <a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">    </span><span class="nt">&lt;m:GetUser&gt;</span>
@@ -8131,15 +8227,19 @@
 <h3 id="62">6.2 阶段详解<a class="headerlink" href="#62" title="Permanent link">&para;</a></h3>
 <h4 id="_9">阶段一：需求分析<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h4>
 <p><strong>目标：</strong> 理解业务，确认接口范围。</p>
-<p><strong>产出：</strong>
-- 接口清单（哪些接口、谁负责、何时联调）
-- 测试范围
-- 风险点</p>
-<p><strong>关键问题：</strong>
-- 接口的业务背景是什么？
-- 接口的上下游依赖有哪些？
-- 哪些是新接口、哪些是改动接口？
-- 改动接口的影响范围？</p>
+<p><strong>产出：</strong></p>
+<ul>
+<li>接口清单（哪些接口、谁负责、何时联调）</li>
+<li>测试范围</li>
+<li>风险点</li>
+</ul>
+<p><strong>关键问题：</strong></p>
+<ul>
+<li>接口的业务背景是什么？</li>
+<li>接口的上下游依赖有哪些？</li>
+<li>哪些是新接口、哪些是改动接口？</li>
+<li>改动接口的影响范围？</li>
+</ul>
 <h4 id="_10">阶段二：接口梳理<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h4>
 <p>向开发要清接口文档，至少明确：</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>| 接口名 | URL | 方法 | 负责人 | 文档地址 | 联调时间 |
@@ -8149,17 +8249,21 @@
 </code></pre></div>
 <h4 id="_11">阶段三：用例设计<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h4>
 <p>按"用例设计章节"方法设计，输出 <strong>接口测试用例文档</strong>。</p>
-<p><strong>用例数量参考：</strong>
-- 简单接口（如查询）：5-10 条
-- 中等接口（如创建）：10-20 条
-- 复杂接口（如下单）：20-50 条</p>
+<p><strong>用例数量参考：</strong></p>
+<ul>
+<li>简单接口（如查询）：5-10 条</li>
+<li>中等接口（如创建）：10-20 条</li>
+<li>复杂接口（如下单）：20-50 条</li>
+</ul>
 <h4 id="_12">阶段四：用例评审<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h4>
 <p>参与人：<strong>测试 + 开发 + 产品</strong></p>
-<p>评审要点：
-- 用例是否覆盖需求
-- 异常场景是否充分
-- 是否有冗余用例
-- 优先级是否合理</p>
+<p>评审要点：</p>
+<ul>
+<li>用例是否覆盖需求</li>
+<li>异常场景是否充分</li>
+<li>是否有冗余用例</li>
+<li>优先级是否合理</li>
+</ul>
 <h4 id="_13">阶段五：环境准备<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
@@ -8196,11 +8300,13 @@
 </tbody>
 </table>
 <h4 id="_14">阶段六：用例执行<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h4>
-<p><strong>执行原则：</strong>
-- 按优先级执行：P0 → P1 → P2
-- 先冒烟后全面：先验证主流程通畅
-- 实时记录：边执行边记录 Bug
-- 截图保存：异常场景保留证据</p>
+<p><strong>执行原则：</strong></p>
+<ul>
+<li>按优先级执行：P0 → P1 → P2</li>
+<li>先冒烟后全面：先验证主流程通畅</li>
+<li>实时记录：边执行边记录 Bug</li>
+<li>截图保存：异常场景保留证据</li>
+</ul>
 <p><strong>执行节奏：</strong></p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>day1: 冒烟（核心接口主流程）
 <a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>day2-3: P0 全量
@@ -8268,11 +8374,13 @@
 <a id="__codelineno-16-31" name="__codelineno-16-31" href="#__codelineno-16-31"></a><span class="k">-</span><span class="w"> </span>...
 </code></pre></div>
 <h4 id="_17">阶段九：复盘<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h4>
-<p>每个版本结束做复盘：
-- 漏测了哪些场景？为什么？
-- 哪些 Bug 应该更早发现？
-- 用例库需要补充什么？
-- 流程上哪里可以改进？</p>
+<p>每个版本结束做复盘：</p>
+<ul>
+<li>漏测了哪些场景？为什么？</li>
+<li>哪些 Bug 应该更早发现？</li>
+<li>用例库需要补充什么？</li>
+<li>流程上哪里可以改进？</li>
+</ul>
 <hr />
 <h2 id="_18">七、测试用例模板<a class="headerlink" href="#_18" title="Permanent link">&para;</a></h2>
 <h3 id="71">7.1 标准用例模板<a class="headerlink" href="#71" title="Permanent link">&para;</a></h3>
@@ -9349,15 +9457,19 @@
 <hr />
 <h2 id="_22">十二、接口自动化策略<a class="headerlink" href="#_22" title="Permanent link">&para;</a></h2>
 <h3 id="121">12.1 何时引入自动化<a class="headerlink" href="#121" title="Permanent link">&para;</a></h3>
-<p><strong>适合：</strong>
-- 接口相对稳定
-- 回归测试频繁
-- 测试用例可复用
-- 团队有维护能力</p>
-<p><strong>不适合：</strong>
-- 接口频繁变动（每周大改）
-- 一次性项目
-- 团队完全没编码能力</p>
+<p><strong>适合：</strong></p>
+<ul>
+<li>接口相对稳定</li>
+<li>回归测试频繁</li>
+<li>测试用例可复用</li>
+<li>团队有维护能力</li>
+</ul>
+<p><strong>不适合：</strong></p>
+<ul>
+<li>接口频繁变动（每周大改）</li>
+<li>一次性项目</li>
+<li>团队完全没编码能力</li>
+</ul>
 <h3 id="122">12.2 自动化覆盖范围建议<a class="headerlink" href="#122" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -9406,18 +9518,24 @@
 <a id="__codelineno-31-10" name="__codelineno-31-10" href="#__codelineno-31-10"></a>   开发负责
 </code></pre></div>
 <h3 id="124">12.4 自动化分阶段实施<a class="headerlink" href="#124" title="Permanent link">&para;</a></h3>
-<p><strong>阶段一：试点（1-2 个月）</strong>
-- 选 1-2 个稳定模块
-- 跑通基础框架（5-10 个用例）
-- 验证可行性</p>
-<p><strong>阶段二：扩展（3-6 个月）</strong>
-- 覆盖核心模块
-- 建立用例库（100+ 用例）
-- 接入 CI/CD</p>
-<p><strong>阶段三：成熟（6 个月后）</strong>
-- 全面覆盖（500+ 用例）
-- 每天定时回归
-- 接入监控告警</p>
+<p><strong>阶段一：试点（1-2 个月）</strong></p>
+<ul>
+<li>选 1-2 个稳定模块</li>
+<li>跑通基础框架（5-10 个用例）</li>
+<li>验证可行性</li>
+</ul>
+<p><strong>阶段二：扩展（3-6 个月）</strong></p>
+<ul>
+<li>覆盖核心模块</li>
+<li>建立用例库（100+ 用例）</li>
+<li>接入 CI/CD</li>
+</ul>
+<p><strong>阶段三：成熟（6 个月后）</strong></p>
+<ul>
+<li>全面覆盖（500+ 用例）</li>
+<li>每天定时回归</li>
+<li>接入监控告警</li>
+</ul>
 <h3 id="125">12.5 用例稳定性保证<a class="headerlink" href="#125" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -9739,38 +9857,50 @@
 <h2 id="_24">十四、常见问题与最佳实践<a class="headerlink" href="#_24" title="Permanent link">&para;</a></h2>
 <h3 id="141">14.1 高频问题<a class="headerlink" href="#141" title="Permanent link">&para;</a></h3>
 <p><strong>Q1：接口返回 200，但 code 不为 0，算成功还是失败？</strong></p>
-<p>A：HTTP 200 只是传输层成功，业务层成功要看 code。测试时两者都要断言：
-- HTTP 状态码 = 200（传输成功）
-- 业务 code = 0（业务成功）</p>
+<p>A：HTTP 200 只是传输层成功，业务层成功要看 code。测试时两者都要断言：</p>
+<ul>
+<li>HTTP 状态码 = 200（传输成功）</li>
+<li>业务 code = 0（业务成功）</li>
+</ul>
 <p><strong>Q2：没有接口文档怎么测？</strong></p>
-<p>A：
-1. 先抓包了解接口形态（Fiddler）
-2. 找开发要 Swagger 或直接看代码
-3. 测试时倒逼开发补文档
-4. 不要默默接受"无文档测试"，这是流程问题</p>
+<p>A：</p>
+<ol>
+<li>先抓包了解接口形态（Fiddler）</li>
+<li>找开发要 Swagger 或直接看代码</li>
+<li>测试时倒逼开发补文档</li>
+<li>不要默默接受"无文档测试"，这是流程问题</li>
+</ol>
 <p><strong>Q3：接口测试和功能测试有冲突吗？</strong></p>
-<p>A：不冲突，互补关系：
-- 接口测试：验证后端逻辑、异常分支
-- 功能测试：验证完整用户体验
-- 协同：接口测试覆盖底层，功能测试覆盖端到端</p>
+<p>A：不冲突，互补关系：</p>
+<ul>
+<li>接口测试：验证后端逻辑、异常分支</li>
+<li>功能测试：验证完整用户体验</li>
+<li>协同：接口测试覆盖底层，功能测试覆盖端到端</li>
+</ul>
 <p><strong>Q4：接口字段很多，每个都要断言吗？</strong></p>
-<p>A：不必。优先断言：
-- 业务关键字段（如 orderId、amount、status）
-- 容易出 Bug 的字段（计算字段、时间字段）
-- 字段类型（避免类型错误）</p>
+<p>A：不必。优先断言：</p>
+<ul>
+<li>业务关键字段（如 orderId、amount、status）</li>
+<li>容易出 Bug 的字段（计算字段、时间字段）</li>
+<li>字段类型（避免类型错误）</li>
+</ul>
 <p>次要字段可批量校验 JSON Schema。</p>
 <p><strong>Q5：发现 Bug 后开发说"前端会处理"，要不要提？</strong></p>
-<p>A：必须提。原因：
-1. 接口是公共能力，可能被多端调用
-2. 第三方可能直接调你的接口
-3. 后端兜底是底线
-4. 防御性编程是基本要求</p>
+<p>A：必须提。原因：</p>
+<ol>
+<li>接口是公共能力，可能被多端调用</li>
+<li>第三方可能直接调你的接口</li>
+<li>后端兜底是底线</li>
+<li>防御性编程是基本要求</li>
+</ol>
 <p><strong>Q6：自动化用例失败了，是 Bug 还是脚本问题？</strong></p>
-<p>A：排查顺序：
-1. 手工复现（Postman 调一次）
-2. 如果手工 OK → 脚本问题
-3. 如果手工也失败 → Bug
-4. 如果偶发失败 → 加重试机制 + 收集监控数据</p>
+<p>A：排查顺序：</p>
+<ol>
+<li>手工复现（Postman 调一次）</li>
+<li>如果手工 OK → 脚本问题</li>
+<li>如果手工也失败 → Bug</li>
+<li>如果偶发失败 → 加重试机制 + 收集监控数据</li>
+</ol>
 <h3 id="142">14.2 测试人员能力进阶路径<a class="headerlink" href="#142" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>初级（半年）
 <a id="__codelineno-36-2" name="__codelineno-36-2" href="#__codelineno-36-2"></a>├─ 掌握 HTTP 协议基础
@@ -9801,46 +9931,62 @@
 <a id="__codelineno-36-27" name="__codelineno-36-27" href="#__codelineno-36-27"></a>└─ 测试技术分享、社区影响力
 </code></pre></div>
 <h3 id="143">14.3 最佳实践清单<a class="headerlink" href="#143" title="Permanent link">&para;</a></h3>
-<p><strong>用例设计：</strong>
-- [ ] 每个接口至少覆盖必填、类型、长度、业务、异常 5 个维度
-- [ ] 用例独立可重复
-- [ ] 优先级清晰
-- [ ] 期望结果具体到字段</p>
-<p><strong>执行规范：</strong>
-- [ ] 测试环境单独搭建，不共用
-- [ ] 测试数据独立，不污染共享数据
-- [ ] 异常场景必测，不只测正常路径
-- [ ] 数据库结果校验作为补充</p>
-<p><strong>协作流程：</strong>
-- [ ] 提早介入需求评审
-- [ ] 用例评审拉上开发和产品
-- [ ] 缺陷描述清晰，含复现步骤
-- [ ] 定期复盘漏测原因</p>
-<p><strong>自动化：</strong>
-- [ ] 自动化用例稳定（成功率 &gt; 95%）
-- [ ] 失败用例当天分析
-- [ ] 框架持续优化
-- [ ] 与 CI/CD 集成</p>
-<p><strong>安全意识：</strong>
-- [ ] 不在用例中硬编码生产账号
-- [ ] 敏感数据加密存储
-- [ ] 不在生产环境跑自动化
-- [ ] 测试日志注意脱敏</p>
+<p><strong>用例设计：</strong></p>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> 每个接口至少覆盖必填、类型、长度、业务、异常 5 个维度</li>
+<li class="task-list-item"><input type="checkbox" disabled/> 用例独立可重复</li>
+<li class="task-list-item"><input type="checkbox" disabled/> 优先级清晰</li>
+<li class="task-list-item"><input type="checkbox" disabled/> 期望结果具体到字段</li>
+</ul>
+<p><strong>执行规范：</strong></p>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> 测试环境单独搭建，不共用</li>
+<li class="task-list-item"><input type="checkbox" disabled/> 测试数据独立，不污染共享数据</li>
+<li class="task-list-item"><input type="checkbox" disabled/> 异常场景必测，不只测正常路径</li>
+<li class="task-list-item"><input type="checkbox" disabled/> 数据库结果校验作为补充</li>
+</ul>
+<p><strong>协作流程：</strong></p>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> 提早介入需求评审</li>
+<li class="task-list-item"><input type="checkbox" disabled/> 用例评审拉上开发和产品</li>
+<li class="task-list-item"><input type="checkbox" disabled/> 缺陷描述清晰，含复现步骤</li>
+<li class="task-list-item"><input type="checkbox" disabled/> 定期复盘漏测原因</li>
+</ul>
+<p><strong>自动化：</strong></p>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> 自动化用例稳定（成功率 &gt; 95%）</li>
+<li class="task-list-item"><input type="checkbox" disabled/> 失败用例当天分析</li>
+<li class="task-list-item"><input type="checkbox" disabled/> 框架持续优化</li>
+<li class="task-list-item"><input type="checkbox" disabled/> 与 CI/CD 集成</li>
+</ul>
+<p><strong>安全意识：</strong></p>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> 不在用例中硬编码生产账号</li>
+<li class="task-list-item"><input type="checkbox" disabled/> 敏感数据加密存储</li>
+<li class="task-list-item"><input type="checkbox" disabled/> 不在生产环境跑自动化</li>
+<li class="task-list-item"><input type="checkbox" disabled/> 测试日志注意脱敏</li>
+</ul>
 <h3 id="144">14.4 推荐学习资源<a class="headerlink" href="#144" title="Permanent link">&para;</a></h3>
-<p><strong>书籍：</strong>
-- 《HTTP 权威指南》
-- 《图解 HTTP》
-- 《RESTful Web APIs》
-- 《Web 安全攻防：渗透测试实战指南》
-- 《全栈性能测试修炼宝典：JMeter 实战》</p>
-<p><strong>社区/网站：</strong>
-- TesterHome（国内最大测试社区）
-- 阿里测试技术博客
-- OWASP 官方文档
-- MDN Web Docs（HTTP 学习）</p>
-<p><strong>视频/课程：</strong>
-- 极客时间《接口测试入门课》
-- B 站搜"接口测试"相关教程</p>
+<p><strong>书籍：</strong></p>
+<ul>
+<li>《HTTP 权威指南》</li>
+<li>《图解 HTTP》</li>
+<li>《RESTful Web APIs》</li>
+<li>《Web 安全攻防：渗透测试实战指南》</li>
+<li>《全栈性能测试修炼宝典：JMeter 实战》</li>
+</ul>
+<p><strong>社区/网站：</strong></p>
+<ul>
+<li>TesterHome（国内最大测试社区）</li>
+<li>阿里测试技术博客</li>
+<li>OWASP 官方文档</li>
+<li>MDN Web Docs（HTTP 学习）</li>
+</ul>
+<p><strong>视频/课程：</strong></p>
+<ul>
+<li>极客时间《接口测试入门课》</li>
+<li>B 站搜"接口测试"相关教程</li>
+</ul>
 <hr />
 <h2 id="_25">附录：术语速查表<a class="headerlink" href="#_25" title="Permanent link">&para;</a></h2>
 <table>
@@ -9937,30 +10083,25 @@
 <hr />
 <h2 id="_26">下一步建议<a class="headerlink" href="#_26" title="Permanent link">&para;</a></h2>
 <div class="tutorial-next-steps">
-
-### 完成检查
-
-学完本教程后，检查自己是否能做到：
-
-- [ ] 能解释 HTTP 请求和响应的结构
-- [ ] 能解释状态码的含义
-- [ ] 能解释 Header、Cookie、Token 的作用
-- [ ] 能根据接口文档设计正向测试用例
-- [ ] 能根据接口文档设计异常测试用例
-- [ ] 能根据接口文档设计安全测试用例
-
-### 推荐下一步
-
-根据你的学习进度，选择下一步：
-
-1. **如果你想学性能测试**：学习 [JMeter 性能测试](JMeter性能测试教程-软件测试版.md)，掌握压力测试
-2. **如果你想学安全测试**：学习 [Web 安全测试](Web安全测试教程-软件测试版.md)，掌握漏洞识别
-3. **如果你想进入自动化**：学习 [Python 接口自动化](../自动化测试/Python+Requests+Allure接口自动化教程-软件测试版.md)，掌握代码化测试
-
-### 通关检查
-
-完成本阶段后，使用 [第3阶段-专项测试通关](../学习中心/第3阶段-专项测试通关.md) 检查是否可以进入下一阶段。
-
+<h3 id="_27">完成检查<a class="headerlink" href="#_27" title="Permanent link">&para;</a></h3>
+<p>学完本教程后，检查自己是否能做到：</p>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> 能解释 HTTP 请求和响应的结构</li>
+<li class="task-list-item"><input type="checkbox" disabled/> 能解释状态码的含义</li>
+<li class="task-list-item"><input type="checkbox" disabled/> 能解释 Header、Cookie、Token 的作用</li>
+<li class="task-list-item"><input type="checkbox" disabled/> 能根据接口文档设计正向测试用例</li>
+<li class="task-list-item"><input type="checkbox" disabled/> 能根据接口文档设计异常测试用例</li>
+<li class="task-list-item"><input type="checkbox" disabled/> 能根据接口文档设计安全测试用例</li>
+</ul>
+<h3 id="_28">推荐下一步<a class="headerlink" href="#_28" title="Permanent link">&para;</a></h3>
+<p>根据你的学习进度，选择下一步：</p>
+<ol>
+<li><strong>如果你想学性能测试</strong>：学习 <a href="../JMeter%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/">JMeter 性能测试</a>，掌握压力测试</li>
+<li><strong>如果你想学安全测试</strong>：学习 <a href="../Web%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%95%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/">Web 安全测试</a>，掌握漏洞识别</li>
+<li><strong>如果你想进入自动化</strong>：学习 <a href="../../%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/Python%2BRequests%2BAllure%E6%8E%A5%E5%8F%A3%E8%87%AA%E5%8A%A8%E5%8C%96%E6%95%99%E7%A8%8B-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%89%88/">Python 接口自动化</a>，掌握代码化测试</li>
+</ol>
+<h3 id="_29">通关检查<a class="headerlink" href="#_29" title="Permanent link">&para;</a></h3>
+<p>完成本阶段后，使用 <a href="../../%E5%AD%A6%E4%B9%A0%E4%B8%AD%E5%BF%83/%E7%AC%AC3%E9%98%B6%E6%AE%B5-%E4%B8%93%E9%A1%B9%E6%B5%8B%E8%AF%95%E9%80%9A%E5%85%B3/">第3阶段-专项测试通关</a> 检查是否可以进入下一阶段。</p>
 </div>
 
 
@@ -9982,7 +10123,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年6月19日 21:11:26 UTC">2026年6月19日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年9月13日 18:19:30 UTC">2026年9月13日</span>
   </span>
 
     

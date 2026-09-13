@@ -6406,10 +6406,12 @@
 <a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>  │                        │
 <a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>  │    连接建立             │
 </code></pre></div>
-<p><strong>测试关注：</strong>
-- 三次握手失败 → 连接超时
-- 服务器 SYN 队列满 → 连接被拒绝
-- 网络抖动导致丢包 → 重传延迟</p>
+<p><strong>测试关注：</strong></p>
+<ul>
+<li>三次握手失败 → 连接超时</li>
+<li>服务器 SYN 队列满 → 连接被拒绝</li>
+<li>网络抖动导致丢包 → 重传延迟</li>
+</ul>
 <h3 id="15-tcp">1.5 TCP 四次挥手<a class="headerlink" href="#15-tcp" title="Permanent link">&para;</a></h3>
 <p>断开 TCP 连接的过程：</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>客户端                    服务器
@@ -6424,9 +6426,11 @@
 <a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>  │                        │
 <a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>  │    连接关闭             │
 </code></pre></div>
-<p><strong>测试关注：</strong>
-- 服务器大量 CLOSE_WAIT → 应用未正确关闭连接（Bug）
-- TIME_WAIT 过多 → 端口耗尽</p>
+<p><strong>测试关注：</strong></p>
+<ul>
+<li>服务器大量 CLOSE_WAIT → 应用未正确关闭连接（Bug）</li>
+<li>TIME_WAIT 过多 → 端口耗尽</li>
+</ul>
 <h3 id="16-tcp-vs-udp">1.6 TCP vs UDP<a class="headerlink" href="#16-tcp-vs-udp" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -6948,11 +6952,13 @@
 <a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a>  │  双方用协商的密钥加密通信       │
 <a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a>  │←───────── 加密数据 ─────────→│
 </code></pre></div>
-<p><strong>测试关注：</strong>
-- 证书过期 → 浏览器报不安全
-- 自签名证书 → 需手动信任
-- 证书域名不匹配 → 警告
-- Fiddler 抓 HTTPS 需安装根证书</p>
+<p><strong>测试关注：</strong></p>
+<ul>
+<li>证书过期 → 浏览器报不安全</li>
+<li>自签名证书 → 需手动信任</li>
+<li>证书域名不匹配 → 警告</li>
+<li>Fiddler 抓 HTTPS 需安装根证书</li>
+</ul>
 <h3 id="29-http">2.9 HTTP 无状态与状态保持<a class="headerlink" href="#29-http" title="Permanent link">&para;</a></h3>
 <p>HTTP 本身无状态，每次请求独立。状态保持方式：</p>
 <table>
@@ -7467,11 +7473,13 @@
 <h2 id="_9">六、常见网络问题<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
 <h3 id="61">6.1 连接超时<a class="headerlink" href="#61" title="Permanent link">&para;</a></h3>
 <p><strong>表现：</strong> <code>Connection timed out</code></p>
-<p><strong>原因：</strong>
-- 目标服务器不可达
-- 防火墙拦截
-- 端口未开放
-- 网络抖动</p>
+<p><strong>原因：</strong></p>
+<ul>
+<li>目标服务器不可达</li>
+<li>防火墙拦截</li>
+<li>端口未开放</li>
+<li>网络抖动</li>
+</ul>
 <p><strong>排查：</strong></p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a>ping<span class="w"> </span>目标IP<span class="w">              </span><span class="c1"># 网络可达？</span>
 <a id="__codelineno-39-2" name="__codelineno-39-2" href="#__codelineno-39-2"></a>telnet<span class="w"> </span>目标IP<span class="w"> </span>端口<span class="w">        </span><span class="c1"># 端口通？</span>
@@ -7479,10 +7487,12 @@
 </code></pre></div>
 <h3 id="62">6.2 连接拒绝<a class="headerlink" href="#62" title="Permanent link">&para;</a></h3>
 <p><strong>表现：</strong> <code>Connection refused</code></p>
-<p><strong>原因：</strong>
-- 服务未启动
-- 端口未监听
-- 防火墙拒绝</p>
+<p><strong>原因：</strong></p>
+<ul>
+<li>服务未启动</li>
+<li>端口未监听</li>
+<li>防火墙拒绝</li>
+</ul>
 <p><strong>排查：</strong></p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a><span class="c1"># 在服务器上检查端口是否监听</span>
 <a id="__codelineno-40-2" name="__codelineno-40-2" href="#__codelineno-40-2"></a>netstat<span class="w"> </span>-an<span class="w"> </span><span class="p">|</span><span class="w"> </span>findstr<span class="w"> </span>:8080<span class="w">           </span><span class="c1"># Windows</span>
@@ -7505,10 +7515,12 @@
 </code></pre></div>
 <h3 id="64-ssl">6.4 SSL 证书错误<a class="headerlink" href="#64-ssl" title="Permanent link">&para;</a></h3>
 <p><strong>表现：</strong> <code>SSL certificate problem</code></p>
-<p><strong>原因：</strong>
-- 证书过期
-- 自签名证书未信任
-- 域名不匹配</p>
+<p><strong>原因：</strong></p>
+<ul>
+<li>证书过期</li>
+<li>自签名证书未信任</li>
+<li>域名不匹配</li>
+</ul>
 <p><strong>排查：</strong></p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a><span class="c1"># 查看证书信息</span>
 <a id="__codelineno-42-2" name="__codelineno-42-2" href="#__codelineno-42-2"></a>openssl<span class="w"> </span>s_client<span class="w"> </span>-connect<span class="w"> </span>api.example.com:443
@@ -7526,10 +7538,12 @@
 <a id="__codelineno-43-4" name="__codelineno-43-4" href="#__codelineno-43-4"></a><span class="c1"># Access-Control-Allow-Origin: *</span>
 <a id="__codelineno-43-5" name="__codelineno-43-5" href="#__codelineno-43-5"></a><span class="c1"># Access-Control-Allow-Methods: GET,POST</span>
 </code></pre></div>
-<p><strong>测试关注：</strong>
-- 接口是否返回正确的 CORS 头
-- OPTIONS 预检请求是否正确响应
-- 带 Cookie 的请求 CORS 配置是否正确</p>
+<p><strong>测试关注：</strong></p>
+<ul>
+<li>接口是否返回正确的 CORS 头</li>
+<li>OPTIONS 预检请求是否正确响应</li>
+<li>带 Cookie 的请求 CORS 配置是否正确</li>
+</ul>
 <h3 id="66-http-https">6.6 HTTP 与 HTTPS 混合内容<a class="headerlink" href="#66-http-https" title="Permanent link">&para;</a></h3>
 <p><strong>表现：</strong> 页面加载了 HTTP 资源（图片、JS），浏览器报 <code>Mixed Content</code></p>
 <p><strong>排查：</strong> F12 → Console 查看被阻止的资源。</p>
@@ -7599,12 +7613,14 @@
 <a id="__codelineno-46-4" name="__codelineno-46-4" href="#__codelineno-46-4"></a>&lt;<span class="w"> </span>hello
 </code></pre></div>
 <p><strong>浏览器 F12：</strong> Network → WS 标签查看 WebSocket 消息。</p>
-<p><strong>测试要点：</strong>
-- 连接建立/断开
-- 消息收发正确性
-- 心跳机制是否正常
-- 断线重连逻辑
-- 大消息/高频消息处理</p>
+<p><strong>测试要点：</strong></p>
+<ul>
+<li>连接建立/断开</li>
+<li>消息收发正确性</li>
+<li>心跳机制是否正常</li>
+<li>断线重连逻辑</li>
+<li>大消息/高频消息处理</li>
+</ul>
 <hr />
 <h2 id="cdn">八、CDN 基础<a class="headerlink" href="#cdn" title="Permanent link">&para;</a></h2>
 <h3 id="81-cdn">8.1 CDN 是什么<a class="headerlink" href="#81-cdn" title="Permanent link">&para;</a></h3>
@@ -7726,10 +7742,12 @@
 </tr>
 </tbody>
 </table>
-<p><strong>测试关注：</strong>
-- 浏览器是否启用 HTTP/3（Chrome DevTools → Protocol 列）
-- Fiddler Classic 不支持 HTTP/3（QUIC 基于 UDP）
-- 需禁用 QUIC 才能用 Fiddler 抓包</p>
+<p><strong>测试关注：</strong></p>
+<ul>
+<li>浏览器是否启用 HTTP/3（Chrome DevTools → Protocol 列）</li>
+<li>Fiddler Classic 不支持 HTTP/3（QUIC 基于 UDP）</li>
+<li>需禁用 QUIC 才能用 Fiddler 抓包</li>
+</ul>
 <h3 id="93">9.3 检测协议版本<a class="headerlink" href="#93" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-51-1" name="__codelineno-51-1" href="#__codelineno-51-1"></a><span class="c1"># curl 查看协议</span>
 <a id="__codelineno-51-2" name="__codelineno-51-2" href="#__codelineno-51-2"></a>curl<span class="w"> </span>-sI<span class="w"> </span>--http2<span class="w"> </span>https://example.com
@@ -7837,10 +7855,12 @@
 <h2 id="_11">十一、网络安全基础<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
 <h3 id="111">11.1 防火墙<a class="headerlink" href="#111" title="Permanent link">&para;</a></h3>
 <p>防火墙控制网络流量的进出。</p>
-<p><strong>类型：</strong>
-- 包过滤防火墙：基于 IP/端口
-- 应用层防火墙：基于协议内容
-- WAF（Web Application Firewall）：专门防护 Web 攻击</p>
+<p><strong>类型：</strong></p>
+<ul>
+<li>包过滤防火墙：基于 IP/端口</li>
+<li>应用层防火墙：基于协议内容</li>
+<li>WAF（Web Application Firewall）：专门防护 Web 攻击</li>
+</ul>
 <p><strong>测试关注：</strong></p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-53-1" name="__codelineno-53-1" href="#__codelineno-53-1"></a><span class="c1"># 检查端口是否被防火墙拦截</span>
 <a id="__codelineno-53-2" name="__codelineno-53-2" href="#__codelineno-53-2"></a>telnet<span class="w"> </span><span class="m">192</span>.168.1.100<span class="w"> </span><span class="m">8080</span>
@@ -7856,25 +7876,31 @@
 </code></pre></div>
 <h3 id="112-wafweb">11.2 WAF（Web 应用防火墙）<a class="headerlink" href="#112-wafweb" title="Permanent link">&para;</a></h3>
 <p>WAF 防护 Web 攻击：SQL 注入、XSS、CC 攻击等。</p>
-<p><strong>测试关注：</strong>
-- WAF 是否拦截了正常请求（误报）
-- WAF 是否漏过了恶意请求（漏报）
-- 修改 Payload 绕过 WAF（安全测试）</p>
+<p><strong>测试关注：</strong></p>
+<ul>
+<li>WAF 是否拦截了正常请求（误报）</li>
+<li>WAF 是否漏过了恶意请求（漏报）</li>
+<li>修改 Payload 绕过 WAF（安全测试）</li>
+</ul>
 <h3 id="113-vpn">11.3 VPN<a class="headerlink" href="#113-vpn" title="Permanent link">&para;</a></h3>
 <p>VPN（Virtual Private Network）在公网上建立加密隧道。</p>
-<p><strong>测试场景：</strong>
-- VPN 连接后访问内网资源
-- VPN 断开后的行为
-- VPN 对网络延迟的影响</p>
+<p><strong>测试场景：</strong></p>
+<ul>
+<li>VPN 连接后访问内网资源</li>
+<li>VPN 断开后的行为</li>
+<li>VPN 对网络延迟的影响</li>
+</ul>
 <h3 id="114-acl">11.4 ACL（访问控制列表）<a class="headerlink" href="#114-acl" title="Permanent link">&para;</a></h3>
 <p>ACL 定义谁能访问什么资源。</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-54-1" name="__codelineno-54-1" href="#__codelineno-54-1"></a>允许：192.168.1.0/24 访问 80 端口
 <a id="__codelineno-54-2" name="__codelineno-54-2" href="#__codelineno-54-2"></a>拒绝：0.0.0.0/0 访问 22 端口
 </code></pre></div>
-<p><strong>测试关注：</strong>
-- 是否按规则正确放行/拒绝
-- 规则优先级是否正确
-- 默认策略是否合理</p>
+<p><strong>测试关注：</strong></p>
+<ul>
+<li>是否按规则正确放行/拒绝</li>
+<li>规则优先级是否正确</li>
+<li>默认策略是否合理</li>
+</ul>
 <hr />
 <h2 id="_12">十二、微服务网络<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h2>
 <h3 id="121-api">12.1 API 网关<a class="headerlink" href="#121-api" title="Permanent link">&para;</a></h3>
@@ -7883,26 +7909,32 @@
 <a id="__codelineno-55-2" name="__codelineno-55-2" href="#__codelineno-55-2"></a>                  → 订单服务
 <a id="__codelineno-55-3" name="__codelineno-55-3" href="#__codelineno-55-3"></a>                  → 支付服务
 </code></pre></div>
-<p><strong>网关功能：</strong>
-- 路由转发
-- 负载均衡
-- 认证鉴权
-- 限流熔断
-- 日志监控</p>
-<p><strong>测试关注：</strong>
-- 路由规则是否正确
-- 鉴权是否生效
-- 限流是否按预期触发
-- 超时配置是否合理</p>
+<p><strong>网关功能：</strong></p>
+<ul>
+<li>路由转发</li>
+<li>负载均衡</li>
+<li>认证鉴权</li>
+<li>限流熔断</li>
+<li>日志监控</li>
+</ul>
+<p><strong>测试关注：</strong></p>
+<ul>
+<li>路由规则是否正确</li>
+<li>鉴权是否生效</li>
+<li>限流是否按预期触发</li>
+<li>超时配置是否合理</li>
+</ul>
 <h3 id="122">12.2 服务发现<a class="headerlink" href="#122" title="Permanent link">&para;</a></h3>
 <p>微服务动态注册/发现，不硬编码 IP。</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-56-1" name="__codelineno-56-1" href="#__codelineno-56-1"></a>服务 A 启动 → 注册到注册中心（Nacos/Eureka/Consul）
 <a id="__codelineno-56-2" name="__codelineno-56-2" href="#__codelineno-56-2"></a>服务 B → 从注册中心获取服务 A 的地址 → 调用
 </code></pre></div>
-<p><strong>测试关注：</strong>
-- 服务注册/注销是否正常
-- 服务下线后是否自动摘除
-- 服务发现延迟</p>
+<p><strong>测试关注：</strong></p>
+<ul>
+<li>服务注册/注销是否正常</li>
+<li>服务下线后是否自动摘除</li>
+<li>服务发现延迟</li>
+</ul>
 <h3 id="123-service-mesh">12.3 服务网格（Service Mesh）<a class="headerlink" href="#123-service-mesh" title="Permanent link">&para;</a></h3>
 <p>服务网格在每个服务旁边部署代理（Sidecar），处理服务间通信。</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-57-1" name="__codelineno-57-1" href="#__codelineno-57-1"></a>服务 A ←→ Sidecar A ←→ Sidecar B ←→ 服务 B
@@ -7910,21 +7942,25 @@
 <a id="__codelineno-57-3" name="__codelineno-57-3" href="#__codelineno-57-3"></a>            流量管理、熔断、监控
 </code></pre></div>
 <p><strong>常见实现：</strong> Istio、Linkerd</p>
-<p><strong>测试关注：</strong>
-- 流量路由规则
-- 熔断降级策略
-- mTLS 加密通信
-- 分布式追踪</p>
+<p><strong>测试关注：</strong></p>
+<ul>
+<li>流量路由规则</li>
+<li>熔断降级策略</li>
+<li>mTLS 加密通信</li>
+<li>分布式追踪</li>
+</ul>
 <h3 id="124">12.4 消息队列<a class="headerlink" href="#124" title="Permanent link">&para;</a></h3>
 <p>服务间异步通信。</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-58-1" name="__codelineno-58-1" href="#__codelineno-58-1"></a>生产者 → 消息队列（RabbitMQ/Kafka） → 消费者
 </code></pre></div>
-<p><strong>测试关注：</strong>
-- 消息发送/接收正确性
-- 消息顺序
-- 消息持久化
-- 消费失败重试
-- 死信队列</p>
+<p><strong>测试关注：</strong></p>
+<ul>
+<li>消息发送/接收正确性</li>
+<li>消息顺序</li>
+<li>消息持久化</li>
+<li>消费失败重试</li>
+<li>死信队列</li>
+</ul>
 <hr />
 <h2 id="_13">附录：速查表<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h2>
 <h3 id="_14">网络排障流程<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h3>
@@ -8010,7 +8046,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年6月21日 15:30:01 UTC">2026年6月21日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年9月13日 18:19:30 UTC">2026年9月13日</span>
   </span>
 
     
