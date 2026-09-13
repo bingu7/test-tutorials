@@ -61,11 +61,11 @@ plugins:
       type: date
       locale: zh
   # 社交分享卡片（og:image）：仅在 CI 生成，本地构建跳过（省去下载中文字体）
+  # 背景色不显式指定：默认跟随站点 palette 的 primary 色（indigo #4051b5）
   - social:
       enabled: !ENV [CI, false]
       cards_layout_options:
         font_family: Noto Sans SC   # 中文字形；默认 Roboto 不含中文
-        background_color: indigo
 
 # Markdown 扩展
 markdown_extensions:
