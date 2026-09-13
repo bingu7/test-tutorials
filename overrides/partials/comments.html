@@ -5,7 +5,12 @@
   关闭：设置 `comments: false`
 
   配置来源：https://giscus.app
-  仓库：bingu7/test-tutorials · 分类：General
+  仓库：bingu7/test-tutorials · 分类：Announcements（公告，仅维护者与 giscus 可创建）
+
+  映射说明：使用 title（页面标题）而非 pathname。
+  站点同时部署在 GitHub Pages 与宝塔服务器，两者 URL 路径前缀不同，
+  pathname 映射会导致同一篇文章产生两套评论；title 映射与部署路径无关，
+  且已核实全站 99 个页面标题唯一。
 -#}
 {% if page.meta.comments %}
 <h2 id="__comments">{{ lang.t("meta.comments") }}</h2>
@@ -23,8 +28,8 @@
 
     var REPO = 'bingu7/test-tutorials';
     var REPO_ID = 'R_kgDOS0GDqQ';
-    var CATEGORY = 'General';
-    var CATEGORY_ID = 'DIC_kwDOS0GDqc4DFf2W';
+    var CATEGORY = 'Announcements';
+    var CATEGORY_ID = 'DIC_kwDOS0GDqc4DFf2V';
 
     // giscus iframe 是否已完成首次通信、待下发的主题
     var giscusLoaded = false;
@@ -57,7 +62,7 @@
       script.setAttribute('data-repo-id', REPO_ID);
       script.setAttribute('data-category', CATEGORY);
       script.setAttribute('data-category-id', CATEGORY_ID);
-      script.setAttribute('data-mapping', 'pathname');
+      script.setAttribute('data-mapping', 'title');
       script.setAttribute('data-strict', '1');
       script.setAttribute('data-reactions-enabled', '1');
       script.setAttribute('data-emit-metadata', '0');
