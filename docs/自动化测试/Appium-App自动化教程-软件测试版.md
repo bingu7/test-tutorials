@@ -1456,7 +1456,11 @@ options.auto_grant_permissions = True
 
 1. **如果你想做项目实战**：进入 [Web 自动化项目实战](../项目实战/Web自动化项目实战.md) 或 [接口自动化项目实战](../项目实战/接口自动化项目实战.md)
 2. **如果你想学 CI/CD**：学习 [Jenkins CI/CD](../持续集成/Jenkins-CICD教程-软件测试版.md)，把自动化接入流水线
-3. **如果你想检验自动化能力**：做 [Playwright 基础测验](Playwright基础测验.md)，检验自动化测试核心知识
+3. **如果你想检验自动化能力**：做 [Selenium 基础测验](Selenium基础测验.md) 或 [Playwright 基础测验](Playwright基础测验.md)，检验定位、等待和框架设计等通用自动化知识
+
+### 阶段测验
+
+完成教程后，建议做 [Appium 基础测验](Appium基础测验.md) 检验学习效果。
 
 ### 通关检查
 

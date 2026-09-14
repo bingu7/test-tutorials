@@ -708,6 +708,10 @@ function first<T>(arr: T[]): T { return arr[0] }
 2. **如果你想学 Node.js 测试框架**：学习 [Python 接口自动化](../自动化测试/Python+Requests+Allure接口自动化教程-软件测试版.md)，理解测试框架设计思路
 3. **如果你想巩固 JS 基础**：回到 [JavaScript 基础教程](JavaScript基础教程-软件测试版.md) 多做练习
 
+### 阶段测验
+
+完成教程后，建议做 [TypeScript 基础测验](TypeScript基础测验.md) 检验学习效果。
+
 ### 通关检查
 
 完成本阶段后，使用 [第4阶段-自动化测试通关](../学习中心/第4阶段-自动化测试通关.md) 检查是否可以进入下一阶段。

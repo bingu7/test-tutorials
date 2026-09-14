@@ -17,7 +17,36 @@
         'testing-theory': '/基础理论/软件测试理论基础测验/',
         'linux-basics': '/工具操作/Linux基础测验/',
         'network-basics': '/工具操作/网络知识测验/',
-        'ci-basics': '/持续集成/持续集成测验/'
+        'ci-basics': '/持续集成/持续集成测验/',
+        'git-basics': '/工具操作/Git基础测验/',
+        'docker-basics': '/工具操作/Docker基础测验/',
+        'jmeter-basics': '/专项测试/JMeter性能测试测验/',
+        'security-basics': '/专项测试/Web安全测试测验/',
+        'python-api': '/自动化测试/Python接口自动化测验/',
+        'selenium-basics': '/自动化测试/Selenium基础测验/',
+        'postman-basics': '/工具操作/Postman接口测试测验/',
+        'fiddler-basics': '/工具操作/Fiddler抓包测验/',
+        'charles-basics': '/工具操作/Charles抓包测验/',
+        'javascript-basics': '/基础理论/JavaScript基础测验/',
+        'typescript-basics': '/基础理论/TypeScript基础测验/',
+        'istqb-terms': '/基础理论/ISTQB术语速查测验/',
+        'test-pyramid': '/基础理论/测试金字塔测验/',
+        'testcase-design': '/基础理论/测试用例设计测验/',
+        'frontend-basics': '/基础理论/前端基础测验/',
+        'regex-basics': '/工具操作/正则表达式测验/',
+        'redis-mongodb': '/工具操作/Redis与MongoDB测验/',
+        'packet-debug-workflow': '/工具操作/接口抓包联调测验/',
+        'ai-testing': '/专项测试/AI辅助测试测验/',
+        'shift-left-right': '/专项测试/测试左右移测验/',
+        'mobile-testing': '/专项测试/移动端专项测试测验/',
+        'appium-basics': '/自动化测试/Appium基础测验/',
+        'exploratory-testing': '/基础理论/探索式测试测验/',
+        'agile-testing': '/基础理论/敏捷测试测验/',
+        'ecommerce-project': '/项目实战/电商系统测试实战测验/',
+        'api-auto-project': '/项目实战/接口自动化项目实战测验/',
+        'web-auto-project': '/项目实战/Web自动化项目实战测验/',
+        'perf-project': '/项目实战/性能测试项目实战测验/',
+        'cicd-project': '/项目实战/CICD自动化回归测验/'
     };
 
     // 测验 ID → 中文名映射
@@ -30,7 +59,36 @@
         'testing-theory': '软件测试理论测验',
         'linux-basics': 'Linux 基础测验',
         'network-basics': '网络知识测验',
-        'ci-basics': '持续集成测验'
+        'ci-basics': '持续集成测验',
+        'git-basics': 'Git 基础测验',
+        'docker-basics': 'Docker 基础测验',
+        'jmeter-basics': 'JMeter 性能测试测验',
+        'security-basics': 'Web 安全测试测验',
+        'python-api': 'Python 接口自动化测验',
+        'selenium-basics': 'Selenium 基础测验',
+        'postman-basics': 'Postman 接口测试测验',
+        'fiddler-basics': 'Fiddler 抓包测验',
+        'charles-basics': 'Charles 抓包测验',
+        'javascript-basics': 'JavaScript 基础测验',
+        'typescript-basics': 'TypeScript 基础测验',
+        'istqb-terms': 'ISTQB 术语测验',
+        'test-pyramid': '测试金字塔测验',
+        'testcase-design': '测试用例设计测验',
+        'frontend-basics': '前端基础测验',
+        'regex-basics': '正则表达式测验',
+        'redis-mongodb': 'Redis 与 MongoDB 测验',
+        'packet-debug-workflow': '接口抓包联调测验',
+        'ai-testing': 'AI 辅助测试测验',
+        'shift-left-right': '测试左右移测验',
+        'mobile-testing': '移动端专项测试测验',
+        'appium-basics': 'Appium 基础测验',
+        'exploratory-testing': '探索式测试测验',
+        'agile-testing': '敏捷测试测验',
+        'ecommerce-project': '电商系统测试实战测验',
+        'api-auto-project': '接口自动化项目实战测验',
+        'web-auto-project': 'Web 自动化项目实战测验',
+        'perf-project': '性能测试项目实战测验',
+        'cicd-project': 'CI/CD 自动化回归测验'
     };
 
     // 五阶段学习路径配置
@@ -46,7 +104,7 @@
                 { id: '基础理论/探索式测试教程', name: '探索式测试', url: '/基础理论/探索式测试教程-软件测试版/' },
                 { id: '基础理论/敏捷测试教程', name: '敏捷测试', url: '/基础理论/敏捷测试教程-软件测试版/' }
             ],
-            quizzes: ['testing-theory'],
+            quizzes: ['testing-theory', 'istqb-terms', 'test-pyramid', 'testcase-design', 'exploratory-testing', 'agile-testing'],
             practiceUrl: '/章节练习与参考答案/'
         },
         phase2: {
@@ -60,10 +118,12 @@
                 { id: '工具操作/Postman接口测试教程', name: 'Postman 接口', url: '/工具操作/Postman接口测试教程-软件测试版/' },
                 { id: '工具操作/Fiddler抓包教程', name: 'Fiddler 抓包', url: '/工具操作/Fiddler抓包教程-软件测试版/' },
                 { id: '工具操作/Charles抓包教程', name: 'Charles 抓包', url: '/工具操作/Charles抓包教程-软件测试版/' },
+                { id: '工具操作/Redis与MongoDB教程', name: 'Redis 与 MongoDB', url: '/工具操作/Redis与MongoDB教程-软件测试版/' },
+                { id: '工具操作/接口抓包联调实战教程', name: '接口抓包联调实战', url: '/工具操作/接口抓包联调实战教程-软件测试版/' },
                 { id: '工具操作/正则表达式教程', name: '正则表达式', url: '/工具操作/正则表达式教程-软件测试版/' },
                 { id: '工具操作/网络知识教程', name: '网络知识', url: '/工具操作/网络知识教程-软件测试版/' }
             ],
-            quizzes: ['sql-basics', 'linux-basics', 'network-basics'],
+            quizzes: ['sql-basics', 'linux-basics', 'network-basics', 'git-basics', 'docker-basics', 'postman-basics', 'fiddler-basics', 'charles-basics', 'regex-basics', 'redis-mongodb', 'packet-debug-workflow'],
             practiceUrl: '/章节练习与参考答案/'
         },
         phase3: {
@@ -76,10 +136,8 @@
                 { id: '专项测试/AI辅助测试教程', name: 'AI 辅助测试', url: '/专项测试/AI辅助测试教程-软件测试版/' },
                 { id: '专项测试/测试左右移教程', name: '测试左移与右移', url: '/专项测试/测试左右移教程-软件测试版/' },
                 { id: '专项测试/移动端专项测试教程', name: '移动端专项测试', url: '/专项测试/移动端专项测试教程-软件测试版/' },
-                { id: '工具操作/Redis与MongoDB教程', name: 'Redis 与 MongoDB', url: '/工具操作/Redis与MongoDB教程-软件测试版/' },
-                { id: '工具操作/接口抓包联调实战教程', name: '接口抓包联调实战', url: '/工具操作/接口抓包联调实战教程-软件测试版/' }
             ],
-            quizzes: ['api-basics', 'api-advanced'],
+            quizzes: ['api-basics', 'api-advanced', 'jmeter-basics', 'security-basics', 'ai-testing', 'shift-left-right', 'mobile-testing'],
             practiceUrl: '/章节练习与参考答案/'
         },
         phase4: {
@@ -95,7 +153,7 @@
                 { id: '自动化测试/Playwright自动化测试教程', name: 'Playwright Web 自动化', url: '/自动化测试/Playwright自动化测试教程-软件测试版/' },
                 { id: '自动化测试/Appium-App自动化教程', name: 'Appium App 自动化', url: '/自动化测试/Appium-App自动化教程-软件测试版/' }
             ],
-            quizzes: ['python-basics', 'playwright-basics'],
+            quizzes: ['python-basics', 'playwright-basics', 'python-api', 'selenium-basics', 'javascript-basics', 'typescript-basics', 'frontend-basics', 'appium-basics'],
             practiceUrl: '/章节练习与参考答案/'
         },
         phase5: {
@@ -111,7 +169,7 @@
                 { id: '项目实战/性能测试项目实战', name: '性能测试项目实战', url: '/项目实战/性能测试项目实战/' },
                 { id: '项目实战/CICD自动化回归实战', name: 'CI/CD 自动化回归实战', url: '/项目实战/CICD自动化回归实战/' }
             ],
-            quizzes: ['ci-basics'],
+            quizzes: ['ci-basics', 'ecommerce-project', 'api-auto-project', 'web-auto-project', 'perf-project', 'cicd-project'],
             practiceUrl: '/项目实战/'
         }
     };

@@ -1104,6 +1104,13 @@ html {
     text-align: center;
 }
 
+.quiz-pass-line {
+    margin: -0.6rem 0 1rem;
+    font-size: 0.8rem;
+    text-align: center;
+    opacity: 0.75;
+}
+
 .quiz-advice {
     margin: 1rem 0;
     padding: 0.8rem;

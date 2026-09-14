@@ -1786,7 +1786,7 @@ driver.find_element(By.CSS_SELECTOR, "[data-test-id='login-submit']")
 
 1. **如果你想学更现代的框架**：学习 [Playwright 自动化测试](Playwright自动化测试教程-软件测试版.md)，自动等待和网络拦截更易用
 2. **如果你想做 Web 自动化实战**：进入 [Web 自动化项目实战](../项目实战/Web自动化项目实战.md)，搭建完整框架
-3. **如果你想检验自动化基础**：做 [Playwright 基础测验](Playwright基础测验.md)，检验定位和等待机制掌握程度
+3. **如果你想检验自动化基础**：做 [Selenium 基础测验](Selenium基础测验.md)，检验定位和等待机制掌握程度
 
 ### 通关检查
 

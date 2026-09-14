@@ -293,3 +293,13 @@ description: ISTQB 标准术语速查，覆盖测试级别、缺陷管理和敏�
 - [Atlassian Agile Testing](https://www.atlassian.com/agile/software-development/testing)
 
 术语学习的最终目标不是背英文，而是让你的测试分析、缺陷报告、测试报告和面试回答更准确。
+
+---
+
+## 阶段测验
+
+完成教程后，建议做 [ISTQB 术语测验](ISTQB术语速查测验.md) 检验学习效果。
+
+## 通关检查
+
+完成本阶段后，使用 [第1阶段-测试入门通关](../学习中心/第1阶段-测试入门通关.md) 检查是否可以进入下一阶段。
