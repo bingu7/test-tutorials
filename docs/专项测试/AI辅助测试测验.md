@@ -4,12 +4,12 @@ description: AI 辅助测试测验，检验 AI 生成用例、视觉测试、Age
 # AI 辅助测试测验
 
 !!! abstract "测验说明"
-    本测验用于检验 AI 辅助测试教程的学习效果。共 12 道选择题，覆盖 AI 生成用例与数据、缺陷分析、视觉测试、Red Teaming、Agent 测试和自愈测试。
+    本测验用于检验 AI 辅助测试教程的学习效果。共 16 道选择题，覆盖 AI 生成用例与数据、缺陷分析、视觉测试、Agent 测试、MCP 接入、OWASP LLM Top 10、Prompt 注入与自愈测试。
 
 <div class="tutorial-meta">
     <span class="difficulty-badge difficulty-intermediate">📙 中级难度</span>
     <span class="meta-item">⏱ 约 25 分钟</span>
-    <span class="meta-item">📝 12 道选择题</span>
+    <span class="meta-item">📝 16 道选择题</span>
 </div>
 
 !!! tip "测验反馈"
@@ -156,6 +156,50 @@ description: AI 辅助测试测验，检验 AI 生成用例、视觉测试、Age
 <label class="quiz-option"><input type="radio" name="q12" value="3"> 只能在移动端自动化中使用</label>
 </div>
 <div class="quiz-explanation">💡 自愈机制能减少因页面结构变化导致的脚本失败，降低维护成本。但风险在于：如果它悄悄定位到了"错误的相似元素"，用例会变成假通过——所以自动修复的定位结果必须留痕并人工复核</div>
+</div>
+
+<div class="quiz-item" data-correct="1">
+<div class="quiz-question">关于 MCP（Model Context Protocol）在测试中的作用，正确的理解是？</div>
+<div class="quiz-options">
+<label class="quiz-option"><input type="radio" name="q13" value="0"> 它是一种新的测试框架，可以替代 Pytest</label>
+<label class="quiz-option"><input type="radio" name="q13" value="1"> 它让 AI 能标准化接入数据源与工具（如日志、数据库、浏览器），但接入时必须做权限最小化与操作审计</label>
+<label class="quiz-option"><input type="radio" name="q13" value="2"> 它能让 AI 自动修复被测系统的缺陷</label>
+<label class="quiz-option"><input type="radio" name="q13" value="3"> 它只用于生成测试用例，与执行无关</label>
+</div>
+<div class="quiz-explanation">💡 MCP 是让 AI 标准化连接外部系统的开放协议（可以理解为"AI 世界的 USB-C"）。它把「复制粘贴日志给 AI」变成「AI 直接读取」，效率提升的同时风险面也变大——所以必须用只读账号、留操作日志、危险动作走人工确认</div>
+</div>
+
+<div class="quiz-item" data-correct="3">
+<div class="quiz-question">用 OWASP LLM Top 10 给 GenAI 应用设计安全测试时，下列哪一项最容易被忽略但危害很大？</div>
+<div class="quiz-options">
+<label class="quiz-option"><input type="radio" name="q14" value="0"> LLM01 提示注入，因为它需要构造特殊输入</label>
+<label class="quiz-option"><input type="radio" name="q14" value="1"> LLM03 供应链，因为模型都是第三方提供的</label>
+<label class="quiz-option"><input type="radio" name="q14" value="2"> LLM09 错误信息，因为模型总会答错</label>
+<label class="quiz-option"><input type="radio" name="q14" value="3"> LLM05 输出处理不当——若把模型输出直接渲染到页面或拼进命令，等同于把不可信输入直接注入下游系统</label>
+</div>
+<div class="quiz-explanation">💡 很多人只盯着"模型会不会说错话"，却忽略了输出会流向哪里。LLM 的输出若被直接放进 HTML（XSS）或拼进 shell/SQL（注入），危害比模型答错大得多——这是典型的"AI 引入了新的注入面"</div>
+</div>
+
+<div class="quiz-item" data-correct="2">
+<div class="quiz-question">Playwright 官方内置的三个 Test Agent 分别是？</div>
+<div class="quiz-options">
+<label class="quiz-option"><input type="radio" name="q15" value="0"> recorder、debugger、reporter</label>
+<label class="quiz-option"><input type="radio" name="q15" value="1"> runner、watcher、reporter</label>
+<label class="quiz-option"><input type="radio" name="q15" value="2"> planner（出计划）、generator（生成用例）、healer（修复失败用例）</label>
+<label class="quiz-option"><input type="radio" name="q15" value="3"> analyzer、optimizer、deployer</label>
+</div>
+<div class="quiz-explanation">💡 三者可单独使用，也可串成闭环：planner 探索应用产出 Markdown 测试计划 → generator 把计划转成测试代码 → healer 执行并修复失败用例。但 healer 的修复结果**必须人工复核**，否则可能把真实缺陷"修"成通过</div>
+</div>
+
+<div class="quiz-item" data-correct="2">
+<div class="quiz-question">测试 Prompt 注入时，用「关键词黑名单」做断言（例如判断回复里是否出现"系统提示"四个字）为什么不可靠？</div>
+<div class="quiz-options">
+<label class="quiz-option"><input type="radio" name="q16" value="0"> 因为模型永远不会泄露系统提示词</label>
+<label class="quiz-option"><input type="radio" name="q16" value="1"> 因为关键词断言执行太慢，影响性能测试</label>
+<label class="quiz-option"><input type="radio" name="q16" value="2"> 模型换种说法（翻译、改写、改名输出）就能绕过；应改用语义判断，或在系统提示里放唯一"蜜标"来确证泄露</label>
+<label class="quiz-option"><input type="radio" name="q16" value="3"> 因为应该用正则表达式而不是关键词</label>
+</div>
+<div class="quiz-explanation">💡 字符串匹配只能挡住最笨的泄露方式。更可靠的做法：① 判断输出是否泄露了系统提示的**实质内容**而非某个词；② 在系统提示里埋一个唯一串（如 SECRET_TOKEN_7f3a），一旦出现在输出中即可确证；③ 对 Agent 类应用，重点看**有没有真的调用了危险工具**，这比看文本可靠</div>
 </div>
 
 <button class="quiz-submit">提交答案</button>

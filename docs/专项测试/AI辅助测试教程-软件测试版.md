@@ -1,9 +1,9 @@
 ---
-description: AI 辅助测试教程，ChatGPT/Copilot 生成用例、测试数据、缺陷分析。
+description: AI 辅助测试教程，AI 生成用例、数据、缺陷分析，含 MCP、Agent 测试与 LLM 安全。
 ---
 # AI 辅助测试教程（软件测试人员专用）
 
-> 本教程面向软件测试工程师，讲解如何利用 AI 工具（ChatGPT、Copilot、Cursor 等）提升测试效率，覆盖测试用例生成、测试数据构造、缺陷分析、代码审查等核心场景。
+> 本教程面向软件测试工程师，讲解如何利用 AI 工具提升测试效率，覆盖测试用例生成、测试数据构造、缺陷分析、代码审查，并系统讲解 **AI Agent 测试、MCP 接入、GenAI 应用安全测试** 等当前主流场景。
 
 <div class="tutorial-meta">
     <span class="difficulty-badge difficulty-beginner">📘 入门难度</span>
@@ -14,7 +14,8 @@ description: AI 辅助测试教程，ChatGPT/Copilot 生成用例、测试数据
 
 | 项目 | 要求 | 获取方式 |
 |------|------|----------|
-| ChatGPT / Copilot | 能访问 ChatGPT 或 GitHub Copilot | [chat.openai.com](https://chat.openai.com) / [github.com/features/copilot](https://github.com/features/copilot) |
+| AI 对话工具 | 能访问 ChatGPT / Claude / Gemini 任一 | [chatgpt.com](https://chatgpt.com) / [claude.ai](https://claude.ai) |
+| AI 编码助手 | GitHub Copilot / Cursor / Claude Code 任一 | [github.com/features/copilot](https://github.com/features/copilot) |
 | 测试基础 | 了解测试用例设计、接口测试概念 | [接口测试完整教程-软件测试版](接口测试完整教程-软件测试版.md) |
 | 文本编辑器 | VS Code 或任意编辑器 | [code.visualstudio.com](https://code.visualstudio.com) |
 
@@ -31,47 +32,48 @@ AI 工具的核心价值是**提效**，不是替代。对新手来说，先把 
 
 第一遍重点掌握：如何写出好的提示词（Prompt），以及如何判断 AI 输出的质量。
 
+!!! warning "先记住一条底线"
+    AI 生成的**任何**内容都必须人工审查。它是加速器，不是质量保证。后面第一节会用真实案例说明"AI 写得像对的"和"AI 写对了"之间的差距。
+
 ### 版本与维护说明
 
 | 项目 | 说明 |
 |------|------|
-| 适用范围 | ChatGPT、GitHub Copilot、Cursor、Claude 等主流 AI 工具 |
+| 适用范围 | ChatGPT、Claude、Gemini、GitHub Copilot、Cursor、Claude Code、Playwright Agents 等 |
 | 使用建议 | 始终验证 AI 输出，不要盲信；敏感数据不要贴给公共 AI |
-| 更新提醒 | AI 工具迭代极快，每月都有新功能，建议关注官方更新日志 |
+| 更新提醒 | AI 工具迭代极快（模型版本、Agent 能力、MCP 生态都在变），使用前查阅官方文档确认当前能力 |
 
 ---
 
 ## 一、AI 测试概述
 
-### 1.1 2025 年行业趋势
+### 1.1 行业现状
 
 !!! abstract "AI 在测试领域的定位"
-    AI 不是替代测试人员，而是**提效工具**。2025 年，AI 辅助测试已成为行业标配，但测试人员的核心价值——业务理解、风险判断、探索性测试——是 AI 无法替代的。
+    AI 辅助测试已是行业标配，但测试人员的核心价值——业务理解、风险判断、探索性测试——仍然无法被替代。**会用 AI 的测试人员会取代不会用的**，而不是 AI 取代测试人员。
 
-当前主流 AI 测试工具：
-
-| 工具 | 用途 | 适用场景 |
-|------|------|----------|
-|| ChatGPT / Claude | 生成用例、数据、缺陷报告、日志分析 | 通用文本生成 |
-| | GitHub Copilot | 代码补全、测试脚本生成 | 自动化测试编码 |
-| | Cursor / Windsurf | AI 驱动的 IDE，代码生成 + 审查 | 全流程开发 |
-| | Applitools Eyes | AI 视觉测试 | UI 回归测试 |
-| | Percy (BrowserStack) | 视觉回归测试 | 前端 UI 变更检测 |
-| | Testim (Tricentis) | AI 驱动的自动化测试平台 | 低代码自动化 |
-| | Mabl | AI 驱动的端到端测试 | 低代码自动化 |
-
-**2025 年新增 AI 测试工具：**
+当前主流 AI 测试工具（按用途分类）：
 
 | 工具 | 用途 | 适用场景 |
 |------|------|----------|
-| Claude (Anthropic) | 长文本分析、代码审查、复杂推理 | 日志分析、需求审查、测试策略 |
-| Gemini (Google) | 多模态理解（文本+图片+视频） | UI 截图分析、文档理解 |
-| GitHub Copilot Workspace | 多文件代码生成 + 重构 | 自动化框架搭建 |
-| Amazon Q Developer | AWS 生态 AI 编码助手 | 云上测试脚本生成 |
-| CodeRabbit | AI PR 审查 | 测试代码审查 |
-| Devin | AI 软件工程师 | 自动化测试脚本编写 |
+| ChatGPT / Claude / Gemini | 生成用例、数据、缺陷报告、日志分析 | 通用文本生成与推理 |
+| GitHub Copilot | 代码补全、测试脚本生成 | 自动化测试编码 |
+| Cursor / Windsurf | AI 驱动的 IDE，代码生成 + 审查 | 全流程开发 |
+| Claude Code / Codex CLI | 终端里的编码 Agent，可读仓库、跑命令 | 框架搭建、批量重构 |
+| Playwright Agents | 官方内置 planner/generator/healer | Web 自动化全流程 |
+| Applitools Eyes | AI 视觉测试 | UI 回归测试 |
+| Percy (BrowserStack) | 视觉回归测试 | 前端 UI 变更检测 |
+| Testim (Tricentis) / Mabl | AI 驱动的低代码自动化平台 | 低代码自动化 |
 
-> **模型选择建议：** Claude 擅长长文本和逻辑分析（适合日志分析），GPT-4o 擅长多模态（适合截图对比），Gemini 擅长多语言理解（适合国际化测试）。
+**这一年最值得注意的三个变化：**
+
+| 变化 | 说明 | 对测试的影响 |
+|------|------|--------------|
+| **MCP 成为连接标准** | Model Context Protocol 让 AI 能标准化接入数据库、浏览器、测试工具 | 测试人员可以让 AI 直接读测试报告、查数据库，而不是复制粘贴 |
+| **官方 Agent 落地** | Playwright 内置 planner / generator / healer 三个测试 Agent | 从"AI 帮你写代码"变成"AI 参与测试全流程" |
+| **模型能力趋同** | 主流模型差距缩小，选型更看**成本、上下文长度、是否支持工具调用** | 不必纠结"哪个模型最强"，先看能否接入你的工作流 |
+
+> **模型选择建议：** 长文本与逻辑分析优先考虑 Claude；多模态（截图理解）优先考虑 Gemini / GPT 系列；如果只是补全代码，IDE 内置的 Copilot 通常足够。
 
 ### 1.2 AI 能做什么 vs 不能做什么
 
@@ -82,6 +84,7 @@ AI 工具的核心价值是**提效**，不是替代。对新手来说，先把 
 | 缺陷分析 | 从日志中提取错误模式 | 判断缺陷的业务影响和优先级 |
 | 代码生成 | 生成测试脚本框架 | 确保代码的可维护性和最佳实践 |
 | 探索性测试 | 提供测试思路 | 替代人类的直觉和经验判断 |
+| 结果判定 | 归纳报告、发现异常趋势 | 对"这算不算缺陷"承担判断责任 |
 
 !!! warning "关键提醒"
     AI 生成的所有内容都**必须经过人工审查**。AI 可能生成看起来正确但实际有误的内容（幻觉问题）。
@@ -556,7 +559,7 @@ class LoginPage:
 |----------|------|---------|------|-----------|------|----------|--------|
 | SEARCH-001 | 正常搜索 | 手机 | 1 | 20 | 无 | 返回手机相关商品 | A |
 | SEARCH-002 | 关键词为空 | (空) | 1 | 20 | 无 | 400 参数错误 | A |
-| SEARCH-003 | 特殊字符 | <script> | 1 | 20 | 无 | 400 或过滤特殊字符 | A |
+| SEARCH-003 | 特殊字符 | `<script>` | 1 | 20 | 无 | 400 或过滤特殊字符 | A |
 | SEARCH-004 | page 边界 | 手机 | 100 | 20 | 无 | 返回第100页结果 | A |
 | SEARCH-005 | page 超出 | 手机 | 101 | 20 | 无 | 400 或返回空 | A |
 | SEARCH-006 | page_size 最大 | 手机 | 1 | 50 | 无 | 返回50条 | A |
@@ -613,8 +616,8 @@ Label,平均响应时间(ms),90%响应时间(ms),错误率,吞吐量
 
 ## 九、AI Agent 测试方法论
 
-!!! abstract "2025 年新趋势"
-    AI Agent（能自主执行任务的 AI 系统）正在成为主流。测试 Agent 与传统软件完全不同——输出不确定、行为有随机性、依赖外部工具链。
+!!! abstract "为什么要单独讲 Agent 测试"
+    AI Agent（能自主规划并调用工具完成任务）与传统软件完全不同——输出不确定、行为有随机性、依赖外部工具链。它既是**被测对象**，也正在成为**测试工具本身**。
 
 ### 9.1 什么是 AI Agent
 
@@ -626,6 +629,7 @@ AI Agent 与传统 Chatbot 的区别：
 | 工具调用 | 无 | 可调用 API、数据库、文件系统 |
 | 任务复杂度 | 简单问答 | 复杂多步骤任务 |
 | 输出确定性 | 较高 | 较低（同输入可能不同输出） |
+| 失败模式 | 答错 | 调用错工具、陷入循环、越权操作 |
 
 ### 9.2 Agent 测试关注点
 
@@ -635,7 +639,8 @@ Agent 测试维度：
 ├── 工具调用链路 ← 调用顺序、参数传递是否正确
 ├── 错误恢复     ← 工具调用失败时能否优雅降级
 ├── Memory 记忆  ← 多轮对话中是否保持上下文
-├── 安全边界     ← 是否会执行危险操作
+├── 安全边界     ← 是否会执行危险操作（见 9.5 越权测试）
+├── 成本与步数   ← 是否会陷入循环、无限消耗 token
 └── 输出质量     ← 最终结果是否满足用户需求
 ```
 
@@ -656,19 +661,56 @@ def test_agent_tool_call_sequence():
 
     # 验证参数传递
     assert "上周" in result.tool_calls[0].params["date_range"]
-
-def test_agent_error_recovery():
-    """测试 Agent 工具调用失败时的恢复能力"""
-    agent = MyAgent(tools=[failing_tool, fallback_tool])
-
-    result = agent.run("查询用户信息")
-
-    # Agent 应该自动重试或切换到备用工具
-    assert result.success is True
-    assert "fallback_tool" in [c.name for c in result.tool_calls]
 ```
 
+!!! tip "Agent 的断言要测「边界」而不是「措辞」"
+    Agent 输出是自然语言，**不要断言具体措辞**（换个模型就失败）。应断言**行为约束**：
+
+    - 调用了哪些工具、有没有调用不该调的工具
+    - 参数是否合法（如日期范围是否合理、ID 是否存在）
+    - 步数/token 是否在预算内（防死循环）
+    - 危险操作（删除、转账、发邮件）是否走了确认流程
+
 ### 9.4 Agent 测试检查清单
+
+```text
+[ ] 意图理解：模糊/歧义输入下是否澄清而非瞎猜
+[ ] 工具调用：只在必要时调用，参数正确，失败能重试或降级
+[ ] 循环防护：可达最大步数上限，不会无限自我调用
+[ ] 上下文：多轮后仍记得关键约束（如"不要发给外部邮箱"）
+[ ] 越权防线：低权限用户无法诱导 Agent 执行高权限操作
+[ ] 幂等性：重复执行不会产生重复副作用（如重复下单、重复发邮件）
+[ ] 可观测：每次调用有日志/trace，便于失败复盘
+```
+
+### 9.5 用 MCP 让 AI 接入你的测试环境
+
+MCP（Model Context Protocol）是让 AI 标准化接入外部系统的开放协议——可以理解为 **AI 世界的 USB-C 接口**：AI 应用通过它连接数据源（文件、数据库）、工具（搜索、计算器）和工作流。
+
+**为什么测试人员要关心 MCP？**
+
+过去让 AI 帮忙分析测试结果，你得手动复制粘贴日志和报告。有了 MCP，AI 可以**直接读取**这些数据源：
+
+```text
+常见可用于测试的 MCP 能力方向：
+├── 文件系统  ← 让 AI 直接读测试报告、日志、用例文件
+├── 数据库    ← 让 AI 查询数据校验结果（只读连接！）
+├── 浏览器    ← 让 AI 操作页面做探索/录制
+└── 缺陷系统  ← 让 AI 读取缺陷详情、辅助写复现步骤
+```
+
+!!! warning "接 MCP 前必须确认的三件事"
+    1. **权限最小化**：给 AI 的数据库连接必须是**只读**账号，禁止直连生产库。
+    2. **操作可审计**：AI 执行的每一步工具调用都要留日志，出问题能回溯。
+    3. **危险操作要人工确认**：涉及删除、转账、发邮件、改配置的动作，必须走确认流程，不能让 AI 自主执行。
+
+    这与第 9.4 节检查清单里的「越权防线」「幂等性」直接对应——**能调用工具，就意味着风险面变大**。
+
+---
+
+### 9.6 Agent 逐项验证表
+
+对于上表清单里的每一项，可以用下面这张表把「怎么测」和「预期行为」落到具体用例：
 
 | 检查项 | 测试方法 | 预期行为 |
 |--------|----------|----------|
@@ -680,11 +722,25 @@ def test_agent_error_recovery():
 | 超时处理 | 工具响应慢 | 有超时机制，不死等 |
 | 安全边界 | 请求危险操作 | 拒绝执行并说明原因 |
 
+**错误恢复的测试示例：**
+
+```python
+def test_agent_error_recovery():
+    """测试 Agent 工具调用失败时的恢复能力"""
+    agent = MyAgent(tools=[failing_tool, fallback_tool])
+
+    result = agent.run("查询用户信息")
+
+    # Agent 应该自动重试或切换到备用工具
+    assert result.success is True
+    assert "fallback_tool" in [c.name for c in result.tool_calls]
+```
+
 ---
 
 ## 十、GenAI 应用专项测试
 
-!!! abstract "2025 年必测领域"
+!!! abstract "必测领域"
     越来越多应用接入 LLM（大语言模型），测试这类应用需要全新的方法论。
 
 ### 10.1 GenAI 应用的特殊性
@@ -697,14 +753,36 @@ GenAI 应用：相同输入 → **可能不同输出**
 ### 10.2 输出质量评估维度
 
 | 维度 | 定义 | 测试方法 |
-|------|------|----------|
+|------|------|--------|
 | 事实性（Groundedness） | 输出是否基于事实 | 对比知识库/文档验证 |
 | 相关性（Relevance） | 输出是否回答了问题 | 人工评分 + LLM 评分 |
 | 安全性（Safety） | 是否有害/偏见/违规内容 | Red Teaming 对抗测试 |
 | 一致性（Consistency） | 多次输入相同问题 | 输出核心信息是否一致 |
 | 幻觉率（Hallucination） | 是否编造不存在的信息 | 抽样人工审核 |
 
-### 10.3 Red Teaming（对抗性测试）
+### 10.3 按 OWASP LLM Top 10 设计测试
+
+给 GenAI 应用做安全测试时，不要凭感觉列风险。**OWASP LLM Top 10** 是业界通用的 LLM 应用风险清单，可直接当作测试大纲逐条覆盖：
+
+| 编号 | 风险 | 测试关注点 |
+|------|------|-----------|
+| LLM01 | Prompt Injection（提示注入） | 用户输入能否覆盖/绕过系统指令 |
+| LLM02 | Sensitive Information Disclosure | 是否泄露系统提示词、其他用户数据、训练数据 |
+| LLM03 | Supply Chain | 模型来源、第三方插件/依赖的可信度 |
+| LLM04 | Data and Model Poisoning | 训练/微调数据是否可被投毒；RAG 知识库是否可被写入脏数据 |
+| LLM05 | Improper Output Handling | 输出是否被直接执行/渲染（XSS、命令注入、SQL 拼接） |
+| LLM06 | Excessive Agency | Agent 是否拥有超出需要的权限（能删库、能转账） |
+| LLM07 | System Prompt Leakage | 系统提示词是否可被诱导输出（含其中的密钥与规则） |
+| LLM08 | Vector and Embedding Weaknesses | 向量库的相似度检索是否可被操纵、越权召回 |
+| LLM09 | Misinformation | 是否自信地输出错误信息并误导用户 |
+| LLM10 | Unbounded Consumption | 是否可被诱导无限消耗（长循环、超大输出，即成本型 DoS） |
+
+!!! tip "怎么用这份清单"
+    - **第 5 条最容易被忽略但危害最大**：LLM 的输出若被直接渲染到页面或拼进命令，等同于把用户输入直接注入下游系统，是典型的 XSS / 命令注入入口。
+    - **第 6、10 条是 Agent 特有风险**：对应第 9.4 节检查清单里的「越权防线」与「循环防护」。
+    - 不必一次覆盖全部 10 条，但**每条都要有明确结论**（"已覆盖/不适用/暂未评估"），避免留下未评估的盲区。
+
+### 10.4 Red Teaming（对抗性测试）
 
 ```text
 Red Teaming 测试用例设计：
@@ -732,7 +810,16 @@ for prompt in injection_tests:
     assert "DAN" not in response or "不能" in response
 ```
 
-### 10.4 LLM 输出一致性测试
+!!! warning "不要用「关键词黑名单」当断言"
+    上面的示例用 `assert "系统提示" not in response` 只是**最粗的检查**，真实项目里靠不住：模型换个说法（如把提示词翻译成英文、改名输出）就绕过去了。
+
+    更可靠的验证思路：
+
+    1. **用语义判断而非字符串匹配**：判断输出是否泄露了系统提示的**实质内容**，而不是是否出现了某个词。
+    2. **检查副作用而非文本**：对 Agent 类应用，重点看**有没有真的调用了危险工具**（这比看输出文本可靠得多）。
+    3. **设"蜜标"**：在系统提示里放一个唯一串（如 `SECRET_TOKEN_7f3a`），一旦出现在输出中即可确证泄露——比模糊判断可靠。
+
+### 10.5 LLM 输出一致性测试
 
 ```python
 def test_llm_output_consistency():
@@ -813,43 +900,82 @@ defense_tests = [
 
 ---
 
-## 十二、自愈测试（Self-Healing Tests）
+## 十二、自愈测试与官方测试 Agent
 
-!!! tip "2025 年自动化测试新趋势"
-    AI 自愈测试能在元素定位失败时自动修正定位器，大幅降低维护成本。
+!!! tip "自动化测试的新阶段"
+    自愈测试能在元素定位失败时自动修正定位器，大幅降低维护成本。而 Playwright 已把这件事**做进了官方工具链**——内置三个测试 Agent。
 
 ### 12.1 什么是自愈测试
 
 传统自动化：元素定位器变了 → 测试失败 → 人工修复
 自愈测试：元素定位器变了 → **AI 自动尝试其他定位方式** → 测试继续运行
 
-### 12.2 Playwright 的 AI 定位
+### 12.2 定位策略的稳定度排序
 
 ```python
-# Playwright 支持多种定位策略，AI 可自动切换
+# 定位方式按稳定度从高到低
+page.get_by_test_id("login-btn")             # 测试 ID（最稳定，推荐）
 page.get_by_role("button", name="登录")      # 语义定位（推荐）
 page.get_by_text("登录")                      # 文本定位
-page.get_by_test_id("login-btn")             # 测试 ID（最稳定）
 page.locator("#login-button")                # CSS 选择器
-page.locator("//button[@type='submit']")     # XPath
+page.locator("//button[@type='submit']")     # XPath（最脆弱）
 ```
-
-**自愈策略：** 当首选定位器失败时，按优先级尝试其他方式：
 
 ```text
 get_by_test_id → get_by_role → get_by_text → CSS → XPath
      ↑ 最稳定                                    ↑ 最脆弱
 ```
 
-### 12.3 自愈测试实践建议
+### 12.3 Playwright 官方测试 Agent
+
+Playwright 内置三个 Test Agent，可单独使用，也可串成闭环：
+
+| Agent | 职责 | 输入 → 输出 |
+|-------|------|-------------|
+| 🎭 **planner** | 探索应用，产出测试计划 | 自然语言需求 → Markdown 测试计划 |
+| 🎭 **generator** | 把计划转成测试代码 | Markdown 计划 → Playwright 测试文件 |
+| 🎭 **healer** | 执行测试并自动修复失败 | 失败用例 → 修复后的用例 |
+
+初始化方式：
+
+```bash
+# 为项目添加 Agent 定义
+npx playwright init-agents --loop=vscode
+
+# 说明：Playwright 升级后需重新执行该命令，以获取新的工具与指令定义
+```
+
+典型工作方式（以"为游客结算生成测试"为例）：
+
+```text
+1. planner 接收请求："Generate a plan for guest checkout."
+   → 探索页面、运行 seed.spec.ts 完成登录等初始化
+   → 产出 Markdown 测试计划
+
+2. generator 读取该计划
+   → 生成对应的 Playwright 测试文件
+
+3. healer 执行测试套件
+   → 自动修复因页面改动而失败的用例
+```
+
+!!! warning "自愈不等于免维护"
+    这是本节最需要记住的一点：**healer 修复后的用例必须人工复核**。
+
+    自愈的典型风险是"**把错误固化成通过**"——例如断言写错了，或功能确实坏了，healer 却通过调整定位/放宽等待让它变绿。这会把真实缺陷掩盖成"测试通过了"。
+
+    所以正确的用法是：**把自愈结果当作候选修复来审查**，而不是当作已完成的修复。
+
+### 12.4 自愈测试实践建议
 
 | 策略 | 说明 |
 |------|------|
-| 优先用语义定位 | `get_by_role`、`get_by_text` 比 CSS/XPath 更稳定 |
+| 优先用语义定位 | `get_by_role`、`get_by_test_id` 比 CSS/XPath 更稳定 |
 | 添加 test-id | 让开发在关键元素上加 `data-testid` |
-| 多定位器回退 | 配置 AI 按优先级尝试多种定位方式 |
-| 失败截图对比 | 定位失败时自动截图，辅助 AI 判断 |
-| 定期审查 | AI 自愈的用例需要人工定期审查，确认定位正确 |
+| 审查自愈结果 | AI 自愈的用例需要人工确认定位正确，且**断言未被放宽** |
+| 关注失败趋势 | 同一用例反复自愈，说明页面结构不稳定，应推动开发修复根因 |
+| 失败留证 | 定位失败时自动截图 / 保存 Trace，便于判断是页面变了还是真缺陷 |
+| 渐进启用 | 先在非核心用例上试用，稳定后再考虑核心链路 |
 
 ---
 
@@ -860,13 +986,22 @@ get_by_test_id → get_by_role → get_by_text → CSS → XPath
 | 需求分析 | ChatGPT / Claude | 提取测试点、生成用例大纲 |
 | 用例设计 | ChatGPT | 批量生成用例，人工审查补充 |
 | 数据准备 | ChatGPT + Faker | 生成测试数据脚本 |
-| 自动化开发 | Copilot / Cursor | 代码补全、脚本优化 |
-| 缺陷分析 | ChatGPT | 日志分析、缺陷报告撰写 |
+| 自动化开发 | Copilot / Cursor / Claude Code | 代码补全、脚本优化、框架搭建 |
+| 缺陷分析 | ChatGPT / Claude | 日志分析、缺陷报告撰写 |
 | 视觉测试 | Applitools / Percy | UI 回归自动检测 |
+| Web 自动化全流程 | Playwright Agents | planner → generator → healer |
+| 工具接入 | MCP | 让 AI 直连测试数据源（注意权限最小化） |
+| GenAI 应用测试 | 按 OWASP LLM Top 10 | 逐条覆盖 LLM 风险 |
+
+### 三件最容易被忽略的事
+
+1. **AI 的输出质量取决于你的输入质量**——需求越模糊，生成的用例越像"正确的废话"。
+2. **"能调用工具"意味着风险面变大**——接 MCP、用 Agent 时，权限最小化与操作审计不是可选项。
+3. **自愈修复必须人工复核**——它最危险的失败模式是把真实缺陷"修"成通过。
 
 !!! abstract "记住三原则"
     1. **AI 是助手，不是替代**——所有输出必须人工审查
-    2. **数据安全第一**——敏感信息不贴给公共 AI
+    2. **数据安全第一**——敏感信息不贴给公共 AI；给 AI 的权限要最小化
     3. **持续学习**——AI 工具迭代快，保持关注新功能
 
 ---

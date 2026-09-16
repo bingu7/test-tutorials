@@ -64,6 +64,11 @@ jobs:
         # 在线练习的题面 JSON 合法性、字段完整性、容器与题面数量匹配
         run: python _check_labs.py
 
+      - name: Check table structure
+        # 表格里的裸 HTML 标签（如未转义的 <script>）会让浏览器把后续整段内容
+        # 吞进 <table>，表现为页脚浮在表格上；空首列会让内容整体右移一列
+        run: python _check_table_html.py
+
       - name: Build MkDocs site
         run: mkdocs build --strict
         env:
