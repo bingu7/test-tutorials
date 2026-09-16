@@ -5,6 +5,7 @@
 //   - progress.js    进度追踪
 //   - navigation.js  滚动导航 + 快捷键 + 阅读进度
 //   - related.js     相关推荐
+//   - mermaid.js     Mermaid 图表渲染
 // 本文件仅负责初始化调度。
 
 (function() {
@@ -26,6 +27,7 @@
         safeInit('initProgressTracker');
         safeInit('initReadingProgress');
         safeInit('initRelatedTutorials');
+        safeInit('initMermaid');
         safeInit('initKeyboardShortcuts');
         safeInit('initScrollMemory');
 

@@ -89,7 +89,13 @@ markdown_extensions:
   - pymdownx.keys              # 键盘按键
   - pymdownx.mark              # 高亮文本
   - pymdownx.smartsymbols      # 智能符号
-  - pymdownx.superfences       # 超级围栏（支持嵌套）
+  - pymdownx.superfences:      # 超级围栏（支持嵌套）
+      custom_fences:           # ```mermaid 围栏交给 mermaid.js 渲染（见 extra_javascript）
+        # 类名用 mermaid-src 而非 mermaid：避免 mermaid 11 在 window load 时的
+        # 内置自动扫描（querySelector: ".mermaid"）抢先处理并清空节点、丢失源码
+        - name: mermaid
+          class: mermaid-src
+          format: !!python/name:pymdownx.superfences.fence_code_format
   - pymdownx.tabbed:           # 标签页
       alternate_style: true
   - pymdownx.tasklist          # 任务列表
@@ -256,4 +262,5 @@ extra_javascript:
   - javascripts/progress.js
   - javascripts/related.js
   - javascripts/learning-progress.js
+  - javascripts/mermaid.js
   - javascripts/interactive.js

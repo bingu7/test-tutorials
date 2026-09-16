@@ -1206,7 +1206,6 @@ html {
     border-radius: 0.3rem;
     background: var(--color-success-bg);
 }
-
 [data-md-color-scheme="slate"] .quiz-next-step {
     border-color: var(--color-success);
     background: var(--color-success-bg);
@@ -1244,6 +1243,62 @@ html {
 
 .quiz-next-step a:hover {
     text-decoration: underline;
+}
+
+/* ==================== 测验错题本 ==================== */
+.quiz-wrongbook {
+    margin: 1rem 0;
+    padding: 1rem;
+    border: 1px solid var(--color-warning);
+    border-radius: 0.3rem;
+    background: var(--color-warning-bg);
+}
+
+[data-md-color-scheme="slate"] .quiz-wrongbook {
+    border-color: var(--color-warning);
+    background: var(--color-warning-bg);
+}
+
+.quiz-wrongbook h4 {
+    margin: 0 0 0.5rem;
+    font-size: 0.95rem;
+    color: var(--color-warning);
+}
+
+[data-md-color-scheme="slate"] .quiz-wrongbook h4 {
+    color: var(--color-warning);
+}
+
+.quiz-wrongbook p {
+    margin: 0.4rem 0;
+    font-size: 0.88rem;
+}
+
+.quiz-wrongbook .wrongbook-all-clear {
+    color: var(--color-success);
+    font-weight: 600;
+}
+
+.wrongbook-list {
+    margin: 0.5rem 0 0;
+    padding-left: 1.5rem;
+}
+
+.wrongbook-list li {
+    margin-bottom: 0.35rem;
+    font-size: 0.88rem;
+}
+
+/* 同一题反复答错时的高频错题标记 */
+.wrongbook-times {
+    display: inline-block;
+    margin-left: 0.4rem;
+    padding: 0.05rem 0.4rem;
+    border-radius: 0.6rem;
+    background: var(--color-error-bg);
+    color: var(--color-error);
+    font-size: 0.72rem;
+    white-space: nowrap;
 }
 
 /* ==================== 教程下一步建议 ==================== */
@@ -1529,5 +1584,46 @@ html {
     .md-tabs .md-tabs__link {
         font-size: 0.65rem;
         padding: 0.5rem 0.45rem;
+    }
+}
+
+/* ==================== Mermaid 图表 ==================== */
+/* 源码块（mermaid-src）：渲染前隐藏，避免闪动；渲染成功后容器会带上 .mermaid */
+.mermaid-src {
+    display: none;                  /* 渲染前不占位、不闪现源码 */
+}
+
+.mermaid-src.mermaid-error {
+    display: block;                 /* 渲染失败时回退显示原始定义 */
+}
+
+.mermaid {
+    text-align: center;
+    overflow-x: auto;               /* 宽图横向滚动，不撑破正文 */
+    margin: 1.2rem 0;
+}
+
+/* 渲染失败：回退显示原始定义，保证内容不丢失 */
+.mermaid-error {
+    color: var(--md-code-fg-color);
+    background: var(--md-code-bg-color);
+    padding: 0.8rem 1rem;
+    border-radius: 0.2rem;
+    border-left: 3px solid var(--md-accent-fg-color);
+    font-family: var(--md-code-font-family);
+    font-size: 0.72rem;
+    text-align: left;
+    white-space: pre-wrap;
+}
+
+.mermaid svg {
+    max-width: 100%;
+    height: auto;
+}
+
+/* 移动端：图表缩小字号，避免文字挤压 */
+@media (max-width: 48em) {
+    .mermaid svg {
+        font-size: 0.7rem;
     }
 }
