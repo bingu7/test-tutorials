@@ -13,6 +13,7 @@ mkdocs-local*.log
 # Playwright MCP 运行产物
 .playwright-mcp/
 docs/.playwright-mcp/
+.playwright-cli/
 
 # Root draft tutorial markdown files
 /*.md

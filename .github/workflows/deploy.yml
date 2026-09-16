@@ -50,6 +50,20 @@ jobs:
             node --check "$file"
           done
 
+      - name: Check content consistency
+        # 教程数口径：逐分区比对首页/README 标注与 docs/ 下真实文件数
+        # 历史问题：首页标题曾写 90+ 而明细表实为 117；README 多个分区停留在补测验之前
+        run: python _check_counts.py
+
+      - name: Check hands-on task sections
+        # 动手任务结构完整性 + Markdown 代码围栏配平
+        # 围栏不配平会把后续整段内容吞进代码块（渲染事故）
+        run: python _check_tasks.py
+
+      - name: Check online lab specs
+        # 在线练习的题面 JSON 合法性、字段完整性、容器与题面数量匹配
+        run: python _check_labs.py
+
       - name: Build MkDocs site
         run: mkdocs build --strict
         env:
