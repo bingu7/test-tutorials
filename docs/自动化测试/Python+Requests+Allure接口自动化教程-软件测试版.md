@@ -2004,6 +2004,311 @@ pytest -n auto # 自动检测 CPU 数
 
 ---
 
+## 动手任务：把「一大堆断言」重构成可维护的框架
+
+> 这是本教程的收尾练习。请**独立完成**，不要先看参考答案。目标不是"写出能跑的脚本"，而是**让脚本在半年后还改得动**。
+
+### 任务背景
+
+同事交给你一段接口自动化脚本，说"能跑，用例都过了"。你打开一看：**一个文件几百行，所有请求 URL 硬编码，断言散落在各处，Token 是复制粘贴的**。现在需要新增 20 个接口用例，你评估了一下——**照这个写法，每加一个用例要复制 30 行代码**。
+
+你的任务是**重构它**，让新增用例的成本降到 5 行以内。
+
+### 任务数据
+
+原始脚本（`test_orders.py`，**请先阅读找出问题**）：
+
+```python
+import requests
+
+def test_create_order():
+    # Token 硬编码，且每个用例都复制一遍
+    headers = {
+        "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjEwMDAyfQ.abc123",
+        "Content-Type": "application/json"
+    }
+    # URL 硬编码，改环境要全文替换
+    url = "http://test.example.com/api/order"
+    payload = {"productId": 1001, "quantity": 1}
+
+    r = requests.post(url, json=payload, headers=headers)
+
+    # 断言写在一起，失败时不知道是哪一层错了
+    assert r.status_code == 200
+    assert r.json()["code"] == 0
+    assert r.json()["data"]["orderId"] is not None
+    assert r.json()["data"]["amount"] == 1299.00
+
+def test_query_order():
+    headers = {
+        "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjEwMDAyfQ.abc123",
+        "Content-Type": "application/json"
+    }
+    url = "http://test.example.com/api/order/query"
+    # 换个方式传参，风格不统一
+    r = requests.get(url + "?orderId=ORD-20260901-0001", headers=headers)
+
+    assert r.status_code == 200
+    assert r.json()["code"] == 0
+    # 少断言了几个字段
+
+def test_cancel_order():
+    # 又复制一遍 Token
+    headers = {"Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjEwMDAyfQ.abc123"}
+    r = requests.post("http://test.example.com/api/order/cancel",
+                      json={"orderId": "ORD-20260901-0001"}, headers=headers)
+    # 直接假设上一步的订单存在，用例间有依赖
+    assert r.json()["code"] == 0
+```
+
+### 任务准备
+
+目标是可验证的重构，你可以：
+
+1. 用 `requests_mock` / `responses` 库把接口打桩，让脚本能离线跑；或
+2. 起一个最小 Flask / `http.server` mock（参考接口测试教程里的做法）。
+
+### 任务要求
+
+请依次完成：
+
+1. **列出全部设计问题**：指出上面脚本的问题（至少 5 处），说明每处**在什么场景下会带来什么代价**。
+2. **分层设计**：画出你重构后的目录结构，说明每一层的职责（如 config / common / api / testcases）。
+3. **实现核心封装**：写出至少两个关键文件 —— **会话管理与请求封装**、**一个用封装改写的用例**。
+4. **消除用例间依赖**：原脚本里 `test_cancel_order` 依赖 `test_create_order` 先跑。说明为什么这是隐患，并给出改法。
+5. **敏感信息处理**：说明 Token 应该怎么管理，并给出对应的加载代码。
+
+### 提交物
+
+| 产出 | 要求 |
+|------|------|
+| 问题清单 | 每条含：位置、场景、代价 |
+| 目录结构 | 分层清晰，职责单一 |
+| 重构代码 | 封装层 + 至少 1 个改写后的用例 |
+| 效果对比 | 说明「新增一个用例」从多少行降到多少行 |
+| 结论 | 用 3-5 句话说明：为什么"能跑通"和"可维护"是两回事 |
+
+### 完成标准
+
+- [ ] 能指出**硬编码 URL/Token** 的具体代价（不只是"不优雅"，而是"换环境要改 N 处"）
+- [ ] 能识别**用例间依赖**导致的严重后果（执行顺序改变就失败）
+- [ ] 封装后的用例**只表达业务意图**，看不见 HTTP 细节
+- [ ] Token 从环境变量读取，代码里无明文
+
+??? tip "参考答案与思路（先自己做完再看）"
+
+    **第 1 题：设计问题**
+
+    | # | 位置 | 问题 | 代价 |
+    |---|------|------|------|
+    | 1 | `url = "http://test.example.com/..."` | URL 硬编码 | 切换测试/预发/生产环境要全文替换，极易漏改 |
+    | 2 | `"Bearer eyJ..."` | Token 硬编码且重复 3 次 | 泄露风险；Token 过期要改 N 处 |
+    | 3 | `headers` 每个用例重建 | 无会话复用 | 无法统一加 header（如 traceId）；重复代码 |
+    | 4 | 零散 `assert r.json()["code"] == 0` | 断言无分层、失败信息差 | 失败时只知"断言错误"，不知是协议层还是业务层问题 |
+    | 5 | `test_cancel_order` 假设订单存在 | **用例间依赖** | 单独跑/顺序变/并行跑都会失败，是 CI 上最常见的假失败来源 |
+    | 6 | 传参风格不统一（json vs 拼 URL 字符串） | 无统一约定 | 新人不知道该用哪种，继续扩散不一致 |
+    | 7 | 全部写在同一个文件 | 无分层 | 用例过百后无法维护 |
+
+    **第 2 题：分层设计**
+
+    ```text
+    project/
+    ├── config/
+    │   └── settings.py          # 环境地址、超时、全局配置
+    ├── common/
+    │   ├── session.py           # Session 复用、统一 header、日志
+    │   └── assertions.py        # 分层断言（协议/业务/数据）
+    ├── api/
+    │   ├── order_api.py         # 订单接口封装（只关心业务语义）
+    │   └── user_api.py
+    ├── testcases/
+    │   └── test_order.py        # 用例（只表达业务意图）
+    └── conftest.py              # fixture：登录态、测试数据准备
+    ```
+
+    各层职责：
+
+    | 层 | 职责 | 不该做的事 |
+    |----|------|-----------|
+    | config | 环境地址、超时、凭据来源 | 不写业务逻辑 |
+    | common | Session / 断言 / 日志 | 不写具体接口 |
+    | api | 把 HTTP 细节封成业务方法（`create_order(product_id, qty)`） | 不做断言 |
+    | testcases | 组织场景与断言 | 不出现 URL、不手写 headers |
+
+    **第 3 题：核心封装**
+
+    `config/settings.py`：
+
+    ```python
+    import os
+
+    BASE_URL = os.getenv("API_BASE_URL", "http://test.example.com")
+    TIMEOUT = int(os.getenv("API_TIMEOUT", "10"))
+    # Token 从环境变量读取，代码里绝不出现明文
+    TOKEN = os.getenv("API_TOKEN", "")
+    ```
+
+    `common/session.py`：
+
+    ```python
+    import logging
+    import requests
+    from config.settings import BASE_URL, TIMEOUT, TOKEN
+
+    log = logging.getLogger(__name__)
+    _session = requests.Session()
+
+    def _init_session():
+        """统一初始化：base_url、鉴权、超时。全项目共用一个 Session。"""
+        _session.headers.update({
+            "Authorization": f"Bearer {TOKEN}",
+            "Content-Type": "application/json",
+        })
+
+    _init_session()
+
+    def request(method, path, **kwargs):
+        url = f"{BASE_URL}{path}"
+        kwargs.setdefault("timeout", TIMEOUT)
+        log.info("→ %s %s %s", method, url, kwargs.get("json") or kwargs.get("params"))
+        r = _session.request(method, url, **kwargs)
+        log.info("← %s %s", r.status_code, r.text[:200])
+        return r
+    ```
+
+    `common/assertions.py`：
+
+    ```python
+    def assert_protocol(r, expected_status=200):
+        """协议层：HTTP 层面是否正确"""
+        assert r.status_code == expected_status, \
+            f"HTTP 状态码应为 {expected_status}，实际 {r.status_code}"
+
+    def assert_business(r, expected_code=0):
+        """业务层：业务码是否正确"""
+        body = r.json()
+        assert body.get("code") == expected_code, \
+            f"业务码应为 {expected_code}，实际 {body.get('code')}，message={body.get('message')}"
+
+    def assert_data(r, paths_and_values):
+        """数据层：字段值是否符合预期"""
+        body = r.json()["data"]
+        for path, expected in paths_and_values.items():
+            actual = body
+            for k in path.split("."):
+                actual = actual[k]
+            assert actual == expected, f"{path} 应为 {expected}，实际 {actual}"
+    ```
+
+    `api/order_api.py`：
+
+    ```python
+    from common.session import request
+
+    def create_order(product_id, quantity):
+        return request("POST", "/api/order",
+                       json={"productId": product_id, "quantity": quantity})
+
+    def query_order(order_id):
+        return request("GET", "/api/order/query", params={"orderId": order_id})
+
+    def cancel_order(order_id):
+        return request("POST", "/api/order/cancel", json={"orderId": order_id})
+    ```
+
+    **改写后的用例**（只表达业务意图，5 行一个）：
+
+    ```python
+    from api.order_api import create_order, cancel_order
+    from common.assertions import assert_protocol, assert_business, assert_data
+
+    def test_create_order():
+        r = create_order(product_id=1001, quantity=1)
+        assert_protocol(r)
+        assert_business(r)
+        assert_data(r, {"amount": 1299.00})
+
+    def test_cancel_order():
+        # 自己创建前置数据，不依赖其它用例
+        created = create_order(product_id=1001, quantity=1)
+        order_id = created.json()["data"]["orderId"]
+
+        r = cancel_order(order_id)
+        assert_protocol(r)
+        assert_business(r)
+    ```
+
+    **第 4 题：消除用例间依赖**
+
+    原脚本的问题：`test_cancel_order` **假设** `test_create_order` 已经跑过并留下订单。
+
+    为什么是隐患：
+
+    | 场景 | 后果 |
+    |------|------|
+    | 单独运行 `test_cancel_order` | 取消一个不存在的订单 → 失败（不是代码问题，是执行方式变了） |
+    | pytest 改变执行顺序（随机插件等） | 同上 |
+    | CI 并行执行（`-n auto`） | 两个用例可能不在同一进程/机器 |
+    | 前面用例失败 | 后面用例连锁失败，掩盖真实缺陷数量 |
+
+    改法：**每个用例自己准备前置数据**（用 fixture 更优雅）：
+
+    ```python
+    import pytest
+
+    @pytest.fixture
+    def order_id():
+        """每个用例独立创建一个订单，保证数据隔离。"""
+        r = create_order(product_id=1001, quantity=1)
+        assert_business(r)
+        return r.json()["data"]["orderId"]
+
+    def test_cancel_order(order_id):
+        r = cancel_order(order_id)
+        assert_business(r)
+    ```
+
+    > 原则：**用例之间必须可以任意顺序、独立、并行执行**。任何"依赖上一步结果"的写法都是定时炸弹。
+
+    **第 5 题：Token 管理**
+
+    ```text
+    推荐做法（优先级从高到低）：
+
+    1. 会话级动态获取（推荐）：用登录接口拿 Token，缓存在 Session 级 fixture 里
+       @pytest.fixture(scope="session")
+       def token():
+           r = request("POST", "/api/login",
+                       json={"user": os.getenv("TEST_USER"),
+                             "pwd": os.getenv("TEST_PWD")})
+           return r.json()["data"]["token"]
+
+    2. 环境变量：os.getenv("API_TOKEN")，本地用 .env（且 .env 必须进 .gitignore）
+
+    3. CI Secret：在流水线里注入环境变量，不落盘
+
+    绝对不要：
+    - 把 Token 写进代码（会进 Git 历史，删了也还在）
+    - 把 Token 打印进日志（会进 CI 日志，可能被他人看到）
+    - 把 .env 提交到仓库
+    ```
+
+    对应的加载代码见第 3 题的 `config/settings.py`。
+
+    **效果对比**：
+
+    | 指标 | 重构前 | 重构后 |
+    |------|--------|--------|
+    | 新增一个用例 | ~30 行（复制 headers、URL、断言） | **3-5 行** |
+    | 换测试环境 | 全文查找替换 URL | 改一个环境变量 |
+    | Token 过期 | 逐个用例改 | 自动登录或改一个变量 |
+    | 失败定位 | "断言错误" | 明确是协议层 / 业务层 / 数据层 |
+    | 能否单独运行用例 | ❌ 有依赖 | ✅ 完全独立 |
+
+    **结论**："能跑通"只证明脚本在**某一次特定条件下**可用；"可维护"才决定它能否活过下一个迭代。判断标准很简单：**新增一个用例需要改几行代码、改几个文件**——如果需要复制粘贴，就说明封装缺失。
+
+---
+
 ## 下一步建议
 
 <div class="tutorial-next-steps" markdown="1">

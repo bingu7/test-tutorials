@@ -1367,6 +1367,366 @@ git pull --rebase       # 拉取 + rebase
 
 ---
 
+## 动手任务：用提交历史定位"测试被悄悄关掉"的元凶
+
+> 这是本教程的收尾练习。请**独立完成**，不要先看参考答案。目标不是"把命令敲一遍"，而是**用 Git 证明你的判断**。
+
+### 任务背景
+
+你负责的订单接口自动化项目，上周 CI 还是全绿的。这周一开始，流水线"通过了"，但你隐约觉得不对——**订单创建用例失败时不再报警了**，构建照样是绿色。同事说"我没动过你的用例"。
+
+你需要用 Git 回答三个问题：**是哪个提交、哪个人、什么时候**让这条用例失去了断言能力；这个改动是操作失误，还是团队流程本身留了口子；以及怎么改，才能让同类问题不再发生。
+
+### 任务数据
+
+在临时目录里复现这个仓库（所有时间戳都用 `GIT_AUTHOR_DATE` 固定，保证你看到的结果和我写的完全一致）：
+
+```bash
+mkdir /tmp/git-task && cd /tmp/git-task
+git init -b main
+git config user.name "task"
+git config user.email "task@example.com"
+mkdir testcases config
+```
+
+提交历史如下（**6 次提交，全部在 `main` 分支上，无合并**）：
+
+```
+* 556b3aa  2025-03-15 09:20  test: 补充订单取消用例的日志输出
+* 065736d  2025-03-14 09:02  test: 调整接口超时时间到 30 秒
+* 53b445a  2025-03-12 16:20  test: 新增订单取消用例
+* edf8ef2  2025-03-11 10:40  test: 临时禁用订单创建用例
+* dbaa8ab  2025-03-10 14:05  test: 调整订单创建接口断言
+* 80930ee  2025-03-03 09:12  test: 初始化订单接口测试框架
+```
+
+各次提交涉及的文件：
+
+| 提交 | 涉及文件 | 变更类型 |
+|------|----------|----------|
+| `80930ee` | `testcases/test_order.py`、`config/settings.py` | 新增 A |
+| `dbaa8ab` | `testcases/test_order.py` | 修改 M |
+| `edf8ef2` | `testcases/test_order.py` | 修改 M |
+| `53b445a` | `testcases/test_order.py` | 修改 M |
+| `065736d` | `config/settings.py` | 修改 M |
+| `556b3aa` | `logs/pytest_20250315.log` | 新增 A |
+
+`testcases/test_order.py` 在这 6 次提交中依次变成：
+
+```python
+# 80930ee（初始版本，断言 200）
+def test_order_create():
+    r = requests.post(f"{BASE_URL}/api/order/create", json={"sku": "A001", "num": 1})
+    assert r.status_code == 200
+```
+
+```python
+# dbaa8ab（断言从 200 改成 201，同一次提交只动了这一行）
+def test_order_create():
+    r = requests.post(f"{BASE_URL}/api/order/create", json={"sku": "A001", "num": 1})
+    assert r.status_code == 201
+```
+
+```python
+# edf8ef2（用例被整体注释掉，只留一个 pass）
+def test_order_create():
+    # TODO 暂时联调完再打开
+    # r = requests.post(f"{BASE_URL}/api/order/create", json={"sku": "A001", "num": 1})
+    # assert r.status_code == 201
+    pass
+```
+
+```python
+# 53b445a（新增了 cancel 用例，create 用例仍然是被注释的）
+def test_order_create():
+    # TODO 暂时联调完再打开
+    # r = requests.post(f"{BASE_URL}/api/order/create", json={"sku": "A001", "num": 1})
+    # assert r.status_code == 201
+    pass
+
+def test_order_cancel():
+    r = requests.post(f"{BASE_URL}/api/order/cancel", json={"order_id": "10086"})
+    assert r.status_code == 200
+```
+
+`config/settings.py` 的两次变更：
+
+```python
+# 80930ee:  timeout = 10   /  retry = 1
+# 065736d:  timeout = 30   /  retry = 1        # TODO 联调后改成 3
+```
+
+`556b3aa` 新增了一个 `logs/pytest_20250315.log`，内容是两行 pytest 运行日志。
+
+!!! info "不要真跑 pytest"
+    这个仓库里没有可运行的被测系统，`requests` 也不是必须装的。本任务的全部结论都从 **Git 历史**里得出，不需要跑测试。
+
+### 任务要求
+
+请依次完成，并**保留每条命令和输出**：
+
+1. 查看 `testcases/test_order.py` 这一个文件的完整变更历史（只列这一个文件，不要列出 `config/settings.py` 和 `logs/` 的提交）。找出：**哪个提交让 `test_order_create` 这条用例彻底失去了执行能力**（即：用例体里不再有任何真实发起请求并断言的语句），给出短 hash、作者、时间、提交信息。
+2. 判断严重程度：这条用例被"关掉"之后，CI 里跑它会发生什么？请给出一个**具体的、可验证的结论**——例如"`pytest` 收集到的用例数从几个变成几个""失败会不会让构建变红"。然后说明为什么这个改动比 `dbaa8ab` 把断言从 `200` 改成 `201` **更危险**（提示：前者会让测试静默通过，后者会让测试失败——想想哪种更不容易被发现）。
+3. 交叉验证你的判断，至少用两种互相独立的方法，且结论要指向同一个提交：
+   - 用 `git log -S` 反查"哪次提交把 `assert r.status_code == 201` 这一行**消失**了"，并解释为什么 `-S '# assert ...'`（带注释符）和 `-S 'assert ...'`（不带注释符）返回的提交不一样；
+   - 用 `git blame -L` 直接归因到具体行，确认注释行和 `pass` 行都指向同一个提交。
+4. 给出可复用的产出：
+   - 一条能放进团队规范、**用于 CI 前置检查**的 Git 命令：检出"最近 N 个提交里，有没有把测试函数体注释掉的改动"（提示：`git log -G` 配合正则）；
+   - 一份 `.gitignore` 片段，解决 `556b3aa` 引入的 `logs/` 被跟踪问题，并写出把它们从索引里摘掉、但不删磁盘文件的命令。
+
+### 提交物
+
+| 产出 | 要求 |
+|------|------|
+| 定位命令 | 第 1 题中"只看单个文件历史 + 找出让用例失效的提交"的完整命令与输出 |
+| 归因命令 | 第 3 题中 `-S` 反查和 `blame -L` 归因的完整命令与输出 |
+| CI 检查命令 | 第 4 题中能放进团队规范的一条命令，须自带说明注释 |
+| `.gitignore` 片段 + 清理命令 | 要求该清理命令不删除磁盘上的日志文件（要能证明：清理后文件仍在） |
+| 结论 | 用 3-5 句话说明：是操作失误还是流程缺陷，影响范围多大，建议怎么改 |
+
+### 完成标准
+
+- [ ] 能说出让用例失效的提交是 `edf8ef2`、作者、以及它发生在 `dbaa8ab` 之后、`53b445a` 之前
+- [ ] 能说清楚 `git log -- <路径>` 会把路径过滤掉别的目录，并解释为什么 `556b3aa`（只动 `logs/`）不应该出现在该文件的变更历史里
+- [ ] 结论里有具体证据（commit hash、时间、diff 内容）支撑
+- [ ] 给出的 `.gitignore` 与清理命令能直接用到自己的自动化项目上，且不会误删本地日志
+- [ ] CI 检查命令可以粘贴到 Jenkins / GitLab CI 的脚本步骤里直接跑
+
+??? tip "参考答案与思路（先自己做完再看）"
+
+    **第 1 题：只看这一个文件的历史，找到让用例失效的提交**
+
+    ```bash
+    # 只看 testcases/test_order.py 一个文件的变更历史
+    git log --oneline -- testcases/test_order.py
+    ```
+
+    预期输出（**只有 4 条**，`065736d` 和 `556b3aa` 不该出现，因为它们没动这个文件）：
+
+    ```
+    53b445a test: 新增订单取消用例
+    edf8ef2 test: 临时禁用订单创建用例
+    dbaa8ab test: 调整订单创建接口断言
+    80930ee test: 初始化订单接口测试框架
+    ```
+
+    想看作者和时间就加格式化参数：
+
+    ```bash
+    git log --format="%h %ad %an %s" --date=format:"%Y-%m-%d %H:%M" -- testcases/test_order.py
+    ```
+
+    ```
+    53b445a 2025-03-12 16:20 task test: 新增订单取消用例
+    edf8ef2 2025-03-11 10:40 task test: 临时禁用订单创建用例
+    dbaa8ab 2025-03-10 14:05 task test: 调整订单创建接口断言
+    80930ee 2025-03-03 09:12 task test: 初始化订单接口测试框架
+    ```
+
+    关键点在 `-- <路径>`：它把历史**限定在这一个文件**上。所以只改了 `logs/` 的 `556b3aa` 不会出现——很多人用 `git log` 看全仓库历史，再拿提交信息去猜，就会被无关提交干扰。
+
+    再看候选提交里哪次改掉了用例体：
+
+    ```bash
+    # 看这一行内容的引入/删除点在哪儿
+    git log -S 'assert r.status_code == 201' --oneline -- testcases/test_order.py
+    # 输出：dbaa8ab test: 调整订单创建接口断言
+
+    # 直接看 edf8ef2 干了什么
+    git show edf8ef2 --format="%h %ad %an %s" --date=format:"%Y-%m-%d %H:%M" -- testcases/test_order.py
+    ```
+
+    ```
+    edf8ef2 2025-03-11 10:40 task test: 临时禁用订单创建用例
+
+    @@ -4,5 +4,7 @@ import requests
+     def test_order_create():
+    -    r = requests.post(f"{BASE_URL}/api/order/create", json={"sku": "A001", "num": 1})
+    -    assert r.status_code == 201
+    +    # TODO 暂时注释，等后端联调完再打开
+    +    # r = requests.post(f"{BASE_URL}/api/order/create", json={"sku": "A001", "num": 1})
+    +    # assert r.status_code == 201
+    +    pass
+    ```
+
+    结论：**`edf8ef2`，作者 task，2025-03-11 10:40，提交信息"test: 临时禁用订单创建用例"**。提交信息本身还写着"临时"，说明作者认为这是权宜之计，但没有留下任何"什么时候恢复"的机制——这正是流程缺陷的起点。
+
+    **第 2 题：严重程度——静默失效比断言写错危险得多**
+
+    对比两次提交：
+
+    | 提交 | 改动 | pytest 行为 | CI 结果 |
+    |------|------|-------------|---------|
+    | `dbaa8ab` | 断言 `200` → `201` | 用例**会被执行**，真发请求 | 只要真实接口返回非 201 就**变红**，立刻可见 |
+    | `edf8ef2` | 用例体全部注释，只剩 `pass` | 函数还在，pytest 依然收集到它，但**什么都不做，直接判定通过** | **永远绿**，且没有任何提示 |
+
+    这就是最要命的地方：`edf8ef2` 之后，`test_order_create` 变成一条**永远不会失败的空用例**。它还在用例清单里，还会出现在 pytest 的 `passed` 计数里（"6 passed"而不是"5 passed"），看上去覆盖没少。CI 是绿的，报告是绿的，人也就信了。
+
+    而 `dbaa8ab` 虽然引入了错误断言，但它是**吵闹的失败**——下一次 CI 就会报红，改回去只是几秒钟的事。
+
+    !!! note "一句话归纳"
+        断言写错 = **故障信号变吵**，会被发现；把用例注释掉 = **故障信号被掐断**，不会被发现。测试代码里最危险的改动，永远是那些让"失败"变少、却不产生任何新抖动的改动。
+
+    所以这个改动的影响范围不是"少了一条用例"，而是**订单创建这条最核心主流程的接口回归，从 2025-03-11 起彻底失去防线，且持续了 4 天以上无人察觉**。
+
+    **第 3 题：交叉验证——`-S` 反查 + `blame` 归因**
+
+    方法 A：用 `-S` 反查"哪次提交让这一行内容量发生了变化"。
+
+    ```bash
+    # 搜的是"内容字符串的增删"，不是"行是否被修改"
+    git log -S 'assert r.status_code == 201' --oneline -- testcases/test_order.py
+    # 输出：dbaa8ab  test: 调整订单创建接口断言
+    ```
+
+    这里有个**非常容易踩的坑**，必须理解清楚：
+
+    ```bash
+    # 带注释符：搜"这一整行被注释掉"这个字符串本身
+    git log -S '# assert r.status_code == 201' --oneline -- testcases/test_order.py
+    # 输出：edf8ef2  test: 临时禁用订单创建用例
+    ```
+
+    为什么两次结果不同？`git log -S<string>` 找的是**该字符串出现次数发生变化的提交**——注意是"字符串出现次数"，不是"这一行是否被改动"。`edf8ef2` 的实际 diff 是：
+
+    ```
+    -    assert r.status_code == 201
+    +    # assert r.status_code == 201
+    ```
+
+    关键在于：被加上的新行 `    # assert r.status_code == 201` **本身仍然含有子串** `assert r.status_code == 201`。所以对这两个不同的搜索串：
+
+    - `-S 'assert r.status_code == 201'`：`dbaa8ab` 引入它（出现次数 0 → 1）→ 命中；`edf8ef2` 删掉 1 次、又通过注释行加回 1 次，**净变化为 0 → 不命中**。所以这条命令找到的是"这行内容**诞生**在哪"，**不是**"这行内容什么时候被废掉"。
+    - `-S '# assert r.status_code == 201'`：`edf8ef2` 让这个（带 `#` 的）字符串从 0 次变成 1 次 → 命中。这条才是指向"被注释掉"的那次提交。
+
+    换句话说，**当改动方式是"给某行加前缀变成注释"时，搜索原字符串永远抓不到它**，因为子串还在。这是 `-S` 最反直觉的一处行为。
+
+    !!! warning "这就是为什么不能只信一条命令"
+        单独看 `-S 'assert r.status_code == 201'` 得到 `dbaa8ab`，很容易误判成"就是这次改坏的"。**`-S` 回答的是"某个字符串何时出现/消失"，不是"某段逻辑何时失效"**——必须结合 `git show` 看实际 diff 才能下结论。
+
+    方法 B：用 `blame` 直接归因到具体行，交叉印证。
+
+    ```bash
+    git blame -L 7,10 --date=short testcases/test_order.py
+    ```
+
+    ```
+    edf8ef2a (task 2025-03-11  7)     # TODO 暂时注释，等后端联调完再打开
+    edf8ef2a (task 2025-03-11  8)     # r = requests.post(f"{BASE_URL}/api/order/create", json={"sku": "A001", "num": 1})
+    edf8ef2a (task 2025-03-11  9)     # assert r.status_code == 201
+    edf8ef2a (task 2025-03-11 10)     pass
+    ```
+
+    四条行（`TODO` 注释、被注释的请求、被注释的断言、`pass`）**全部指向 `edf8ef2`**，与方法 A 的第二个命令完全一致。两条独立路径同一个结论，可以定案。
+
+    > `blame` 左侧 hash 前的 `^` 前缀表示"边界提交"（即该行的归属追溯到文件创建那一次提交），本例中受影响的行都不带 `^`，说明它们确实是 `edf8ef2` 改的。
+
+    顺带一提：如果你用的是"能跑测试"的仓库，还可以用 `git bisect`——把最后一次 CI 全绿记为 `good`、当前记为 `bad`，`git bisect run pytest testcases/test_order.py` 会自动收敛到 `edf8ef2`。但**本例里 `bisect` 会失效**：`edf8ef2` 之后这条用例本身不报错了，`bisect` 会一路判定成 `good`，根本找不到那个"坏"提交。**这恰恰又是"静默失效"更危险的证据**——连自动化的历史二分工具都抓不到它。
+
+    **第 4 题：可复用的产出**
+
+    **产出 1：CI 前置检查——揪出"测试被注释掉"的提交**
+
+    ```bash
+    # 检查有没有提交在测试文件里新增了"被注释掉的真断言/真请求"
+    # -G 匹配的是 diff 中被增删的行是否命中该正则，且默认是【行内搜索】（不要求整行相同）
+    git log -G '^\s*#\s*(assert|r = requests\.)' \
+      --oneline --perl-regexp --since="2025-03-01" \
+      -- 'testcases/*.py' 'tests/*.py'
+    ```
+
+    预期输出（命中了把用例注释掉的那次提交）：
+
+    ```
+    edf8ef2 test: 临时禁用订单创建用例
+    ```
+
+    !!! warning "`--since` 会和本任务的固定日期打架"
+        本任务的提交日期是**写死的 2025-03**（第 1 题用 `GIT_AUTHOR_DATE` 固定过）。所以：
+        `--since="2025-03-01"` 能命中；而 `--since="90 days ago"` 是**相对今天**算的，等这 6 个提交"过期"之后这条命令会**静默返回空结果**——看起来像"没问题"，其实是什么都没查。把时间窗当作一个需要你自己按当前日期调整的参数来用；真实 CI 里提交总是近期的，用 `--since="90 days ago"` 没问题。
+
+    说明三点，都很容易写错：
+
+    - **正则用 `^\s*#\s*` 而不是 `^\+.*#`**。`-G` 的匹配对象是 diff 里**去掉 `+`/`-` 前缀之后的行内容**，不是在 diff 文本上做匹配，所以不需要（也不应该）去写 `^\+`。
+    - **`assert` 要写在 `#` 之后**。这样匹配的是"行首就是注释符、注释里是断言/请求"的行，才能精准抓到"被注释掉的用例"，而不会误伤"本来就是说明性注释"的行。
+    - **路径用 `'testcases/*.py'`**。Git 的 pathspec 默认**递归匹配任意深度**，`testcases/*.py` 已经能命中 `testcases/test_order.py`，也包含 `testcases/sub/x.py`；写成 `'testcases/**/*.py'` 在单层目录下是**空匹配**，命令会静默返回空结果——这个坑要特别当心。
+
+    !!! note "为什么这里用 `-G` 而不是 `-S`"
+        这正是第 3 题现象的延伸：本例中 `-S '# assert r.status_code == 201'` 恰好也能命中（因为它搜的就是"带 `#` 的新字符串"），但那种写法**把具体某一行内容写死进了命令**，换一个文件、换一行代码就失效。`-G` 用正则描述"什么形态的行算可疑"，才是能进 CI 的通用写法。
+
+    把它放进 CI 的一个"软门禁"步骤（先只告警、不阻断），例如 GitLab CI：
+
+    ```yaml
+    test-guard:
+      stage: test
+      script:
+        - |
+          # 揪出"把测试用例注释掉"的提交
+          PATTERN='^\s*#\s*(assert|r = requests\.)'
+          HITS=$(git log -G "$PATTERN" --oneline --perl-regexp \
+            --since="2025-03-01" -- 'testcases/*.py' 'tests/*.py' | wc -l)
+          if [ "$HITS" -gt 0 ]; then
+            echo "⚠️ 检测到 $HITS 个提交新增了被注释掉的断言，请确认是否为临时禁用："
+            git log -G "$PATTERN" --format="%h %ad %an %s" --date=short \
+              --perl-regexp --since="2025-03-01" -- 'testcases/*.py' 'tests/*.py'
+            exit 1   # 想先软告警就把这行去掉
+          fi
+      allow_failure: true
+    ```
+
+    **产出 2：`.gitignore` 片段 + 摘除索引但不删文件**
+
+    `556b3aa` 把 `logs/pytest_20250315.log` 提交进去了。先补 `.gitignore`：
+
+    ```gitignore
+    # 测试产物与临时文件
+    __pycache__/
+    *.py[cod]
+    .pytest_cache/
+    allure-results/
+    allure-report/
+    logs/
+    *.log
+    ```
+
+    注意：**只加 `.gitignore` 不会让已经被跟踪的文件停止被跟踪**。`logs/pytest_20250315.log` 已经被 `556b3aa` 提交进版本库了，`.gitignore` 对它无效——必须显式把它从索引里摘掉：
+
+    ```bash
+    # 从索引中移除（--cached = 保留磁盘文件！）
+    git rm -r --cached logs
+    git add .gitignore
+    git commit -m "chore: 忽略测试产物与日志目录"
+    ```
+
+    验证（关键：证明文件没被删掉）：
+
+    ```bash
+    git ls-files
+    # .gitignore
+    # config/settings.py
+    # testcases/test_order.py
+    #        ↑ logs/ 已不在版本库中
+
+    ls logs/pytest_20250315.log
+    # logs/pytest_20250315.log   ← 文件还在磁盘上
+
+    # 之后再产生日志，git 就不再理会
+    touch logs/pytest_20250316.log
+    git status --short
+    # （空输出 = 已被忽略）
+    ```
+
+    !!! danger "别漏了 `--cached`"
+        直接写 `git rm -r logs`（不带 `--cached`）会**连磁盘上的日志一起删掉**——本地排查问题的日志就没了。这是这条命令最容易写错的地方。
+
+    **最终结论（建议的作答方向）**
+
+    这是**操作失误触发的流程缺陷**。`edf8ef2` 是个人图省事的临时改动（提交信息里"临时禁用"就是自证），但问题在于团队没有任何机制拦住它：既不需要 MR 评审、也没有"禁用用例必须留跟踪单号"的约定、CI 更不会因为"用例被注释掉"而变红。受影响的是订单创建这条主流程接口回归，从 2025-03-11 到 2025-03-15 之间至少 4 天处于无防线状态，且以"6 passed"的假象掩盖了过去。
+
+    建议三件事：① 把第 4 题的 `-G` 检查加进 CI（先告警后阻断）；② 团队规范里写明"禁用用例必须用 `@pytest.mark.skip(reason='TEST-1234 联调中')`，禁止注释用例体"，因为 `skip` 会在报告里显式出现为 skipped，而注释不会留任何痕迹；③ 顺手把 `.gitignore` 补齐，避免日志、`allure-results/` 这类产物继续污染仓库。
+
+---
+
 !!! warning "测试纪律"
     提交代码前自检：1) 没有密码、Token 等敏感信息；2) 没有大文件（>10MB）；3) 没有临时文件、日志、报告；4) 提交信息清晰；5) 本地测试通过。涉及主干分支的操作三思而后行。
 

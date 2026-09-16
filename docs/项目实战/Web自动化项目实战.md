@@ -423,6 +423,204 @@ Web 自动化不是越多越好。最有价值的是每天稳定执行、能快�
 
 ---
 
+## 动手任务：给一批 UI 失败用例做分类和取舍
+
+> 这是本教程的收尾练习。请**独立完成**，不要先看参考答案。目标不是「让用例通过」，而是能判断一条失败到底值不值得修，并做出有依据的取舍。
+
+### 任务背景
+
+Web 自动化套件每天 22:00 跑一次，连续三天红了。团队有两种声音：研发说「UI 自动化误报太多，建议砍掉」，测试负责人说「不能砍，砍了就没人守核心流程」。
+
+你被要求在这批失败记录里给出结论：哪些是真缺陷、哪些是脚本脆弱、哪些应该直接下线，以及每条对应的修复动作。
+
+### 任务准备
+
+连续三次运行的失败记录（示例值，摘录）：
+
+```text
+Run 2024-05-20 21:00  passed 118 / failed 9   duration 26m
+Run 2024-05-21 21:00  passed 121 / failed 6   duration 24m
+Run 2024-05-22 21:00  passed 115 / failed 12  duration 31m
+```
+
+```text
+# 失败明细（含错误摘要）
+F1  test_login_success
+    TimeoutException: waiting for #loginBtn (10s)  ← 连续 3 天失败
+F2  test_add_to_cart
+    AssertionError: cart count expected 1, got 2   ← 仅第 3 天失败
+F3  test_checkout_amount
+    AssertionError: displayed 199.00, expected 348.00  ← 连续 3 天失败
+F4  test_search_result_count
+    AssertionError: expected 5, got 4               ← 仅第 1 天失败
+F5  test_order_list_paging
+    StaleElementReferenceException: element detached ← 第 1、3 天失败
+F6  test_logout
+    TimeoutException: waiting for .login-form (5s)  ← 第 2 天失败
+F7  test_product_detail_image
+    AssertionError: img loaded=False                 ← 连续 3 天失败
+F8  test_coupon_apply
+    ElementClickInterceptedException: toast 遮挡     ← 第 3 天失败
+F9  test_profile_save
+    AssertionError: nickname expected new, got old   ← 第 1、2 天失败
+```
+
+```python
+# pages/login_page.py（节选）
+class LoginPage:
+    def login(self, user, pwd):
+        self.driver.find_element(By.CSS_SELECTOR, "#loginBtn").click()   # F1
+        self.driver.find_element(By.ID, "placeholder-2").send_keys(user)
+        time.sleep(1)                                                    # 显式 sleep
+        return self.driver.find_element(By.CLASS_NAME, "user-name").text # F6 用同一选择器
+
+# tests/test_cart.py（节选）
+def test_add_to_cart(driver):
+    driver.get(BASE + "/product/1001")
+    driver.find_element(By.LINK_TEXT, "立即购买").click()                 # F2/F8
+    assert len(driver.find_elements(By.CLASS_NAME, "cart-item")) == 1
+
+# tests/test_order.py（节选）
+def test_checkout_amount(driver):
+    total = driver.find_element(By.ID, "total").text                      # F3
+    assert total == "348.00"                                             # 硬编码期望值
+```
+
+```text
+环境信息：
+- CI 无头 Chrome 123，视口 1280x800（本地为 1920x1080）
+- 测试账号：共享账号 qa_web（三套用例共用，包括购物车用例）
+- 重试策略：未启用
+```
+
+### 任务要求
+
+请依次完成，并**保留每条命令和输出**：
+
+1. **失败分类**：把 F1~F9 逐条归入「真缺陷 / 脚本脆弱 / 环境差异 / 数据污染」四类，并标注稳定性（连续失败 or 偶发）。输出表格：用例 / 分类 / 依据（引用代码或错误摘要）/ 稳定性。
+
+2. **根因定位**：至少指出 3 个跨用例的共性根因（等待策略、定位策略、期望值来源、执行环境），并说明每个根因影响了哪几条 F 项。要指出 `#loginBtn` 这类问题为什么在本地通过、在 CI 失败。
+
+3. **给出取舍结论**：对每条用例给出处置（立即修复 / 降级为冒烟 / 下线 / 转手工回归），并说明判断标准。必须至少下线 1 条、降级 1 条，并说明理由（维护成本 vs 拦截价值）。
+
+4. **交付可执行的修复片段**：写出修复后的关键代码片段（含显式等待、稳定的 `data-testid` 约定、期望值来源改造），并输出一份「用例分层清单」（表格：分层 / 用例 / 执行频率 / 目标耗时）。
+
+### 提交物
+
+| 产出 | 要求 |
+|------|------|
+| 失败分类表 | F1~F9 全覆盖，含稳定性标注 |
+| 根因说明 | ≥ 3 个共性根因，各自列出影响用例 |
+| 取舍结论表 | 含处置动作与标准，至少 1 下线 + 1 降级 |
+| 修复代码片段 | 可复制，含等待与定位改造 |
+| 分层清单 | 表格，含执行频率与目标耗时 |
+
+### 完成标准
+
+- [ ] 能用「连续失败 vs 偶发」区分真缺陷与脆弱脚本
+- [ ] 能解释「本地绿 CI 红」的常见原因（视口、渲染时序、网络延迟）
+- [ ] 能把定位器问题与业务问题分开描述
+- [ ] 能明确说明为什么某些用例应该下线而不是修
+- [ ] 修复片段中不含 `time.sleep` 硬等待
+
+??? tip "参考答案与思路（先自己做完再看）"
+
+    **第 1 题：失败分类表**
+
+    | 用例 | 分类 | 依据 | 稳定性 |
+    |------|------|------|--------|
+    | F1 test_login_success | 脚本脆弱 + 环境差异 | 选择器 `#loginBtn` 依赖动态 id；本地视口大可点，CI 小视口被遮挡 | 连续 |
+    | F2 test_add_to_cart | 数据污染 | 共享账号 qa_web，购物车残留导致 2 条；仅共用数据变化那天失败 | 偶发 |
+    | F3 test_checkout_amount | 真缺陷 | 与「下单金额异常」一致，页面确实渲染 199.00 | 连续 |
+    | F4 test_search_result_count | 脚本脆弱 | 期望条数写死 5，搜索数据变化即失败，无业务含义 | 偶发 |
+    | F5 test_order_list_paging | 脚本脆弱 | `StaleElementReferenceException` 是列表重渲染竞态，非缺陷 | 偶发 |
+    | F6 test_logout | 脚本脆弱 | 复用 `.login-form` 定位，登出后 DOM 已变；且 `time.sleep(1)` 掩盖了真实等待条件 | 偶发 |
+    | F7 test_product_detail_image | 待确认（很可能是真缺陷） | 连续 3 天 `img loaded=False`，需检查是图片 404 还是懒加载未触发 | 连续 |
+    | F8 test_coupon_apply | 脚本脆弱 + 真缺陷候选 | `toast` 遮挡是脚本未等元素可点；但若等待后仍失败则是产品交互缺陷 | 偶发 |
+    | F9 test_profile_save | 真缺陷（或最终一致） | 连续 2 天保存后读到旧值，需确认为缓存/主从不一致还是保存失败 | 连续 |
+
+    判定要点：**连续失败优先怀疑真缺陷，偶发失败优先怀疑脚本与环境**。但这只是「优先怀疑」，F7 必须去查图片请求的真实状态码才能定性。
+
+    **第 2 题：共性根因**
+
+    1. **等待策略：`time.sleep` 代替条件等待**
+       影响 F1、F6、F8。固定 sleep 在本地够用，在 CI 机器（CPU 更弱、并发跑多个容器）就会不够；而元素被 toast 遮挡时，sleep 再久也点不上。
+
+    2. **定位策略：依赖动态 id / 文案 / 弱 class**
+       影响 F1（`#loginBtn` 动态 id、`placeholder-2` 这种自动生成的 id）、F2/F8（`LINK_TEXT` 依赖文案，改文案即挂）、F6（复用登录表单 class 判断登出结果）。
+       本地通过是因为本地页面版本可能不同、视口更大；CI 通过率低是因为构建产物 id 哈希不同 + 视口小导致元素不可点。
+
+    3. **期望值来源：硬编码业务数据**
+       影响 F3、F4、F9。`== 348.00`、`== 5` 把「测试数据」写进了断言。正确做法是断言**由接口或测试数据推导出的期望值**，而不是常量。
+
+    4. **执行环境差异 + 共享账号**
+       影响 F2、F9、F5（视口 1280x800 下列表高度不同，重渲染时机不同）。
+
+    **第 3 题：取舍结论表**
+
+    | 用例 | 处置 | 理由 |
+    |------|------|------|
+    | F1 test_login_success | 立即修复 | 登录是所有流程的前置，拦截价值最高 |
+    | F2 test_add_to_cart | 立即修复（改数据隔离） | 购物车是核心转化路径 |
+    | F3 test_checkout_amount | 立即修复 + 提缺陷 | 真缺陷，涉及金额 |
+    | F4 test_search_result_count | **下线** | 断言的是数据条数而非业务规则，维护成本 > 拦截价值；改为「搜索结果非空且关键字命中」 |
+    | F5 test_order_list_paging | 立即修复 | 分页是主流程，改用等待 + 重查元素 |
+    | F6 test_logout | 降级为冒烟 | 登出风险低，纳入每日冒烟集，不做深度断言 |
+    | F7 test_product_detail_image | 立即修复（先定性） | 连续失败必须查清 |
+    | F8 test_coupon_apply | 立即修复 | 涉及优惠，资金相关必须守 |
+    | F9 test_profile_save | 立即修复 | 连续失败，需定性 |
+
+    取舍标准（三条，写进团队规范）：
+
+    ```text
+    1. 断言业务规则 → 留；断言数据条数/文案原文 → 删或改
+    2. 失败能指向具体风险 → 留；失败只能说明环境抖动 → 降级
+    3. 维护工时 / 拦截次数 > 阈值（如每月 > 2h 维护且 0 次有效拦截）→ 下线
+    ```
+
+    **第 4 题：修复片段与分层**
+
+    ```python
+    # 1) 显式等待替代 sleep
+    from selenium.webdriver.support.ui import WebDriverWait
+    from selenium.webdriver.support import expected_conditions as EC
+
+    def login(self, user, pwd):
+        WebDriverWait(self.driver, 10).until(
+            EC.element_to_be_clickable((By.CSS_SELECTOR, "[data-testid='login-submit']"))
+        ).click()
+        # 断言真实业务结果，而不是等固定时间
+        WebDriverWait(self.driver, 10).until(
+            EC.visibility_of_element_located((By.CSS_SELECTOR, "[data-testid='user-name']"))
+        )
+
+    # 2) 稳定定位：约定 data-testid
+    driver.find_element(By.CSS_SELECTOR, "[data-testid='add-to-cart']").click()
+
+    # 3) 期望值来自接口/数据，而不是硬编码
+    def test_checkout_amount(driver, api, cart_fixture):
+        expected = api.get(f"/api/order/{cart_fixture.order_id}").json()["data"]["pay_amount"]
+        total = driver.find_element(By.CSS_SELECTOR, "[data-testid='order-total']").text
+        assert total == expected
+
+    # 4) 列表操作先等渲染稳定再取元素
+    WebDriverWait(driver, 10).until(
+        lambda d: len(d.find_elements(By.CSS_SELECTOR, "[data-testid='order-row']")) > 0
+    )
+    ```
+
+    分层清单：
+
+    | 分层 | 用例 | 执行频率 | 目标耗时 |
+    |------|------|----------|----------|
+    | 冒烟集 | 登录、下单、支付（F1/F2/F3） | 每次提交 | ≤ 5 分钟 |
+    | 主流程集 | 购物车、优惠券、订单列表 | 每日 1 次 | ≤ 12 分钟 |
+    | 全量回归 | 其余 UI 用例 | 每周 / 发版前 | ≤ 30 分钟 |
+
+    注意：在用例里写「修复了 F6」这类注释没有意义，重点是让断言指向**业务结果**而不是**页面细节**。
+
+---
+
 ### 阶段测验
 
 完成教程后，建议做 [Web 自动化项目实战测验](Web自动化项目实战测验.md) 检验学习效果。

@@ -2233,6 +2233,304 @@ systemctl   # 服务
 
 ---
 
+## 动手任务：用命令行断定一次「有人爆破 SSH 登录」
+
+> 这是本教程的收尾练习。请**独立完成**，不要先看参考答案。目标不是"把命令敲一遍"，而是**用日志证明你的判断**。
+
+### 任务背景
+
+测试环境所在服务器 `web01` 上线前做安全检查，运维丢给你两份日志，问你一句话："**这台机器昨晚有没有被暴力破解？破没破进来？**"
+
+你需要在**不登录服务器后台、不看监控大盘**的前提下，只靠命令行把这件事说清楚：攻击从什么时候开始、目标了哪些账号、有没有一个账号被真正登录成功、以及同时段业务请求是否受影响。
+
+### 任务数据
+
+在自己机器的测试目录下创建 `~/lab/`，把下面两份日志分别保存为 `auth.log` 和 `access.log`（用 `cat > 文件名 << 'EOF' ... EOF` 或 `vi` 粘贴均可，**内容要一字不差**）。
+
+**`auth.log`（ssh 登录日志，`/var/log/secure` 或 `/var/log/auth.log` 的片段）：**
+
+```text
+Jun  7 03:12:41 web01 sshd[2141]: Failed password for invalid user admin from 203.0.113.45 port 51422 ssh2
+Jun  7 03:12:41 web01 sshd[2141]: pam_unix(sshd:auth): authentication failure; logname= uid=0 euid=0 tty=ssh ruser= rhost=203.0.113.45
+Jun  7 03:12:43 web01 sshd[2141]: Failed password for invalid user admin from 203.0.113.45 port 51422 ssh2
+Jun  7 03:12:45 web01 sshd[2141]: Failed password for invalid user admin from 203.0.113.45 port 51422 ssh2
+Jun  7 03:12:47 web01 sshd[2141]: Failed password for invalid user admin from 203.0.113.45 port 51422 ssh2
+Jun  7 03:12:52 web01 sshd[2144]: Accepted password for testuser from 192.168.1.30 port 49812 ssh2
+Jun  7 03:13:01 web01 sshd[2150]: Failed password for invalid user admin from 203.0.113.45 port 51422 ssh2
+Jun  7 03:13:04 web01 sshd[2150]: Failed password for invalid user oracle from 203.0.113.45 port 51500 ssh2
+Jun  7 03:13:08 web01 sshd[2150]: Failed password for invalid user oracle from 203.0.113.45 port 51500 ssh2
+Jun  7 03:13:11 web01 sshd[2150]: Failed password for invalid user oracle from 203.0.113.45 port 51500 ssh2
+Jun  7 03:13:15 web01 sshd[2150]: Failed password for invalid user oracle from 203.0.113.45 port 51500 ssh2
+Jun  7 03:13:20 web01 sshd[2156]: Accepted password for testuser from 192.168.1.30 port 49830 ssh2
+Jun  7 03:14:02 web01 sshd[2160]: Failed password for invalid user deploy from 203.0.113.45 port 51610 ssh2
+Jun  7 03:14:06 web01 sshd[2160]: Failed password for invalid user deploy from 203.0.113.45 port 51610 ssh2
+Jun  7 03:14:09 web01 sshd[2160]: Failed password for invalid user deploy from 203.0.113.45 port 51610 ssh2
+Jun  7 03:14:12 web01 sshd[2160]: Failed password for invalid user deploy from 203.0.113.45 port 51610 ssh2
+Jun  7 03:14:18 web01 sshd[2160]: Failed password for invalid user deploy from 203.0.113.45 port 51610 ssh2
+Jun  7 03:14:22 web01 sshd[2160]: Failed password for invalid user deploy from 203.0.113.45 port 51610 ssh2
+Jun  7 03:14:26 web01 sshd[2160]: Failed password for invalid user deploy from 203.0.113.45 port 51610 ssh2
+Jun  7 03:14:30 web01 sshd[2160]: Failed password for invalid user deploy from 203.0.113.45 port 51610 ssh2
+Jun  7 03:14:33 web01 sshd[2160]: Failed password for invalid user deploy from 203.0.113.45 port 51610 ssh2
+Jun  7 03:14:37 web01 sshd[2160]: Failed password for invalid user deploy from 203.0.113.45 port 51610 ssh2
+Jun  7 03:14:41 web01 sshd[2160]: Accepted password for testuser from 192.168.1.30 port 49877 ssh2
+Jun  7 03:15:05 web01 sshd[2172]: Failed password for invalid user jenkins from 203.0.113.45 port 51720 ssh2
+Jun  7 03:15:09 web01 sshd[2172]: Failed password for invalid user jenkins from 203.0.113.45 port 51720 ssh2
+Jun  7 03:15:12 web01 sshd[2172]: Failed password for invalid user jenkins from 203.0.113.45 port 51720 ssh2
+Jun  7 03:15:14 web01 sshd[2172]: Failed password for root from 203.0.113.45 port 51720 ssh2
+Jun  7 03:15:17 web01 sshd[2172]: Failed password for root from 203.0.113.45 port 51720 ssh2
+Jun  7 03:15:19 web01 sshd[2172]: Failed password for root from 203.0.113.45 port 51720 ssh2
+Jun  7 03:15:21 web01 sshd[2172]: Failed password for root from 203.0.113.45 port 51720 ssh2
+Jun  7 03:15:24 web01 sshd[2172]: Failed password for root from 203.0.113.45 port 51720 ssh2
+Jun  7 03:15:41 web01 sshd[2180]: Accepted password for testuser from 192.168.1.30 port 49901 ssh2
+```
+
+**`access.log`（Nginx 访问日志，同一时间窗）：**
+
+```text
+192.168.1.77 - - [07/Jun/2026:03:11:02 +0800] "GET /api/v1/order/list HTTP/1.1" 499 0 "-" "Apache-HttpClient/4.5.13 (Java/1.8.0_291)"
+192.168.1.30 - - [07/Jun/2026:03:11:08 +0800] "GET /api/v1/order/list HTTP/1.1" 200 1024 "-" "Mozilla/5.0"
+192.168.1.30 - - [07/Jun/2026:03:11:11 +0800] "GET /api/v1/user/profile HTTP/1.1" 200 512 "-" "Mozilla/5.0"
+203.0.113.45 - - [07/Jun/2026:03:12:41 +0800] "GET /api/v1/user/profile HTTP/1.1" 404 128 "-" "curl/7.68.0"
+192.168.1.77 - - [07/Jun/2026:03:12:55 +0800] "POST /api/v1/order/create HTTP/1.1" 499 0 "-" "Apache-HttpClient/4.5.13 (Java/1.8.0_291)"
+203.0.113.45 - - [07/Jun/2026:03:13:02 +0800] "GET /api/v1/user/profile HTTP/1.1" 401 96 "-" "curl/7.68.0"
+192.168.1.30 - - [07/Jun/2026:03:13:30 +0800] "POST /api/v1/order/create HTTP/1.1" 200 768 "-" "Mozilla/5.0"
+203.0.113.45 - - [07/Jun/2026:03:13:40 +0800] "GET /admin/login.html HTTP/1.1" 404 128 "-" "curl/7.68.0"
+192.168.1.77 - - [07/Jun/2026:03:14:01 +0800] "POST /api/v1/pay/callback HTTP/1.1" 499 0 "-" "Apache-HttpClient/4.5.13 (Java/1.8.0_291)"
+203.0.113.45 - - [07/Jun/2026:03:14:20 +0800] "GET /api/v1/user/profile HTTP/1.1" 401 96 "-" "curl/7.68.0"
+192.168.1.30 - - [07/Jun/2026:03:14:45 +0800] "GET /api/v1/order/list HTTP/1.1" 200 2048 "-" "Mozilla/5.0"
+203.0.113.45 - - [07/Jun/2026:03:15:10 +0800] "GET /api/v1/user/profile HTTP/1.1" 401 96 "-" "curl/7.68.0"
+192.168.1.77 - - [07/Jun/2026:03:15:33 +0800] "POST /api/v1/order/create HTTP/1.1" 499 0 "-" "Apache-HttpClient/4.5.13 (Java/1.8.0_291)"
+192.168.1.55 - - [07/Jun/2026:03:16:02 +0800] "GET /api/v1/product/detail?id=100 HTTP/1.1" 200 1536 "-" "Mozilla/5.0"
+192.168.1.55 - - [07/Jun/2026:03:16:05 +0800] "GET /api/v1/product/detail?id=101 HTTP/1.1" 200 1536 "-" "Mozilla/5.0"
+192.168.1.77 - - [07/Jun/2026:03:16:40 +0800] "POST /api/v1/pay/callback HTTP/1.1" 499 0 "-" "Apache-HttpClient/4.5.13 (Java/1.8.0_291)"
+```
+
+!!! warning "先读一遍数据再动手"
+    `auth.log` 里既有失败也有成功，还有一行 `pam_unix` 的干扰行；`access.log` 里 499 和 401/404 混在一起。**别用 `awk '{print $N}'` 硬取列号**——ssh 日志里带 `invalid user` 和不带的两种行，字段数是**不一样**的，取错列会得到 `admin`、`from` 这种词。想清楚用哪种匹配方式最稳。
+
+### 任务要求
+
+请依次完成，并**保留每条命令和输出**：
+
+1. **确定攻击时间窗**：从 `auth.log` 里筛出所有失败登录，给出失败的**最早时间**、**最晚时间**和**总次数**；再画出**每分钟失败次数**的分布，指出攻击最密集的那一分钟。
+
+2. **判断攻击强度和目标**：统计发起失败登录的**源 IP** 有几个、各多少次；统计被尝试的**用户名**及次数；并回答：被尝试次数最多的账号是哪个？root 被尝试了几次？
+
+3. **交叉验证"有没有破进来"**：在 `auth.log` 里查出所有**登录成功**的记录，回答两个问题——攻击源 IP 有没有一次成功登录？现场真正的正常登录来自哪个 IP、用的是哪个账号？然后去 `access.log` 里看该攻击 IP 触发了哪些请求、返回了什么状态码，据此判断它是"人肉在试探"还是"自动化脚本在扫描"。
+
+4. **排除干扰、给出可复用产出**：`access.log` 里有另外一类异常（同一个客户端 IP 反复出现 `499`），请把它**单独拎出来**说明是什么问题、和暴力破解有没有关系；最后写一条**一条命令搞定**的"失败/成功对比"流水线，能在任何一台机器上快速判断"是否存在只失败不成功的可疑 IP"。
+
+### 提交物
+
+| 产出 | 要求 |
+|------|------|
+| 命令清单 | 4 个问题对应的完整命令，可直接复制执行；至少包含 1 条 `grep` 组合、1 条 `awk`、1 条 `sort \| uniq -c \| sort -rn` |
+| 结果输出 | 每条命令的真实输出（或截图），含时间戳与计数数字 |
+| 结论 | 用 3-5 句话说明：是外部攻击还是内部环境问题，影响范围多大，有没有账号失陷，建议怎么处置 |
+
+### 完成标准
+
+- [ ] 能说清"为什么 ssh 日志里不能用固定列号取 IP"，并用一条对两种行都成立的命令提取出源 IP
+- [ ] 输出的攻击时间窗、总次数、最密集分钟三个数字与日志内容对得上，能被复核
+- [ ] 区分开"失败登录次数多"和"账号被攻破"——用成功登录记录作为唯一证据，而不是靠推测
+- [ ] 把 `499` 单独归因，没有把它和暴力破解混为一谈
+- [ ] 结论里有具体证据（时间戳、IP、次数）支撑，不是"可能存在安全风险"这种模糊表述
+- [ ] 第 4 题写出的那条对比流水线能直接放进日常巡检（换个日志路径就能用）
+
+??? tip "参考答案与思路（先自己做完再看）"
+
+    **第 1 题：确定攻击时间窗**
+
+    ```bash
+    cd ~/lab
+
+    # 失败登录总数
+    grep -c "Failed password" auth.log
+
+    # 最早 / 最晚时间（ssh 日志时间在"第 3 列"）
+    grep "Failed password" auth.log | awk '{print $3}' | sort | head -1
+    grep "Failed password" auth.log | awk '{print $3}' | sort | tail -1
+    ```
+
+    预期结果：`27`；最早 `03:12:41`，最晚 `03:15:24`。
+
+    **注意 `pam_unix` 那行**：它不含 `Failed password`，所以 `grep -c` 得到的是 27，而不是文件总行数 32。这正是"先过滤再统计"的意义。
+
+    ```bash
+    # 每分钟失败次数：取时间字段前 5 位（HH:MM）
+    grep "Failed password" auth.log | awk '{print $3}' | cut -c1-5 | sort | uniq -c
+    ```
+
+    预期结果：
+
+    ```text
+          4 03:12
+          5 03:13
+         10 03:14
+          8 03:15
+    ```
+
+    最密集的一分钟是 **03:14，共 10 次**（4 分钟内 27 次失败，约每 9 秒一次，已经是明显的自动化爆破节奏，而不是人工输错密码）。
+
+    **第 2 题：攻击强度和目标**
+
+    ```bash
+    # 失败登录的源 IP（用 -oE 只截取 IP，不依赖列号）
+    grep "Failed password" auth.log | grep -oE 'from [0-9.]+' | awk '{print $2}' | sort | uniq -c | sort -rn
+
+    # 被尝试的用户名（只统计 invalid user，即"账号不存在"的试探）
+    grep "Failed password" auth.log | grep -oE 'invalid user [a-z]+' | awk '{print $3}' | sort | uniq -c | sort -rn
+    ```
+
+    预期结果：源 IP 只有 **1 个**——`203.0.113.45`，27 次全部来自它：
+
+    ```text
+         27 203.0.113.45
+    ```
+
+    用户名分布（`invalid user` 共 22 次）：
+
+    ```text
+         10 deploy
+          5 admin
+          4 oracle
+          3 jenkins
+    ```
+
+    被尝试最多的账号是 **`deploy`（10 次）**——说明攻击者按"运维常用账号"字典在撞。
+
+    ```bash
+    # root 是真实存在的账号，日志里不带 "invalid user"，要单独查
+    grep "Failed password for root" auth.log
+    ```
+
+    预期结果：**5 条**，时间集中在 `03:15:14` ~ `03:15:24` 这 10 秒内：
+
+    ```text
+    Jun  7 03:15:14 web01 sshd[2172]: Failed password for root from 203.0.113.45 port 51720 ssh2
+    Jun  7 03:15:17 web01 sshd[2172]: Failed password for root from 203.0.113.45 port 51720 ssh2
+    Jun  7 03:15:19 web01 sshd[2172]: Failed password for root from 203.0.113.45 port 51720 ssh2
+    Jun  7 03:15:21 web01 sshd[2172]: Failed password for root from 203.0.113.45 port 51720 ssh2
+    Jun  7 03:15:24 web01 sshd[2172]: Failed password for root from 203.0.113.45 port 51720 ssh2
+    ```
+
+    **关键细节**：这 5 行的 PID 都是 `2172`、端口都是 `51720`——同一个 ssh 连接、同一条链路，连续试了 5 次 root。如果 PID 各不相同，那才是"多个连接并发爆破"，严重程度更高。这个区别建议写进结论。
+
+    **第 3 题：交叉验证有没有破进来**
+
+    ```bash
+    # 所有登录成功的记录
+    grep "Accepted password" auth.log
+
+    # 直接回答：攻击 IP 有没有成功过？（无输出 = 没有）
+    grep "Accepted password" auth.log | grep "203.0.113.45"
+    ```
+
+    预期结果：4 条成功记录，**全部来自 `192.168.1.30`、账号都是 `testuser`**：
+
+    ```text
+    Jun  7 03:12:52 web01 sshd[2144]: Accepted password for testuser from 192.168.1.30 port 49812 ssh2
+    Jun  7 03:13:20 web01 sshd[2156]: Accepted password for testuser from 192.168.1.30 port 49830 ssh2
+    Jun  7 03:14:41 web01 sshd[2160]: Accepted password for testuser from 192.168.1.30 port 49877 ssh2
+    Jun  7 03:15:41 web01 sshd[2180]: Accepted password for testuser from 192.168.1.30 port 49901 ssh2
+    ```
+
+    第二条命令**没有任何输出**，这就是最有力的证据：**攻击者从头到尾没登录成功过一次**。
+
+    ```bash
+    # 按源 IP 汇总成功登录
+    grep "Accepted password" auth.log | grep -oE 'from [0-9.]+' | awk '{print $2}' | sort | uniq -c
+    ```
+
+    预期结果：
+
+    ```text
+          4 192.168.1.30
+    ```
+
+    再去 `access.log` 看这个攻击 IP 干了什么：
+
+    ```bash
+    grep "^203.0.113.45 " access.log
+
+    # 只看它触发的状态码
+    grep "^203.0.113.45 " access.log | awk '{print $9}' | sort | uniq -c | sort -rn
+    ```
+
+    预期结果：5 条请求，状态码是 `401 × 3` 和 `404 × 2`：
+
+    ```text
+          3 401
+          2 404
+    ```
+
+    访问的路径只有 `/api/v1/user/profile`（401，没带凭证）和 `/admin/login.html`（404，根本不存在的后台页面）。UA 全部是 `curl/7.68.0`。
+
+    **判断**：这不是"人在试探"，而是**自动化脚本**在打——理由有三：UA 是 `curl` 而非浏览器；请求固定 5 条、间隔 15~40 秒呈机械节奏；且**探测后台路径 `/admin/login.html`**（404 说明压根没有这个页面，是字典式扫描的特征）。`auth.log` 里 4 分钟内 27 次失败也印证了同样节奏。
+
+    **第 4 题：排除干扰 + 可复用产出**
+
+    先看 `499` 是谁产生的：
+
+    ```bash
+    grep -c '" 499 ' access.log
+    grep '" 499 ' access.log | awk '{print $1}' | sort | uniq -c
+    grep '" 499 ' access.log
+    ```
+
+    预期结果：5 条 `499`，**全部来自 `192.168.1.77`**，且 UA 是 `Apache-HttpClient/4.5.13`（压测/自动化客户端），集中在 `03:11:02` ~ `03:16:40`：
+
+    ```text
+          5 192.168.1.77
+    ```
+
+    **结论：`499` 和暴力破解无关。** `499` 是 Nginx 自定义状态码，含义是"**客户端在服务端返回响应前主动断开了连接**"，典型原因是压测客户端请求超时后自己掐断，属于**被测服务的性能问题**，不是安全事件。判定依据是三条硬证据：IP 完全不同（`192.168.1.77` vs `203.0.113.45`）、时间上互相穿插而非同步、且 `499` 那几秒业务请求仍在正常返回 `200`（`grep '" 200 ' access.log | wc -l` 为 6）。
+
+    最后是可复用的"失败/成功对比"流水线——**一条命令**找出"只失败、不成功"的可疑 IP：
+
+    ```bash
+    grep -oE 'from [0-9.]+' auth.log | awk '{print $2}' | sort | uniq -c \
+      | awk '{print $2, $1}' | while read ip fails; do
+          succ=$(grep "Accepted password" auth.log | grep -c " from $ip ");
+          echo "$ip  失败=$fails  成功=$succ";
+      done
+    ```
+
+    在这份日志上的输出：
+
+    ```text
+    192.168.1.30  失败=0  成功=4
+    203.0.113.45  失败=27  成功=0
+    ```
+
+    判据很直接：**失败数 ≥ 5 且成功数 = 0 的 IP，就是要封禁的 IP**。`203.0.113.45` 命中，`192.168.1.30` 是正常测试机。
+
+    日常巡检时把它套进一条更短的版本即可（先取 Top 攻击源，再逐个核对）：
+
+    ```bash
+    for ip in $(grep "Failed password" /var/log/secure | grep -oE 'from [0-9.]+' | awk '{print $2}' | sort -u); do
+        f=$(grep -c "Failed password.*from $ip " /var/log/secure)
+        s=$(grep -c "Accepted password.*from $ip " /var/log/secure)
+        echo "$ip 失败=$f 成功=$s"
+    done
+    ```
+
+    处置建议：`203.0.113.45` 加入 `firewalld`/`fail2ban` 黑名单；确认 `sshd` 已关闭 root 远程登录（`PermitRootLogin no`）；`deploy`、`admin` 这类高频试探账号如果真实存在，立即改强密码并检查是否被加入密钥登录白名单。
+
+    参考做法：
+
+    ```bash
+    # 只读核对，不要在生产直接执行
+    sshd -T | grep -i permitrootlogin
+    grep -E "^deploy|^admin" /etc/passwd
+
+    # 确认后封 IP（示例，二选一）
+    firewall-cmd --permanent --add-rich-rule='rule family=ipv4 source address=203.0.113.45 reject'
+    firewall-cmd --reload
+    ```
+
+---
+
 ## 下一步建议
 
 <div class="tutorial-next-steps" markdown="1">

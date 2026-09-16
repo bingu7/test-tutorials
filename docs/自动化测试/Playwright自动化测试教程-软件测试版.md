@@ -1493,6 +1493,185 @@ page.goto("https://map.example.com")
 !!! info "测试纪律"
     Playwright 自动等待机制大幅减少了 flaky test，但仍需注意：不要硬编码 sleep；用 expect 断言；失败用 Trace 排查；CI 环境用官方 Docker 镜像。
 
+---
+
+## 动手任务：把一段「不稳定」的脚本改造成可靠测试
+
+> 这是本教程的收尾练习。请**独立完成**，不要先看参考答案。目标不是"让脚本跑通一次"，而是**让它稳定地跑 20 次都通过**。
+
+### 任务背景
+
+同事写了一段登录 + 下单的 Playwright 脚本。他在本机"跑通过"，但放进 CI 后**大约每 5 次就有 1 次失败**，且失败位置每次不同。他把这归因于"CI 机器太慢"。
+
+你的任务是：**找出这段脚本不稳定的根本原因并修好它**。
+
+### 任务数据
+
+原始脚本（`order.spec.ts`），**请先阅读并找出所有问题**，再动手改：
+
+```typescript
+import { test, expect } from '@playwright/test';
+
+test('用户下单', async ({ page }) => {
+  await page.goto('https://example.com/login');
+
+  // 用 sleep 等待页面"稳定"
+  await page.waitForTimeout(3000);
+
+  // 用 CSS 类名定位（类名是构建时生成的，会变）
+  await page.fill('.input_1a2b3c', 'testuser');
+  await page.fill('.input_4d5e6f', 'Test@123456');
+  await page.click('.btn_7g8h9i');
+
+  // 断言"跳转成功"
+  await page.waitForTimeout(2000);
+  expect(page.url()).toContain('/home');
+
+  // 进入商品页下单
+  await page.click('text=机械键盘');
+  await page.click('.btn_7g8h9i');           // 又一个同名类名按钮
+
+  // 用 nth 粗暴定位
+  await page.locator('button').nth(3).click();
+
+  await page.waitForTimeout(5000);
+  const orderNo = await page.textContent('.order-no');
+  expect(orderNo).toBeTruthy();
+});
+```
+
+### 任务准备
+
+为了让练习可复现，你可以：
+
+1. 用 Playwright 官方练习站 `https://demo.playwright.dev/todomvc`（把登录部分替换为页面上任意可操作流程）；或
+2. 直接**静态分析**上面的脚本，改成可靠版本，再在真实站点上验证"连续跑 20 次全绿"。
+
+### 任务要求
+
+请依次完成：
+
+1. **列出全部不稳定原因**：逐条指出上面脚本的问题（至少 5 处），说明每处**在什么条件下会失败**。
+2. **分类**：把这些原因分成「时序问题」和「定位脆弱」两类，说明哪类更难查。
+3. **重写脚本**：用 Playwright 推荐做法重写，要求 —— 不用任何 `waitForTimeout`、不用构建期类名、断言用 `expect` 的自动重试版。
+4. **验证稳定性**：说明你会怎么证明"改完后真的稳定了"（给出具体命令与判定标准）。
+5. **加一道防线**：写出配置项，让**未来的**不稳定脚本在 CI 里更容易被发现。
+
+### 提交物
+
+| 产出 | 要求 |
+|------|------|
+| 问题清单 | 每条含：位置、触发条件、为什么不稳定 |
+| 重写后的脚本 | 完整可运行，无 sleep、无构建期类名 |
+| 稳定性证据 | 连续运行的结果（20 次通过的记录） |
+| 结论 | 用 3-5 句话说明：不稳定的根因是什么，为什么"本机通过"不能说明问题 |
+
+### 完成标准
+
+- [ ] 能指出**硬编码 sleep 的两种失效方向**（太快 / 太慢都会出问题）
+- [ ] 能说明为什么"构建期生成的类名"必然导致维护灾难
+- [ ] 重写后的脚本用 `expect` 的**自动重试断言**，而不是立即断言
+- [ ] 用 `--repeat-each` 之类的方式**证明**稳定性，而不是"我跑了一次是好的"
+
+??? tip "参考答案与思路（先自己做完再看）"
+
+    **第 1 题：不稳定原因**
+
+    | # | 位置 | 问题 | 触发条件 |
+    |---|------|------|----------|
+    | 1 | `waitForTimeout(3000)` | 固定等待，**猜时间** | CI 慢时 3 秒不够 → 元素还没出现就操作；快时白等 3 秒 |
+    | 2 | `.input_1a2b3c` 等 | 构建期生成的类名 | 前端重新构建/升级依赖后类名变化 → 全部定位失效 |
+    | 3 | `waitForTimeout(2000)` + `expect(page.url())` | **立即断言**，不重试 | 跳转稍慢就失败（这个断言只检查一次，不等） |
+    | 4 | `page.click('.btn_7g8h9i')` 重复出现 | 同一类名多处匹配 | 页面有多个同 className 元素 → 命中错误元素（strict mode 会直接报错） |
+    | 5 | `locator('button').nth(3)` | 按顺序下标定位 | 页面新增/隐藏任何按钮 → 下标全部错位 |
+    | 6 | `page.textContent('.order-no')` | 未等待元素出现 | 订单号是异步渲染的，可能取到空 → `toBeTruthy()` 失败 |
+    | 7 | 无任何隔离 | 共用登录态/数据 | 与其它用例并发时互相干扰 |
+
+    **第 2 题：分类与难度**
+
+    - **时序问题**：#1、#3、#6 —— 表现为"偶发失败"，重跑可能就过。
+    - **定位脆弱**：#2、#4、#5、#7 —— 表现为"某次前端改动后大面积失败"。
+
+    **哪类更难查？时序问题。** 原因：定位脆弱通常是**必现**的（改了就跑不过，一眼看出），而时序问题**时好时坏**，无法稳定复现，容易被打上"环境问题"的标签而长期搁置——这也正是本例中同事把锅甩给"CI 机器慢"的原因。
+
+    **第 3 题：重写后的脚本**
+
+    ```typescript
+    import { test, expect } from '@playwright/test';
+
+    test('用户下单', async ({ page }) => {
+      // 用 data-testid（或 getByRole/getByLabel），避开构建期类名
+      await page.goto('/login');
+
+      await page.getByLabel('用户名').fill('testuser');
+      await page.getByLabel('密码').fill('Test@123456');
+      await page.getByRole('button', { name: '登录' }).click();
+
+      // expect 的自动重试断言：会持续等待直到超时，而不是只检查一次
+      await expect(page).toHaveURL(/\/home/);
+
+      await page.getByRole('link', { name: '机械键盘' }).click();
+      await page.getByRole('button', { name: '加入购物车' }).click();
+      await page.getByRole('button', { name: '提交订单' }).click();
+
+      // 等待元素出现后再断言，expect(locator) 自带重试
+      await expect(page.getByTestId('order-no')).not.toBeEmpty();
+    });
+    ```
+
+    改动要点：
+    - **删掉所有 `waitForTimeout`** —— Playwright 的操作与断言自带自动等待；
+    - 用 `getByRole` / `getByLabel` / `getByTestId` —— 语义化定位，不依赖构建产物；
+    - 用 `await expect(locator).xxx` —— **自动重试**，这是消除 flaky 的关键；
+    - 去掉 `nth(3)`，改用语义定位。
+
+    **第 4 题：怎么证明稳定**
+
+    ```bash
+    # 关键：重复运行，而不是跑一次就算
+    npx playwright test order.spec.ts --repeat-each=20
+
+    # 更严格：多 worker 并发，暴露隔离问题
+    npx playwright test order.spec.ts --repeat-each=20 --workers=4
+
+    # 排查残留 flaky（结果标记为 flaky 也算不合格）
+    npx playwright test --retries=0
+    ```
+
+    判定标准：**连续 20 次全部 PASS，且报告中 flaky 数为 0**。
+    注意：**必须 `--retries=0`**。如果开着 `--retries=2`，一个每次都"失败后重试才通过"的用例会被标成 flaky 而非失败，反而掩盖了问题。
+
+    **第 5 题：CI 防线配置**
+
+    ```typescript
+    // playwright.config.ts
+    import { defineConfig } from '@playwright/test';
+
+    export default defineConfig({
+      // 关键：retries 保持 0，让 flaky 直接暴露为失败，
+      // 而不是「失败后重试通过」被静默吞掉
+      retries: 0,
+      // 失败即留证，便于回溯
+      use: {
+        trace: 'on-first-retry',
+        screenshot: 'only-on-failure',
+        video: 'retain-on-failure',
+      },
+      // 报告里显式统计 flaky
+      reporter: [['html'], ['json', { outputFile: 'results.json' }]],
+      // 全局超时收紧，避免"卡死的用例"拖垮流水线
+      timeout: 30_000,
+      expect: { timeout: 5_000 },
+    });
+    ```
+
+    防线的核心思路：
+    1. **`retries: 0`** —— 让 flaky 直接暴露为失败，而不是被静默重试掉；
+    2. **`trace: 'on-first-retry'`** —— 一旦重试就留 Trace，可直接回放定位时序问题；
+    3. **统计 flaky 数量** —— 在 CI 里把 flaky 当成指标监控，而不是"只要最终绿了就算过"。
+
+    > 一句话总结：**不稳定的测试比没有测试更糟**——它会训练团队忽略失败信号。所以"跑通"不算完成，"连续 20 次稳定通过且 flaky 为 0"才算。
+
 ### 推荐下一步
 
 根据你的学习进度，选择下一步：

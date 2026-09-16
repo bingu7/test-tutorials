@@ -1524,6 +1524,157 @@ docker container prune
 
 ---
 
+## 动手任务：排查「测试环境起来了但服务连不上」
+
+> 这是本教程的收尾练习。请**独立完成**，不要先看参考答案。目标不是"把容器跑起来"，而是**能定位容器之间为什么通不了**。
+
+### 任务背景
+
+你要为一个 Web 项目搭建联调环境：应用容器需要连接 MySQL。你把两个容器都启动了，`docker ps` 显示都是 `Up` 状态，但应用日志一直报 `Can't connect to MySQL server`。你需要找出原因。
+
+### 任务准备
+
+创建以下两个文件（放在同一个空目录）：
+
+`docker-compose.yml`：
+
+```yaml
+services:
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: test123
+      MYSQL_DATABASE: demo
+    ports:
+      - "3306:3306"
+
+  app:
+    image: alpine:3.19
+    command: sh -c "nc -z db 3306 && echo DB_REACHABLE || echo DB_UNREACHABLE"
+    depends_on:
+      - db
+```
+
+然后在同目录执行：
+
+```bash
+docker compose up -d
+docker compose logs app
+```
+
+观察：`app` 打印的是 `DB_UNREACHABLE`——**两个容器都在同一个 compose 网络里，域名 `db` 却连不上。**
+
+### 任务要求
+
+请依次完成，并**保留每条命令和输出**：
+
+1. **确认容器状态**：用命令证明两个容器确实都在运行，且属于同一个网络。
+2. **定位真实原因**：查 `db` 容器日志，找出它"起了但还不能服务"的证据；说明为什么 `depends_on` 没有解决这个问题。
+3. **验证网络本身是通的**：排除"网络配置错误"这个可能性，用一条命令证明 DNS 解析和网络连通性都没问题。
+4. **修好它**：给出让 `app` 稳定打印 `DB_REACHABLE` 的改法（提示：`depends_on` 有两种写法），并说明为什么你的改法在生产环境也适用。
+5. **给出可复用产出**：写一个能从外部验证 MySQL 已就绪的命令（不依赖 compose，任何环境都能用）。
+
+### 提交物
+
+| 产出 | 要求 |
+|------|------|
+| 排查命令 | 按顺序执行的命令清单，含每条的目的 |
+| 关键输出 | `docker compose logs`、网络检查、最终成功的结果 |
+| 修正后的 compose 文件 | 完整可运行 |
+| 结论 | 用 3-5 句话说明：这是环境问题还是缺陷，`depends_on` 的边界在哪，测试中怎么避免被这个坑浪费时间 |
+
+### 完成标准
+
+- [ ] 能解释「容器 Up ≠ 服务可用」，并举出至少一个其他同类例子
+- [ ] 能用 `docker compose logs` / `docker network inspect` 定位问题，而不是靠重启碰运气
+- [ ] 知道 `depends_on` 与 healthcheck 的区别，以及各自解决什么问题
+- [ ] 第 5 题的验证命令能直接放进 CI 的"等待依赖就绪"脚本
+
+??? tip "参考答案与思路（先自己做完再看）"
+
+    **第 1 题：确认状态与网络**
+
+    ```bash
+    docker compose ps
+    docker network ls
+    # 查看 app 容器所在网络（compose 会创建一个 <目录名>_default 网络）
+    docker inspect -f '{{range $k,$v := .NetworkSettings.Networks}}{{$k}}{{end}}' $(docker compose ps -q app)
+    ```
+
+    预期：两个容器都 `Up`，且网络名相同（如 `demo_default`）。
+
+    **第 2 题：真实原因**
+
+    ```bash
+    docker compose logs db
+    ```
+
+    你会看到 MySQL 启动后先执行初始化（创建数据目录、初始化系统表），这段时间**进程活着但端口未监听**，日志末尾才会出现：
+
+    ```
+    [Server] ready for connections. Version: '8.0.x'  socket: '/var/run/mysqld/mysqld.sock'  port: 3306
+    ```
+
+    原因：`depends_on` 只保证**启动顺序**（先起 db 再起 app），不保证**服务就绪**。app 在 MySQL 还没准备好监听端口时就发起了连接，因此失败。`depends_on` 默认不等健康检查。
+
+    **第 3 题：证明网络是通的**
+
+    ```bash
+    # 在 app 容器里解析并探测 db
+    docker compose exec app sh -c "nslookup db; nc -zv db 3306"
+    ```
+
+    如果 MySQL 此时已就绪，`nc` 会成功（`open`），证明 DNS 与网络都没问题——问题只在"时机"。
+
+    **第 4 题：修正方案**
+
+    用带 `condition: service_healthy` 的 `depends_on` + healthcheck：
+
+    ```yaml
+    services:
+      db:
+        image: mysql:8.0
+        environment:
+          MYSQL_ROOT_PASSWORD: test123
+          MYSQL_DATABASE: demo
+        ports:
+          - "3306:3306"
+        healthcheck:
+          test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-ptest123"]
+          interval: 5s
+          timeout: 3s
+          retries: 10
+          start_period: 30s
+
+      app:
+        image: alpine:3.19
+        command: sh -c "nc -z db 3306 && echo DB_REACHABLE || echo DB_UNREACHABLE"
+        depends_on:
+          db:
+            condition: service_healthy
+    ```
+
+    要点：
+    - `condition: service_healthy` 让 app **等到 db 健康后**才启动，这才是"依赖就绪"。
+    - `start_period` 给 MySQL 初始化留时间，避免初期探测失败被误判。
+    - 生产环境同样适用：任何有"依赖服务"的编排（不只是 MySQL）都该用 healthcheck，否则重启后极易出现"依赖没起来就启动"的雪崩。
+
+    **第 5 题：可复用的就绪检查命令**
+
+    ```bash
+    # 方式一：用 MySQL 自带客户端探活（推荐，能确认"可服务"而非"端口开着"）
+    docker exec <db容器名> mysqladmin ping -h 127.0.0.1 -uroot -ptest123
+
+    # 方式二：外部探测端口（适用于没装客户端的场景）
+    until nc -z 127.0.0.1 3306; do echo "waiting for mysql..."; sleep 1; done
+    ```
+
+    把它放进 CI 的"等待依赖就绪"步骤，可以消除大量随机失败。
+
+---
+
+---
+
 ## 下一步建议
 
 <div class="tutorial-next-steps" markdown="1">

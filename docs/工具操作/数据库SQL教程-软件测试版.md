@@ -1359,6 +1359,151 @@ cursor.execute(sql, (name,))
 
 ---
 
+## 动手任务：用 SQL 定位一次「订单金额异常」
+
+> 这是本教程的收尾练习。请**独立完成**，不要先看参考答案。目标不是"把 SQL 写完"，而是**用数据证明你的判断**。
+
+### 任务背景
+
+线上反馈："用户投诉订单实付金额比商品原价还高。" 你作为测试人员，需要先搞清楚**是不是真的有问题**，再给出结论。
+
+### 任务数据
+
+在自己的测试库里执行以下建表语句（MySQL / SQLite 语法略有差异，任选其一）：
+
+```sql
+CREATE TABLE users (
+    id INT PRIMARY KEY,
+    username VARCHAR(50),
+    status VARCHAR(10)          -- active / disabled
+);
+
+CREATE TABLE products (
+    id INT PRIMARY KEY,
+    name VARCHAR(50),
+    price DECIMAL(10,2),
+    stock INT
+);
+
+CREATE TABLE orders (
+    id INT PRIMARY KEY,
+    user_id INT,
+    product_id INT,
+    quantity INT,
+    unit_price DECIMAL(10,2),   -- 下单时的单价
+    coupon_amount DECIMAL(10,2),-- 优惠金额
+    pay_amount DECIMAL(10,2),   -- 实付金额
+    status VARCHAR(20),         -- paid / pending / cancelled
+    created_at DATETIME
+);
+
+INSERT INTO users VALUES
+(1, 'zhangsan', 'active'),
+(2, 'lisi', 'active'),
+(3, 'wangwu', 'disabled');
+
+INSERT INTO products VALUES
+(100, '机械键盘', 399.00, 10),
+(101, '显示器', 1299.00, 3),
+(102, '鼠标垫', 29.90, 0);
+
+INSERT INTO orders VALUES
+(1001, 1, 100, 2, 399.00, 0.00,   798.00, 'paid',    '2026-09-01 10:00:00'),
+(1002, 1, 101, 1, 1299.00, 100.00, 1199.00, 'paid',    '2026-09-02 11:30:00'),
+(1003, 2, 100, 1, 399.00, 0.00,    399.00, 'pending', '2026-09-03 09:15:00'),
+(1004, 2, 102, 5, 29.90, 0.00,     99.50, 'paid',    '2026-09-04 14:20:00'),
+(1005, 3, 101, 2, 1299.00, 0.00,   2598.00, 'paid',    '2026-09-05 16:45:00'),
+(1006, 1, 100, 3, 399.00, 200.00,  1197.00, 'cancelled','2026-09-06 08:05:00');
+```
+
+### 任务要求
+
+请依次完成，并**保留每条 SQL 和结果**：
+
+1. **找出所有金额对不上的订单**：实付金额 ≠ 单价 × 数量 − 优惠金额。
+2. **判断哪条问题最严重**：结合订单状态，说明为什么。
+3. **定位可疑的用户**：查出哪个用户存在「已禁用账号却下单成功」的情况。
+4. **验证库存一致性**：找出"已付款订单数量超过商品当前库存"的商品。
+5. **写一条数据校验 SQL**：能在每次回归测试后自动发现同类问题（用一条查询同时覆盖 1 和 4）。
+
+### 提交物
+
+| 产出 | 要求 |
+|------|------|
+| SQL 脚本 | 5 条问题对应的完整 SQL，可重复执行 |
+| 执行结果截图 | 每条 SQL 的结果，含表头 |
+| 结论 | 用 3-5 句话说明：是需求问题还是缺陷，影响范围多大，建议怎么修 |
+
+### 完成标准
+
+- [ ] 能写出正确的多表 JOIN，而不是把数据导出来用 Excel 比对
+- [ ] 能区分「金额算错」和「金额算对但业务规则本身有问题」
+- [ ] 结论里有具体订单号和数据支撑，不是"可能存在风险"这种模糊表述
+- [ ] 第 5 题写出的核对 SQL 能直接放进回归测试用例集
+
+??? tip "参考答案与思路（先自己做完再看）"
+
+    **第 1 题：金额不一致**
+
+    ```sql
+    SELECT id, product_id, quantity, unit_price, coupon_amount, pay_amount,
+           (unit_price * quantity - coupon_amount) AS expected_amount,
+           (pay_amount - (unit_price * quantity - coupon_amount)) AS diff
+    FROM orders
+    WHERE pay_amount <> (unit_price * quantity - coupon_amount);
+    ```
+
+    预期结果：`1004`（实付 99.50，应为 149.50，差 -50）和 `1006`（已取消，可不计入）。
+
+    **第 2 题：问题最严重的是 1004**
+
+    `1004` 状态是 `paid`，说明**用户实际已经按错误金额付款并成交**，涉及真实资损；而 `1006` 是 `cancelled`，未产生实际交易。因此 1004 优先级最高。
+
+    **第 3 题：已禁用用户下单成功**
+
+    ```sql
+    SELECT o.id, u.username, u.status, o.status AS order_status
+    FROM orders o
+    JOIN users u ON o.user_id = u.id
+    WHERE u.status = 'disabled' AND o.status IN ('paid', 'pending');
+    ```
+
+    预期结果：订单 `1005`，用户 `wangwu` 已禁用却有一笔 `paid` 订单——需要确认是"禁用前下单"还是"禁用未拦截接口"。
+
+    **第 4 题：超卖检查**
+
+    ```sql
+    SELECT p.id, p.name, p.stock,
+           SUM(o.quantity) AS paid_quantity
+    FROM products p
+    JOIN orders o ON o.product_id = p.id
+    WHERE o.status = 'paid'
+    GROUP BY p.id, p.name, p.stock
+    HAVING SUM(o.quantity) > p.stock;
+    ```
+
+    预期结果：商品 `102`（鼠标垫）库存 0，但已付款订单买了 5 件。
+
+    **第 5 题：可纳入回归的核对 SQL**
+
+    ```sql
+    -- 一次查出所有金额异常 + 超卖，可作为回归断言的数据源
+    SELECT '金额异常' AS issue_type, o.id AS ref_id, NULL AS detail
+    FROM orders o
+    WHERE o.status = 'paid'
+      AND o.pay_amount <> (o.unit_price * o.quantity - o.coupon_amount)
+    UNION ALL
+    SELECT '库存超卖', p.id, CONCAT('库存 ', p.stock, ' / 已售 ', SUM(o.quantity))
+    FROM products p
+    JOIN orders o ON o.product_id = p.id AND o.status = 'paid'
+    GROUP BY p.id, p.stock
+    HAVING SUM(o.quantity) > p.stock;
+    ```
+
+    回归测试时，这条 SQL **返回零行才算通过**——这就是"用数据库校验业务正确性"的核心思路。
+
+---
+
 ## 附录：常用命令速查
 
 ```sql

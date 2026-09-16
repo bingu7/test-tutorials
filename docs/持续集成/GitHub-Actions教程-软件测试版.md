@@ -839,7 +839,235 @@ GitHub Actions 是 GitHub 内置的 CI/CD 工具，核心优势是零配置、�
 
 建议从最小 Workflow 开始，逐步添加功能。
 
+---
+
+## 动手任务：修好一份「假绿」的 GitHub Actions Workflow
+
+> 这是本教程的收尾练习。请**独立完成**，不要先看参考答案。目标不是"让 workflow 跑成绿色"，而是**让它真的能拦住问题**。
+
+### 任务背景
+
+团队把项目的接口自动化测试接到了 GitHub Actions 上，配置见下。workflow 每天都在跑，徽章一直是绿色的，但版本上线后接口仍然频繁出问题。负责人于是说了一句："CI 都绿了，肯定是环境问题。"
+
+你的任务是：**找出这份 workflow 为什么拦不住问题，并把它重写成一份靠谱的流水线。**
+
+### 任务准备
+
+下面是 `.github/workflows/test.yml`（为便于练习做了收敛，缺陷保留）：
+
+```yaml
+name: Tests
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run API tests
+        run: pytest tests/api/ -v || true
+
+      - name: Deploy to staging
+        run: |
+          echo "deploying..."
+          curl -H "Authorization: Bearer sk-live-9f2c1a7b3d4e5f60a1b2c3d4e5f60718" \
+            https://staging.example.com/api/deploy
+
+  notify:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Notify
+        run: echo "done"
+```
+
+补充信息：
+
+1. 这个仓库是团队共用仓库，`main` 上每天有多次合并。
+2. 团队已把部署令牌存进了仓库 Secret，名字是 `DEPLOY_TOKEN`。
+3. 项目根目录有 `requirements.txt`。
+4. 测试脚本输出 JUnit XML 到 `reports/junit.xml`（pytest 参数里已配置好）。
+
+### 任务要求
+
+请依次完成：
+
+1. **列出全部缺陷**：逐条指出上面这份 workflow 的问题（至少 5 处），并对每一处说明**它会造成什么后果**。至少覆盖：测试失败是否真正阻断、依赖缓存、凭据硬编码、并发控制、触发范围。
+2. **排序并解释**：这些缺陷里，哪一个**最容易让流水线变成"假绿"**？哪一个**风险最高（可能直接造成事故）**？为什么这两者不一定是同一个？
+3. **重写 workflow**：写出一份修好后的 workflow，要求 —— 测试失败必须让 job 失败、使用 `actions/cache` 或 `setup-python` 的 `cache: 'pip'` 缓存依赖、令牌改用 `${{ secrets.DEPLOY_TOKEN }}`、加入 `concurrency` 并发控制、部署只在 `main` 上执行。
+4. **解释一个反直觉的点**：为什么给 `pytest` 加上重试，反而可能让问题更难被发现？（结合"失败被 `|| true` 吞掉"这一点说明）
+5. **加一道防线**：写一段配置，让流水线能把测试报告留成可下载的证据（Artifacts），并说明它为什么对排查问题有价值。
+
+### 提交物
+
+| 产出 | 要求 |
+|------|------|
+| 问题清单 | 每条含：位置、后果、严重程度 |
+| 重写后的 workflow | 完整 YAML，关键处带注释，能被 `yaml.safe_load` 解析 |
+| 顺序说明 | 第 2 题的判断及理由 |
+| 结论 | 用 3-5 句话说明：这份流水线为什么会长期"假绿"，怎么根治 |
+
+### 完成标准
+
+- [ ] 能指出 `|| true` 会**吞掉测试失败**，是"假绿"的根本原因
+- [ ] 重写后的 workflow 里，测试失败**真的**会让 job 失败（而不是再写个 `|| true` 或 `continue-on-error: true`）
+- [ ] 能正确使用 `${{ secrets.XXX }}` 引用令牌，且说明为什么不能把密钥写进 YAML
+- [ ] 能正确写出 `concurrency` 与 `needs`，并解释它们各自解决什么问题
+- [ ] 用 Artifacts 留证，而不是只在日志里找结果
+
+??? tip "参考答案与思路（先自己做完再看）"
+
+    **第 1 题：缺陷清单**
+
+    | # | 位置 | 问题 | 后果 |
+    |---|------|------|------|
+    | 1 | `pytest tests/api/ -v \|\| true` | **失败被吞掉**，命令永远返回 0 | 测试形同虚设，这是"假绿"的**根本原因** |
+    | 2 | `curl -H "Authorization: Bearer sk-live-..."` | **令牌硬编码**在 YAML 里 | 密钥进版本库、进日志，等于公开泄露 |
+    | 3 | `Install dependencies` 无缓存 | 每次重装依赖 | 浪费时间与额度，流水线变慢 |
+    | 4 | 无 `concurrency` | 同一分支连续推送会同时跑多个 workflow | 后一次部署可能被前一次覆盖（竞态），部署结果不确定 |
+    | 5 | 无 `if:` 限制部署 | `Deploy to staging` 在**任意触发条件下**都会执行 | PR 分支也会尝试部署，风险高 |
+    | 6 | `pull_request:` 未限定 `branches` | PR 触发范围过宽 | 无关 PR 也触发，浪费额度 |
+    | 7 | 无 Artifacts 上传 | 测试报告只留在日志里 | 失败后没有可下载的证据（`reports/junit.xml` 未归档） |
+    | 8 | 无 `permissions` | 默认可能拿到过宽的 token 权限 | 不符合最小权限原则，有安全隐患 |
+
+    **第 2 题：谁最容易导致"假绿"，谁风险最高**
+
+    - **最容易导致"假绿"**：`|| true`（第 1 条）。它让所有测试结果失去意义——测试删光了流水线也照样是绿的。
+    - **风险最高**：硬编码令牌 + 无条件部署（第 2、5 条）。这两条组合起来，可能直接造成**线上事故或密钥泄露**。
+
+    两者不一定是同一个原因，是因为它们**属于两类问题**：`|| true` 属于"**会漏过缺陷**"，它让问题悄悄流到下游；硬编码/无条件部署属于"**会直接造成事故**"。只修其中一类都不算修好：修了 `|| true` 但留着硬编码令牌，测试是准了，密钥还是泄露的。
+
+    **第 3 题：重写后的 workflow**
+
+    ```yaml
+    name: Tests
+
+    on:
+      push:
+        branches: [ main, develop ]
+      pull_request:
+        branches: [ main ]          # 限定 PR 目标分支，避免范围过宽
+      workflow_dispatch:
+
+    # 同一分支只保留最新一次运行，取消排队中的旧运行，避免部署竞态
+    concurrency:
+      group: ci-${{ github.ref }}
+      cancel-in-progress: true
+
+    # 最小权限：默认只读，需要的权限显式声明
+    permissions:
+      contents: read
+
+    jobs:
+      test:
+        runs-on: ubuntu-latest
+        timeout-minutes: 30
+
+        steps:
+          - name: Checkout code
+            uses: actions/checkout@v4
+
+          - name: Set up Python
+            uses: actions/setup-python@v5
+            with:
+              python-version: '3.11'
+              cache: 'pip'          # 内置 pip 缓存，按 requirements.txt 命中
+
+          - name: Install dependencies
+            run: |
+              python -m pip install --upgrade pip
+              pip install -r requirements.txt
+
+          # 注意：这里没有任何 || true / continue-on-error，
+          # pytest 返回非 0 会让本步骤失败、进而让 job 失败
+          - name: Run API tests
+            run: pytest tests/api/ -v --junitxml=reports/junit.xml
+
+          - name: Upload test results
+            if: always()            # 无论成功失败都留证
+            uses: actions/upload-artifact@v4
+            with:
+              name: junit-results
+              path: reports/junit.xml
+              retention-days: 30
+
+      deploy:
+        # 只有 test 成功后才可能进入 deploy
+        needs: test
+        # 只在 main 分支的 push 上部署（PR 不部署）
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        runs-on: ubuntu-latest
+        environment: staging
+        steps:
+          - name: Deploy to staging
+            env:
+              # 令牌来自仓库 Secret，不落在 YAML 里
+              DEPLOY_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
+            run: |
+              echo "deploying..."
+              curl -H "Authorization: Bearer $DEPLOY_TOKEN" \
+                https://staging.example.com/api/deploy
+    ```
+
+    改动要点：
+
+    - **删掉 `|| true`** —— 这是让流水线重新"能拦住问题"的关键一步；不要用 `continue-on-error` 替代它。
+    - **令牌改用 `${{ secrets.DEPLOY_TOKEN }}`**，并通过 `env:` 注入给步骤。
+    - **缓存**：`setup-python` 的 `cache: 'pip'` 即可按 `requirements.txt` 做缓存；需要更细粒度时再手写 `actions/cache`：
+
+      ```yaml
+      - name: Cache pip
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+      ```
+
+    - **并发控制**：`concurrency.group` 用 `github.ref` 分组，`cancel-in-progress: true` 取消旧运行。
+    - **部署前置条件**：`needs: test` 保证测试通过，`if:` 保证只从 `main` 的 push 部署。
+
+    **第 4 题：为什么加重试反而更糟**
+
+    `|| true` 的效果是"无论测试结果如何，这一步都成功"。如果在这个基础上再给 `pytest` 加 `--reruns 2`（或在 workflow 里包一层重试），会出现双重掩盖：
+
+    1. 第一层：失败后重试通过 → 报告显示"最终通过"，于是**偶发失败**被当成"正常的抖动"；
+    2. 第二层：即使**重试也全部失败**，`|| true` 仍然把这一步变成成功。
+
+    结果是**任何测试结果都不会影响流水线颜色**。"加重试"本意是提高稳定性，但在**没有先把 `|| true` 去掉**的前提下，它只是把"必现失败"也变成看不见。正确顺序是：**先让失败真的失败（去掉 `|| true`），再讨论是否用重试处理已知的环境抖动**——而且重试应当被显式记录和监控，不能当成"过了就算"。
+
+    **第 5 题：Artifacts 这道防线**
+
+    ```yaml
+          - name: Upload test results
+            if: always()
+            uses: actions/upload-artifact@v4
+            with:
+              name: junit-results
+              path: reports/junit.xml
+              retention-days: 30
+    ```
+
+    价值在于：`if: always()` 保证**成功失败都归档**，于是失败时团队拿到的是**可直接下载、可解析的报告**（JUnit XML 能被 CI 看板、IDE 或测试管理工具消费），而不是到几百行日志里翻。日志会随运行滚动、超期清理，而 Artifacts 是有保留期（`retention-days`）的结构化证据——这是把"一次失败"从"一次事故"变成"一条可追踪数据"的关键。
+
+    > 一句话总结：**绿色徽章不等于质量。** 判断一条流水线是否可信，只要问一句：**它坏了的时候会不会变红？** 如果答案是否，那它拦住的只有"心情"。
+
 ### 推荐下一步
+
 
 根据你的学习进度，选择下一步：
 

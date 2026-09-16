@@ -1187,6 +1187,154 @@ Postman 提供 fork/merge 功能：
 
 ---
 
+## 动手任务：为一个「订单查询」接口补齐断言
+
+> 这是本教程的收尾练习。请**独立完成**，不要先看参考答案。目标不是"能发出请求"，而是**能写出真正会抓到缺陷的断言**。
+
+### 任务背景
+
+开发说「订单查询接口已经测过了，返回 200 就没问题」。你要证明这种测法会漏掉大量缺陷——用断言把接口的**契约、业务、数据、安全**四层都覆盖到。
+
+### 任务准备
+
+用 Postman 的 Mock Server 或任意公开测试 API 代替。推荐用 `https://jsonplaceholder.typicode.com` 这类免费接口练习，也可以自己起一个：
+
+如果没有可用服务，用 Postman 的 **Mock Server** 新建一个，返回体设为：
+
+```json
+{
+  "code": 0,
+  "message": "success",
+  "data": {
+    "orderId": "ORD-20260901-0001",
+    "userId": 10002,
+    "status": "paid",
+    "amount": 1299.00,
+    "items": [
+      { "productId": 101, "name": "显示器", "quantity": 1, "price": 1299.00 }
+    ],
+    "createdAt": "2026-09-01T10:00:03+08:00"
+  }
+}
+```
+
+> 注意：`amount` 已与 `items` 累加一致（1 × 1299.00）。如果你想让练习更有挑战，可以故意把 `amount` 改成一个不匹配的值，然后确认第 3 题的断言**会失败**。
+
+### 任务要求
+
+请依次完成，并在 Postman 的 **Tests** 标签里写出断言脚本：
+
+1. **协议层断言**：状态码、响应时间上限、`Content-Type`。
+2. **业务层断言**：业务码为成功、`message` 符合预期。
+3. **数据层断言**：`orderId` 格式正确、`amount` 与 `items` 累加一致、`createdAt` 是合法时间。
+4. **安全层断言**：响应体**不包含**手机号、身份证、密码等敏感字段（用断言而不是人眼看）。
+5. **把断言整理成可复用的产出**：写一段能放进 Collection 级 `Pre-request`/`Tests` 的公共断言，让整个集合的接口自动校验"响应必须是 JSON 且不含敏感字段"。
+
+### 提交物
+
+| 产出 | 要求 |
+|------|------|
+| Tests 脚本 | 完整的 5 段断言代码 |
+| 运行结果 | Postman Test Results 面板截图（须全绿） |
+| 反例验证 | 手工改坏 Mock 响应中的一个字段，证明你的断言**确实会失败** |
+| 结论 | 用 3-5 句话说明：只断言状态码会漏掉哪些类型的问题 |
+
+### 完成标准
+
+- [ ] 断言覆盖协议/业务/数据/安全四层，不是只写 `pm.response.to.have.status(200)`
+- [ ] 第 3 题的金额校验是**真的计算**（比较 `amount` 与 `items` 求和），不是写死数字
+- [ ] 第 4 题用断言主动检查敏感字段，而不是靠人工看响应
+- [ ] 做过反例验证——能证明"断言写错/服务出错时测试会红"
+
+??? tip "参考答案与思路（先自己做完再看）"
+
+    **第 1 题：协议层**
+
+    ```javascript
+    pm.test("状态码为 200", function () {
+        pm.response.to.have.status(200);
+    });
+
+    pm.test("响应时间小于 800ms", function () {
+        pm.expect(pm.response.responseTime).to.be.below(800);
+    });
+
+    pm.test("Content-Type 为 JSON", function () {
+        pm.expect(pm.response.headers.get("Content-Type")).to.include("application/json");
+    });
+    ```
+
+    **第 2 题：业务层**
+
+    ```javascript
+    const body = pm.response.json();
+
+    pm.test("业务码为 0（成功）", function () {
+        pm.expect(body.code).to.eql(0);
+    });
+
+    pm.test("message 为 success", function () {
+        pm.expect(body.message).to.eql("success");
+    });
+    ```
+
+    **第 3 题：数据层**
+
+    ```javascript
+    pm.test("orderId 符合 ORD-日期-序号 格式", function () {
+        pm.expect(body.data.orderId).to.match(/^ORD-\d{8}-\d{4}$/);
+    });
+
+    pm.test("amount 等于 items 金额累加", function () {
+        const sum = body.data.items.reduce(
+            (acc, it) => acc + it.price * it.quantity, 0
+        );
+        pm.expect(body.data.amount).to.eql(sum);
+    });
+
+    pm.test("createdAt 是合法时间", function () {
+        const t = Date.parse(body.data.createdAt);
+        pm.expect(Number.isNaN(t)).to.be.false;
+    });
+    ```
+
+    要点：金额断言是**动态计算**的。如果开发改了折扣逻辑导致 `amount` 与明细不符，这条断言会立刻失败——这正是只检查状态码发现不了的。
+
+    **第 4 题：安全层**
+
+    ```javascript
+    pm.test("响应体不含敏感字段", function () {
+        const raw = pm.response.text();
+        const forbidden = ["password", "idCard", "phone", "mobile", "token"];
+        forbidden.forEach(function (f) {
+            pm.expect(raw, "响应体不应包含 " + f).to.not.include(f);
+        });
+    });
+    ```
+
+    **第 5 题：Collection 级公共断言**
+
+    在 Collection → Pre-request / Tests 标签写入（对该集合下所有请求生效）：
+
+    ```javascript
+    // 公共断言 1：响应必须是 JSON
+    pm.test("响应为合法 JSON", function () {
+        pm.response.to.be.json;
+    });
+
+    // 公共断言 2：不得泄露敏感信息
+    pm.test("无敏感信息泄露", function () {
+        const raw = pm.response.text();
+        ["password", "idCard", "token"].forEach(function (f) {
+            pm.expect(raw).to.not.include(f);
+        });
+    });
+    ```
+
+    **反例验证（关键步骤）**：在 Mock Server 的响应里把 `password` 加进去，或把 `amount` 改成 `9999`，重新发送请求，确认对应的断言**变红**。只有做过这一步，才能说明你的断言真的在起作用——否则可能只是"永远为真的假断言"。
+
+---
+
 ## 下一步建议
 
 <div class="tutorial-next-steps" markdown="1">

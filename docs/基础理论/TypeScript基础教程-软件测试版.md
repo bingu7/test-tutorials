@@ -702,6 +702,225 @@ function first<T>(arr: T[]): T { return arr[0] }
 - [ ] 能理解泛型的基本含义
 - [ ] 能看懂 Playwright TypeScript 测试代码
 
+---
+
+## 动手任务：用类型定义在编译期拦住接口响应处理的缺陷
+
+> 这是本教程的收尾练习。请**独立完成**，不要先看参考答案。目标不是"把类型标上去让编辑器不报错"，而是**分清哪些缺陷是类型系统在写代码时就能拦住的，哪些只能靠测试用例去发现**。
+
+### 任务背景
+
+接口自动化项目里，同事交上来一段"能跑通"的订单详情响应处理代码——全部用 `any` 接参数，取值一律靠"看起来对"。
+本地用一份正常的 mock 响应验证过，断言全绿。但测试环境里它接连出了三个问题：
+一是当接口返回 `coupon: null`（用户没用券）时，用例直接崩了；
+二是当接口新增了一种 `status: "CANCELLED"` 后，结算金额算成了 `undefined` 却没有任何报错；
+三是当后端把 `totalAmount` 从数字改成字符串 `"199.00"` 时，类型相关的断言静默失真。
+
+你要做的是：把这段代码**重写成类型安全的版本**，并说清每一步拦截到的缺陷。
+
+### 任务数据
+
+现有代码（`order.test.ts` 片段，问题版本）：
+
+```typescript
+// 问题版本：全 any，没有任何类型约束
+async function checkOrderDetail(request: any, orderId: any) {
+  const response: any = await request.get("/api/order/detail", { params: { orderId } });
+
+  // 直接抛响应体，出错时连结构都不知道
+  const body: any = await response.json();
+
+  // 未做非空判断：coupon 为 null 时这里直接崩
+  const finalAmount = body.data.totalAmount - body.data.coupon.amount;
+
+  // 未穷尽的状态分支：新增状态会静默走到 default 且不报错
+  if (body.data.status === "PAID") {
+    return { status: "已支付", amount: finalAmount };
+  } else if (body.data.status === "SHIPPED") {
+    return { status: "已发货", amount: finalAmount };
+  } else {
+    return { status: "未知状态", amount: finalAmount };
+  }
+}
+```
+
+接口真实响应样本（`GET /api/order/detail`）：
+
+```json
+{
+  "code": 0,
+  "message": "ok",
+  "data": {
+    "orderId": "ORD20260315001",
+    "totalAmount": 199.0,
+    "status": "PAID",
+    "coupon": { "code": "NEW10", "amount": 10.0 },
+    "buyer": { "userId": 10086, "nickname": "测试小张", "phone": null }
+  }
+}
+```
+
+另一份响应：用户**未使用**优惠券时 `coupon` 为 `null`：
+
+```json
+{
+  "code": 0,
+  "message": "ok",
+  "data": {
+    "orderId": "ORD20260315002",
+    "totalAmount": 88.5,
+    "status": "CANCELLED",
+    "coupon": null,
+    "buyer": { "userId": 10087, "nickname": "测试小李", "phone": "13800000000" }
+  }
+}
+```
+
+后端字段口径（会变，必须写进类型里）：
+
+| 字段 | 类型 | 可空 | 说明 |
+|------|------|------|------|
+| `code` | `number` | 否 | `0` 成功，非 `0` 失败 |
+| `data.totalAmount` | `number` | 否 | 订单总额，单位元 |
+| `data.status` | `"PAID" \| "SHIPPED" \| "CANCELLED"` | 否 | 订单状态，**后端可能新增枚举值** |
+| `data.coupon` | `Coupon` 对象 | **是** | 未使用券时为 `null` |
+| `data.buyer.phone` | `string` | **是** | 未绑定手机时为 `null` |
+
+### 任务要求
+
+请依次完成：
+
+1. **定义类型**：用 `interface` 定义 `OrderDetail`、`Coupon`、`Buyer`，用类型别名定义 `OrderStatus` 联合类型；明确标出哪些字段是可选/可空（用 `?` 或 `| null`，并说明二者区别）。
+2. **修掉三个缺陷**：把上面的问题版本改成类型安全版本——`unknown` 代替 `any` 接响应体、用非空收窄处理 `coupon`、用 `switch` + 穷尽检查处理 `status`。
+3. **列出编译期能拦住的错误**：写出改完后**故意写错**时会触发的具体编译报错信息（至少 3 条），并标注每条报错对应的是哪个原来的运行时缺陷。
+4. **写一份对照表（可复用产出）**：表格列出"缺陷 → `any` 版本的表现 → 类型安全版本的表现 → 类型系统能否在编译期拦住"，对**拦不住**的那一类，补一条对应的测试用例思路，说明为什么必须靠测试兜底。
+
+### 提交物
+
+| 产出 | 要求 |
+|------|------|
+| `types.ts` | 含 `OrderDetail` / `Coupon` / `Buyer` / `OrderStatus` 的完整类型定义，带注释说明可空性来源 |
+| `order.ts` | 类型安全版的响应处理函数，`tsc --noEmit` 无报错 |
+| 编译报错清单 | ≥ 3 条真实报错信息（含 TS 错误码），每条注明对应缺陷 |
+| 缺陷对照表 | 4 列（缺陷 / `any` 表现 / 类型安全表现 / 是否编译期可拦 + 测试兜底思路），≥ 5 行 |
+
+### 完成标准
+
+- [ ] 能说清 `any` 与 `unknown` 的区别：`any` 关闭类型检查，`unknown` 必须先收窄才能使用
+- [ ] 能区分可选属性 `?`（属性可能不存在）与 `| null`（属性存在但值为空），并知道在 `strictNullChecks` 下两者都必须显式处理
+- [ ] 能用 `switch` 覆盖联合类型全部分支，并在末尾用 `never` 做穷尽性检查
+- [ ] 能指出至少 1 类**类型系统拦不住**的缺陷（如后端字段语义变化、业务规则错误），并给出测试用例兜底方案
+- [ ] 能解释为什么接口自动化里"用 `any` 先跑通"是把缺陷推迟到运行时
+
+??? tip "参考答案与思路（先自己做完再看）"
+
+    **第 1 题：类型定义**
+
+    ```typescript
+    // 联合类型：限定取值范围
+    export type OrderStatus = "PAID" | "SHIPPED" | "CANCELLED";
+
+    // 优惠券：存在时才需要字段，用 interface 描述对象结构
+    export interface Coupon {
+      code: string;
+      amount: number;
+    }
+
+    // 买家：phone 未绑定时为 null，用 | null 表达
+    export interface Buyer {
+      userId: number;
+      nickname: string;
+      phone: string | null;   // 属性一定存在，值可能是 null
+    }
+
+    export interface OrderDetail {
+      orderId: string;
+      totalAmount: number;
+      status: OrderStatus;
+      coupon: Coupon | null;  // 未使用券时是 null，不是"不存在"
+      buyer: Buyer;
+    }
+
+    // 泛型：统一包裹后端响应，data 的类型由调用方指定
+    export interface ApiResponse<T> {
+      code: number;
+      message: string;
+      data: T;
+    }
+
+    // 可选属性：字段可能整个不存在（例如后端按需返回）
+    export interface OrderQuery {
+      orderId: string;
+      withCoupon?: boolean;   // 可能没有这个字段
+    }
+    ```
+
+    **可选属性 `?` 与 `| null` 的区别（必须说清）：**
+    `withCoupon?: boolean` 的运行时形态里这个 key **可能根本不存在**（`"withCoupon" in obj === false`）；
+    `coupon: Coupon | null` 的 key **一定存在**，只是值是 `null`。
+    两者在 `strictNullChecks`（随 `"strict": true` 开启）下都**不会**被自动放过：读取可选属性得到 `boolean | undefined`，读取 `| null` 得到 `Coupon | null`，都必须先收窄。
+
+    **第 2 题：类型安全版本**
+
+    ```typescript
+    // 用 unknown 接住 JSON，迫使调用方做校验/断言
+    export function parseOrderDetail(raw: unknown): OrderDetail {
+      if (typeof raw !== "object" || raw === null || !("data" in raw)) {
+        throw new TypeError("响应结构不符合预期：缺少 data 字段");
+      }
+      return (raw as { data: OrderDetail }).data;
+    }
+
+    export function renderOrder(order: OrderDetail): string {
+      // 收窄 coupon：null 分支不访问 .amount
+      const couponAmount = order.coupon === null ? 0 : order.coupon.amount;
+      const finalAmount = order.totalAmount - couponAmount;
+
+      // switch + 穷尽检查：新增状态会编译报错
+      switch (order.status) {
+        case "PAID":
+          return `已支付 ${finalAmount}`;
+        case "SHIPPED":
+          return `已发货 ${finalAmount}`;
+        case "CANCELLED":
+          return `已取消 0`;
+        default: {
+          // 若 OrderStatus 新增成员而此处未处理，编译会失败
+          const exhaustive: never = order.status;
+          throw new Error(`未覆盖的订单状态: ${String(exhaustive)}`);
+        }
+      }
+    }
+    ```
+
+    关键点：
+    - `unknown` 不能被直接使用，必须 `typeof` / `in` / 断言收窄后才能取属性——这就是"把缺陷提前到编译期"的机制。
+    - `switch` 的 `default` 分支里把值赋给 `never`，一旦联合类型新增成员而分支未更新，`tsc` 会在**写代码时**报错，而不是等测试环境跑到那笔"取消订单"。
+    - `order.coupon === null ? 0 : ...` 是显式收窄；若直接写 `order.coupon.amount`，`tsc` 报 `TS18047: 'order.coupon' is possibly 'null'`。
+
+    **第 3 题：故意写错时触发的编译报错（对应原缺陷）**
+
+    | 故意写错的代码 | 编译器报错 | 对应原来的运行时缺陷 |
+    |----------------|------------|----------------------|
+    | `const a = order.coupon.amount` | `TS18047: 'order.coupon' is possibly 'null'.`（strict 下） | `coupon: null` 时崩溃 |
+    | `switch` 删掉 `case "CANCELLED"` 且不留 `default` | `TS2366: Function lacks ending return statement...` / 赋值 `never` 时报 `TS2322: Type '"CANCELLED"' is not assignable to type 'never'.` | 新增状态静默走到 `else` 分支 |
+    | `const s: string = order.status`（当 status 联合不含 string 时反向赋值）或 `case "PAID ": ...` 拼错 | `TS2678: Type '"PAID "' is not comparable to type 'OrderStatus'.` | 状态判断永远不成立，静默走 default |
+    | `const total: number = body.data.totalAmount`（后端改成字符串 `"199.00"`） | `TS2322: Type 'string' is not assignable to type 'number'.` | 金额减法得到 `NaN`/`undefined`，断言静默失真 |
+    | `const t = order.buyer.phone.length` | `TS18047: 'order.buyer.phone' is possibly 'null'.` | 未绑定手机时崩溃 |
+
+    **第 4 题：缺陷对照表 + 测试兜底**
+
+    | 缺陷 | `any` 版本表现 | 类型安全版本表现 | 编译期能否拦住 | 拦不住时的测试兜底 |
+    |------|----------------|------------------|----------------|---------------------|
+    | `coupon` 为 `null` | 运行到 `.amount` 时 `TypeError` 崩溃 | 编译期 `TS18047` 直接报错，必须写 `null` 分支 | **能** | —（已被类型系统覆盖） |
+    | 新增 `status` 枚举值 | 静默落到 `else`，返回"未知状态"且无告警 | 联合类型新增成员 → 穷尽检查编译失败 | **能** | —（已被类型系统覆盖） |
+    | 后端把数字改成字符串 | `"199.00" - 10` 静默得到怪值，断言可能仍"通过" | 编译期 `TS2322` | **能**（前提是按真实契约写类型） | 契约测试：断言 JSON Schema / 字段类型，防止真实响应与类型定义脱节 |
+    | 字段语义变化（`totalAmount` 从"元"改成"分"） | 无感知 | **拦不住**：类型仍是 `number` | **不能** | 用例断言具体业务值：`expect(finalAmount).toBe(189.0)`，用真实金额而非"不报错" |
+    | 业务规则错误（满 200 才可用券，代码算错门槛） | 无感知 | **拦不住**：类型层面完全合法 | **不能** | 边界用例：金额 =199.99 / 200 / 200.01 三组数据驱动断言 |
+    | 后端返回缺字段但类型用 `as` 强断言 | 运行时 `undefined` 参与运算 | 编译通过但运行时仍出错 | **不能**（`as` 绕过检查） | 用 `unknown` + 运行时校验（zod / 手写守卫）替代 `as`，并写一条异常响应用例 |
+
+    结论要点：**类型系统能拦住"形态类"缺陷（空值、类型不符、联合未穷尽、拼写错误），拦不住"语义类"缺陷（业务规则、单位口径、真实契约漂移）**。
+    用 `any` 的代价不是"少写类型"，而是把这些形态类缺陷从**写代码的那一秒**推迟到**测试环境跑起来的那一次**——修复成本高一个数量级。
 ### 推荐下一步
 
 1. **如果你想写 Playwright 测试**：学习 [Playwright 自动化测试教程](../自动化测试/Playwright自动化测试教程-软件测试版.md)，用 TypeScript 编写 Web 自动化

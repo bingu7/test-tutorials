@@ -997,6 +997,310 @@ Low / Info       → 仅在报告中记录
 
 ---
 
+## 动手任务：订单接口安全评审——分清「真漏洞」与「扫描器误报」
+
+> 这是本教程的收尾练习。请**独立完成**，不要先看参考答案。目标是**判定风险并说清影响**，不是"会用工具扫一下"。
+
+### 任务背景
+
+你被安排对即将上线的「订单中心」做上线前安全回归。开发同学交来一份自查结论：**"接口已做过扫描，输出里只有两条中危：CORS 配置过宽、响应头暴露了中间件版本，已排期下个迭代修。"**
+
+这批接口里其实藏着一个足以批量拖走全站订单的高危问题，却被扫描器漏掉了；而开发列出的那两条，一条是**真问题但危害被低估**，另一条是**纯粹的误报**。你的任务不是"再跑一遍扫描器"，而是**用证据说清哪一条真、哪一条假，以及"真"的那条到底能造成多大后果**。
+
+> 注意：本任务所有数据均为教学构造，请只在授权测试环境复现。
+
+### 任务准备
+
+**测试账号（两个普通用户）**
+
+```
+用户 A：userId = 1001，用户名 tester_a
+用户 B：userId = 1002，用户名 tester_b
+```
+
+**用户 A 的登录令牌（JWT，三段结构 header.payload.signature）**
+
+```
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMDAxIiwidXNlcklkIjoxMDAxLCJyb2xlIjoidXNlciIsImV4cCI6MTg5MzQ1NjAwMH0.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+```
+
+用户 A 的 payload 解码后为：
+
+```json
+{"sub":"1001","userId":1001,"role":"user","exp":1893456000}
+```
+
+用户 B 的 payload（仅用于对照）解码后为：
+
+```json
+{"sub":"1002","userId":1002,"role":"user","exp":1893456000}
+```
+
+> 提示：JWT 的前两段是 **Base64URL 编码**（可逆、无密钥），但第三段是用服务端密钥对前两段做的**签名**。改 payload 而不重新签名会导致签名校验失败——这正是"Base64 可读"不等于"令牌可篡改"的关键区别。
+
+**请求 1：订单详情（用户 A 查自己的订单 ORD-20260301-0001）**
+
+```http
+GET /api/orders/ORD-20260301-0001 HTTP/1.1
+Host: api.shop-test.example.com
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMDAxIiwidXNlcklkIjoxMDAxLCJyb2xlIjoidXNlciIsImV4cCI6MTg5MzQ1NjAwMH0.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+Accept: application/json
+```
+
+响应：
+
+```http
+HTTP/1.1 200 OK
+Content-Type: application/json; charset=utf-8
+Cache-Control: no-store
+Server: nginx/1.24.0
+X-Powered-By: Express
+Access-Control-Allow-Origin: https://m.shop-test.example.com
+Access-Control-Allow-Credentials: true
+Vary: Origin
+Set-Cookie: sid=eyJ1IjoxMDAxfQ; Path=/; SameSite=Lax
+
+{"orderId":"ORD-20260301-0001","ownerUserId":1001,"status":"paid","amount":1299.00,
+ "receiver":"张*","phone":"MTM4MDAxMzgwMDA=","address":"杭州市西湖区**路 18 号",
+ "items":[{"skuId":101,"qty":1,"price":1299.00}]}
+```
+
+**请求 2：把订单号换成用户 B 的订单（其余一字不改）**
+
+```http
+GET /api/orders/ORD-20260301-0002 HTTP/1.1
+Host: api.shop-test.example.com
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMDAxIiwidXNlcklkIjoxMDAxLCJyb2xlIjoidXNlciIsImV4cCI6MTg5MzQ1NjAwMH0.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+Accept: application/json
+```
+
+响应（注意：用的仍是**用户 A 的令牌**）：
+
+```http
+HTTP/1.1 200 OK
+Content-Type: application/json; charset=utf-8
+
+{"orderId":"ORD-20260301-0002","ownerUserId":1002,"status":"paid","amount":2598.00,
+ "receiver":"李*","phone":"MTM5MDAxMzgwMDA=","address":"北京市朝阳区**路 66 号",
+ "items":[{"skuId":205,"qty":2,"price":1299.00}]}
+```
+
+**请求 3：带调试参数再查一次用户 B 的订单**
+
+```http
+GET /api/orders/ORD-20260301-0002?debug=1 HTTP/1.1
+Host: api.shop-test.example.com
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMDAxIiwidXNlcklkIjoxMDAxLCJyb2xlIjoidXNlciIsImV4cCI6MTg5MzQ1NjAwMH0.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+Accept: application/json
+```
+
+响应：
+
+```http
+HTTP/1.1 200 OK
+Content-Type: application/json; charset=utf-8
+
+{"orderId":"ORD-20260301-0002","ownerUserId":1002,"receiver":"李*",
+ "phone":"13900138000","address":"北京市朝阳区某路 66 号",
+ "debug":{"sql":"SELECT ... FROM orders WHERE order_id = ?","dbHost":"10.0.3.21:3306"}}
+```
+
+**请求 4：跨域探测（模拟浏览器带 Origin 请求）**
+
+```http
+GET /api/orders/ORD-20260301-0001 HTTP/1.1
+Host: api.shop-test.example.com
+Authorization: Bearer <用户A的令牌>
+Origin: https://evil.example.com
+```
+
+响应头（两次探测结果一致）：
+
+```http
+HTTP/1.1 200 OK
+Access-Control-Allow-Origin: https://m.shop-test.example.com
+Access-Control-Allow-Credentials: true
+Vary: Origin
+```
+
+> 补充对照：管理端接口 `/api/admin/orders/export` 的响应头为 ——
+> `Access-Control-Allow-Origin: https://evil.example.com` + `Access-Control-Allow-Credentials: true`
+> （即服务端把请求里的 `Origin` 原样回显了）
+
+### 任务要求
+
+请依次完成，并**保留每个请求与响应证据**：
+
+1. **识别**：上面 4 个请求中，哪一个证明了**真正的、可利用的安全问题**？它属于 OWASP Top 10（2021）中的哪一类？请写出最小化的复现步骤。
+2. **判定**：开发自查报告里提到的两条（**CORS 配置过宽**、**响应头暴露中间件版本**），逐条判定"是/不是漏洞"，并说明依据。再判定请求 4 中 `/api/orders/...` 与 `/api/admin/orders/export` 两处 CORS 配置**分别**是否构成漏洞，为什么结论不同。
+3. **验证（编码与敏感信息）**：响应里的 `phone` 字段是 `MTM4MDAxMzgwMDA=`，前端的做法是 JavaScript `atob()` 还原后显示。请说明：这串值能否被还原成原始手机号？"服务端做了编码"能否算作对手机号的**加密保护**？请求 3 的 `?debug=1` 让问题发生了什么变化？
+4. **验证（越权可利用性）**：结合订单号的命名规则 `ORD-<日期>-<4位序号>`，说明攻击者能否**批量获取**他人数据，并给出你的验证构造（不需要真的跑全量，给出可证明规模的方法即可）。
+5. **产出**：写一条可直接加入团队安全检查清单的结论（含复测方案），要求指向**具体字段/参数**，而不是"存在安全风险"。
+
+### 提交物
+
+| 产出 | 要求 |
+|------|------|
+| 证据 | 请求/响应报文，标出关键字段（订单号、`ownerUserId`、令牌声明、`Origin`/`ACAO`、`phone`） |
+| 判定 | 明确"是/不是漏洞"+ 依据，不能模棱两可 |
+| 编码验证 | `phone` 字段的还原过程与结论（含 `atob` / `base64 -d` 结果） |
+| 结论 | 用 3-5 句话说明：风险等级、影响范围、修复建议 |
+
+### 完成标准
+
+- [ ] 能区分真漏洞与误报，并给出判断依据（而不是"扫描器报了就算漏洞"）
+- [ ] 结论指向具体字段/参数（如 `orderId`、`access-control-allow-origin`、`phone`），不是笼统的"存在安全风险"
+- [ ] 说明了 `MTM4MDAxMzgwMDA=` 的还原过程，并明确 **Base64 是编码不是加密**
+- [ ] 对两处 CORS 配置给出了**不同**判定，并说清"固定白名单"与"回显 Origin"的区别
+- [ ] 给出了可量化的批量枚举验证方案，并写明复测时要重放的请求
+
+??? tip "参考答案与思路（先自己做完再看）"
+
+    **第 1 题：真漏洞是"水平越权（IDOR）"**
+
+    请求 2 就是铁证：**令牌是用户 A 的，返回的却是用户 B 的订单（`ownerUserId: 1002`）**。
+
+    原理与判定依据：
+
+    - `orderId` 是客户端可控的**对象标识符**，服务端只校验了"这个令牌有没有登录"（认证），没有校验"这个订单是不是属于令牌对应的用户"（**对象级授权**）。
+    - 这属于 **OWASP Top 10 (2021) A01：失效的访问控制**（Broken Access Control），细分类型为**水平越权 / IDOR**（Insecure Direct Object Reference）。
+    - **为什么能成功**：`ownerUserId`（1002）与令牌里的 `userId`（1001）明确不一致。一个正确实现的接口，此时应返回 **403** 或 **404**（用 404 可避免泄露资源是否存在），而不是返回数据。返回 200 + 完整业务数据 = 授权校验缺失。
+
+    最小复现步骤：
+
+    ```
+    1. 用用户 A 登录，拿到令牌，正常请求自己的订单 → 200，ownerUserId=1001
+    2. 仅把路径中的 orderId 改成用户 B 的订单号 → 仍用 A 的令牌
+    3. 观察：返回 200 且返回 B 的收货人、手机号、地址 → 越权成立
+    ```
+
+    影响范围要写到具体字段：泄露的是**收货人姓名、手机号、收货地址、订单金额与商品明细**——属于个人敏感信息，一旦可批量获取，就是一次**数据泄露事件**，不只是"功能 Bug"。
+
+    **第 2 题：两条扫描结果的判定**
+
+    | 扫描器报告项 | 判定 | 依据 |
+    |------|------|------|
+    | CORS 配置过宽 | **不是漏洞（在 `/api/orders/...` 上）** | `Access-Control-Allow-Origin` 返回的是**固定的可信白名单** `https://m.shop-test.example.com`，并没有回显请求方传入的 `Origin`。请求 4 用 `Origin: https://evil.example.com` 探测，响应里的 `ACAO` **仍然是白名单值**，说明攻击者源拿不到授权。因此 `evil.example.com` 的页面无法读取该响应 |
+    | 响应头暴露 `Server: nginx/1.24.0`、`X-Powered-By: Express` | **是信息泄露，但属于 Low/加固建议，不该按"中危漏洞"排期** | 这两行确实暴露了服务端与框架信息，可被攻击者用于比对公开漏洞库（配合 A06 脆弱过时组件）。但它**本身不构成可利用漏洞**，不授予任何访问能力。处理方式应是"**收尾时顺手关掉**"（Nginx `server_tokens off`、Express `app.disable('x-powered-by')`），而不是当成一条中危缺陷单独走修复流程 |
+
+    **两处 CORS 配置为什么结论不同（这是本题的核心考点）：**
+
+    - `/api/orders/...`：`ACAO` = **固定白名单**。虽然带了 `Access-Control-Allow-Credentials: true`，但只有白名单里的源能读到响应。**这是合规配置，不是漏洞。**
+    - `/api/admin/orders/export`：`ACAO` = **回显了请求方的 `Origin`（`https://evil.example.com`）**，且同时 `ACAC: true`。这才是**真漏洞**：任意攻击者页面都能带着受害者 Cookie 读取管理端导出接口的响应，等于绕过同源策略直接读数据。
+
+    关键原理（务必记准）：
+
+    > **CORS 不是访问控制机制。** 它只决定"浏览器是否允许跨域 JS 读取响应内容"，**不负责拒绝请求**——请求该发还是会发到服务端，服务端该鉴权还得自己鉴权。所以：
+    > - 固定的可信白名单 + `ACAC: true` → **正常**；
+    > - **动态回显** 任意 `Origin`（或 `null`、或 `*` 配 `ACAC: true`）+ `ACAC: true` → **漏洞**。
+    >
+    > 需要注意的是：**"回显 Origin"本身不必然是漏洞。** 当服务端需要支持多个前端域名时，标准做法就是读取请求的 `Origin`、**与允许列表比对**、命中后才把它回显到 `ACAO`（并带回 `Vary: Origin` 以便缓存正确区分）。所以判定时要看**有没有做校验**：本任务中把 `Origin` 改成 `https://evil.example.com` 后响应**照样回显了它**，说明服务端根本没有比对允许列表——这才成立为漏洞。如果文档里 `ACAO` 回显的值恰好是白名单内的域名，就不能这么报。
+    >
+    > 另外：`*` 与 `Access-Control-Allow-Credentials: true` **不能同时生效**，浏览器会直接报 `CORSNotSupportingCredentials` 错误并拒绝该响应——所以看到"`ACAO: *` 且 `ACAC: true`"时，要么实际回显了 Origin，要么配置本身无效（等于接口废了），需要实测确认，不要臆断。
+    >
+    > `ACAO: null` 同样危险：`data:`、`file:` 以及沙箱化文档的源都会序列化为 `null`，任何站点都能构造出 `null` 源文档来读取响应，因此规范明确不建议使用 `null`。
+
+    顺带纠正两个常见误判（本教程读者最容易写错的点）：
+
+    - `SameSite=Lax` **不等于**严格的 CSRF 防护。Lax 属于"默认档"：它允许**顶层导航**（即在地址栏输入 URL、点击链接跳转这类 top-level GET）携带 Cookie，只对跨站的**非安全方法**（POST/PUT/DELETE 等）收紧。因此像 `GET /change-password?new=xxx` 这种把写操作做成 GET 的接口，在 Lax 下依然可能被 CSRF 利用——"有 SameSite 就没 CSRF"是错判。要严格防护，需 `SameSite=Strict`，或更可靠的**服务端 CSRF Token**。**验证方式**：不要只看属性名，实际构造一个从第三方页面发起的请求，观察服务端是否执行了操作。
+    - `HttpOnly` 防的是 **XSS 通过 `document.cookie` 读取 Cookie**，**不防 CSRF**（CSRF 场景下浏览器自动带 Cookie，根本不需要脚本读得到它）。看到"缺 `HttpOnly`"就报 CSRF，是把两个机制搞反了。
+
+    **第 3 题：Base64 可逆，不是加密**
+
+    先还原：
+
+    ```bash
+    echo "MTM4MDAxMzgwMDA=" | base64 -d
+    # 输出：13800138000
+    ```
+
+    ```javascript
+    atob("MTM4MDAxMzgwMDA=")   // "13800138000"
+    ```
+
+    **结论**：
+
+    - `MTM4MDAxMzgwMDA=` 是 `13800138000` 的 **Base64 编码**。Base64 是**可逆的编码方式（encoding）**，**无密钥、任何人可解**，与"加密（encryption）"不是一回事。把手机号做 Base64 后放在响应里，**等同于明文返回**。
+    - 因此这**不构成对敏感数据的保护**，应归入 **OWASP Top 10 (2021) A02：加密失败（Cryptographic Failures）**——敏感数据在传输/存储时未获得有效保护。
+    - 判定要点：判断"是不是有效保护"，看的是**是否可被无密钥还原**。只要无密钥就能还原（Base64、URL 编码、十六进制、简单字符替换、`atob`/`btoa` 而已），就**不是加密**。
+
+    `?debug=1` 让问题发生的变化：
+
+    - 服务端在调试模式下**直接返回了明文手机号**（`"phone":"13900138000"`），并把完整收货地址也还原成明文，说明"Base64"只是前端的显示层伪装，**服务端本就持有并可输出明文**。
+    - 更要命的是 `debug` 里回显了 **SQL 语句与数据库地址（`dbHost: 10.0.3.21:3306`）**——这属于典型的**生产环境调试接口未关闭**，命中 **A05：安全配置错误**，并为后续攻击提供了内网信息。这条的严重程度**高于** Base64 那一条，是本题里除越权之外最该优先修的问题。
+
+    **第 4 题：批量枚举的可利用性**
+
+    订单号是 `ORD-<8位日期>-<4位序号>`，例如 `ORD-20260301-0002`。
+
+    - 日期部分：常见的取值空间是"近 N 天"，业务上线后一般只有有限个活跃日期，容易穷举（如取最近 90 天）。
+    - 序号部分：只有 **4 位**，单日空间仅 `0000`–`9999`（1 万种）。
+    - 于是**单日全量枚举约 1 万次请求**即可覆盖；取 30 个日期约 30 万次请求——对接口扫描来说完全可行。
+    - 结合请求 2 的结论（任意订单号都返回数据），这意味着攻击者**不需要任何权限提升**，只靠一个普通账号即可**批量拖库订单的个人信息**。
+
+    验证构造（在授权环境、控制频率前提下）：
+
+    ```bash
+    # 固定用用户 A 的令牌，只枚举 orderId
+    for d in $(seq -w 1 3); do
+      for i in $(seq -w 0 9999); do
+        curl -s -o /dev/null -w "%{http_code}\n" \
+          -H "Authorization: Bearer <用户A的令牌>" \
+          "https://api.shop-test.example.com/api/orders/ORD-20260301-$i"
+      done
+    done
+    # 统计 200 的数量：应显著大于 0，说明他人订单一并被读出
+    ```
+
+    > ⚠️ 只做**抽样证明**（例如抽 10 个相邻序号，确认其中出现 `ownerUserId != 1001` 的记录）即可判定漏洞成立，**不要真的跑全量**，避免变成对生产系统的批量数据抓取。
+
+    **更关键的一点：不要用"可枚举性"来给这个漏洞定级。** 即使用户把订单号换成 UUID（不可枚举），**漏洞依然存在**——只要 `ownerUserId` 与令牌 `userId` 不一致还能拿到数据，就是越权。可枚举性只影响**影响范围的大小**，不影响**漏洞是否成立**。所以修复方向必须是"**补对象级授权校验**"，而不是"把 ID 改成 UUID 藏起来"。
+
+    **关于 JWT 篡改（一个高频误判，顺手纠正）**
+
+    有同学看到 JWT 前两段能被 Base64 解开，就认为"改一下 `userId` 成 1002 就能越权"。实测会失败：
+
+    ```
+    把 payload 的 userId 由 1001 改成 1002，第三段签名保持不变
+    → 服务端用密钥重算签名，与请求里的签名不一致 → 返回 401
+    ```
+
+    原因：**JWT 的签名保护的是完整性（防篡改），Base64 的可读性保护的是"可读"而非"可改"。** 两者不矛盾——"令牌内容能被看见"和"令牌内容能被修改"是完全不同的两件事。这也再次说明：**Base64 ≠ 加密**，但也 **≠ 可篡改**。
+
+    例外情况（真漏洞的形态）：若服务端把签名算法交给客户端决定（`alg` 可改为 `none`）或使用了弱密钥（可离线爆破），则签名失效、令牌真可伪造。这属于 **A02/A07** 范畴，需要单独验证 `alg: none` 与弱密钥两条路径——但本题数据中未出现该迹象，**不要无故上报**。
+
+    **第 5 题：可加入检查清单的结论**
+
+    ```
+    【检查项】订单/订单类资源接口的对象级授权（越权）
+    【检查对象】所有以业务 ID 作为路径或查询参数的接口，
+                重点关注 GET /api/orders/{orderId}、GET /api/users/{id} 这类形态
+    【复测方案】
+      1. 用用户 A 的令牌请求用户 A 自己的资源 → 记录基线响应
+      2. 仅替换路径中的业务 ID 为用户 B 的资源 ID，令牌保持不变
+      3. 判定标准：
+         - 返回 B 的数据（200 + ownerUserId 与令牌 userId 不一致）→ 存在水平越权，Critical
+         - 返回 403 / 404 且响应体不含 B 的任何字段 → 通过
+      4. 附加验证：把业务 ID 换成不存在的 ID，确认不泄露 SQL、堆栈、内网地址
+    【同批必查】
+      - 响应敏感字段（phone、address、idCard）必须是脱敏值（如 138****8000），
+        不接受 Base64/URL 编码等可逆编码充当"保护"
+      - 生产环境禁止响应 ?debug=1、?debug=true 等调试参数，
+        确认响应体不含 sql、dbHost、stack 等字段
+      - CORS：ACAO 必须是固定白名单；出现"回显请求 Origin"或 "null" 即为 Critical
+    【修复建议】
+      - 服务端在查询层强制追加归属条件 WHERE order_id = ? AND owner_user_id = <令牌中的 userId>，
+        或在业务层做对象级授权校验，禁止只靠前端隐藏入口
+      - 关闭生产 debug 参数与 server_tokens / x-powered-by
+      - 敏感字段在序列化层统一脱敏，不以 Base64 代替脱敏或加密
+    【等级建议】水平越权 Critical（可批量获取他人个人信息）；
+              生产 debug 暴露 SQL/DB 地址 High；
+              Base64 "伪加密" 视为敏感信息未保护 Medium；
+              响应头版本信息 Low（加固项，不单独阻塞发布）
+    ```
+
+---
+
 ### 推荐下一步
 
 根据你的学习进度，选择下一步：

@@ -839,7 +839,259 @@ GitLab CI/CD 是 GitLab 内置的 CI/CD 工具，核心优势是深度集成、�
 
 建议从最小 Pipeline 开始，逐步添加功能。
 
+---
+
+## 动手任务：修好一份「跑得像样但没在把关」的 .gitlab-ci.yml
+
+> 这是本教程的收尾练习。请**独立完成**，不要先看参考答案。目标不是"让 Pipeline 变成绿的"，而是**让它在该红的时候一定会红**。
+
+### 任务背景
+
+团队在 GitLab 上维护一个 Python 服务，`.gitlab-ci.yml` 见下。Pipeline 每次都在 3 分钟内跑完，状态几乎总是成功，但缺陷仍然一路流到测试环境。测试负责人越看越觉得不对劲。
+
+你的任务是：**找出这份流水线为什么没起到把关作用，并把它重写成能真正阻断问题的版本。**
+
+### 任务准备
+
+下面是当前的 `.gitlab-ci.yml`（缺陷保留）：
+
+```yaml
+stages:
+  - test
+  - build
+  - deploy
+
+variables:
+  DATABASE_URL: "postgresql://test:test123456@db:5432/testdb"
+
+install:
+  stage: build
+  script:
+    - pip install -r requirements.txt
+
+unit-test:
+  stage: test
+  script:
+    - pytest tests/unit/ -v
+
+api-test:
+  stage: test
+  script:
+    - pytest tests/api/ -v
+  allow_failure: true
+
+lint:
+  stage: deploy
+  script:
+    - flake8 src/
+
+deploy-staging:
+  stage: deploy
+  script:
+    - ./deploy.sh staging
+
+deploy-prod:
+  stage: deploy
+  script:
+    - ./deploy.sh production
+```
+
+补充信息：
+
+1. 项目通过 GitLab 的 CI/CD Variables 配置了 `DEPLOY_TOKEN`，并已勾选 Masked 与 Protected。
+2. `pytest` 已配置输出 JUnit XML 到 `report.xml`，覆盖率 XML 输出到 `coverage.xml`。
+3. 只在 `main` 分支上的变更才应该部署到 staging / production。
+4. 团队希望：单元测试或接口测试失败时，部署**绝不能**发生。
+5. 前端目录 `frontend/` 使用 npm，团队希望顺便把 `node_modules/` 缓存起来提速。
+
+### 任务要求
+
+请依次完成：
+
+1. **列出全部缺陷**：逐条指出这份配置的问题（至少 6 处），并对每处说明**它会导致什么后果**。至少覆盖：stage 与依赖关系是否合理、接口测试 `allow_failure` 的影响、部署是否有限制、Artifacts 是否归档、缓存是否配置、质量门禁是否存在。
+2. **解释一个最隐蔽的问题**：`install` 这个 Job 的名字与它所在的 stage 有什么关系？它带来的**实际风险**是什么？（提示：想一想 `dependencies` 与 Artifacts 的传递）
+3. **重写配置**：写出一份修好后的 `.gitlab-ci.yml`，要求 —— 单元测试与接口测试失败都必须阻断部署、`lint` 放到正确的位置、部署只在 `main` 上执行、归档 JUnit 与覆盖率报告、配置 `cache`。
+4. **加质量门禁**：说明你会怎么设置"覆盖率低于阈值就不许部署"，并解释这条门禁在**防止测试被悄悄删掉**上的作用。
+5. **解释重试与拒绝失败的区别**：`allow_failure: true` 和 `retry:` 分别解决什么问题？为什么用 `allow_failure: true` 来处理"接口测试偶发失败"是错误做法？
+
+### 提交物
+
+| 产出 | 要求 |
+|------|------|
+| 问题清单 | 每条含：位置、后果、严重程度 |
+| 重写后的 `.gitlab-ci.yml` | 完整 YAML，关键处带注释，能被 `yaml.safe_load` 解析 |
+| 门禁方案 | 第 4 题的具体配置 |
+| 结论 | 用 3-5 句话说明：这份流水线为什么"看起来跑了，其实没把关"，怎么根治 |
+
+### 完成标准
+
+- [ ] 能指出 `allow_failure: true` 让测试失败**不阻断** Pipeline，是"没把关"的关键原因
+- [ ] 能正确使用 `stages` / `stage` / `needs` 表达依赖关系，并说明为什么 `install` 放在 `build` stage 是错的
+- [ ] 部署 Job 用 `rules` 限定为 **`main` 分支**才执行
+- [ ] 用 `artifacts.reports.junit` 归档报告，而不是只把结果打在日志里
+- [ ] 能说清 `allow_failure` 与 `retry` 的区别，并知道该用哪个
+
+??? tip "参考答案与思路（先自己做完再看）"
+
+    **第 1 题：缺陷清单**
+
+    | # | 位置 | 问题 | 后果 |
+    |---|------|------|------|
+    | 1 | `api-test: allow_failure: true` | **接口测试失败不阻断** Pipeline | 接口全挂了也算成功，是"没把关"的**根本原因** |
+    | 2 | `install` 属于 `build` stage，命名却是"安装" | **stage 归属错误** | `build` 阶段先跑"装依赖"，语义混乱；下游 Job 各自重装依赖，浪费且可能装到不同版本 |
+    | 3 | `lint` 放在 `deploy` stage | **位置错误** | 代码规范问题与部署同阶段；lint 一旦失败还可能连带阻塞部署，而它本该更早失败 |
+    | 4 | `deploy-staging` / `deploy-prod` 无 `rules` | **没有任何触发条件限制** | 任意分支（包括特性分支的 push）都可能触发部署 |
+    | 5 | `deploy-prod` 无人工确认 | 生产部署全自动 | 可造成线上事故 |
+    | 6 | 无 `artifacts` | 测试/覆盖率报告**未归档** | 失败后没有可下载的证据，也没法做覆盖率统计 |
+    | 7 | 无 `cache` | 每次重装依赖（含 `frontend/node_modules`） | 流水线变慢，浪费 Runner 时间 |
+    | 8 | `DATABASE_URL` 明文写在 `variables` 里 | 含密码的凭据进版本库 | 凭据泄露（应改用 CI/CD Variables 并设为 Masked/Protected） |
+
+    **第 2 题：`install` 的隐蔽问题**
+
+    它的名字是"安装依赖"，stage 却是 `build`。真正的问题在于：**它安装的依赖不会自动传给后面的 `unit-test` / `api-test`。**
+
+    GitLab CI 中，Job 之间能够传递的是 **Artifacts（归档文件）**，而不是"上一个 Job 装进 Runner 的包"。`install` 这个 Job 既没有声明 `artifacts.paths` 把依赖目录归档，也没有让后续 Job 用 `dependencies` 去取。因此：
+
+    - `unit-test`、`api-test` 会在各自全新的容器里重新执行（如果它们自己有安装步骤），或者直接因为缺依赖而失败。换句话说，`install` 这个 Job **基本是白跑的**。
+    - 更糟的是，如果后续 Job 各装各的版本，就会出现"`install` 装的是 A 版本、测试跑的是 B 版本"这种**不可复现**的情况——测试结果再绿也不可信。
+
+    正确做法：要么让 `install` 把依赖归档并用 `dependencies` 传给下游，要么**干脆不设独立的 install Job**，改用全局 `before_script` 或 `cache` 在每个 Job 内安装。实践中后者更简单可靠。
+
+    **第 3 题：重写后的 `.gitlab-ci.yml`**
+
+    ```yaml
+    stages:
+      - lint
+      - test
+      - deploy
+
+    variables:
+      PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+
+    # 缓存依赖，跨 Pipeline 复用；key 按分支区分，避免互相污染
+    cache:
+      key: "$CI_COMMIT_REF_SLUG"
+      paths:
+        - .cache/pip/
+        - frontend/node_modules/
+
+    # 依赖安装放在全局 before_script，所有 lint/test Job 共享同一套安装逻辑
+    default:
+      image: python:3.11
+      before_script:
+        - python -m pip install --upgrade pip
+        - pip install -r requirements.txt
+
+    lint:
+      stage: lint
+      script:
+        - flake8 src/
+      rules:
+        - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+        - if: $CI_COMMIT_BRANCH == "main"
+
+    unit-test:
+      stage: test
+      script:
+        - pytest tests/unit/ -v --junitxml=report.xml --cov=src --cov-report=xml
+      artifacts:
+        when: always
+        reports:
+          junit: report.xml
+          coverage_report:
+            coverage_format: cobertura
+            path: coverage.xml
+        paths:
+          - htmlcov/
+        expire_in: 30 days
+      rules:
+        - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+        - if: $CI_COMMIT_BRANCH == "main"
+
+    api-test:
+      stage: test
+      # 注意：没有 allow_failure —— 接口测试失败必须阻断
+      script:
+        - pytest tests/api/ -v --junitxml=api-report.xml
+      artifacts:
+        when: always
+        reports:
+          junit: api-report.xml
+        expire_in: 30 days
+      rules:
+        - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+        - if: $CI_COMMIT_BRANCH == "main"
+
+    deploy-staging:
+      stage: deploy
+      needs:
+        - unit-test            # 只有单测和接口测试都通过，才可能进入部署
+        - api-test
+      script:
+        - ./deploy.sh staging
+      environment:
+        name: staging
+        url: https://staging.example.com
+      rules:
+        - if: $CI_COMMIT_BRANCH == "main"     # 只有 main 才部署
+
+    deploy-prod:
+      stage: deploy
+      needs:
+        - deploy-staging
+      script:
+        - ./deploy.sh production
+      environment:
+        name: production
+        url: https://example.com
+      rules:
+        - if: $CI_COMMIT_BRANCH == "main"
+          when: manual                        # 生产必须人工确认
+    ```
+
+    改动要点：
+
+    - **去掉 `api-test` 的 `allow_failure: true`** —— 这是让流水线重新"能拦住问题"的关键一步。
+    - **`lint` 提前到独立 stage**（新增 `lint` stage 并置于 `test` 之前），让规范问题尽早暴露。
+    - **删除独立的 `install` Job**，把安装逻辑放进 `default.before_script`，避免"白跑"和版本不一致。
+    - **依赖关系**用 `needs` 显式声明：`deploy-staging` 需要两个测试 Job，`deploy-prod` 需要 `deploy-staging`。
+    - **部署加 `rules`**：仅 `main` 分支；生产再加 `when: manual`。
+    - **归档报告**：`artifacts.reports.junit` 与 `coverage_report`。
+    - **缓存**：全局 `cache` 按 `$CI_COMMIT_REF_SLUG` 分组，含 pip 与 `node_modules`。
+    - **凭据**：把 `DATABASE_URL` 从 YAML 移除，改用 GitLab 项目 Settings → CI/CD → Variables 配置（Masked + Protected）。
+
+    **第 4 题：覆盖率门禁**
+
+    ```yaml
+    unit-test:
+      stage: test
+      script:
+        - pytest tests/unit/ -v --junitxml=report.xml --cov=src --cov-report=xml
+        # --cov-fail-under：覆盖率低于阈值时 pytest 返回非 0，从而让 Job 失败
+        - coverage report --fail-under=80
+      artifacts:
+        when: always
+        reports:
+          coverage_report:
+            coverage_format: cobertura
+            path: coverage.xml
+    ```
+
+    关键点在于**让覆盖率变成会失败的条件**：`coverage report --fail-under=80`（或 `pytest --cov-fail-under=80`）在覆盖率不足时返回非 0，Job 随之失败，部署被 `needs` 挡住。
+
+    它真正的价值不只是"覆盖率好看"，而是**防止测试被悄悄删掉**：如果有人为了赶进度注释掉一批用例，覆盖率会立刻下降并触发失败，流水线会在合并前就把这件事拦下来——这正是"测试删光了也照样绿"这类问题的对症解法。
+
+    **第 5 题：`allow_failure` 与 `retry` 的区别**
+
+    - **`allow_failure: true`**：表示"这个 Job 失败**也允许**，Pipeline 整体仍算成功"。它把失败**从信号变成噪音**——接口测试全挂，Pipeline 依旧是绿色的。用它的语义是"这个结果我不在乎"。
+    - **`retry:`**：表示"这个 Job 可以**重跑**"，通常配合 `when:` 限定只在 `runner_system_failure`、`stuck_or_timeout_failure` 这类**基础设施故障**时重试。它不改变"最终失败就是失败"的语义。
+
+    用 `allow_failure: true` 处理"接口测试偶发失败"是错误做法，因为它**放弃了失败信号本身**：偶发失败被永久合法化后，真正的必现缺陷也会一起混过去，团队再也不会有人去看那份报告。正确顺序是：**先让失败可见**（去掉 `allow_failure`），把偶发失败当问题去查；只有在确认为**基础设施类**的抖动时，才用 `retry:` 且配合 `when:` 限定条件，并把重试率当成监控指标。
+
+    > 一句话总结：**能在该红的时候红的流水线，才有资格叫质量门禁。** 一份"永远成功"的 Pipeline，本质上只是一份每天准时执行的通知脚本。
+
 ### 推荐下一步
+
 
 根据你的学习进度，选择下一步：
 

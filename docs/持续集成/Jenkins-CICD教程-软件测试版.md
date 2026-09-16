@@ -1443,6 +1443,248 @@ withCredentials([string(credentialsId: 'api-token', variable: 'TOKEN')]) {
 
 ---
 
+## 动手任务：修好一条「永远绿色」的流水线
+
+> 这是本教程的收尾练习。请**独立完成**，不要先看参考答案。目标不是"把流水线跑通"，而是**让它真的能拦住问题**。
+
+### 任务背景
+
+团队接手了一条历史流水线。它每天都在跑，每天都绿，但上线后仍然频繁出问题。你的任务是找出：**为什么这条流水线形同虚设**。
+
+### 任务准备
+
+下面是该流水线的 `Jenkinsfile`（简化版，保留关键缺陷）：
+
+```groovy
+pipeline {
+    agent any
+
+    environment {
+        APP_ENV = 'test'
+        DB_PASSWORD = 'test123456'          // 直接写在脚本里
+    }
+
+    stages {
+        stage('拉取代码') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('安装依赖') {
+            steps {
+                sh 'pip install -r requirements.txt'
+            }
+        }
+
+        stage('执行接口自动化') {
+            steps {
+                // 测试失败不阻断流水线
+                sh 'pytest tests/ --alluredir=./allure-results || true'
+            }
+        }
+
+        stage('部署到测试环境') {
+            steps {
+                sh './deploy.sh test'
+            }
+        }
+
+        stage('生产部署') {
+            steps {
+                sh './deploy.sh prod'          // 没有任何人工确认
+            }
+        }
+    }
+
+    post {
+        always {
+            echo '构建结束'
+        }
+    }
+}
+```
+
+同时，测试代码里有这样一处（用于本题第 3 问）：
+
+```python
+# tests/test_order.py
+def test_create_order(api):
+    r = api.post("/api/order", json={"productId": 1001, "quantity": 1})
+    assert r.status_code == 200
+    # 下面的断言被"暂时"注释掉了，之后忘了恢复
+    # assert r.json()["data"]["orderId"] is not None
+    # assert r.json()["data"]["amount"] == 1299.00
+```
+
+### 任务要求
+
+请依次完成：
+
+1. **找出全部"形同虚设"的原因**：逐条列出这条流水线**无法拦住问题**的地方，至少 4 处。
+2. **排序并解释**：这些原因里，哪一个最危险？为什么？（提示：要区分"会漏过缺陷"和"会直接造成事故"）
+3. **解释一个隐蔽的坑**：那些**被注释掉的断言**，为什么比"断言写错"更难被发现？流水线有没有可能拦住它？
+4. **修复流水线**：写出修好后的 `Jenkinsfile`，要求：测试失败必须阻断、生产部署必须有人工确认、密码不得硬编码。
+5. **加一道防线**：除了修脚本，再给出一个能在**代码评审阶段**就发现"断言被注释掉"的方法（提示：结合 Git 能力）。
+
+### 提交物
+
+| 产出 | 要求 |
+|------|------|
+| 问题清单 | 每条含：位置、后果、严重程度 |
+| 修复后的 Jenkinsfile | 完整可读，含关键注释 |
+| 防线方案 | 第 5 题的具体做法，能实际配置 |
+| 结论 | 用 3-5 句话说明：这条流水线为什么会长期"假绿"，怎么根治 |
+
+### 完成标准
+
+- [ ] 能区分「漏测」（测试没拦住）与「事故」（部署流程无保护）两类问题
+- [ ] 修复方案里，测试失败**真的**会阻断（不是再写个 `|| true`）
+- [ ] 密码改为凭据管理（`credentials()` / `withCredentials`），不留在脚本里
+- [ ] 第 5 题的防线能落地，不是"加强代码审查意识"这种空话
+
+??? tip "参考答案与思路（先自己做完再看）"
+
+    **第 1 题：形同虚设的原因**
+
+    | # | 位置 | 问题 | 后果 |
+    |---|------|------|------|
+    | 1 | `pytest ... \|\| true` | **失败被吞掉**，流水线永远成功 | 测试形同虚设，这是"假绿"的**根本原因** |
+    | 2 | 生产部署无 `input` | 任何一次提交都会自动上生产 | 可直接造成线上事故 |
+    | 3 | `DB_PASSWORD` 硬编码 | 密码进版本库、进日志 | 凭据泄露 |
+    | 4 | 只有 `pip install`，无 `pytest` 退出码处理 | 依赖装失败也不阻断（后续 `\|\| true` 掩盖） | 环境问题被忽略 |
+    | 5 | `post { always { echo } }` | 无失败通知、无产物归档 | 失败了也没人知道 |
+    | 6 | 测试通过率/覆盖率无门禁 | 测试删光了也照样绿 | 质量持续下滑无感知 |
+
+    **第 2 题：最危险的是哪个**
+
+    要分两类看：
+
+    - **"会漏过缺陷"**：`|| true`（第 1 条）。它让所有测试结果失去意义。
+    - **"会直接造成事故"**：生产部署无确认（第 2 条）。它把"测试没拦住"的后果**直接推给线上**。
+
+    **最危险的是第 2 条**。原因：`|| true` 只是让问题"没被发现"，而"自动上生产"会让问题**必然暴露在用户面前**。两个缺陷叠加才构成最坏情况——**测试不拦 + 上线不拦 = 缺陷直达生产**。
+
+    这也解释了为什么"每天都绿"却"频繁出问题"：绿色不代表质量好，只代表**没人检查**。
+
+    **第 3 题：被注释掉的断言为什么更隐蔽**
+
+    对比两种失败模式：
+
+    | 情况 | 表现 | 能否被发现 |
+    |------|------|-----------|
+    | 断言**写错**（如期望值填反） | 测试**会失败**（红），立刻有人看 | 容易发现 |
+    | 断言被**注释掉** | 测试**永远通过**（绿），用例还在、还在跑、还显示"通过" | **极难发现** |
+
+    关键差异：**注释掉断言后，用例从"验证"退化成"只发请求"**——它仍然执行、仍然计入"通过数"，但不再校验任何东西。流水线**无法**通过运行结果发现它，因为从流水线视角看，一切正常。
+
+    这类问题只能靠**静态检查**发现：搜索测试文件里被注释的 `assert`。
+
+    **第 4 题：修复后的 Jenkinsfile**
+
+    ```groovy
+    pipeline {
+        agent any
+
+        environment {
+            APP_ENV = 'test'
+            // 密码不再硬编码，改用 Jenkins 凭据（需先在凭据管理中创建 id）
+        }
+
+        stages {
+            stage('拉取代码') {
+                steps { checkout scm }
+            }
+
+            stage('安装依赖') {
+                steps {
+                    sh 'pip install -r requirements.txt'
+                }
+            }
+
+            stage('检查被注释的断言') {
+                steps {
+                    // 静态防线：发现被注释的 assert 立即失败
+                    sh '''
+                        if grep -rnE '^\\s*#\\s*assert ' tests/; then
+                            echo "发现被注释掉的断言，请恢复后再提交"
+                            exit 1
+                        fi
+                    '''
+                }
+            }
+
+            stage('执行接口自动化') {
+                steps {
+                    // 去掉 || true：失败即失败，阻断后续阶段
+                    sh 'pytest tests/ --alluredir=./allure-results'
+                }
+            }
+
+            stage('部署到测试环境') {
+                steps {
+                    withCredentials([string(credentialsId: 'test-db-password', variable: 'DB_PASSWORD')]) {
+                        sh './deploy.sh test'
+                    }
+                }
+            }
+
+            stage('生产部署') {
+                // 人工确认，且只有主干分支才允许
+                when { branch 'main' }
+                steps {
+                    input message: '确认部署到生产环境？', ok: '确认部署'
+                    withCredentials([string(credentialsId: 'prod-db-password', variable: 'DB_PASSWORD')]) {
+                        sh './deploy.sh prod'
+                    }
+                }
+            }
+        }
+
+        post {
+            failure {
+                // 失败必须通知，避免"红了没人知道"
+                echo '构建失败，请检查测试报告'
+                // 实际项目接邮件/钉钉/企微 webhook
+            }
+            always {
+                archiveArtifacts artifacts: 'allure-results/**', allowEmptyArchive: true
+            }
+        }
+    }
+    ```
+
+    关键改动：
+    - **移除 `|| true`** —— 这是让流水线重新"有效"的第一前提；
+    - `withCredentials` 取密码，脚本里不再出现明文；
+    - 生产部署加 `input` + `when { branch 'main' }`，双重保护；
+    - 增加**静态检查 stage**（对应第 5 题）；
+    - `post { failure }` 通知 + 归档测试结果。
+
+    **第 5 题：在评审阶段发现被注释的断言**
+
+    最有效的是**用 Git 能力做增量检查**（这也是本站 Git 教程里的方法）：
+
+    ```bash
+    # 1. 搜索当前代码里所有被注释的 assert
+    grep -rnE '^\s*#\s*assert ' tests/
+
+    # 2. 更精准：在本次改动中找出"删除断言"的提交
+    git log -p -S 'assert r.json()["data"]["orderId"]' -- tests/
+
+    # 3. 最直接：检查本次 diff 是否删除了 assert 行
+    git diff origin/main...HEAD -- tests/ | grep '^-.*assert '
+    ```
+
+    落地方式（任选）：
+    - 把第 1 条放进**流水线的静态检查 stage**（上面 Jenkinsfile 已示范）；
+    - 把第 3 条配成 **Git pre-push hook** 或 PR 检查，在合并前就拦住；
+    - 在 PR 模板里加一条 checklist："本次改动是否删除了任何断言？"
+
+    **根治结论**：这条流水线的问题不在 Jenkins 配置本身，而在于**"失败被显式吞掉"+"上线无人工闸门"这两个设计**，让流水线从"质量门禁"退化成"定时任务的装饰"。修法就是让失败可见（去掉 `|| true`）、让上线可控（加 input）、让篡改可查（静态检查）。**绿色的流水线不等于高质量的代码——能变红的流水线才有价值。**
+
+---
+
 ## 下一步建议
 
 <div class="tutorial-next-steps" markdown="1">

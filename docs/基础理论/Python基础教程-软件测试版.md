@@ -801,6 +801,273 @@ s = b.decode("utf-8")          # bytes → str
 !!! tip "建议"
     不需要把 Python 全学完才开始写自动化。掌握本教程内容后，直接上手写测试脚本，遇到不会的再查。实践中学习效率最高。
 
+---
+
+## 动手任务：用 Python 把测试结果变成「可决策」的报告
+
+> 这是本教程的收尾练习。请**独立完成**，不要先看参考答案。目标不是"能写 for 循环"，而是**能把原始数据加工成别人能直接做决定的输出**。
+
+### 任务背景
+
+自动化测试跑完后，pytest 会输出一份结果。但**这份结果只有用例名和通过/失败**——测试负责人真正想知道的是：
+
+- 这次能不能发版？
+- 失败集中在哪个模块？
+- 有没有"不稳定"的用例？
+
+你的任务：写一个 Python 脚本，**读原始结果、算统计、给出结论**。
+
+### 任务数据
+
+把下面内容保存为 `results.txt`（模拟 pytest 输出的用例结果行）：
+
+```text
+tests/login/test_login.py::test_login_success PASSED 1.23
+tests/login/test_login.py::test_login_wrong_password PASSED 0.89
+tests/login/test_login.py::test_login_locked PASSED 1.45
+tests/order/test_order.py::test_create_order PASSED 2.10
+tests/order/test_order.py::test_order_amount FAILED 1.88
+tests/order/test_order.py::test_coupon_stack FAILED 2.31
+tests/order/test_order.py::test_stock_check FAILED 1.95
+tests/pay/test_pay.py::test_pay_success PASSED 3.42
+tests/pay/test_pay.py::test_pay_timeout FAILED 3.66
+tests/pay/test_pay.py::test_pay_callback PASSED 2.87
+tests/cart/test_cart.py::test_add_cart PASSED 0.55
+tests/cart/test_cart.py::test_update_qty PASSED 0.61
+tests/cart/test_cart.py::test_delete_item PASSED 0.58
+```
+
+### 任务要求
+
+请用 **Python 基础语法**（文件读写、字符串处理、字典、列表、函数、异常处理）完成：
+
+1. **读文件并解析**：把每行解析成「文件路径 / 用例名 / 状态 / 耗时」四个字段。注意：**如果文件不存在，要给出友好提示而不是直接崩溃**。
+2. **统计总览**：算出总数、通过数、失败数、通过率、总耗时、平均耗时。
+3. **按模块分组统计**：以 `tests/` 下的第一级目录为模块（如 `login`、`order`），统计每个模块的用例数与失败数。
+4. **给出结论**：根据规则输出一句话判定 —— **通过率 ≥ 95% 输出"可以发版"；否则输出"不可发版"，并列出失败最多的模块**。
+5. **异常数据防御**：某行的耗时字段可能是 `-`（无法解析）。说明你的脚本如何处理，并让脚本不因这一行而中断。
+
+### 提交物
+
+| 产出 | 要求 |
+|------|------|
+| Python 脚本 | 完整可运行，含注释 |
+| 运行结果 | 脚本在给定数据上的输出 |
+| 边界验证 | 证明你的脚本能处理"耗时异常"和"文件不存在"两种情况 |
+| 结论 | 用 3-5 句话说明：基于这份数据，能不能发版，为什么 |
+
+### 完成标准
+
+- [ ] 脚本能正确解析出 13 条用例的四字段（不是用固定的列号硬切）
+- [ ] 统计数字**与手算一致**（通过率、平均耗时）
+- [ ] 有**异常处理**，文件不存在或数据格式异常时给出提示而不崩溃
+- [ ] 最终输出是**人能直接用的结论**，不只是打印一堆数字
+
+??? tip "参考答案与思路（先自己做完再看）"
+
+    **完整脚本**：
+
+    ```python
+    #!/usr/bin/env python3
+    """统计测试结果并给出发版建议。"""
+    import os
+    import sys
+
+    RESULT_FILE = "results.txt"
+    PASS_THRESHOLD = 95.0      # 通过率阈值（%）
+
+
+    def parse_line(line):
+        """解析一行：<文件路径>::<用例名> <状态> <耗时>
+
+        返回 dict 或 None（无法解析时）。
+        注意：不使用固定列号切分——耗时可能是 '-'，
+        所以用「从右往左取 2 个字段，剩余为用例标识」的方式，更稳健。
+        """
+        parts = line.strip().split()
+        if len(parts) < 3:
+            return None
+        status = parts[-2]
+        duration_raw = parts[-1]
+        case_id = " ".join(parts[:-2])
+
+        # 耗时可能是 '-'，解析失败记为 0.0 并标记
+        try:
+            duration = float(duration_raw)
+            duration_valid = True
+        except ValueError:
+            duration = 0.0
+            duration_valid = False
+
+        # 拆出文件路径与用例名（用例标识里可能含空格）
+        if "::" in case_id:
+            path, name = case_id.split("::", 1)
+        else:
+            path, name = case_id, ""
+
+        return {
+            "path": path,
+            "name": name,
+            "status": status,
+            "duration": duration,
+            "duration_valid": duration_valid,
+        }
+
+
+    def module_of(path):
+        """从 tests/xxx/yyy.py 取出模块名 xxx。"""
+        parts = path.split("/")
+        return parts[1] if len(parts) > 1 else "(unknown)"
+
+
+    def load_results(filename):
+        """读取并解析结果文件；文件不存在时返回 None。"""
+        if not os.path.exists(filename):
+            print(f"错误：找不到结果文件 {filename}", file=sys.stderr)
+            return None
+
+        records = []
+        with open(filename, encoding="utf-8") as f:
+            for lineno, line in enumerate(f, 1):
+                if not line.strip():
+                    continue
+                rec = parse_line(line)
+                if rec is None:
+                    print(f"警告：第 {lineno} 行无法解析，已跳过：{line.strip()}")
+                    continue
+                records.append(rec)
+        return records
+
+
+    def summarize(records):
+        """统计总览。"""
+        total = len(records)
+        passed = sum(1 for r in records if r["status"] == "PASSED")
+        failed = total - passed
+        pass_rate = (passed / total * 100) if total else 0.0
+        total_duration = sum(r["duration"] for r in records)
+        avg_duration = (total_duration / total) if total else 0.0
+        return {
+            "total": total, "passed": passed, "failed": failed,
+            "pass_rate": pass_rate, "total_duration": total_duration,
+            "avg_duration": avg_duration,
+        }
+
+
+    def group_by_module(records):
+        """按模块统计用例数与失败数。"""
+        stats = {}
+        for r in records:
+            mod = module_of(r["path"])
+            if mod not in stats:
+                stats[mod] = {"total": 0, "failed": 0}
+            stats[mod]["total"] += 1
+            if r["status"] != "PASSED":
+                stats[mod]["failed"] += 1
+        return stats
+
+
+    def build_verdict(summary, module_stats):
+        """给出发版结论。"""
+        if summary["pass_rate"] >= PASS_THRESHOLD:
+            return f"✅ 可以发版（通过率 {summary['pass_rate']:.1f}% ≥ {PASS_THRESHOLD}%）"
+
+        worst = sorted(module_stats.items(), key=lambda kv: kv[1]["failed"], reverse=True)
+        worst_names = [f"{m}({s['failed']} 个失败)" for m, s in worst if s["failed"] > 0]
+        return (f"❌ 不可发版（通过率 {summary['pass_rate']:.1f}% < {PASS_THRESHOLD}%）\n"
+                f"   失败最多的模块：{'、'.join(worst_names)}")
+
+
+    def main():
+        records = load_results(RESULT_FILE)
+        if records is None:
+            return 1
+
+        summary = summarize(records)
+        module_stats = group_by_module(records)
+
+        print("=" * 46)
+        print("测试结果汇总")
+        print("=" * 46)
+        print(f"总用例数：{summary['total']}")
+        print(f"通过：{summary['passed']}    失败：{summary['failed']}")
+        print(f"通过率：{summary['pass_rate']:.1f}%")
+        print(f"总耗时：{summary['total_duration']:.2f}s    平均：{summary['avg_duration']:.2f}s")
+
+        print("\n按模块统计：")
+        print(f"{'模块':<12}{'用例数':>8}{'失败数':>8}")
+        for mod, s in sorted(module_stats.items()):
+            print(f"{mod:<12}{s['total']:>8}{s['failed']:>8}")
+
+        print("\n发版结论：")
+        print(build_verdict(summary, module_stats))
+        return 0
+
+
+    if __name__ == "__main__":
+        sys.exit(main())
+    ```
+
+    **运行结果**（在给定数据上的实际输出）：
+
+    ```text
+    ==============================================
+    测试结果汇总
+    ==============================================
+    总用例数：13
+    通过：9    失败：4
+    通过率：69.2%
+    总耗时：23.50s    平均：1.81s
+
+    按模块统计：
+    模块            用例数   失败数
+    cart               3       0
+    login              3       0
+    order              4       3
+    pay                3       1
+
+    发版结论：
+    ❌ 不可发版（通过率 69.2% < 95.0%）
+       失败最多的模块：order(3 个失败)、pay(1 个失败)
+    ```
+
+    **关键数字来历**（可自行核对）：
+
+    | 指标 | 计算 |
+    |------|------|
+    | 总用例 | 13 行 |
+    | 通过 | 9（login 3 + order 1 + pay 2 + cart 3） |
+    | 失败 | 4（order 3 + pay 1） |
+    | 通过率 | 9 / 13 = 69.2% |
+    | 总耗时 | 1.23+0.89+1.45+2.10+1.88+2.31+1.95+3.42+3.66+2.87+0.55+0.61+0.58 = **23.50s** |
+    | 平均 | 23.50 / 13 = **1.81s** |
+
+    **第 5 题：异常数据防御**
+
+    脚本里有两处防御，都值得注意：
+
+    1. **耗时解析失败**：用 `try/except ValueError` 包住 `float()`。如果某行耗时是 `-`，不会崩溃，而是记为 `0.0` 并打上 `duration_valid=False` 标记。这样统计数据不会中断，同时保留了"这条数据不可信"的信息。
+    2. **文件不存在**：`load_results` 先 `os.path.exists` 判断，不存在时输出友好提示并返回 `None`，`main` 接到 `None` 就返回非零退出码——**在 CI 里这会正确标记为失败**，而不是静默通过。
+
+    **边界验证方法**：
+
+    ```bash
+    # 验证耗时异常：把某行的耗时改成 '-'
+    # 期望：脚本输出"警告"，其余统计照常完成
+
+    # 验证文件不存在
+    mv results.txt results_bak.txt
+    python report.py
+    # 期望：输出"错误：找不到结果文件 results.txt"，退出码非 0
+    echo $?          # Windows: echo %ERRORLEVEL%
+    ```
+
+    **结论**：基于这份数据**不能发版**。通过率只有 69.2%，远低于 95% 阈值；失败高度集中在 `order` 模块（3 个失败，占该模块 4 个用例的 75%），且失败项 `test_order_amount`、`test_coupon_stack` 都涉及金额计算——属于**高风险区域**。建议先修 `order` 模块的金额问题并回归，再重新评估。
+
+    > 注意一个设计细节：脚本把"通过率"和"失败最多的模块"**一起**输出。因为**只给通过率无法指导行动**——负责人需要知道"该找谁修什么"。这就是本题想训练的：脚本的产出要能直接支撑决策。
+
+---
+
 ### 推荐下一步
 
 根据你的学习进度，选择下一步：

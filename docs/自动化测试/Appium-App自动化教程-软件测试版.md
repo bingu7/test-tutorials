@@ -1450,7 +1450,268 @@ options.auto_grant_permissions = True
 !!! info "测试纪律"
     App 自动化是 UI 层最不稳定的测试，要做好预期管理。优先用 ID 定位，避免 XPath 索引。失败用例及时排查（是环境问题、Bug 还是脚本问题），不要无视失败。
 
+---
+
+## 动手任务：把「偶发失败」的 App 脚本改造稳定
+
+> 这是本教程的收尾练习。请**独立完成**，不要先看参考答案。目标不是"让脚本在本机跑过一次"，而是**让它在同样的机器上连续跑 20 次全部通过**。
+
+### 任务背景
+
+同事交付了一段登录脚本 `test_login.py`，用于 Android 客户端（包名 `com.example.shop`）的登录冒烟。脚本在他本机"跑通过"，但接入每晚的回归任务后，**大约每 4 次就有 1 次失败**，失败位置还每次不一样：有时候是找不到用户名输入框，有时候是点了登录没反应，有时候是弹出的隐私政策弹窗挡住按钮。他把原因归结为"模拟器太卡"。
+
+而你要做的是：**找出这段脚本不确定性到底来自哪里，并给出可靠的改造方案。**
+
+### 任务准备
+
+原始脚本与失败现象如下（这是你要分析的"事故现场"）：
+
+```python
+# test_login.py（有缺陷的原版）
+import time
+import pytest
+from appium import webdriver
+from appium.options.android import UiAutomator2Options
+from appium.webdriver.common.appiumby import AppiumBy
+
+@pytest.fixture(scope="function")
+def driver():
+    options = UiAutomator2Options()
+    options.platform_name = "Android"
+    options.platform_version = "13"
+    options.device_name = "Pixel_6"
+    options.app_package = "com.example.shop"
+    options.app_activity = ".MainActivity"
+    options.no_reset = True        # 复用上一次的 App 状态
+    options.auto_grant_permissions = True
+
+    drv = webdriver.Remote("http://127.0.0.1:4723", options=options)
+    drv.implicitly_wait(2)         # 隐式等待只给 2 秒
+    yield drv
+    drv.quit()
+
+def test_login_success(driver):
+    # 用绝对 XPath 下标定位
+    driver.find_element(
+        AppiumBy.XPATH,
+        "//android.widget.LinearLayout[2]/android.widget.EditText[1]"
+    ).send_keys("testuser")
+
+    driver.find_element(
+        AppiumBy.XPATH,
+        "//android.widget.LinearLayout[3]/android.widget.EditText[1]"
+    ).send_keys("Test@123456")
+
+    driver.find_element(
+        AppiumBy.XPATH,
+        "//android.widget.Button[2]"
+    ).click()
+
+    time.sleep(3)                  # 固定等待"让页面反应过来"
+
+    # "我的"页面里的订单列表是 H5（Hybrid App）
+    driver.find_element(AppiumBy.ID, "com.example.shop:id/nickname")
+    assert driver.find_element(
+        AppiumBy.XPATH, "//*[@text='我的订单']"
+    ).is_displayed()
+```
+
+失败现象（来自每晚回归日志，逐次不同）：
+
+| 次数 | 报错 | 出现频率 |
+|------|------|----------|
+| 1 | `NoSuchElementException: //android.widget.LinearLayout[2]/...` | 约 1/4 |
+| 2 | 点击登录后 `time.sleep(3)` 结束，断言找不到 `//*[@text='我的订单']` | 约 1/8 |
+| 3 | `NoSuchElementException: com.example.shop:id/nickname`（该元素其实在 H5 里） | 约 1/6 |
+
+补充信息：
+
+1. 客户端是**混合应用**：登录页和"我的"页面框架是原生，而"我的订单"列表是 H5（WebView）。
+2. 开发给出的稳定定位：登录按钮 `resource-id = com.example.shop:id/btn_login`，用户名框 `resource-id = com.example.shop:id/et_username`，密码框 `resource-id = com.example.shop:id/et_password`。
+3. 该 App 首次启动会随机弹出隐私政策弹窗或版本更新弹窗。
+4. 当前 Activity 可用 `adb shell dumpsys window | grep mCurrentFocus` 查看；包名/Activity 也可用 `aapt dump badging app.apk | grep -E "package|launchable-activity"` 从 apk 里读出。
+
+### 任务要求
+
+请依次完成：
+
+1. **列出全部不确定性来源**：逐条指出上面脚本里会导致"偶发失败"的地方（找出至少 5 处），并对每处说明**在什么条件下会失败**。至少覆盖：定位策略、等待方式、上下文切换、Activity 是否就绪、环境弹窗。
+2. **分类并排序**：把这些原因分成「定位脆弱」和「时序/状态不确定」两类，说明哪一类更适合用"重复运行"来暴露，为什么。
+3. **重写脚本**：给出可靠化改造后的脚本，要求 —— 不使用绝对 XPath 下标、不使用 `time.sleep`、用显式等待、Hybrid 页面正确切换 `NATIVE_APP` / `WEBVIEW`、进入页面先确认 Activity 已就绪。
+4. **验证稳定性**：给出你会怎么证明"改完之后真的稳定了"——包括具体命令、判定标准，以及如何避免"用重试把失败藏起来"。
+5. **写出改造前后对照表**：一列是"原做法"，一列是"改后做法"，一列是"为什么改后更稳"。
+
+### 提交物
+
+| 产出 | 要求 |
+|------|------|
+| 问题清单 | 每条含：位置、触发条件、为什么会偶发失败 |
+| 改造后的脚本 | 完整可运行，无 `time.sleep`、无绝对 XPath 下标、含显式等待与上下文切换 |
+| 稳定性证据 | 连续运行的结果记录（例如 20 次全部通过） |
+| 对照表 | 原做法 / 改后做法 / 稳定性理由 三列 |
+| 结论 | 用 3-5 句话说明：这次偶发失败的根因是什么，为什么"本机能跑通"不能说明脚本可靠 |
+
+### 完成标准
+
+- [ ] 能说清**隐式等待与显式等待的区别**，以及为什么"隐式等待设 2 秒"不足以保证元素已出现
+- [ ] 能说明为什么**绝对层级 XPath 下标**必然导致维护灾难（UI 层级一变就失效）
+- [ ] 能正确使用 `driver.contexts` / `driver.switch_to.context()` 在 `NATIVE_APP` 与 `WEBVIEW_xxx` 之间切换，并说明**切回去**的必要性
+- [ ] 能说出**怎么确认 Activity 已经就绪**（而不是打开 App 后立刻找元素）
+- [ ] 用"重复运行"而不是"跑一次是好的"来证明稳定性
+
+??? tip "参考答案与思路（先自己做完再看）"
+
+    **第 1 题：不确定性来源**
+
+    | # | 位置 | 问题 | 触发条件 |
+    |---|------|------|----------|
+    | 1 | `//android.widget.LinearLayout[2]/...EditText[1]` | **绝对层级 + 下标**定位 | 界面层级/元素顺序只要有一处变化（不同分辨率、不同机型、A/B 页面）就全部失配 |
+    | 2 | 同上 | 完全忽略开发给的 `resource-id` | 明明有 `et_username` 这样的稳定定位却不用 |
+    | 3 | `driver.implicitly_wait(2)` | **隐式等待过短**，且与显式等待语义不同 | 弱网/模拟器卡顿时元素 2 秒内没渲染完 → 直接抛 `NoSuchElementException` |
+    | 4 | `time.sleep(3)` | **固定等待**：猜时间 | 慢的时候 3 秒不够（页面还没跳完）；快的时候白等 3 秒。两个方向都可能出问题 |
+    | 5 | `options.no_reset = True` | 复用上一次 App 状态 | 上一轮跑完停留在"我的"页面，下一轮直接在错误的页面上找登录框 |
+    | 6 | 未处理弹窗 | 首次启动随机弹隐私政策/更新弹窗 | 弹窗遮挡按钮 → 点击落到弹窗上，表现为"点了没反应"或断言失败 |
+    | 7 | `driver.find_element(AppiumBy.ID, "com.example.shop:id/nickname")` | 该元素在 **H5（WebView）** 里，未切换上下文 | 默认上下文是 `NATIVE_APP`，在原生树里永远找不到 WebView 内的元素 |
+    | 8 | 未等待 Activity 就绪 | 打开 App 后立即找元素 | App 冷启动慢，`MainActivity` 尚未 `resumed`，UI 树是空的 → 第一批 find 全部失败 |
+
+    **第 2 题：分类与排序**
+
+    - **定位脆弱**：#1、#2 —— 表现为"某次前端/机型变更后大面积失败"，通常是**必现**的。
+    - **时序与状态不确定**：#3、#4、#5、#6、#7、#8 —— 表现为"时好时坏"的**偶发失败**。
+
+    **哪类更适合用重复运行暴露？时序/状态类。** 定位脆弱通常是稳定的必现失败，跑一次就能看到；而时序类只有在特定的慢速/状态组合下才触发，必须**重复运行**才能提高暴露概率——这也正是"我本机跑过一次是好的"具有欺骗性的原因。
+
+    **第 3 题：改造后的脚本**
+
+    ```python
+    # test_login.py（改造后）
+    import pytest
+    from appium import webdriver
+    from appium.options.android import UiAutomator2Options
+    from appium.webdriver.common.appiumby import AppiumBy
+    from selenium.webdriver.support.ui import WebDriverWait
+    from selenium.webdriver.support import expected_conditions as EC
+
+    # 定位集中管理：优先 resource-id，避免绝对 XPath 下标
+    USERNAME = (AppiumBy.ID, "com.example.shop:id/et_username")
+    PASSWORD = (AppiumBy.ID, "com.example.shop:id/et_password")
+    LOGIN_BTN = (AppiumBy.ID, "com.example.shop:id/btn_login")
+    MINE_TAB = (AppiumBy.ID, "com.example.shop:id/tab_mine")
+    MY_ORDER = (AppiumBy.XPATH, "//*[@text='我的订单']")   # 相对 XPath，按文本，不用下标
+
+    @pytest.fixture(scope="function")
+    def driver():
+        options = UiAutomator2Options()
+        options.platform_name = "Android"
+        options.platform_version = "13"
+        options.device_name = "Pixel_6"
+        options.app_package = "com.example.shop"
+        options.app_activity = ".MainActivity"
+        options.automation_name = "UiAutomator2"
+        # 每轮从干净状态开始，避免上一轮残留页面影响定位
+        options.no_reset = False
+        options.auto_grant_permissions = True
+        options.new_command_timeout = 600
+
+        drv = webdriver.Remote("http://127.0.0.1:4723", options=options)
+        # 只用显式等待，不设隐式等待：两种等待叠加会让实际超时时间不可预期
+        yield drv
+        drv.quit()
+
+    def wait(driver, locator, timeout=15):
+        return WebDriverWait(driver, timeout).until(
+            EC.presence_of_element_located(locator)
+        )
+
+    def dismiss_system_dialog(driver, timeout=5):
+        """首次启动可能弹隐私政策/更新弹窗：存在则关掉，不存在就直接返回"""
+        for text in ("同意", "我知道了", "以后再说", "取消"):
+            try:
+                WebDriverWait(driver, timeout).until(
+                    EC.element_to_be_clickable(
+                        (AppiumBy.XPATH, f"//*[@text='{text}']")
+                    )
+                ).click()
+                return
+            except Exception:
+                continue
+
+    def test_login_success(driver):
+        # 1. 先确认 Activity 就绪：等登录按钮真正可点，而不是打开 App 就找元素
+        dismiss_system_dialog(driver)
+        WebDriverWait(driver, 20).until(
+            EC.element_to_be_clickable(LOGIN_BTN)
+        )
+
+        # 2. 输入：显式等待元素可操作后再输入
+        WebDriverWait(driver, 15).until(
+            EC.element_to_be_clickable(USERNAME)
+        ).send_keys("testuser")
+        wait(driver, PASSWORD).send_keys("Test@123456")
+
+        # 3. 点击登录
+        wait(driver, LOGIN_BTN).click()
+
+        # 4. 等"我的"Tab 出现 —— 这才是"已进入首页"的显式信号
+        WebDriverWait(driver, 20).until(
+            EC.element_to_be_clickable(MINE_TAB)
+        ).click()
+
+        # 5. Hybrid 页面：切到 WebView 上下文再断言 H5 元素
+        def webview_ready(drv):
+            return [c for c in drv.contexts if c.startswith("WEBVIEW")]
+
+        contexts = WebDriverWait(driver, 20).until(webview_ready)
+        driver.switch_to.context(contexts[0])
+        try:
+            assert WebDriverWait(driver, 20).until(
+                EC.presence_of_element_located(MY_ORDER)
+            ).is_displayed()
+        finally:
+            # 关键：切回原生上下文，否则后续原生操作会失败
+            driver.switch_to.context("NATIVE_APP")
+    ```
+
+    改动要点：
+
+    - **定位方式升级**：绝对层级 XPath 下标 → `resource-id` 优先、文本相对 XPath 兜底；定位集中成常量，UI 变了只改一处。
+    - **等待方式统一为显式等待**：删掉 `implicitly_wait(2)` 和 `time.sleep(3)`。注意**隐式等待与显式等待叠加会让实际超时时间不可预期**，所以这里干脆不设隐式等待。
+    - **状态确定性**：`no_reset` 从 `True` 改为 `False`，每轮从干净状态开始；弹窗用"存在则关、不存在就跳过"的容错处理。
+    - **上下文切换**：H5 元素必须 `switch_to.context("WEBVIEW_xxx")` 才能找到，断言完**切回** `NATIVE_APP`。
+    - **Activity 就绪判定**：不做 `sleep`，而是等"登录按钮可点击"这个业务信号；"已进入首页"的判定也从"等 3 秒"改为"等我的 Tab 可点"。
+
+    **第 4 题：怎么证明稳定**
+
+    ```bash
+    # 重复运行是整个方法的核心：偶发问题单跑一次看不出来
+    pytest test_login.py -v --count=20
+
+    # 如果没有 pytest-repeat，可以循环跑
+    for i in $(seq 1 20); do pytest test_login.py -q || break; done
+
+    # 关键：不要用 --reruns 来"提高通过率"——
+    # 失败后重试通过只能证明"偶发"，不能证明"修好了"
+    ```
+
+    判定标准：**连续 20 次全部通过，且过程中不再出现 `NoSuchElementException` 级别的偶发错误。**
+
+    为什么不能靠重试：`--reruns 2` 会让"10 次里失败 1 次、重试后通过"的用例最终显示为通过，把偶发问题**藏起来**。改造的目的是**消除不确定性**，不是**掩盖不确定性**，所以验证阶段必须把重试关掉。
+
+    **第 5 题：改造前后对照表**
+
+    | 原做法 | 改后做法 | 为什么改后更稳 |
+    |--------|----------|----------------|
+    | 绝对层级 XPath：`//LinearLayout[2]/EditText[1]` | `AppiumBy.ID` 优先，文本相对 XPath 兜底 | 不依赖界面层级与元素顺序，机型/分辨率/页面微调都不影响 |
+    | `implicitly_wait(2)` | 删除，统一用 `WebDriverWait` 显式等待 | 可针对每个元素设置不同超时；不会与显式等待叠加出不可预期的超时 |
+    | `time.sleep(3)` | 等业务信号（按钮可点 / 我的 Tab 出现） | 不猜时间；页面准备好就立刻继续，慢时也不会提前放弃 |
+    | `no_reset = True` | `no_reset = False` | 每轮状态可预期，不受上一轮残留页面影响 |
+    | 无弹窗处理 | 弹窗"存在则关"的容错函数 | 首启随机弹窗不再遮挡按钮、不再导致"点了没反应" |
+    | 未切上下文直接找 H5 元素 | `switch_to.context(contexts[0])` 后断言，最后切回 `NATIVE_APP` | WebView 内元素只在对应 context 下可见；切回避免后续原生操作失败 |
+
+    > 一句话总结：**App 自动化偶发失败的根因，几乎总能归结为"在不确定的时间点，用不够稳定的方式找元素"。** 可靠的写法是：给"何时可以操作"一个明确的业务信号，给"找到哪个元素"一个不依赖层级的方式。
+
 ### 推荐下一步
+
 
 根据你的学习进度，选择下一步：
 
