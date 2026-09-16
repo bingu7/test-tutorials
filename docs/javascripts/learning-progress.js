@@ -105,6 +105,7 @@
                 { id: '基础理论/敏捷测试教程', name: '敏捷测试', url: '/基础理论/敏捷测试教程-软件测试版/' }
             ],
             quizzes: ['testing-theory', 'istqb-terms', 'test-pyramid', 'testcase-design', 'exploratory-testing', 'agile-testing'],
+            labs: [],
             practiceUrl: '/章节练习与参考答案/'
         },
         phase2: {
@@ -124,6 +125,7 @@
                 { id: '工具操作/网络知识教程', name: '网络知识', url: '/工具操作/网络知识教程-软件测试版/' }
             ],
             quizzes: ['sql-basics', 'linux-basics', 'network-basics', 'git-basics', 'docker-basics', 'postman-basics', 'fiddler-basics', 'charles-basics', 'regex-basics', 'redis-mongodb', 'packet-debug-workflow'],
+            labs: [{ id: 'regex-log-extract', name: '正则：日志字段提取' }],
             practiceUrl: '/章节练习与参考答案/'
         },
         phase3: {
@@ -138,6 +140,7 @@
                 { id: '专项测试/移动端专项测试教程', name: '移动端专项测试', url: '/专项测试/移动端专项测试教程-软件测试版/' },
             ],
             quizzes: ['api-basics', 'api-advanced', 'jmeter-basics', 'security-basics', 'ai-testing', 'shift-left-right', 'mobile-testing'],
+            labs: [{ id: 'perf-metrics', name: 'JMeter：性能指标换算' }],
             practiceUrl: '/章节练习与参考答案/'
         },
         phase4: {
@@ -154,6 +157,7 @@
                 { id: '自动化测试/Appium-App自动化教程', name: 'Appium App 自动化', url: '/自动化测试/Appium-App自动化教程-软件测试版/' }
             ],
             quizzes: ['python-basics', 'playwright-basics', 'python-api', 'selenium-basics', 'javascript-basics', 'typescript-basics', 'frontend-basics', 'appium-basics'],
+            labs: [{ id: 'py-report-stats', name: 'Python：用例结果统计' }],
             practiceUrl: '/章节练习与参考答案/'
         },
         phase5: {
@@ -170,6 +174,7 @@
                 { id: '项目实战/CICD自动化回归实战', name: 'CI/CD 自动化回归实战', url: '/项目实战/CICD自动化回归实战/' }
             ],
             quizzes: ['ci-basics', 'ecommerce-project', 'api-auto-project', 'web-auto-project', 'perf-project', 'cicd-project'],
+            labs: [],
             practiceUrl: '/项目实战/'
         }
     };
@@ -242,6 +247,44 @@
         return data.quiz[quizId] || null;
     };
 
+    // ---- 在线练习（codelab）结果 ----
+    // 与测验分开记账：测验考「记没记住」，练习考「会不会做」。
+    // 只有全部断言通过才算完成（partial 记录通过数，但不计入阶段完成度），
+    // 否则"跑一次拿到 4/5"就能刷满进度，失去意义。
+    window.saveLabResult = function(labId, passed, total, labTitle) {
+        var data = getProgressData();
+        if (!data.labs) data.labs = {};
+        var allPass = total > 0 && passed === total;
+        var prev = data.labs[labId];
+        data.labs[labId] = {
+            passed: passed,
+            total: total,
+            title: labTitle || (prev && prev.title) || labId,
+            // 一旦通过就保持通过（后续重跑失败不回退，避免误伤进度）
+            completed: allPass || (prev && prev.completed) === true,
+            lastAttemptAt: new Date().toISOString()
+        };
+        saveProgressData(data);
+        return data.labs[labId];
+    };
+
+    window.getLabResult = function(labId) {
+        var data = getProgressData();
+        return (data.labs && data.labs[labId]) || null;
+    };
+
+    // 统计某教程路径下（含子页面）的练习完成情况
+    window.getLabSummary = function() {
+        var data = getProgressData();
+        var labs = data.labs || {};
+        var keys = Object.keys(labs);
+        return {
+            total: keys.length,
+            completed: keys.filter(function(k) { return labs[k].completed; }).length,
+            items: keys.map(function(k) { return labs[k]; })
+        };
+    };
+
     // 获取阶段完成度（带缓存，避免循环中重复读 localStorage）
     var _progressCache = null;
     var _progressCacheTime = 0;
@@ -270,8 +313,10 @@
 
         var data = getCachedProgressData();
         var completed = 0;
-        // 教程与测验共同决定阶段完成度，避免教程勾完、测验没做也被判 100%
-        var total = phase.tutorials.length + (phase.quizzes ? phase.quizzes.length : 0);
+        // 教程、测验、在线练习共同决定阶段完成度：
+        // 避免"教程勾完、测验没做、练习没过"也被判 100%
+        var labs = phase.labs || [];
+        var total = phase.tutorials.length + (phase.quizzes ? phase.quizzes.length : 0) + labs.length;
 
         phase.tutorials.forEach(function(tutorial) {
             if (data.learned[tutorial.id]) {
@@ -285,6 +330,14 @@
             }
         });
 
+        // 练习只认「全部断言通过」
+        labs.forEach(function(lab) {
+            var r = data.labs && data.labs[lab.id];
+            if (r && r.completed) {
+                completed++;
+            }
+        });
+
         return {
             completed: completed,
             total: total,
@@ -292,7 +345,12 @@
             tutorialCompleted: phase.tutorials.filter(function(t) { return data.learned[t.id]; }).length,
             tutorialTotal: phase.tutorials.length,
             quizCompleted: (phase.quizzes || []).filter(function(q) { return !!data.quiz[q]; }).length,
-            quizTotal: (phase.quizzes || []).length
+            quizTotal: (phase.quizzes || []).length,
+            labCompleted: labs.filter(function(l) {
+                var r = data.labs && data.labs[l.id];
+                return !!(r && r.completed);
+            }).length,
+            labTotal: labs.length
         };
     };
 
@@ -367,6 +425,8 @@
         var completedTutorials = 0;
         var totalQuizzes = 0;
         var completedQuizzes = 0;
+        var totalLabs = 0;
+        var completedLabs = 0;
 
         phases.forEach(function(phaseId) {
             var progress = getPhaseProgress(phaseId);
@@ -374,10 +434,12 @@
             completedTutorials += progress.completed;
             totalQuizzes += progress.quizTotal || 0;
             completedQuizzes += progress.quizCompleted || 0;
+            totalLabs += progress.labTotal || 0;
+            completedLabs += progress.labCompleted || 0;
         });
 
-        var tutorialCompleted = completedTutorials - completedQuizzes;
-        var tutorialTotal = totalTutorials - totalQuizzes;
+        var tutorialCompleted = completedTutorials - completedQuizzes - completedLabs;
+        var tutorialTotal = totalTutorials - totalQuizzes - totalLabs;
 
         return {
             completed: completedTutorials,
@@ -386,7 +448,9 @@
             tutorialCompleted: tutorialCompleted,
             tutorialTotal: tutorialTotal,
             quizCompleted: completedQuizzes,
-            quizTotal: totalQuizzes
+            quizTotal: totalQuizzes,
+            labCompleted: completedLabs,
+            labTotal: totalLabs
         };
     };
 
@@ -416,7 +480,7 @@
                 overallBar.style.width = overall.percentage + '%';
             }
             if (overallText) {
-                overallText.textContent = '已完成 ' + overall.completed + '/' + overall.total + ' 项（教程 ' + overall.tutorialCompleted + '/' + overall.tutorialTotal + ' · 测验 ' + overall.quizCompleted + '/' + overall.quizTotal + '，' + overall.percentage + '%）';
+                overallText.textContent = '已完成 ' + overall.completed + '/' + overall.total + ' 项（教程 ' + overall.tutorialCompleted + '/' + overall.tutorialTotal + ' · 测验 ' + overall.quizCompleted + '/' + overall.quizTotal + (overall.labTotal > 0 ? ' · 练习 ' + overall.labCompleted + '/' + overall.labTotal : '') + '，' + overall.percentage + '%）';
             }
         }
     }
@@ -437,7 +501,7 @@
             '<h3>学习进度总览</h3>' +
             '<div class="progress-tracker" data-overall-progress>' +
             '<div class="progress-bar"><div class="progress-fill" style="width: ' + overallProgress.percentage + '%"></div></div>' +
-            '<div class="progress-text">已完成 ' + overallProgress.completed + '/' + overallProgress.total + ' 项（教程 ' + overallProgress.tutorialCompleted + '/' + overallProgress.tutorialTotal + ' · 测验 ' + overallProgress.quizCompleted + '/' + overallProgress.quizTotal + '，' + overallProgress.percentage + '%）</div>' +
+            '<div class="progress-text">已完成 ' + overallProgress.completed + '/' + overallProgress.total + ' 项（教程 ' + overallProgress.tutorialCompleted + '/' + overallProgress.tutorialTotal + ' · 测验 ' + overallProgress.quizCompleted + '/' + overallProgress.quizTotal + (overallProgress.labTotal > 0 ? ' · 练习 ' + overallProgress.labCompleted + '/' + overallProgress.labTotal : '') + '，' + overallProgress.percentage + '%）</div>' +
             '</div>' +
             '<div class="recommendation-box">' +
             '<strong>💡 下一步建议：</strong>' +
@@ -512,6 +576,17 @@
                 detailsHtml += '</div>';
             }
 
+            if (phase.labs && phase.labs.length > 0) {
+                detailsHtml += '<div class="quiz-links"><strong>💻 在线练习：</strong>';
+                phase.labs.forEach(function(lab) {
+                    var r = getLabResult(lab.id);
+                    var mark = r && r.completed ? ' ✅' : (r ? ' ⚠️ ' + r.passed + '/' + r.total : '');
+                    detailsHtml += '<span class="lab-chip' + (r && r.completed ? ' lab-done' : '') + '">' +
+                        lab.name + mark + '</span>';
+                });
+                detailsHtml += '</div>';
+            }
+
             detailsHtml += '</div>';
         });
         detailsHtml += '</div>';
@@ -535,26 +610,16 @@
     };
 
     // 初始化教程页面的完成状态
-    window.initTutorialPage = function() {
-        var content = document.querySelector('.md-content__inner');
-        if (!content) return;
-
-        // SPA 切换时先移除旧按钮，避免重复插入
-        document.querySelectorAll('.tutorial-complete-btn').forEach(function(el) {
-            el.remove();
-        });
-
-        // 获取当前教程ID（pathname 需解码，中文路径是百分号编码的）
+    // 由当前页面路径反查教程 ID（供完成按钮与练习自动勾选共用）
+    function resolveTutorialId() {
         var getPath = window.__getPath || function() { return window.location.pathname; };
         var path = getPath();
         var basePath = getBasePath() || '';
         var relativePath = basePath && path.indexOf(basePath) === 0 ? path.substring(basePath.length) : path;
-        // 规范化：保证前导 /、无末尾重复斜杠干扰
         if (relativePath.charAt(0) !== '/') relativePath = '/' + relativePath;
         relativePath = relativePath.replace(/\/+$/, '/') || '/';
-        var tutorialId = null;
 
-        // 从路径中提取教程ID（优先精确后缀匹配）
+        var tutorialId = null;
         Object.keys(LEARNING_PHASES).forEach(function(phaseId) {
             LEARNING_PHASES[phaseId].tutorials.forEach(function(tutorial) {
                 var url = tutorial.url || '';
@@ -565,6 +630,36 @@
                 }
             });
         });
+        return tutorialId;
+    }
+
+    // 供 codelab.js 调用：练习全部通过后，自动把当前教程标记为「已学习」。
+    // 只有用户手动取消过的情况下才保持取消——这里用「已通过过」判断，
+    // 避免因为「又跑了一次练习」把用户刻意取消的勾选又加回来。
+    window.markCurrentTutorialLearnedByLab = function() {
+        var tutorialId = resolveTutorialId();
+        if (!tutorialId) return false;
+        if (isTutorialLearned(tutorialId)) return false;
+        markTutorialLearned(tutorialId);
+        // 同步页面上的完成按钮状态
+        var btn = document.querySelector('.complete-toggle[data-tutorial-id="' + tutorialId + '"]');
+        if (btn) {
+            btn.classList.add('completed');
+            btn.textContent = '✅ 已完成学习';
+        }
+        return true;
+    };
+
+    window.initTutorialPage = function() {
+        var content = document.querySelector('.md-content__inner');
+        if (!content) return;
+
+        // SPA 切换时先移除旧按钮，避免重复插入
+        document.querySelectorAll('.tutorial-complete-btn').forEach(function(el) {
+            el.remove();
+        });
+
+        var tutorialId = resolveTutorialId();
 
         if (!tutorialId) return;
 

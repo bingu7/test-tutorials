@@ -6,6 +6,7 @@
 //   - navigation.js  滚动导航 + 快捷键 + 阅读进度
 //   - related.js     相关推荐
 //   - mermaid.js     Mermaid 图表渲染
+//   - codelab.js     动手任务在线判分（Pyodide）
 // 本文件仅负责初始化调度。
 
 (function() {
@@ -28,6 +29,7 @@
         safeInit('initReadingProgress');
         safeInit('initRelatedTutorials');
         safeInit('initMermaid');
+        safeInit('initCodeLabs');
         safeInit('initKeyboardShortcuts');
         safeInit('initScrollMemory');
 

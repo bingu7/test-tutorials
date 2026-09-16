@@ -1685,6 +1685,50 @@ timeStamp,elapsed,label,responseCode,responseMessage,threadName,dataType,success
 | 瓶颈判断 | 一张表：监控项 → 数值 → 指向哪一层，并写明排除压力机瓶颈的依据 |
 | 结论 | 用 3-5 句话说明：是否达标、瓶颈在哪、建议怎么改、下一步怎么验证 |
 
+### 在线自测：指标计算那一关
+
+性能结论能不能站住，先看数字算得对不对。下面用压测报告里的真实数据（Samples 652,000、时长 305 秒、错误数 782、P95 380ms），让你实现一个指标换算函数。点「运行并判分」会自动检查。
+
+<div class="code-lab" data-lab-id="perf-metrics"></div>
+
+<script type="application/json" class="code-lab-spec">
+{
+  "title": "从压测报告算出结论所需的派生指标",
+  "prelude": "DATA = {\n    'total_requests': 652000,\n    'duration_sec': 305,\n    'error_count': 782,\n    'p50': 85,\n    'p90': 260,\n    'p95': 380,\n    'p99': 600,\n    'maximum': 2680,\n}",
+  "starterCode": "# DATA 已提供，就是压测报告里的真实数字\n\ndef analyze(metrics):\n    \"\"\"根据压测指标计算派生结果，返回 dict：\n\n      tps           —— 吞吐量（每秒请求数，保留 2 位小数）\n      error_rate    —— 错误率（百分数，保留 2 位小数）\n      success_count —— 成功请求数\n      p95_ok        —— P95 是否达标（阈值 500ms，返回 bool）\n\n    注意：错误率要转成百分数；p95_ok 要真按阈值判断，\n    不能对当前这条数据写死。\n    \"\"\"\n    # TODO: 在这里实现\n    pass\n",
+  "tests": [
+    {
+      "name": "TPS 计算正确（总数 ÷ 时长）",
+      "code": "r = analyze(DATA)\nassert r['tps'] == 2137.70, f'TPS 应为 2137.70（652000/305），实际 {r[\"tps\"]}'",
+      "hint": "total_requests / duration_sec，round(x, 2)"
+    },
+    {
+      "name": "错误率按百分数计算且保留 2 位",
+      "code": "r = analyze(DATA)\nassert r['error_rate'] == 0.12, f'错误率应为 0.12（782/652000×100），实际 {r[\"error_rate\"]}'",
+      "hint": "别忘了 ×100；写成 0.0012 说明算的是小数不是百分数"
+    },
+    {
+      "name": "成功数 = 总数 − 错误数",
+      "code": "r = analyze(DATA)\nassert r['success_count'] == 651218, f'成功数应为 651218，实际 {r[\"success_count\"]}'",
+      "hint": "652000 − 782"
+    },
+    {
+      "name": "P95 达标判断（阈值 500ms）",
+      "code": "r = analyze(DATA)\nassert r['p95_ok'] is True, '本例 P95=380ms，应判定为达标'",
+      "hint": "p95 <= 500 返回 True"
+    },
+    {
+      "name": "换一组数据仍能正确判断不达标",
+      "code": "r = analyze({'total_requests':100,'duration_sec':10,'error_count':0,'p50':1,'p90':1,'p95':900,'p99':1,'maximum':1})\nassert r['p95_ok'] is False, 'P95=900ms 应判定为不达标'",
+      "hint": "这条是防作弊的：写死 True 会在这里失败"
+    }
+  ]
+}
+</script>
+
+!!! tip "为什么单独练这一步"
+    性能测试最容易出的问题不是脚本写错，而是**把数字读错、把结论下反**。例如把错误率 0.12% 当成 0.0012、或者只看 TPS 达标就宣布通过——本题第 5 条断言就是专门用来防止「对当前数据写死答案」的。
+
 ### 完成标准
 
 - [ ] 能独立写出可命令行执行的压测脚本，正确使用 `-n -t -l -e -o`，并知道 `-o` 目录必须为空

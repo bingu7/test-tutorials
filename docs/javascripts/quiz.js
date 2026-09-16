@@ -9,6 +9,13 @@
     // 中间档：≥ 60% 给出"基础掌握不错"的反馈
     var OK_THRESHOLD = 60;
 
+    // 错题本存储键：跨测验累计，用于"错题复练"与薄弱知识点追踪
+    var WRONG_BOOK_KEY = 'quiz-wrongbook-1.0';
+    // 同一题最多保留的尝试次数（防止 localStorage 无限膨胀）
+    var MAX_ATTEMPTS_PER_QUESTION = 20;
+    // 错题本最多保留的题目条数（超出时淘汰最早记录的）
+    var MAX_WRONG_BOOK_SIZE = 300;
+
     // 测验 ID → 复习建议/下一步映射
     var QUIZ_REVIEW_MAP = {
         'python-basics': {
@@ -487,6 +494,171 @@
         });
     }
 
+    // ==================== 错题本 ====================
+    // 结构：{ version, entries: [{ quizId, quizTitle, question, index,
+    //           wrongCount, lastWrongAt, masteredAt, attempts }] }
+    // 设计要点：
+    //   - 跨测验累计，同一题（按 quizId + 题号 + 题干）聚合，便于识别反复错的点
+    //   - 答对后不直接删除，而是标记 masteredAt（保留"曾经错过"的记录）
+    //   - 记录 attempts 次数，>= 阈值时界面提示"高频错题"
+    //   - localStorage 不可用（隐私模式）时静默降级，不影响测验本身
+
+    function readWrongBook() {
+        try {
+            var raw = localStorage.getItem(WRONG_BOOK_KEY);
+            if (!raw) return { version: 1, entries: [] };
+            var data = JSON.parse(raw);
+            if (!data || !Array.isArray(data.entries)) return { version: 1, entries: [] };
+            return data;
+        } catch (e) {
+            console.warn('错题本读取失败，按空簿处理：', e);
+            return { version: 1, entries: [] };
+        }
+    }
+
+    function writeWrongBook(book) {
+        try {
+            // 超出容量时按最后答错时间淘汰最早的记录
+            if (book.entries.length > MAX_WRONG_BOOK_SIZE) {
+                book.entries.sort(function(a, b) {
+                    return (b.lastWrongAt || 0) - (a.lastWrongAt || 0);
+                });
+                book.entries = book.entries.slice(0, MAX_WRONG_BOOK_SIZE);
+            }
+            localStorage.setItem(WRONG_BOOK_KEY, JSON.stringify(book));
+            return true;
+        } catch (e) {
+            // 配额溢出或隐私模式：不影响测验主流程
+            console.warn('错题本写入失败：', e);
+            return false;
+        }
+    }
+
+    // 取测验标题：优先用页面上可见的一级标题，回退到文档标题
+    function getQuizTitle() {
+        var h1 = document.querySelector('h1');
+        return (h1 && h1.textContent.trim()) || document.title || '未命名测验';
+    }
+
+    // 记录一次测验结果到错题本
+    function recordToWrongBook(quizId, wrongQuestions, total) {
+        var book = readWrongBook();
+        var quizTitle = getQuizTitle();
+        var now = Date.now();
+
+        // 本次答错的题：新增或累加
+        wrongQuestions.forEach(function(q) {
+            var found = null;
+            for (var i = 0; i < book.entries.length; i++) {
+                var e = book.entries[i];
+                if (e.quizId === quizId && e.index === q.index && e.question === q.question) {
+                    found = e;
+                    break;
+                }
+            }
+            if (found) {
+                found.wrongCount = (found.wrongCount || 0) + 1;
+                found.lastWrongAt = now;
+                found.masteredAt = null;   // 又错了，取消"已掌握"标记
+                found.answered = q.answered;
+            } else {
+                book.entries.push({
+                    quizId: quizId,
+                    quizTitle: quizTitle,
+                    question: q.question,
+                    index: q.index,
+                    wrongCount: 1,
+                    lastWrongAt: now,
+                    masteredAt: null,
+                    answered: q.answered
+                });
+            }
+        });
+
+        // 本次答对的题：若此前错题本里有，标记为已掌握（不删除，保留历史）
+        var correctIndexes = {};
+        for (var n = 1; n <= total; n++) correctIndexes[n] = true;
+        wrongQuestions.forEach(function(q) { delete correctIndexes[q.index]; });
+
+        book.entries.forEach(function(e) {
+            if (e.quizId === quizId && e.masteredAt === null &&
+                Object.prototype.hasOwnProperty.call(correctIndexes, String(e.index))) {
+                e.masteredAt = now;
+            }
+        });
+
+        writeWrongBook(book);
+    }
+
+    // 统计当前测验的错题本情况（用于在结果区展示进度）
+    function getWrongBookStats(quizId) {
+        var book = readWrongBook();
+        var mine = book.entries.filter(function(e) { return e.quizId === quizId; });
+        return {
+            total: mine.length,
+            unmastered: mine.filter(function(e) { return e.masteredAt === null; }).length,
+            mastered: mine.filter(function(e) { return e.masteredAt !== null; }).length
+        };
+    }
+
+    // 生成错题本摘要区块 HTML（挂在测验反馈里，形成"错题—复练—掌握"闭环）
+    function buildWrongBookHtml(quizId) {
+        var stats = getWrongBookStats(quizId);
+        if (stats.total === 0) return '';
+
+        var html = '<div class="quiz-wrongbook">';
+        html += '<h4>📕 错题本</h4>';
+        html += '<p>本测验累计记录 <strong>' + stats.total + '</strong> 道错题：' +
+            '待攻克 <strong>' + stats.unmastered + '</strong> 道，' +
+            '已掌握 <strong>' + stats.mastered + '</strong> 道。</p>';
+
+        if (stats.unmastered === 0) {
+            html += '<p class="wrongbook-all-clear">🎉 当前测验的错题都已答对，可以继续学习下一阶段。</p>';
+        } else {
+            html += '<p>建议：先回看上面的错题分析，再重新作答本测验。' +
+                '<strong>同一道题答对后会自动标记为「已掌握」</strong>，' +
+                '错题本会一直保留，方便你随时复练。</p>';
+
+            // 列出待攻克的错题（含答错次数），帮助识别高频薄弱点
+            var book = readWrongBook();
+            var pending = book.entries.filter(function(e) {
+                return e.quizId === quizId && e.masteredAt === null;
+            });
+            // 答错次数多的排在前面
+            pending.sort(function(a, b) { return (b.wrongCount || 0) - (a.wrongCount || 0); });
+
+            html += '<ul class="wrongbook-list">';
+            pending.slice(0, 10).forEach(function(e) {
+                var times = (e.wrongCount || 1) > 1
+                    ? '<span class="wrongbook-times">错 ' + e.wrongCount + ' 次</span>'
+                    : '';
+                html += '<li>第 ' + e.index + ' 题：' + escapeHtml(e.question) + times + '</li>';
+            });
+            if (pending.length > 10) {
+                html += '<li>…… 另有 ' + (pending.length - 10) + ' 道待攻克</li>';
+            }
+            html += '</ul>';
+        }
+
+        html += '</div>';
+        return html;
+    }
+
+    // 清空错题本（供学习中心"重置学习进度"调用）
+    window.clearQuizWrongBook = function(quizId) {
+        if (!quizId) {
+            try {
+                localStorage.removeItem(WRONG_BOOK_KEY);
+                return true;
+            } catch (e) {
+                return false;
+            }
+        }
+        var book = readWrongBook();
+        book.entries = book.entries.filter(function(e) { return e.quizId !== quizId; });
+        return writeWrongBook(book);
+    };
+
     // 初始化测验
     window.initQuizzes = function() {
         document.querySelectorAll('.quiz-container').forEach(function(quiz, quizIndex) {
@@ -579,6 +751,9 @@
             window.saveQuizResult(quizId, correct, total);
         }
 
+        // 记录到错题本（跨测验累计，支持后续复练）
+        recordToWrongBook(quizId, wrongQuestions, total);
+
         var scoreDiv = quiz.querySelector('.quiz-score');
         if (!scoreDiv) {
             scoreDiv = document.createElement('div');
@@ -634,6 +809,9 @@
             }
             feedbackHtml += '</div>';
         }
+
+        // 错题本：展示"错题—复练—掌握"的累计情况
+        feedbackHtml += buildWrongBookHtml(quizId);
 
         // 下一步建议
         feedbackHtml += '<div class="quiz-next-step">';

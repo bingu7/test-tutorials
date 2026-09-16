@@ -110,6 +110,7 @@ nav:
     - 工具选型指南: 工具选型指南.md
     - 阶段学习检查清单: 阶段学习检查清单.md
     - 章节练习与参考答案: 章节练习与参考答案.md
+    - 练习总览: 练习总览.md
     - 学习验收与通关路径: 学习验收与通关路径.md
     - 在线编程练习场: 学习中心/在线编程练习场.md
     - 阶段通关检查:
@@ -263,4 +264,5 @@ extra_javascript:
   - javascripts/related.js
   - javascripts/learning-progress.js
   - javascripts/mermaid.js
+  - javascripts/codelab.js
   - javascripts/interactive.js
