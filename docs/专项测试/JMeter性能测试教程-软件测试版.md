@@ -1074,6 +1074,569 @@ jstack <pid>
 
 ---
 
+### 14.6 四层定位法：从现象到根因
+
+上面 14.3 是"有哪些瓶颈"的清单，但真实压测中最难的不是记住清单，而是**知道该按什么顺序排查**。乱查一通会把时间浪费在错误的方向。
+
+推荐按下面四层自上而下推进，**每层会用不同的工具**：
+
+```text
+第 1 层：压测机自身   →  先排除"压力根本没发出去"
+第 2 层：应用层       →  线程、GC、接口耗时
+第 3 层：数据库层     →  慢查询、锁、连接池
+第 4 层：系统/中间件层 →  CPU、内存、IO、网络、缓存
+```
+
+!!! warning "为什么第 1 层必须最先查"
+    最高频的误判就是："系统扛不住，TPS 上不去"。结果查了半天应用，最后发现是**压测机自己 CPU 打满、或者 JMeter 堆内存不足**，压力根本没发出去。
+
+    **排查纪律：先用一台机器单独跑，确认压测机资源富余，再开始排查服务端。**
+
+### 14.7 第 2 层：应用层定位
+
+**关键动作：确认瓶颈接口**
+
+先看聚合报告里哪个接口最慢，再看它的耗时构成：
+
+```text
+一个有经验的判断顺序：
+
+1. 是所有接口都慢，还是单个接口慢？
+   - 都慢        → 更可能是系统层/数据库层/中间件层
+   - 单个接口慢  → 优先看该接口的逻辑与 SQL
+
+2. 单个接口慢，是耗时随并发上升，还是恒定高？
+   - 恒定高      → 该接口本身有慢逻辑（如 N+1 查询、循环调接口）
+   - 随并发上升  → 资源竞争（锁、连接池、线程池、GC）
+
+3. 错误率是否同时上升？
+   - 错误率上升  → 看是超时、连接拒绝还是业务报错，指向不同层
+```
+
+**用"单接口递增并发"定位分界点：**
+
+```text
+分别用 1 / 10 / 50 / 100 并发压同一个接口，记录 RT：
+  RT 基本不变           → 该接口不是瓶颈
+  RT 在某个并发点陡增   → 该并发点就是该接口的容量边界
+  每个并发下 RT 都高    → 接口自身实现问题（跟并发无关）
+```
+
+### 14.8 第 3 层：数据库层定位
+
+数据库是**压测中最常见的瓶颈来源**，因为应用层可以横向扩容，数据库扩容成本高。
+
+#### 开启并采集慢查询日志
+
+```sql
+-- MySQL：查看当前慢查询配置
+SHOW VARIABLES LIKE 'slow_query%';
+SHOW VARIABLES LIKE 'long_query_time';
+
+-- 临时开启（重启失效；生产环境改配置文件）
+SET GLOBAL slow_query_log = 'ON';
+SET GLOBAL long_query_time = 1;          -- 超过 1 秒记录
+SET GLOBAL log_queries_not_using_indexes = 'ON';  -- 记录未走索引的查询
+```
+
+!!! tip "压测时把 long_query_time 调小"
+    压测环境和生产不一样：生产设 1 秒是合理的，但压测时你可能关注的是"哪些查询在并发下变慢"。
+    压测期间可以临时调到 `0.1` 秒，跑完再改回来。**记得跑完要改回来**，否则日志会疯狂增长。
+
+**采集后按耗时排序找 TOP 慢查询：**
+
+```bash
+# 统计慢日志里出现频率最高的 SQL（按耗时排序取前 20）
+mysqldumpslow -s t -t 20 /var/log/mysql/slow.log
+
+# 或用 pt-query-digest（Percona Toolkit，分析更细）
+pt-query-digest /var/log/mysql/slow.log
+```
+
+#### 用 EXPLAIN 看执行计划
+
+找到慢 SQL 后，用 `EXPLAIN` 判断它慢在哪里：
+
+```sql
+EXPLAIN SELECT o.id, o.amount, u.name
+FROM orders o
+JOIN users u ON o.user_id = u.id
+WHERE o.status = 1 AND o.created_at > '2025-01-01';
+```
+
+**重点关注这几列：**
+
+| 列 | 看什么 | 危险信号 |
+|----|--------|----------|
+| `type` | 访问类型 | `ALL`（全表扫描）、`index`（全索引扫描） |
+| `key` | 实际用的索引 | `NULL` 表示没走索引 |
+| `rows` | 预估扫描行数 | 远大于实际返回行数 |
+| `filtered` | 过滤后剩余百分比 | 很低说明扫描了大量无用数据 |
+| `Extra` | 额外信息 | `Using filesort`、`Using temporary` |
+
+!!! warning "type 列的优先级（从好到坏）"
+    ```text
+    system > const > eq_ref > ref > range > index > ALL
+
+    看到 ALL 基本可以确定：这里就是瓶颈。
+    看到 Using filesort / Using temporary：说明排序或分组没能利用索引，
+    数据量大时非常慢。
+    ```
+
+#### 索引失效的常见原因
+
+慢查询往往不是"没建索引"，而是**建了索引但没走上**：
+
+| 场景 | 失效写法 | 优化写法 |
+|------|----------|----------|
+| 对字段做运算 | `WHERE YEAR(created_at) = 2025` | `WHERE created_at >= '2025-01-01' AND created_at < '2026-01-01'` |
+| 隐式类型转换 | `WHERE user_id = '123'`（字段是 int） | `WHERE user_id = 123` |
+| 前导模糊匹配 | `WHERE name LIKE '%张%'` | 尽量用 `LIKE '张%'`，或上全文索引 |
+| 联合索引未用最左列 | 索引 `(a,b,c)`，查询只用 `b` | 查询条件带上 `a` |
+| 使用 `OR` 连接不同字段 | `WHERE a = 1 OR b = 2` | 拆成两条 `UNION` |
+| 索引列使用函数 | `WHERE UPPER(code) = 'ABC'` | 存储时统一大小写 |
+
+#### 锁等待与连接池
+
+```sql
+-- 查看当前正在执行的查询（含锁等待）
+SHOW PROCESSLIST;
+
+-- 查看 InnoDB 引擎状态（含锁等待、事务信息）
+SHOW ENGINE INNODB STATUS;
+
+-- 查看连接数使用情况
+SHOW STATUS LIKE 'Threads_connected';
+SHOW VARIABLES LIKE 'max_connections';
+```
+
+!!! danger "连接池满的典型表现"
+    ```
+    现象：并发上来后，RT 陡增，日志里出现大量
+          "Could not get JDBC Connection" 或
+          "connection is not available, request timed out"
+
+    原因：应用线程都在等连接池里的空闲连接
+
+    排查：对比"并发线程数"和"连接池最大连接数"
+          - 并发 200，连接池只有 20  → 必然排队
+          - 连接池够但 SQL 慢导致连接不释放 → 回到慢查询
+    ```
+
+    **要点**：连接池不是越大越好，但如果并发数远大于池大小，一定是瓶颈。
+
+### 14.9 JVM 层定位（Java 应用）
+
+Java 应用的性能问题，很大一部分出在**垃圾回收**和**线程阻塞**上。
+
+#### 第一步：看 GC 状况
+
+```bash
+# 每 1 秒输出一次 GC 统计，共 10 次
+jstat -gcutil <pid> 1000 10
+```
+
+**关键列解读：**
+
+| 列 | 含义 | 警戒值 |
+|----|------|--------|
+| `O` | 老年代使用率 | 持续 > 90% 危险 |
+| `FGC` | Full GC 次数 | **持续增长**说明内存回收不过来 |
+| `FGCT` | Full GC 总耗时 | 占压测时间比例 > 10% 即有影响 |
+| `YGC`/`YGCT` | 新生代 GC 次数与耗时 | YGC 极频繁说明对象创建过快 |
+
+!!! warning "怎么判断 GC 是不是瓶颈"
+    ```
+    方法：压测前后各记一次 FGC/FGCT，算差值。
+
+    例：压测 10 分钟，FGC 从 20 涨到 120（增加 100 次），
+        FGCT 从 3s 涨到 45s（增加 42s）
+        → Full GC 占用了 42/600 = 7% 的时间，且频繁 STW
+
+    结论：GC 是重要瓶颈。表现为 RT 出现规律的尖刺
+         （每次 Full GC 期间所有线程停顿）。
+    ```
+
+#### 第二步：线程 dump 分析
+
+GC 正常但 RT 高、TPS 上不去，通常是**线程都在等待**。
+
+```bash
+# 连续抓 3 次线程栈，间隔 5 秒（单次快照可能是巧合）
+jstack <pid> > thread1.txt
+sleep 5
+jstack <pid> > thread2.txt
+sleep 5
+jstack <pid> > thread3.txt
+```
+
+**分析三个方向：**
+
+**方向一：找死锁（jstack 会直接告诉你）**
+
+```text
+搜索关键词：Found one Java-level deadlock
+jstack 输出的末尾通常会有：
+  "Found 1 deadlock."
+  "Thread-1" ... waiting to lock ...
+  "Thread-2" ... waiting to lock ...
+→ 这种就是死锁，必须修代码
+```
+
+**方向二：找"都在等同一个锁"**
+
+```text
+搜索关键词：BLOCKED
+如果连续三次抓取，大量线程都处于 BLOCKED 且等待同一个锁地址
+→ 说明存在锁竞争（synchronized 或 Lock 粒度过大）
+→ 表现：并发上不去，但 CPU 不高
+```
+
+**方向三：找"都在等资源"（最常见）**
+
+```text
+搜索关键词：WAITING / TIMED_WAITING
+
+如果是业务线程（非 GC、非 JMX 线程）大量处于：
+  - waiting on condition  → 可能在等连接池、等下游接口
+  - TIMED_WAITING (sleeping) → 可能在重试逻辑里 sleep
+→ 说明瓶颈不在 CPU，而在等外部资源
+```
+
+!!! tip "判读线程栈的实用技巧"
+    把线程名和堆栈的**前几层**拿出来归类统计：
+
+    ```bash
+    # 统计各状态线程数量（Linux/Mac）
+    grep -c "java.lang.Thread.State: BLOCKED" thread1.txt
+    grep -c "java.lang.Thread.State: WAITING" thread1.txt
+    grep -c "java.lang.Thread.State: RUNNABLE" thread1.txt
+    ```
+
+    **RUNNABLE 很多且持续** → CPU 密集型，看算法
+    **BLOCKED 很多** → 锁竞争
+    **WAITING 很多** → 等资源（连接池/下游/IO）
+
+#### 第三步：堆内存分析（怀疑内存泄漏时）
+
+```bash
+# 生成堆转储快照（文件可能很大，注意磁盘空间）
+jmap -dump:live,format=b,file=heap.hprof <pid>
+
+# 先看对象占用排名，快速定位大户
+jmap -histo:live <pid> | head -20
+```
+
+`jmap -histo` 输出解读：
+
+```text
+ num     #instances         #bytes  class name
+   1:       1250000      120000000  [C              ← char 数组，通常是字符串
+   2:        300000       48000000  com.example.OrderDTO   ← 某个业务对象异常多
+   3:        150000       24000000  java.util.HashMap$Node
+```
+
+!!! warning "怎么区分'正常多'和'内存泄漏'"
+    ```
+    关键：**间隔一段时间抓两次，看增量**
+
+    正常：对象数量上下波动，会被 GC 回收
+    泄漏：某个业务对象（如 OrderDTO）数量**只增不减**
+
+    堆转储文件（.hprof）需要用工具打开分析：
+      - MAT（Eclipse Memory Analyzer）— 免费，能自动分析泄漏嫌疑
+      - JProfiler / VisualVM — 可视化好，VisualVM 免费
+    重点关注"支配树（Dominator Tree）"和"最大的对象保留集"
+    ```
+
+### 14.10 用 Arthas 做在线诊断
+
+Arthas 是阿里开源的 Java 诊断工具，**无需重启、无需改代码**就能在线看方法耗时，是压测定位最实用的工具。
+
+```bash
+# 启动（下载 arthas-boot.jar 后执行）
+java -jar arthas-boot.jar
+# 然后选择要诊断的 Java 进程编号
+```
+
+**压测中最常用的四条命令：**
+
+```bash
+# 1. dashboard —— 实时总览（线程、内存、GC）
+dashboard
+#   - 看线程各状态数量
+#   - 看堆内存和 GC 情况
+#   - 按 CPU 使用率排序的线程列表
+
+# 2. thread —— 找出最忙的线程
+thread -n 3              # 列出 CPU 占用最高的 3 个线程及其堆栈
+thread -b                # 找出阻塞其他线程的"罪魁"（直接给结论）
+thread --state BLOCKED   # 列出所有阻塞线程
+
+# 3. trace —— 追踪一个方法的内部耗时分布（定位最耗时的那一步）
+trace com.example.service.OrderService createOrder '#cost > 100'
+
+# 4. profiler —— 生成火焰图，看 CPU 时间花在哪
+profiler start
+# ... 压测运行一段时间 ...
+profiler stop --format html
+```
+
+!!! abstract "Arthas 最大的价值：把"接口慢"变成"哪一行慢""
+    ```bash
+    # 场景：createOrder 接口耗时 800ms，但不知道慢在哪
+    trace com.example.service.OrderService createOrder
+
+    输出会显示方法内部每个调用的耗时占比，例如：
+      `---[72.5%]--- com.example.service.StockService:checkStock()
+      `---[20.1%]--- com.example.service.PayService:prePay()
+      `---[ 5.2%]--- com.example.service.OrderDao:insert()
+
+    → 立刻定位：瓶颈在 checkStock，去查它的 SQL
+    ```
+
+    **这是"能定位"和"只能猜测"的分界线。** 面试时能讲出用 trace 定位到具体方法的经历，比背工具名有说服力得多。
+
+### 14.11 中间件层定位
+
+#### Redis
+
+```bash
+# 查看 Redis 慢查询（记录超过指定耗时的命令）
+redis-cli config set slowlog-log-slower-than 10000   # 10ms 以上记录
+redis-cli slowlog get 20                             # 取最近 20 条
+
+# 实时监控命令（压测时看是否有异常高频命令）
+redis-cli monitor
+
+# 查看延迟统计
+redis-cli --latency
+redis-cli --latency-history
+
+# 看基础状态（连接数、内存、命中率）
+redis-cli info stats
+redis-cli info memory
+```
+
+**重点关注：**
+
+| 指标 | 说明 | 问题信号 |
+|------|------|----------|
+| 命中率 | `keyspace_hits / (hits + misses)` | 低命中率说明缓存没起作用 |
+| 大 key | 单个 key 数据量过大 | 操作会阻塞（Redis 单线程） |
+| 连接数 | `connected_clients` | 接近上限会拒绝连接 |
+| 内存 | `used_memory` | 接近 maxmemory 会触发淘汰 |
+
+!!! danger "Redis 最大的性能陷阱：大 key 与热 key"
+    ```text
+    大 key（BigKey）：
+      - 一个 key 存了几十万条数据的 Hash / List
+      - 读取时会阻塞 Redis（单线程模型）→ 其他请求全部排队
+      - 排查：redis-cli --bigkeys
+
+    热 key（HotKey）：
+      - 某个 key 被极高频率访问（如首页商品列表）
+      - 单个 Redis 实例的 CPU 打满
+      - 排查：redis-cli monitor 观察，或看业务逻辑判断
+
+    测试方法：压测时观察 Redis 的 CPU 和 `instantaneous_ops_per_sec`，
+             如单个实例 QPS 异常高，怀疑热 key。
+    ```
+
+#### 消息队列（MQ）
+
+```text
+压测时关注：
+1. 消息堆积量（Lag / Pending）——消费者处理不过来会持续增长
+2. 生产速率 vs 消费速率 —— 消费速率 < 生产速率必然堆积
+3. 消费者数量与分区数 —— 消费者多于分区数时，多出的消费者是空闲的
+
+典型现象：
+  接口 RT 高但 CPU/DB 都正常 → 可能是在等 MQ 的响应
+  （同步调用 MQ 或等消费结果）
+```
+
+#### Nginx / 网关
+
+```bash
+# 查看 Nginx 请求与连接状态
+tail -f /var/log/nginx/access.log     # 看请求量和耗时
+nginx -T                              # 查看当前生效配置
+
+# 关键配置项（瓶颈常在这里）
+worker_connections      # 单 worker 最大连接数
+worker_processes        # 通常设为 CPU 核数
+keepalive_timeout       # 长连接保持时间
+proxy_read_timeout      # 反向代理读超时（配置过小会大量 504）
+```
+
+!!! tip "Nginx 层的典型瓶颈"
+    ```text
+    现象：压测到一定并发后大量 502/504，但后端日志没有对应请求
+
+    排查：
+      - 502 → 后端不可达或崩溃，检查后端进程与端口
+      - 504 → 超时，检查 proxy_read_timeout、后端 RT
+      - 连接被拒 → worker_connections 达上限
+              （计算公式：max_conn = worker_processes × worker_connections）
+    ```
+
+### 14.12 完整案例：一次"TPS 上不去"的排查全过程
+
+把上面所有工具串起来，走一遍完整流程。
+
+**现象：**
+
+```text
+压测目标：创建订单接口，目标 TPS ≥ 200
+实际情况：并发从 50 加到 200，TPS 卡在 120 不再上升，
+         RT 从 150ms 涨到 900ms，错误率 0.3%
+```
+
+**第 1 步：排除压测机问题**
+
+```bash
+# 在压测机上执行，确认压测机资源富余
+top        # CPU 使用率 35%，正常
+free -h    # 内存充足
+```
+
+结论：压测机不是瓶颈，继续查服务端。
+
+**第 2 步：看是哪个接口慢**
+
+```text
+聚合报告显示：只有"创建订单"慢，商品查询、登录都正常（RT < 100ms）
+→ 问题锁定在创建订单这个接口
+```
+
+**第 3 步：看 GC 是否正常**
+
+```bash
+jstat -gcutil <pid> 1000 10
+```
+
+```text
+  S0     S1     E      O      M     CCS    YGC     YGCT    FGC    FGCT     GCT
+  0.00  45.20  62.10  78.30  94.10  90.20   156    2.340     6    0.420    2.760
+```
+
+结论：老年代 78%、Full GC 只有 6 次，**GC 正常，不是瓶颈**。
+
+**第 4 步：看线程都在干什么**
+
+```bash
+jstack <pid> | grep -c "java.lang.Thread.State: WAITING"
+jstack <pid> | grep -A 5 "waiting on condition" | head -40
+```
+
+发现大量业务线程处于 `WAITING (parking)`，堆栈里有 `DruidDataSource.getConnection`。
+
+结论：**线程在等数据库连接**。
+
+**第 5 步：确认连接池配置**
+
+```text
+对比：并发 200 个线程 vs 连接池 maxActive = 20
+→ 必然排队，这是直接原因
+```
+
+但**不能只改连接池**——要问"为什么连接不被及时归还"，否则加大池子只是把压力传递给数据库。
+
+**第 6 步：查慢查询**
+
+```sql
+SHOW VARIABLES LIKE 'slow_query%';   -- 确认慢日志已开
+```
+
+```bash
+mysqldumpslow -s t -t 10 /var/log/mysql/slow.log
+```
+
+```text
+Count: 4821  Time=0.89s (4292s)  Lock=0.00s
+SELECT * FROM orders WHERE user_id = 1 AND status = 0 ORDER BY created_at DESC
+```
+
+**第 7 步：EXPLAIN 定位**
+
+```sql
+EXPLAIN SELECT * FROM orders WHERE user_id = 1 AND status = 0 ORDER BY created_at DESC;
+```
+
+```text
+type: ALL       ← 全表扫描
+key: NULL       ← 没走索引
+rows: 1250000   ← 扫描 125 万行
+Extra: Using where; Using filesort
+```
+
+根因清晰：**`orders` 表没有合适的索引，每次创建订单前的"查重/查历史订单"都在全表扫描，单次 0.89 秒；并发下连接被长时间占用，连接池耗尽，其他线程排队等待。**
+
+**第 8 步：验证优化效果**
+
+```sql
+-- 添加联合索引（user_id 在前，符合最左前缀；status 和 created_at 用于过滤排序）
+ALTER TABLE orders ADD INDEX idx_user_status_created (user_id, status, created_at);
+```
+
+重新压测：
+
+| 指标 | 优化前 | 优化后 |
+|------|--------|--------|
+| TPS | 120 | 340 |
+| RT (P95) | 900ms | 180ms |
+| 错误率 | 0.3% | 0% |
+| 慢查询数 | 4821 | 3 |
+
+**完整结论（可直接写进测试报告）：**
+
+```text
+瓶颈层：数据库层
+根因：orders 表缺少 (user_id, status, created_at) 联合索引，
+     导致创建订单前的订单查询全表扫描（扫描 125 万行，单次 0.89s）
+传导链：慢查询 → 数据库连接长时间不释放 → 连接池（20）耗尽
+       → 应用线程排队 → RT 上升、TPS 无法提升
+优化：添加联合索引后，扫描行数从 125 万降至 12，
+     TPS 从 120 提升至 340，P95 RT 从 900ms 降至 180ms
+遗留风险：连接池 maxActive=20 相对 200 并发仍偏小，
+         本次优化掩盖了该配置问题，建议评估调整并做持续观察
+```
+
+!!! abstract "这个案例的示范价值"
+    注意排查顺序：**先排除压测机 → 锁定单接口 → 排除 GC → 看线程状态 → 定位到连接池 → 追到慢查询 → EXPLAIN 找根因 → 加索引验证**。
+
+    每一步都用数据说话，每一步都排除一个可能。**这才是"性能瓶颈分析"，而不是"看到 CPU 高就说 CPU 是瓶颈"。**
+
+    另外注意最后一条"遗留风险"——主动指出优化掩盖了配置问题。这种判断力是性能测试工程师和"只会跑压测的人"的区别。
+
+### 14.13 瓶颈定位工具速查
+
+| 层 | 工具/命令 | 主要用途 |
+|----|-----------|----------|
+| 压测机 | `top`、`free -h` | 排除压力机自身瓶颈 |
+| 应用 | Arthas `trace` | 定位方法内部哪一步最耗时 |
+| 应用 | Arthas `thread -n 3` / `thread -b` | 找最忙线程 / 找阻塞源 |
+| 应用 | `jstack` | 线程 dump，看死锁与等待 |
+| JVM | `jstat -gcutil` | GC 频率与耗时 |
+| JVM | `jmap -histo` / `-dump` | 对象占用排名 / 堆转储 |
+| JVM | MAT、VisualVM | 分析堆转储找内存泄漏 |
+| 数据库 | `mysqldumpslow`、`pt-query-digest` | 找 TOP 慢查询 |
+| 数据库 | `EXPLAIN` | 执行计划，判断是否走索引 |
+| 数据库 | `SHOW PROCESSLIST` | 当前查询与锁等待 |
+| 数据库 | `SHOW ENGINE INNODB STATUS` | 锁与事务详情 |
+| 数据库 | `SHOW STATUS LIKE 'Threads_connected'` | 连接数使用 |
+| 缓存 | `redis-cli slowlog get` | Redis 慢查询 |
+| 缓存 | `redis-cli --bigkeys` | 大 key 排查 |
+| 缓存 | `redis-cli --latency` | 延迟统计 |
+| 系统 | `nmon` | 一站式监控 CPU/内存/磁盘/网络 |
+| 系统 | `iostat -x 1` | 磁盘 IO 利用率 |
+| 系统 | `sar -n DEV 1` | 网络吞吐 |
+| 系统 | `netstat` / `ss` | 连接数与端口占用 |
+| 网关 | Nginx `access.log`、`proxy_read_timeout` | 502/504 排查 |
+
+---
+
 ## 十五、常见问题排查
 
 ### 15.1 OutOfMemoryError
