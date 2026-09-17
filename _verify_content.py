@@ -7,6 +7,7 @@
   1. 标题不丢失：改动文档相对 git HEAD 未少任何 ## 级标题
      （edit 工具曾多次静默吞掉相邻标题行，此检查用于兜住这类回归）
   2. 计数一致：见 _check_counts.py
+  3. 站内锚点有效：见 _check_anchors.py（无需构建，直接读 docs/）
 """
 import re
 import subprocess
@@ -49,6 +50,15 @@ def run(args, cwd=None):
     return r.stdout
 
 
+def _norm_heading(h: str) -> str:
+    """归一化标题：去掉尾部的 attr_list 属性块。
+
+    给标题加 id（`## 标题 { #my-id }`）不是「改标题内容」，
+    不应触发本门禁。属性块必须紧跟标题且以 : / . / # 开头。
+    """
+    return re.sub(r'\s*\{[:\s]*[.#][^}]*\}\s*$', '', h).strip()
+
+
 def check_headings():
     # -z: NUL 分隔且不对非 ASCII 路径做八进制转义
     raw = run(['git', 'diff', '--name-only', '-z'], cwd=ROOT)
@@ -70,8 +80,10 @@ def check_headings():
             print(f'  SKIP(读取失败) {path}')
             continue
 
-        old_h = [m.strip() for m in re.findall(r'^#{2,} .*$', old, re.M)]
-        new_h = [m.strip() for m in re.findall(r'^#{2,} .*$', new, re.M)]
+        old_h = [_norm_heading(m.strip())
+                 for m in re.findall(r'^#{2,} .*$', old, re.M)]
+        new_h = [_norm_heading(m.strip())
+                 for m in re.findall(r'^#{2,} .*$', new, re.M)]
 
         lost = [h for h in old_h if h not in new_h]
         if not lost:
@@ -113,11 +125,25 @@ def check_counts():
     return r.returncode
 
 
+def check_anchors():
+    """站内锚点检查。CI 由 lychee --include-fragments 覆盖，
+    本地原先没有对应检查，导致锚点错误只能在推送后被发现。"""
+    print('\n--- 站内锚点 ---')
+    r = subprocess.run([sys.executable, str(ROOT / '_check_anchors.py')],
+                       capture_output=True, encoding='utf-8', errors='replace',
+                       cwd=ROOT)
+    out = [l for l in r.stdout.splitlines() if l.strip()]
+    for l in out:
+        print('  ' + l)
+    return r.returncode
+
+
 if __name__ == '__main__':
     bad_h = check_headings()
     rc = check_counts()
+    rc_anchor = check_anchors()
     print()
-    if bad_h or rc != 0:
+    if bad_h or rc != 0 or rc_anchor != 0:
         print('校验失败')
         sys.exit(1)
     print('全部内容完整性校验通过')

@@ -69,6 +69,13 @@ jobs:
         # 吞进 <table>，表现为页脚浮在表格上；空首列会让内容整体右移一列
         run: python _check_table_html.py
 
+      - name: Check internal anchors
+        # 站内锚点有效性。锚点若照抄中文标题会失效——MkDocs 的 slugify 丢弃中文，
+        # 「二、restful-booker：…」生成的 id 只有 restful-booker。
+        # 这里放在构建前，与下方 lychee --include-fragments 互为冗余：
+        # 本步不依赖构建产物（快速失败），lychee 则校验最终 HTML。
+        run: python _check_anchors.py
+
       - name: Build MkDocs site
         run: mkdocs build --strict
         env:

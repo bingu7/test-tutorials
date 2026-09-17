@@ -45,6 +45,12 @@ description: 软件测试知识体系站点更新日志和版本记录。
 - **社交分享卡片**：开启 Material social 插件，自动为每页生成 og:image 分享卡片（1200×630），在微信/知乎等平台转发时显示标题与配图
 
 ### 改进
+- **新增 `_check_anchors.py`：站内锚点检查（本地即可跑，无需构建）**：此前失效锚点只能靠 CI 的 `lychee --include-fragments` 在**推送后**发现，本地没有任何对应检查——本轮就因此推挂过一次构建。现在把这项检查提前到本地，并接入 `_verify_content.py` 与 CI（构建前跑，快速失败）
+  - **实现方式**：用 Markdown 库按与 `mkdocs.yml` 相同的扩展配置渲染每个 md，再取标题 id，**不依赖 4 分钟的构建**。经 `--self-test` 比对确认，其提取结果与 MkDocs 构建产物在全部 139 个页面上**完全一致**（唯一差异是主题模板注入的 `__comments`，已在自检中排除）
+  - **覆盖两种链接写法**：Markdown 的 `](...#frag)` 与 HTML 的 `<a href="...#frag">`。后者容易被忽略，但首页与 `章节练习与参考答案.md` 都在用（6 处页内跳转），漏掉即形成检查盲区
+  - **排除代码块**：先剥离围栏代码块与行内代码，避免把"讲解链接写法"的示例误判为真链接
+  - **`_verify_content.py` 适配 attr_list**：标题加 id（`## 标题 { #my-id }`）不属于"改标题内容"，标题完整性检查会先归一化去掉属性块，避免每加一次 id 就要登记一次 `RENAMES`
+  - 依赖说明：脚本只用 `markdown`，它是 `mkdocs` 的直接声明依赖（`markdown>=3.3.6`），CI 与本地都已具备，`requirements.txt` 无需改动
 - **新教程全部接入站内枢纽页（补齐 9 处接入遗漏）**：此前 6 篇新教程只加进了 `mkdocs.yml` 导航和 `学习路线`，未同步到各枢纽页的清单，学习者按站内引导走会**跳过这些内容、学习闭环断裂**。本次补齐：
   - `学习中心.md` 快速入口补 3 个新测验（原清单 38 个）
   - `第2阶段-工具实战通关.md` 补禅道与 Jira 能力清单与测验
@@ -74,7 +80,8 @@ description: 软件测试知识体系站点更新日志和版本记录。
 ### 修复
 - **案例库 index 漏链**：`案例库/index.md` 的表格只列了 8 个案例，而目录实有 11 个——兼容性、安全、性能三个专项案例未进表格，用户从「案例库」页面无法找到（首页有条目，故计数门禁查不出）。已补齐
 - **禅道教程 2 处对比表空首列**：被 `_check_table_html.py` 门禁拦截，首列为空会导致渲染后内容整体右移一列
-- **靶场页 9 处失效锚点（导致 CI 构建失败）**：页内锚点照抄中文标题写成 `#2-restful-booker最推荐的接口练习靶场`，但 MkDocs 的 slugify **会丢弃标题里的中文**，实际生成的 id 仅为 `restful-booker`，导致 CI 的 `lychee --include-fragments` 报 9 处 `Cannot find fragment` 并阻断构建与部署。最终改为去掉片段链接、以文本引用章节（尝试过的 `attr_list` 显式 id 会被 `toc` 扩展覆盖，未生效）
+- **靶场页 9 处失效锚点（导致 CI 构建失败）**：页内锚点照抄中文标题写成 `#2-restful-booker最推荐的接口练习靶场`，但 MkDocs 的 slugify **会丢弃标题里的中文**，实际生成的 id 仅为 `restful-booker`，导致 CI 的 `lychee --include-fragments` 报 9 处 `Cannot find fragment` 并阻断构建与部署。已改为用 `attr_list` 在标题**同一行**指定显式 id（`## 二、… { #lab-restful-booker }`），链接指向该 id
+  - **纠正一处此前的错误判断**：初次修复时把 `attr_list` 属性写在标题的**下一行**，未生效，当时误判为"被 toc 扩展覆盖"。经对照实验确认，真实原因是 **`attr_list` 只认同行写法**——`## 标题 { #my-id }` 生效，属性另起一行则失效。站点里 `章节练习与参考答案.md` 早已使用同行写法（6 处 `phase-*` 锚点），可作为正确范例
 - **Pyodide 加载方式与输出捕获**（在线判分实现中的两个坑，均经实测确认）：
   1. **不能用 `<script>` 加载 `pyodide.js`**——它是 ESM 打包产物，顶层 `var` 在经典脚本下不保证挂到 `window`，实测 `window.loadPyodide` 为 `undefined`；改用动态 `import()` 加载 `pyodide.mjs`（有正规 `export`）后才正常。
   2. **不能依赖 `runPython` 的返回值取 `print` 输出**——Pyodide 里 `print()` 的返回值是 `undefined`（写到 stdout 而非返回值），实测确认；必须用 `py.setStdout({batched})` 捕获。判分结果用 `__CODELAB__` 标记行定位，避免被学生代码自身的 `print` 干扰。
