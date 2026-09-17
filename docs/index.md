@@ -1,5 +1,5 @@
 ---
-description: 136 篇系统化软件测试教程，覆盖入门到面试的完整技能栈。
+description: 137 篇系统化软件测试教程，覆盖入门到面试的完整技能栈。
 
 comments: false
 
@@ -11,7 +11,7 @@ hide:
 <section class="home-hero">
 <div class="home-eyebrow">软件测试学习指南</div>
 <h1>软件测试知识体系</h1>
-<p>136 篇系统化文档，覆盖从零基础入门到自动化进阶、项目实战、模板案例和面试准备的完整技能栈。</p>
+<p>137 篇系统化文档，覆盖从零基础入门到自动化进阶、项目实战、模板案例和面试准备的完整技能栈。</p>
 </section>
 
 <section class="home-quick-grid">
@@ -125,7 +125,7 @@ hide:
 ## 教程概览
 
 <section class="home-stats">
-<div class="home-stat"><strong>136</strong><span>篇系统教程</span></div>
+<div class="home-stat"><strong>137</strong><span>篇系统教程</span></div>
 <div class="home-stat"><strong>6</strong><span>个项目实战</span></div>
 <div class="home-stat"><strong>7</strong><span>份常用模板</span></div>
 <div class="home-stat"><strong>11</strong><span>组功能案例</span></div>
@@ -134,7 +134,7 @@ hide:
 
 ??? info "完整分类统计"
 
-    下表按内容分类统计，**含各教程对应的测验页**，合计 136 篇；另有 [更新日志](CHANGELOG.md) 1 篇（版本记录，非教程）与 404 页 1 篇，均不计入正文档。全站共 137 个 Markdown 文件。
+    下表按内容分类统计，**含各教程对应的测验页**，合计 137 篇；另有 [更新日志](CHANGELOG.md) 1 篇（版本记录，非教程）与 404 页 1 篇，均不计入正文档。全站共 138 个 Markdown 文件。
 
     | 分类 | 教程数 | 覆盖技能 |
     |------|--------|---------|
@@ -146,12 +146,12 @@ hide:
     | 工具操作 | 24 | SQL 教程及测验、Redis/MongoDB 教程及测验、Linux 教程及测验、Git 教程及测验、Docker 教程及测验、Fiddler 教程及测验、Charles 教程及测验、Postman 教程及测验、接口联调及测验、正则表达式及测验、网络知识教程及测验、禅道与 Jira 实战教程及测验 |
     | 专项测试 | 15 | 接口测试方法论、接口测试基础与进阶测验、JMeter 性能及测验、Web 安全及测验、AI 辅助测试及测验、测试左右移及测验、移动端专项及测验、小程序与 H5 测试及测验 |
     | 自动化测试 | 10 | Requests 接口自动化及测验、Selenium 及测验、Playwright 及测验、Appium 及测验、测试框架设计与设计模式教程及测验 |
-    | 项目实战 | 11 | 项目总览、电商、接口自动化、Web 自动化、性能测试、CI/CD 回归实战及对应测验 |
+    | 项目实战 | 12 | 项目总览、练习靶场与工具清单、电商、接口自动化、Web 自动化、性能测试、CI/CD 回归实战及对应测验 |
     | 模板库 | 7 | 测试计划、测试用例、接口用例、缺陷报告、测试报告、上线检查 |
     | 案例库 | 12 | 登录、购物车、下单支付、权限控制、文件上传、搜索、通知、国际化案例，另有兼容性、安全、性能专项案例 |
     | 面试专题 | 18 | 软件测试、接口测试、自动化测试、性能测试、安全测试、移动端测试、AI 测试、测试管理、数据库 SQL、Linux、CI/CD、项目经验表达、面试复盘、测试职业发展路线图、简历撰写与项目包装、岗位 JD 对照与投递策略、面试流程与谈薪 |
     | 持续集成 | 4 | Jenkins CI/CD、GitHub Actions、GitLab CI/CD、持续集成测验 |
-    | **合计** | **136** | **测试工程师全栈技能** |
+    | **合计** | **137** | **测试工程师全栈技能** |
 
 ---
 
